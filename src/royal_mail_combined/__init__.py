@@ -2,7 +2,7 @@ import os
 from datetime import date, datetime
 from pprint import pprint
 from dotenv import load_dotenv
-from royal_mail_address_codegen import AddressFindRequestDef, ApiClient, ApiException, Configuration, DefaultApi
+from royal_mail_address import AddressFindRequestDef, ApiClient, ApiException, Configuration, DefaultApi
 
 
 def main() -> None:
