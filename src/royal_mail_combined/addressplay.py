@@ -15,8 +15,6 @@ def main() -> None:
     configuration.api_key["Client-Id"] = client_id
     configuration.api_key["Client-Secret"] = client_secret
     x_rmg_date_time = datetime.now().astimezone().isoformat(timespec="seconds")
-    # print(f"Using Client Id: {client_id}")  # todo remove print secret
-    # print(f"Using Api Key: {client_secret}")  # todo remove print secret
     print(f"Using x_rmg_date_time: {x_rmg_date_time}")
 
     with ApiClient(configuration) as api_client:
