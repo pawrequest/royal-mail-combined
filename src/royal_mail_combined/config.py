@@ -9,21 +9,21 @@ from loguru import logger
 from pydantic import SecretStr
 from pydantic_settings import BaseSettings
 
-RM_ENV_NAME = "ROYAL_MAIL_COMBINED_ENV"
+RM_ENV_NAME = 'ROYAL_MAIL_COMBINED_ENV'
 
 
 def encode_b64_str(s: str) -> str:
-    return base64.b64encode(s.encode("utf8")).decode("utf8")
+    return base64.b64encode(s.encode('utf8')).decode('utf8')
 
 
 def get_env(env_name: str = RM_ENV_NAME) -> Path:
     env = os.getenv(env_name)
     if not env:
-        raise ValueError(f"{env_name} not set")
+        raise ValueError(f'{env_name} not set')
     env_path = Path(env)
     if not env_path.exists():
-        raise ValueError(f"{env_path} not a valid path")
-    logger.debug(f"Loading environment from {env_path}")
+        raise ValueError(f'{env_path} not a valid path')
+    logger.debug(f'Loading environment from {env_path}')
     return env_path
 
 
@@ -44,8 +44,8 @@ class RMSettings(BaseSettings):
     # @property
     def headers(self) -> dict:
         return {
-            "X-IBM-Client-Id": self.client_id.get_secret_value(),
-            "X-IBM-Client-Secret": self.client_secret.get_secret_value(),
-            "X-RMG-Date-Time": datetime.now().isoformat(timespec="seconds"),
-            "Content-Type": "application/json",
+            'X-IBM-Client-Id': self.client_id.get_secret_value(),
+            'X-IBM-Client-Secret': self.client_secret.get_secret_value(),
+            'X-RMG-Date-Time': datetime.now().isoformat(timespec='seconds'),
+            'Content-Type': 'application/json',
         }

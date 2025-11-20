@@ -5,7 +5,7 @@ from royal_mail_combined.config import RMSettings
 
 class APIError(Exception):
     def __init__(self, http_code, http_message, more_information):
-        super().__init__(f"{http_code}: {http_message} - {more_information}")
+        super().__init__(f'{http_code}: {http_message} - {more_information}')
         self.http_code = http_code
         self.http_message = http_message
         self.more_information = more_information
@@ -14,7 +14,7 @@ class APIError(Exception):
 def raise_for_rm_status(res):
     try:
         res.raise_for_status()
-    except httpx.HTTPStatusError as e:
+    except httpx.HTTPStatusError:
         err = res.json()
         if 'httpCode' in err:
             e = APIError(err['httpCode'], err.get('httpMessage', ''), err.get('moreInformation', ''))

@@ -11,7 +11,7 @@ class AddressFindRequest(RMBaseModel):
     address_text: Annotated[
         str,
         StringConstraints(min_length=12, max_length=200),
-        WithJsonSchema({"description": "Address search string"}),
+        WithJsonSchema({'description': 'Address search string'}),
     ]
 
 
@@ -19,7 +19,7 @@ class AddressSummary(RMBaseModel):
     address_id: Annotated[
         str,
         WithJsonSchema(
-            {"description": "Unique identifier for address record retrieval"}
+            {'description': 'Unique identifier for address record retrieval'}
         ),
     ]
     address_summary1: str = ''
