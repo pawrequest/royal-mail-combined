@@ -13,5 +13,5 @@ class RMBaseModel(BaseModel):
         ),
         populate_by_name=True,
         use_enum_values=True,
-        validate_assignment=True,
+        # validate_assignment=True,
     )

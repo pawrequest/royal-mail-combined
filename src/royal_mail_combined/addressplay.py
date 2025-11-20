@@ -1,5 +1,5 @@
 import os
-from datetime import date, datetime
+from datetime import datetime
 from pprint import pprint
 from dotenv import load_dotenv
 from royal_mail_address import AddressFindRequestDef, ApiClient, ApiException, Configuration, DefaultApi
