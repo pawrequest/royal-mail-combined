@@ -1,0 +1,133 @@
+{
+  "deliveryOffice": {
+    "businessDays": [
+      {
+        "businessDay": "Sunday",
+        "seasonalOpeningTimes": [
+          {
+            "closesAt": "15:00",
+            "opensAt": "11:00"
+          }
+        ]
+      },
+      {
+        "businessDay": "Monday",
+        "openingTimes": [
+          {
+            "closesAt": "10:00",
+            "opensAt": "08:00"
+          }
+        ],
+        "seasonalOpeningTimes": [
+          {
+            "closesAt": "14:00",
+            "opensAt": "08:00"
+          }
+        ]
+      },
+      {
+        "businessDay": "Tuesday",
+        "openingTimes": [
+          {
+            "closesAt": "10:00",
+            "opensAt": "08:00"
+          }
+        ],
+        "seasonalOpeningTimes": [
+          {
+            "closesAt": "19:00",
+            "opensAt": "08:00"
+          }
+        ]
+      },
+      {
+        "businessDay": "Wednesday",
+        "openingTimes": [
+          {
+            "closesAt": "10:00",
+            "opensAt": "08:00"
+          }
+        ],
+        "seasonalOpeningTimes": [
+          {
+            "closesAt": "19:00",
+            "opensAt": "08:00"
+          }
+        ]
+      },
+      {
+        "businessDay": "Thursday",
+        "openingTimes": [
+          {
+            "closesAt": "10:00",
+            "opensAt": "08:00"
+          }
+        ],
+        "seasonalOpeningTimes": [
+          {
+            "closesAt": "20:00",
+            "opensAt": "08:00"
+          }
+        ]
+      },
+      {
+        "businessDay": "Friday",
+        "openingTimes": [
+          {
+            "closesAt": "10:00",
+            "opensAt": "08:00"
+          }
+        ],
+        "seasonalOpeningTimes": [
+          {
+            "closesAt": "19:00",
+            "opensAt": "08:00"
+          }
+        ]
+      },
+      {
+        "businessDay": "Saturday",
+        "openingTimes": [
+          {
+            "closesAt": "12:00",
+            "opensAt": "08:00"
+          }
+        ],
+        "seasonalOpeningTimes": [
+          {
+            "closesAt": "17:00",
+            "opensAt": "08:00"
+          }
+        ]
+      }
+    ],
+    "facilities": [
+      "carParking",
+      "disabledAccess",
+      "printingService"
+    ],
+    "id": 9100,
+    "locationDetails": {
+      "latitude": 51.5359,
+      "longitude": -0.1947
+    },
+    "officeDetails": {
+      "address1": "Royal Mail",
+      "address2": "Kilburn Delivery Office",
+      "address3": "5 Coventry Close",
+      "address4": "London",
+      "address5": "",
+      "address6": "",
+      "address7": "",
+      "address8": "",
+      "name": "Kilburn Delivery Office",
+      "postcode": "NW6 4DA"
+    }
+  },
+  "header": {
+    "apiVersion": "1",
+    "responseDate": "2025-11-20 16:21:41",
+    "statusCode": "200"
+  },
+  "searchedPostcode": "NW64TE"
+}
