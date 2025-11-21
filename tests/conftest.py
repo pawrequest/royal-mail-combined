@@ -12,16 +12,16 @@ def sample_settings() -> RMSettings:
 
 
 @pytest.fixture(scope='session')
-def sample_address_client(sample_settings: RMSettings):
+def sample_address_client(sample_settings: RMSettings) -> AddressClient:
     return AddressClient(settings=sample_settings)
 
 
 @pytest.fixture(scope='session')
-def sample_order_handler_client(sample_settings: RMSettings):
+def sample_order_handler_client(sample_settings: RMSettings) -> CollectionOrderHandlerClient:
     return CollectionOrderHandlerClient(settings=sample_settings)
 
 
 @pytest.fixture(scope='session')
-def sample_del_office_client(sample_settings: RMSettings):
+def sample_del_office_client(sample_settings: RMSettings) -> DeliveryOfficeClient:
     return DeliveryOfficeClient(settings=sample_settings)
 
