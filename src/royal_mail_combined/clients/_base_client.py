@@ -1,4 +1,5 @@
 import httpx
+from loguru import logger
 
 from royal_mail_combined import RMBaseModel
 from royal_mail_combined.config import RMSettings
@@ -14,7 +15,8 @@ class APIError(Exception):
 def raise_for_rm_status(res):
     try:
         res.raise_for_status()
-    except httpx.HTTPStatusError:
+    except httpx.HTTPStatusError as e:
+        logger.error('Royal Mail HTTP Status Error: ' + str(e))
         err = res.json()
         if 'httpCode' in err:
             e = APIError(err['httpCode'], err.get('httpMessage', ''), err.get('moreInformation', ''))
