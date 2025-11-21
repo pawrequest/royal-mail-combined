@@ -28,9 +28,9 @@ def get_env(env_name: str = RM_ENV_NAME) -> Path:
 
 
 class RMSettings(BaseSettings):
-    client_id: SecretStr
+    client_id: SecretStr  # most RM APIs can use client-id/secret auth OR bearer
     client_secret: SecretStr
-    api_key: SecretStr
+    api_key: SecretStr  # but 'click and drop' uses bearer only
 
     @classmethod
     @lru_cache
@@ -41,7 +41,6 @@ class RMSettings(BaseSettings):
     def from_env_file(cls, env_file: Path) -> Self:
         return cls(_env_file=env_file)
 
-    # @property
     def headers(self) -> dict:
         return {
             'X-IBM-Client-Id': self.client_id.get_secret_value(),
