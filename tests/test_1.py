@@ -1,52 +1,148 @@
+import json
+from datetime import date, timedelta
+from pathlib import Path
+
 import pytest
 
-from royal_mail_combined.models.address import AddressRecord, AddressSummary
+from royal_mail_combined.address.address import (
+    AddressFindDPSRequest,
+    AddressFindDPSResponse,
+    AddressRecord,
+    AddressSummary,
+)
+from royal_mail_combined.collection_order.collection_order import (
+    AddressNonMandatoryDef,
+    Collection,
+    CollectionItemType,
+    DimensionsPostDef,
+    ItemsPostDef,
+)
+from royal_mail_combined.collection_order.collection_order_handler import GetAvailableSlotsResponse, SlotDateDef
+
+STORE_RESULTS = True
+
+
+def dump_result(result: dict | list[dict], results_file):
+    results_file.parent.mkdir(parents=True, exist_ok=True)
+    results_json = json.dumps(result)
+    results_file.write_text(results_json)
 
 
 @pytest.mark.skip(reason='Use Cached result')
-def test_address_search(sample_address_client):
-    search_str = 'amherst, 70 kingsgate road, london'
+def test_address_search(sample_address_client, sample_address):
+    search_str = sample_address.addressLine1 + ', ' + sample_address.postcode
     resp = sample_address_client.search(search_str)
+    if STORE_RESULTS:
+        result = [_.model_dump(mode='json') for _ in resp]
+        results_file = Path('data/address_search_results.json')
+        dump_result(result, results_file)
+
     assert isinstance(resp, list)
     assert isinstance(resp[0], AddressSummary)
 
 
-@pytest.mark.skip(reason='need permissions still')
-def test_address_search_dps(sample_address_client):
-    search_str = 'amherst, 70 kingsgate road, london'
-    api_payload = {
-        'Addresses': [
-            {
-                'addressLine1': '1 Elmgrove Rd',
-                'addressLine2': 'Weybridge',
-                'addressLine3': 'string',
-                'postTown': 'Northamptonshire',
-                'County': 'Northamptonshire',
-                'postcode': 'NN15QS',
-            },
-        ]
-    }
-    # resp = sample_address_client.search_dps(search_str)
-    resp = sample_address_client.search_dps(api_payload)
+@pytest.mark.skip(reason='Use Cached')
+def test_address_search_dps(sample_address_client, sample_address):
+    addresses_payload = AddressFindDPSRequest(addresses=[sample_address])
+    resp = sample_address_client.search_dps(addresses_payload)
+    if STORE_RESULTS:
+        result = [_.model_dump(mode='json') for _ in resp]
+        results_file = Path('data/address_search_dps_results.json')
+        dump_result(result, results_file)
+
     assert isinstance(resp, list)
-    assert isinstance(resp[0], AddressSummary)
+    assert isinstance(resp[0], AddressFindDPSResponse)
 
 
 @pytest.mark.skip(reason='Use Cached result')
-def test_address_get(sample_address_client):
-    address_id = '208117046094246242138076149120066080112124073194254111131026113007205065192248004075178194044026'
-    resp = sample_address_client.get(address_id)
+def test_address_get(sample_address_client, sample_address_id):
+    resp = sample_address_client.get(sample_address_id)
+    if STORE_RESULTS:
+        result = resp.model_dump(mode='json')
+        results_file = Path('data/address_get_result.json')
+        dump_result(result, results_file)
     assert isinstance(resp, AddressRecord)
 
-@pytest.mark.skip(reason='need permissions still')
-def test_slots(sample_order_handler_client):
-    resp = sample_order_handler_client.get_slots()
-    ...
+
+@pytest.mark.skip(reason='Use Cached result')
+def test_handler_get_slots(sample_order_handler_client, sample_dps_results):
+    dps = sample_dps_results.dps
+    postcode = sample_dps_results.input.postcode.replace(' ', '')
+    dps_postcode = postcode + dps
+    item_count = 1
+    resp = sample_order_handler_client.get_slots(dps_postcode, item_count)
+    if STORE_RESULTS:
+        result = resp.model_dump(mode='json')
+        results_file = Path('data/collection_order_handler_get_slots.json')
+        dump_result(result, results_file)
+    assert isinstance(resp, GetAvailableSlotsResponse)
 
 
+@pytest.mark.skip(reason='NOT REGISTERED FOR PLAN DO WE EVEN NEED IT?')
 def test_del_office(sample_del_office_client):
     postcode = 'NW6 4TE'
     resp = sample_del_office_client.get(postcode)
+    if STORE_RESULTS:
+        result = resp.model_dump(mode='json')
+        results_file = Path('data/delivery_office_finder_get_result.json')
+        dump_result(result, results_file)
     assert 'searchedPostcode' in resp
     assert resp['header']['statusCode'] == '200'
+
+
+def test_my_slot(sample_slots_response):
+    send_date = date.today() + timedelta(days=3)
+    myslot = sample_slots_response.match_date(send_date)
+    assert isinstance(myslot, SlotDateDef)
+
+
+def test_inbound_booking_story(
+    sample_address, sample_address_client, sample_order_handler_client, sample_order_client, sample_sender, sample_account_details
+):
+    # get DPS
+    dps_request = AddressFindDPSRequest(addresses=[sample_address])
+    dps_responses = sample_address_client.search_dps(dps_request)
+    dps_response = dps_responses[0]
+
+    # get collection slot
+    item_count = 1
+    send_date = date.today() + timedelta(days=1)
+    slots_response = sample_order_handler_client.get_slots(dps_response.dps_postcode, item_count)
+    my_slot = slots_response.match_date(send_date)
+    token = slots_response.task_slots.slot_details.token_id
+    ...
+    dims = DimensionsPostDef(height=30, width=30, depth=30)
+    item = ItemsPostDef(
+        weight_in_grams=10000,
+        item_service_name='Royal Mail Tracked 24',
+        item_type=CollectionItemType.STANDARD,
+        dimensions=dims,
+    )
+
+    # book collection
+    collection_payload = Collection(
+        timeslot_reservation_id=token,
+        sender_details=sample_sender,
+        account_details=sample_account_details,
+        address=AddressNonMandatoryDef.model_validate(sample_address, from_attributes=True),
+        collection_date=send_date,
+        items=[item],
+    )
+
+    order_resp = sample_order_client.create_order(collection_payload)
+    ...
+
+def test_story2():
+    ...
+    # 1. Create a shipment to be collected on Click & Drop using a returns service.
+    #   This can be achieved using the POST request ‘Create Orders’ POST:
+    #     https://api.parcel.royalmail.com/api/v1/orders](https://api.parcel.royalmail.com/api/v1/orders
+    #   Alternatively, this can also be done manually using the Click & Drop UI to retrieve a return label on an existing shipment. This can also be done in bulk under the ‘Miscellaneous’ section.
+    #   You may also be able to use the returns endpoint though this is in Beta at the moment.
+    #     POST: [https://api.parcel.royalmail.com/api/v1/returns](https://api.parcel.royalmail.com/api/v1/returns)
+    # 2. The Address API provides the DPS for a given address
+
+
+
+
 

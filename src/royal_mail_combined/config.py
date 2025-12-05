@@ -3,13 +3,13 @@ import os
 from datetime import datetime
 from functools import lru_cache
 from pathlib import Path
-from typing import Self
+from typing import Literal, Self
 
 from loguru import logger
 from pydantic import SecretStr
 from pydantic_settings import BaseSettings
 
-RM_ENV_NAME = 'ROYAL_MAIL_COMBINED_ENV'
+RM_ENV_NAME = 'ROYAL_MAIL_ENV'
 
 
 def encode_b64_str(s: str) -> str:
@@ -31,6 +31,14 @@ class RMSettings(BaseSettings):
     client_id: SecretStr  # most RM APIs can use client-id/secret auth OR bearer
     client_secret: SecretStr
     api_key: SecretStr  # but 'click and drop' uses bearer only
+    account_number: str
+
+    def base_headers(self) -> dict:
+        return {
+            'X-RMG-Date-Time': datetime.now().isoformat(timespec='seconds'),
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        }
 
     @classmethod
     @lru_cache
@@ -42,9 +50,14 @@ class RMSettings(BaseSettings):
         return cls(_env_file=env_file)
 
     def headers(self) -> dict:
-        return {
+        heads = {
             'X-IBM-Client-Id': self.client_id.get_secret_value(),
             'X-IBM-Client-Secret': self.client_secret.get_secret_value(),
-            'X-RMG-Date-Time': datetime.now().isoformat(timespec='seconds'),
-            'Content-Type': 'application/json',
         }
+        heads.update(self.base_headers())
+        return heads
+
+    def headers_bearer(self) -> dict:
+        heads = {'Authorization': f'Bearer {self.api_key.get_secret_value()}'}
+        heads.update(self.base_headers())
+        return heads

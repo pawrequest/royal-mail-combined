@@ -1,8 +1,18 @@
 from typing import Annotated
+from xml.sax.handler import property_dom_node
 
-from pydantic import StringConstraints, WithJsonSchema
+from pydantic import Field, StringConstraints, WithJsonSchema
 
 from royal_mail_combined import RMBaseModel
+
+
+class AddressDef(RMBaseModel):
+    addressLine1: str
+    addressLine2: str = ''
+    addressLine3: str = ''
+    postTown: str
+    county: str = Field(None, alias='County')  # API spec has capital C here despite camelCase convention elsewhere
+    postcode: str
 
 
 class AddressFindRequest(RMBaseModel):
@@ -15,17 +25,33 @@ class AddressFindRequest(RMBaseModel):
     ]
 
 
+class AddressFindDPSRequest(RMBaseModel):
+    # addresses: list[AddressDef]
+    addresses: list[AddressDef] = Field(..., alias='Addresses')
+
+
+class AddressFindDPSResponse(RMBaseModel):
+    input: AddressDef = Field(..., alias='Input')
+    dps: str = Field(..., alias='DPS')
+
+    @property
+    def dps_postcode(self) -> str:
+        return self.input.postcode.replace(' ', '') + self.dps
+
+
 class AddressSummary(RMBaseModel):
     address_id: Annotated[
         str,
-        WithJsonSchema(
-            {'description': 'Unique identifier for address record retrieval'}
-        ),
+        WithJsonSchema({'description': 'Unique identifier for address record retrieval'}),
     ]
     address_summary1: str = ''
     address_summary2: str = ''
     type: str = ''
     highlight: str = ''
+
+
+class AddressSearchResponse(RMBaseModel):
+    addresses: list[AddressSummary] = Field(default_factory=list)
 
 
 class AddressRecord(RMBaseModel):

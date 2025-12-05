@@ -11,7 +11,9 @@ class RMBaseModel(BaseModel):
         alias_generator=AliasGenerator(
             alias=to_camel,
         ),
+        validate_by_alias=True,
         populate_by_name=True,
+        validate_by_name=True,
         use_enum_values=True,
         # validate_assignment=True,
     )

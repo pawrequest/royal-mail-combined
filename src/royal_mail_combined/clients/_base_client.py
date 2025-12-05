@@ -1,26 +1,9 @@
 import httpx
-from loguru import logger
+from pydantic import BaseModel
 
 from royal_mail_combined import RMBaseModel
+from royal_mail_combined.clients.exceptions import raise_for_rm_status
 from royal_mail_combined.config import RMSettings
-
-class APIError(Exception):
-    def __init__(self, http_code, http_message, more_information):
-        super().__init__(f'{http_code}: {http_message} - {more_information}')
-        self.http_code = http_code
-        self.http_message = http_message
-        self.more_information = more_information
-
-
-def raise_for_rm_status(res):
-    try:
-        res.raise_for_status()
-    except httpx.HTTPStatusError as e:
-        logger.error('Royal Mail HTTP Status Error: ' + str(e))
-        err = res.json()
-        if 'httpCode' in err:
-            e = APIError(err['httpCode'], err.get('httpMessage', ''), err.get('moreInformation', ''))
-        raise e
 
 
 class _RMBaseClient(RMBaseModel):
@@ -30,9 +13,13 @@ class _RMBaseClient(RMBaseModel):
         self,
         *,
         url: str,
-        data: dict | None = None,
+        data: dict | None | BaseModel = None,
+        headers: dict | None = None,
     ) -> httpx.Response:
-        res = httpx.post(url, headers=self.settings.headers(), json=data, timeout=30)
+        headers = headers or self.settings.headers()
+        if isinstance(data, BaseModel):
+            data = data.model_dump(mode='json', by_alias=True)
+        res = httpx.post(url, headers=headers, json=data, timeout=30)
         raise_for_rm_status(res)
         return res
 
@@ -40,11 +27,29 @@ class _RMBaseClient(RMBaseModel):
         self,
         *,
         url: str,
-        params: dict | None = None,
+        params: dict | None | BaseModel = None,
+        headers: dict | None = None,
     ) -> httpx.Response:
-        res = httpx.get(url, headers=self.settings.headers(), params=params, timeout=30)
+        headers = headers or self.settings.headers()
+        if isinstance(params, BaseModel):
+            params = params.model_dump(mode='json', by_alias=True)
+        res = httpx.get(url, headers=headers, params=params, timeout=30)
         raise_for_rm_status(res)
         return res
+
+    def _do_delete(
+        self,
+        *,
+        url: str,
+        headers: dict | None = None,
+    ) -> httpx.Response:
+        headers = headers or self.settings.headers()
+        res = httpx.delete(url, headers=headers, timeout=30)
+        raise_for_rm_status(res)
+        return res
+
+
+
 
 
 
