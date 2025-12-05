@@ -1,0 +1,13 @@
+[
+  {
+    "input": {
+      "addressLine1": "Flat 43, Berberis House",
+      "addressLine2": "Highfield Road",
+      "addressLine3": "",
+      "postTown": "Feltham",
+      "county": "Middlesex",
+      "postcode": "TW13 4GP"
+    },
+    "dps": "3D"
+  }
+]
