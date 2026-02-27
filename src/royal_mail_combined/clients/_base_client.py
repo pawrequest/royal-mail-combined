@@ -13,7 +13,7 @@ class _RMBaseClient(RMBaseModel):
         self,
         *,
         url: str,
-        data: dict | None | BaseModel = None,
+        data: dict | BaseModel | None = None,
         headers: dict | None = None,
     ) -> httpx.Response:
         headers = headers or self.settings.headers()

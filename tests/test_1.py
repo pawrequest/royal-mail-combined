@@ -97,7 +97,12 @@ def test_my_slot(sample_slots_response):
 
 
 def test_inbound_booking_story(
-    sample_address, sample_address_client, sample_order_handler_client, sample_order_client, sample_sender, sample_account_details
+    sample_address,
+    sample_address_client,
+    sample_order_handler_client,
+    sample_order_client,
+    sample_sender,
+    sample_account_details,
 ):
     # get DPS
     dps_request = AddressFindDPSRequest(addresses=[sample_address])
@@ -132,17 +137,15 @@ def test_inbound_booking_story(
     order_resp = sample_order_client.create_order(collection_payload)
     ...
 
-def test_story2():
+
+def test_returns(sample_return_request, sample_return_client):
+    resp = sample_return_client.create_return(sample_return_request)
     ...
-    # 1. Create a shipment to be collected on Click & Drop using a returns service.
-    #   This can be achieved using the POST request ‘Create Orders’ POST:
-    #     https://api.parcel.royalmail.com/api/v1/orders](https://api.parcel.royalmail.com/api/v1/orders
-    #   Alternatively, this can also be done manually using the Click & Drop UI to retrieve a return label on an existing shipment. This can also be done in bulk under the ‘Miscellaneous’ section.
-    #   You may also be able to use the returns endpoint though this is in Beta at the moment.
-    #     POST: [https://api.parcel.royalmail.com/api/v1/returns](https://api.parcel.royalmail.com/api/v1/returns)
-    # 2. The Address API provides the DPS for a given address
 
 
+def test_returns_json(sample_return_request_json_example, sample_return_client):
+    resp = sample_return_client.create_return(sample_return_request_json_example)
+    ...
 
 
 

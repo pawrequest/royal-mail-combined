@@ -8,9 +8,7 @@ class RMBaseModel(BaseModel):
         #     time: lambda v: v.strftime("%H:%M"),
         #     date: lambda v: v.strftime("%d/%m/%Y"),
         # },
-        alias_generator=AliasGenerator(
-            alias=to_camel,
-        ),
+        alias_generator=AliasGenerator(alias=to_camel),  # apart from when it's pascal
         validate_by_alias=True,
         populate_by_name=True,
         validate_by_name=True,

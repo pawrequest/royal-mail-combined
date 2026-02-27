@@ -263,7 +263,7 @@ source = { editable = "../royal-mail-address" }
 
 [[package]]
 name = "royal-mail-click-and-drop"
-version = "0.0.9"
+version = "0.0.10"
 source = { editable = "../royal-mail-click-and-drop" }
 dependencies = [
     { name = "loguru" },

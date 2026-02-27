@@ -1,0 +1,38 @@
+{
+  "service": {
+    "serviceCode": "TSS"
+  },
+  "shipment": {
+    "shippingAddress": {
+      "title": "Mr",
+      "firstName": "Name",
+      "lastName": "Surname",
+      "companyName": "Company LTD",
+      "addressLine1": "23 fish lane",
+      "addressLine2": "",
+      "addressLine3": "",
+      "city": "Milton Keynes",
+      "county": "",
+      "postcode": "MK17 8EW",
+      "country": "United kingdom",
+      "countryIsoCode": "GBR"
+    },
+    "returnAddress": {
+      "title": "string",
+      "firstName": "string",
+      "lastName": "string",
+      "companyName": "string",
+      "addressLine1": "15 clown lane",
+      "addressLine2": "string",
+      "addressLine3": "string",
+      "city": "string",
+      "county": "string",
+      "postcode": "MK17 8EW",
+      "country": "united kingdom",
+      "countryIsoCode": "GBR"
+    },
+    "customerReference": {
+      "reference": "Testing Reference"
+    }
+  }
+}

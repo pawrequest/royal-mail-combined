@@ -16,6 +16,11 @@ dependencies = [
     "royal-mail-delivery-office-finder",
     "royal-mail-order",
 ]
+[dependency-groups]
+dev = [
+    "pytest>=9.0.1",
+]
+
 
 [build-system]
 requires = ["uv_build>=0.8.22,<0.9.0"]
@@ -28,7 +33,3 @@ royal-mail-collection-order-handler = { path = "../royal-mail-collection-order-h
 royal-mail-delivery-office-finder = { path = "../royal-mail-delivery-office-finder", editable = true }
 royal-mail-order = { path = "../royal-mail-order", editable = true }
 
-[dependency-groups]
-dev = [
-    "pytest>=9.0.1",
-]

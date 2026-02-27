@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Literal, Self
 
 from loguru import logger
-from pydantic import SecretStr
+from pydantic import SecretStr, field_serializer
 from pydantic_settings import BaseSettings
 
 RM_ENV_NAME = 'ROYAL_MAIL_ENV'
@@ -27,18 +27,23 @@ def get_env(env_name: str = RM_ENV_NAME) -> Path:
     return env_path
 
 
+def base_headers() -> dict:
+    return {
+        'X-RMG-Date-Time': datetime.now().isoformat(timespec='seconds'),
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+    }
+
+
 class RMSettings(BaseSettings):
     client_id: SecretStr  # most RM APIs can use client-id/secret auth OR bearer
     client_secret: SecretStr
     api_key: SecretStr  # but 'click and drop' uses bearer only
     account_number: str
 
-    def base_headers(self) -> dict:
-        return {
-            'X-RMG-Date-Time': datetime.now().isoformat(timespec='seconds'),
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        }
+    @field_serializer('client_id', 'client_secret', 'api_key', when_used='json')
+    def dump_secret(self, v):
+        return v.get_secret_value()
 
     @classmethod
     @lru_cache
@@ -54,10 +59,10 @@ class RMSettings(BaseSettings):
             'X-IBM-Client-Id': self.client_id.get_secret_value(),
             'X-IBM-Client-Secret': self.client_secret.get_secret_value(),
         }
-        heads.update(self.base_headers())
+        heads.update(base_headers())
         return heads
 
     def headers_bearer(self) -> dict:
         heads = {'Authorization': f'Bearer {self.api_key.get_secret_value()}'}
-        heads.update(self.base_headers())
+        heads.update(base_headers())
         return heads

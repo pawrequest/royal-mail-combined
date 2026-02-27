@@ -7,10 +7,12 @@ class RoyalMailServiceCodeClickDrop(StrEnum):
     SPECIAL_PRE_12 = 'SD1OLP'  # £750 comp... use 'SD2OLP' for 1,000 or 'SD3OLP' for 2,500
     EXPRESS_24 = 'PFE24'
     EXPRESS_24_PRE_10 = 'PFE10'
+    EXPRESS_24_RETURN = 'RT0'
 
 
 class RoyalMailServiceCode(StrEnum):
     EXPRESS_24 = 'NDA'
+    EXPRESS_24_RETURN = 'RT0'
     FIRST_CLASS_SIGNED = 'BPR1'
     EXPRESS_AM = 'FEE'
     EXPRESS_10 = 'TE1'
