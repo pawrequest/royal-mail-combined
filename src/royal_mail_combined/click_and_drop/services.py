@@ -1,6 +1,11 @@
 from enum import StrEnum
 
 
+class RoyalMailServices26(StrEnum):
+    TRACKED_24 = 'TPN24'  # no signature.
+    TRACKED_24_RTN = 'TSN'  # no signature.
+    EXPRESS_24 = 'NDA'
+
 class RoyalMailServiceCodeClickDrop(StrEnum):
     TRACKED_24 = 'TOLP24'  # no signature.
     TRACKED_24_SIGNED = 'TOLP24SF'
