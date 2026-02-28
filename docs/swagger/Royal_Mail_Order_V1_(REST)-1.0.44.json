@@ -1,0 +1,1714 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "x-ibm-name": "royal-mail-order-v1-rest",
+    "title": "Royal Mail Order V1 (REST)",
+    "version": "1.0.44",
+    "description": "Royal Mail Order API exposes a REST service that allows third party retailers to create, update, retrieve or cancel an order.\n There are no costs to customers for using the Royal Mail Order API V1 services, however customers’ development costs must be covered by the customer developing the solution. Royal Mail will not accept any responsibility for these development, implementation and testing costs.\nCustomers should address initial enquiries regarding development of systems for these purposes to their account handler."
+  },
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json",
+    "prabhjot.prabhjot@capgemini.com"
+  ],
+  "securityDefinitions": {
+    "Client-Id": {
+      "description": "Royal Mail Internal API Gateway unique client identifier.",
+      "in": "header",
+      "name": "X-IBM-Client-Id",
+      "type": "apiKey"
+    },
+    "Client-Secret": {
+      "description": "Royal Mail Internal API Gateway unique client secret.",
+      "in": "header",
+      "name": "X-IBM-Client-Secret",
+      "type": "apiKey"
+    }
+  },
+  "security": [
+    {
+      "Client-Id": [],
+      "Client-Secret": []
+    }
+  ],
+  "paths": {
+    "/collectionOrder": {
+      "post": {
+        "summary": "Creates an collection order with a new collection orderId",
+        "description": "To create a new collection Order.",
+        "operationId": "order.create",
+        "parameters": [
+          {
+            "name": "collection",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Collection"
+            }
+          },
+          {
+            "$ref": "#/parameters/X-RMG-Language"
+          },
+          {
+            "$ref": "#/parameters/X-RMG-Date-Time"
+          },
+          {
+            "$ref": "#/parameters/Accept"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "returns a newly created orderId.",
+            "schema": {
+              "$ref": "#/definitions/collectionOrderCreateResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request. A malformed request has been received.",
+            "schema": {
+              "$ref": "#/definitions/400"
+            }
+          },
+          "401": {
+            "description": "Unauthorized.",
+            "schema": {
+              "$ref": "#/definitions/401"
+            }
+          },
+          "403": {
+            "description": "Unauthorized.",
+            "schema": {
+              "$ref": "#/definitions/403"
+            }
+          },
+          "404": {
+            "description": "Not Found.",
+            "schema": {
+              "$ref": "#/definitions/404"
+            }
+          },
+          "405": {
+            "description": "Method Not Allowed.",
+            "schema": {
+              "$ref": "#/definitions/405"
+            }
+          },
+          "500": {
+            "description": "An unexpected error has occurred.",
+            "schema": {
+              "$ref": "#/definitions/500"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable. \nThe API is currently unavailable.",
+            "schema": {
+              "$ref": "#/definitions/503"
+            }
+          }
+        }
+      }
+    },
+    "/collectionOrder/create": {
+      "post": {
+        "summary": "Creates an collection order with a new collection orderId(DPS and timeslotreservationID are mandatory)",
+        "description": "To create a new collection Order.",
+        "operationId": "order.createMandatory",
+        "parameters": [
+          {
+            "name": "collection",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CollectionMandatory"
+            }
+          },
+          {
+            "$ref": "#/parameters/X-RMG-Language"
+          },
+          {
+            "$ref": "#/parameters/X-RMG-Date-Time"
+          },
+          {
+            "$ref": "#/parameters/Accept"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "returns a newly created orderId.",
+            "schema": {
+              "$ref": "#/definitions/collectionOrderCreateResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request. A malformed request has been received.",
+            "schema": {
+              "$ref": "#/definitions/400"
+            }
+          },
+          "401": {
+            "description": "Unauthorized.",
+            "schema": {
+              "$ref": "#/definitions/401"
+            }
+          },
+          "403": {
+            "description": "Unauthorized.",
+            "schema": {
+              "$ref": "#/definitions/403"
+            }
+          },
+          "404": {
+            "description": "Not Found.",
+            "schema": {
+              "$ref": "#/definitions/404"
+            }
+          },
+          "405": {
+            "description": "Method Not Allowed.",
+            "schema": {
+              "$ref": "#/definitions/405"
+            }
+          },
+          "500": {
+            "description": "An unexpected error has occurred.",
+            "schema": {
+              "$ref": "#/definitions/500"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable. \nThe API is currently unavailable.",
+            "schema": {
+              "$ref": "#/definitions/503"
+            }
+          }
+        }
+      }
+    },
+    "/collectionOrder/{collectionId}": {
+      "put": {
+        "summary": "Updates an existing collection order",
+        "description": "To update a collection order.",
+        "operationId": "order.update",
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Unique Collection identifier"
+          },
+          {
+            "name": "collection",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateCollection"
+            }
+          },
+          {
+            "$ref": "#/parameters/X-RMG-Language"
+          },
+          {
+            "$ref": "#/parameters/X-RMG-Date-Time"
+          },
+          {
+            "$ref": "#/parameters/Accept"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "information about newly updated collection.",
+            "schema": {
+              "$ref": "#/definitions/collectionOrderUpdateResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request. A malformed request has been received.",
+            "schema": {
+              "$ref": "#/definitions/400"
+            }
+          },
+          "401": {
+            "description": "Unauthorized.",
+            "schema": {
+              "$ref": "#/definitions/401"
+            }
+          },
+          "404": {
+            "description": "Not Found.",
+            "schema": {
+              "$ref": "#/definitions/404"
+            }
+          },
+          "405": {
+            "description": "Method Not Allowed.",
+            "schema": {
+              "$ref": "#/definitions/405"
+            }
+          },
+          "500": {
+            "description": "An unexpected error has occurred.",
+            "schema": {
+              "$ref": "#/definitions/500"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable. \nThe API is currently unavailable.",
+            "schema": {
+              "$ref": "#/definitions/503"
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "To retrieve complete details for an existing collection order",
+        "description": "To retrieve complete details for a collection order.",
+        "operationId": "order.get",
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Unique Collection identifier"
+          },
+          {
+            "$ref": "#/parameters/X-RMG-Language"
+          },
+          {
+            "$ref": "#/parameters/X-RMG-Date-Time"
+          },
+          {
+            "$ref": "#/parameters/Accept"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "detailed information about given collection.",
+            "schema": {
+              "$ref": "#/definitions/collectionOrderGetResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request. A malformed request has been received.",
+            "schema": {
+              "$ref": "#/definitions/400"
+            }
+          },
+          "401": {
+            "description": "Unauthorized.",
+            "schema": {
+              "$ref": "#/definitions/401"
+            }
+          },
+          "404": {
+            "description": "Not Found.",
+            "schema": {
+              "$ref": "#/definitions/404"
+            }
+          },
+          "405": {
+            "description": "Method Not Allowed.",
+            "schema": {
+              "$ref": "#/definitions/405"
+            }
+          },
+          "500": {
+            "description": "An unexpected error has occurred.",
+            "schema": {
+              "$ref": "#/definitions/500"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable. \nThe API is currently unavailable.",
+            "schema": {
+              "$ref": "#/definitions/503"
+            }
+          }
+        }
+      }
+    },
+    "/collectionOrder/{collectionId}/status": {
+      "put": {
+        "summary": "Updates an existing collection order status",
+        "description": "To update a collection order status.",
+        "operationId": "order.delete",
+        "parameters": [
+          {
+            "name": "collectionId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Unique Collection identifier"
+          },
+          {
+            "name": "Collection Status Request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/collectionStatusRequestDef"
+            }
+          },
+          {
+            "$ref": "#/parameters/X-RMG-Language"
+          },
+          {
+            "$ref": "#/parameters/X-RMG-Date-Time"
+          },
+          {
+            "$ref": "#/parameters/Accept"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "information about newly updated collection status.",
+            "schema": {
+              "$ref": "#/definitions/collectionOrderDeleteResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request. A malformed request has been received.",
+            "schema": {
+              "$ref": "#/definitions/400"
+            }
+          },
+          "401": {
+            "description": "Unauthorized.",
+            "schema": {
+              "$ref": "#/definitions/401"
+            }
+          },
+          "404": {
+            "description": "Not Found.",
+            "schema": {
+              "$ref": "#/definitions/404"
+            }
+          },
+          "405": {
+            "description": "Method Not Allowed.",
+            "schema": {
+              "$ref": "#/definitions/405"
+            }
+          },
+          "500": {
+            "description": "An unexpected error has occurred.",
+            "schema": {
+              "$ref": "#/definitions/500"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable. \nThe API is currently unavailable.",
+            "schema": {
+              "$ref": "#/definitions/503"
+            }
+          }
+        }
+      }
+    },
+    "/collectionOrder/draftLabel": {
+      "post": {
+        "tags": [
+          "Returns Collection"
+        ],
+        "summary": "Create a draft collection label item",
+        "operationId": "PostDraftCollectionItem",
+        "parameters": [
+          {
+            "$ref": "#/parameters/X-RMG-Language"
+          },
+          {
+            "$ref": "#/parameters/X-RMG-Date-Time"
+          },
+          {
+            "$ref": "#/parameters/Accept"
+          },
+          {
+            "name": "LabelInfo",
+            "in": "body",
+            "required": true,
+            "description": "Provide the label information",
+            "schema": {
+              "$ref": "#/definitions/DraftCollectionLabelRequest"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the id",
+            "schema": {
+              "$ref": "#/definitions/DraftCollectionLabelResult"
+            }
+          },
+          "400": {
+            "description": "Bad Request. A malformed request has been received.",
+            "schema": {
+              "$ref": "#/definitions/400"
+            }
+          },
+          "401": {
+            "description": "Unauthorized.",
+            "schema": {
+              "$ref": "#/definitions/401"
+            }
+          },
+          "404": {
+            "description": "Not Found.",
+            "schema": {
+              "$ref": "#/definitions/404"
+            }
+          },
+          "405": {
+            "description": "Method Not Allowed.",
+            "schema": {
+              "$ref": "#/definitions/405"
+            }
+          },
+          "500": {
+            "description": "An unexpected error has occurred.",
+            "schema": {
+              "$ref": "#/definitions/500"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable. \nThe API is currently unavailable.",
+            "schema": {
+              "$ref": "#/definitions/503"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "400": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/errorResponse"
+        }
+      ],
+      "example": {
+        "httpCode": "400",
+        "httpMessage": "Bad Request",
+        "errors": [
+          {
+            "code": "E1398",
+            "description": "[Field] is required and must not be empty",
+            "cause": "Missing or empty or invalid mandatory field",
+            "resolution": "Check mandatory field(s) and resubmit"
+          }
+        ]
+      }
+    },
+    "401": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/errorResponse"
+        }
+      ],
+      "example": {
+        "httpCode": "401",
+        "httpMessage": "Unauthorized",
+        "moreInformation": "Invalid client id or secret."
+      }
+    },
+    "403": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/errorResponse"
+        }
+      ],
+      "example": {
+        "httpCode": "403",
+        "httpMessage": "Unable to service the request",
+        "moreInformation": "Inadequate data or unavoidable circumstances to fulfill the request."
+      }
+    },
+    "404": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/errorResponse"
+        }
+      ],
+      "example": {
+        "httpCode": "404",
+        "httpMessage": "Not Found",
+        "moreInformation": "No resources match requested URI"
+      }
+    },
+    "405": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/errorResponse"
+        }
+      ],
+      "example": {
+        "httpCode": "405",
+        "httpMessage": "Method Not Allowed",
+        "moreInformation": "The method is not allowed for the requested URL"
+      }
+    },
+    "500": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/errorResponse"
+        }
+      ],
+      "example": {
+        "httpCode": "500",
+        "httpMessage": "Internal Server Error",
+        "errors": [
+          {
+            "code": "E0000",
+            "description": "Internal exception occurred",
+            "cause": "An internal error was identified while attempting to process your API request",
+            "resolution": "Please try again later"
+          }
+        ]
+      }
+    },
+    "503": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/errorResponse"
+        }
+      ],
+      "example": {
+        "httpCode": "503",
+        "httpMessage": "Service Unavailable",
+        "errors": [
+          {
+            "code": "E0001",
+            "description": "Service unavailable",
+            "cause": "An internal error was identified while attempting to process your API request",
+            "resolution": "Please try again later"
+          }
+        ]
+      }
+    },
+    "errorResponse": {
+      "properties": {
+        "httpCode": {
+          "type": "string",
+          "description": "HTTP error code.  Please note that this will only be populated in the event of an error condition.",
+          "example": "400"
+        },
+        "httpMessage": {
+          "type": "string",
+          "description": "HTTP error code description. Please note that this will only be populated in the event of an error condition.",
+          "example": "Bad Request"
+        },
+        "moreInformation": {
+          "type": "string",
+          "description": "Information relating to the error condition."
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/errorsDef"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "httpCode",
+        "httpMessage"
+      ]
+    },
+    "errorsDef": {
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Code associated with the error condition",
+          "example": "E1142"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the error condition",
+          "example": "Barcode reference WL902730228GB is not recognised"
+        },
+        "cause": {
+          "type": "string",
+          "description": "Cause of the error (if known)",
+          "example": "A mail item with that barcode cannot be located"
+        },
+        "resolution": {
+          "type": "string",
+          "description": "Description of the resolution and action required to correct the error",
+          "example": "Check barcode and resubmit"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Array containing error information."
+    },
+    "collectionOrderCreateResponse": {
+      "type": "object",
+      "properties": {
+        "collectionOrderId": {
+          "type": "string",
+          "example": "ABC123"
+        },
+        "Status": {
+          "type": "string",
+          "example": "Order created successfully"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Response for Create collection order",
+      "required": [
+        "collectionOrderId",
+        "Status"
+      ]
+    },
+    "collectionOrderUpdateResponse": {
+      "type": "object",
+      "properties": {
+        "collectionOrderId": {
+          "type": "string",
+          "example": "ABC123"
+        },
+        "Status": {
+          "type": "string",
+          "example": "Order updated successfully"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Response for Update collection order",
+      "required": [
+        "collectionOrderId",
+        "Status"
+      ]
+    },
+    "collectionOrderDeleteResponse": {
+      "type": "object",
+      "properties": {
+        "collectionOrderId": {
+          "type": "string",
+          "example": "ABC123"
+        },
+        "Status": {
+          "type": "string",
+          "example": "Order cancelled successfully"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Response for Delete collection order",
+      "required": [
+        "collectionOrderId",
+        "Status"
+      ]
+    },
+    "collectionOrderGetResponse": {
+      "type": "object",
+      "properties": {
+        "collectionOrderId": {
+          "type": "string",
+          "description": "Collection Order Id",
+          "example": "ABC123"
+        },
+        "timeslotReservationId": {
+          "type": "string",
+          "description": "time slot reservation Id",
+          "example": "52353"
+        },
+        "senderDetails": {
+          "$ref": "#/definitions/senderDetailsDef"
+        },
+        "accountDetails": {
+          "$ref": "#/definitions/accountDetailsDef"
+        },
+        "address": {
+          "$ref": "#/definitions/addressDef"
+        },
+        "safePlaceDetails": {
+          "$ref": "#/definitions/safePlaceDetailsDef"
+        },
+        "animalHazardDetails": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "location animal hazard details",
+          "example": "Dogs - not dangerous"
+        },
+        "collectionStatus": {
+          "$ref": "#/definitions/collectionStatus"
+        },
+        "collectionDateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date of order collection",
+          "example": "2020-05-07T05:54:21.100Z"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemsDef"
+          }
+        },
+        "createdOn": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date of order creation",
+          "example": "2020-05-04T13:12:30.873Z"
+        },
+        "lastModifiedOn": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date of last modified",
+          "example": "2020-05-04T13:12:30.873Z"
+        },
+        "suppressRmNotifications": {
+          "type": "boolean"
+        },
+        "isCollectionWindowVisible": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Response for Get collection Order",
+      "required": [
+        "suppressRmNotifications",
+        "isCollectionWindowVisible"
+      ]
+    },
+    "Collection": {
+      "type": "object",
+      "properties": {
+        "timeslotReservationId": {
+          "type": "string",
+          "maxLength": 64,
+          "minLength": 0,
+          "description": "time slot reservation Id",
+          "example": "52353"
+        },
+        "senderDetails": {
+          "$ref": "#/definitions/senderDetailsPostDef"
+        },
+        "accountDetails": {
+          "$ref": "#/definitions/accountDetailsDef"
+        },
+        "address": {
+          "$ref": "#/definitions/addressNonMandatoryDef"
+        },
+        "safePlaceDetails": {
+          "$ref": "#/definitions/safePlaceDetailsDef"
+        },
+        "animalHazardDetails": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "Details of unrestrained pets",
+          "example": "Dogs - not dangerous"
+        },
+        "collectionDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of order collection",
+          "example": "2017-11-16"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemsPostDef"
+          }
+        },
+        "suppressRmNotifications": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "description": "create Order",
+      "required": [
+        "senderDetails",
+        "accountDetails",
+        "address",
+        "collectionDate",
+        "items"
+      ]
+    },
+    "CollectionMandatory": {
+      "type": "object",
+      "properties": {
+        "timeslotReservationId": {
+          "type": "string",
+          "maxLength": 64,
+          "minLength": 0,
+          "description": "time slot reservation Id",
+          "example": "52353"
+        },
+        "senderDetails": {
+          "$ref": "#/definitions/senderDetailsPostDef"
+        },
+        "accountDetails": {
+          "$ref": "#/definitions/accountDetailsDef"
+        },
+        "address": {
+          "$ref": "#/definitions/addressMandatoryDef"
+        },
+        "safePlaceDetails": {
+          "$ref": "#/definitions/safePlaceDetailsDef"
+        },
+        "animalHazardDetails": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "Details of unrestrained pets",
+          "example": "Dogs - not dangerous"
+        },
+        "collectionDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of order collection",
+          "example": "2017-11-16"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemsPostDef"
+          }
+        },
+        "suppressRmNotifications": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "description": "create Order",
+      "required": [
+        "timeslotReservationId",
+        "senderDetails",
+        "accountDetails",
+        "address",
+        "collectionDate",
+        "items"
+      ]
+    },
+    "updateCollection": {
+      "type": "object",
+      "properties": {
+        "timeslotReservationId": {
+          "type": "string",
+          "maxLength": 64,
+          "minLength": 1,
+          "description": "time slot reservation Id",
+          "example": "52353"
+        },
+        "senderDetails": {
+          "$ref": "#/definitions/senderDetailsDef"
+        },
+        "address": {
+          "$ref": "#/definitions/addressMandatoryDef"
+        },
+        "safePlaceDetails": {
+          "$ref": "#/definitions/safePlaceDetailsDef"
+        },
+        "animalHazardDetails": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "location animal hazard details",
+          "example": "Dogs - not dangerous"
+        },
+        "collectionDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of order collection",
+          "example": "2017-11-16"
+        },
+        "suppressRmNotifications": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "description": "create Order",
+      "required": [
+        "collectionDate"
+      ]
+    },
+    "collectionStatusRequestDef": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "Cancelled",
+          "description": "status of the collection which is required",
+          "enum": [
+            "Created",
+            "CollectionOrderPlaced",
+            "Collected",
+            "Cancelled",
+            "Attempted"
+          ]
+        }
+      },
+      "required": [
+        "status"
+      ]
+    },
+    "collectionStatus": {
+      "type": "string",
+      "enum": [
+        "Created",
+        "Pending",
+        "CollectionOrderPlaced",
+        "Collected",
+        "Cancelled",
+        "Processing",
+        "NotCollected",
+        "Attempted"
+      ]
+    },
+    "senderDetailsPostDef": {
+      "type": "object",
+      "properties": {
+        "senderName": {
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1,
+          "description": "Name of sender",
+          "example": "John Solly"
+        },
+        "senderEmail": {
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 1,
+          "description": "Email Address of sender",
+          "example": "john.solly@royalmail.com"
+        }
+      },
+      "required": [
+        "senderName",
+        "senderEmail"
+      ]
+    },
+    "senderDetailsDef": {
+      "type": "object",
+      "properties": {
+        "senderName": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Name of sender",
+          "example": "John Solly"
+        },
+        "senderEmail": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "Email Address of sender",
+          "example": "john.solly@royalmail.com"
+        }
+      }
+    },
+    "accountDetailsDef": {
+      "properties": {
+        "partnerId": {
+          "type": "string",
+          "maxLength": 20,
+          "description": "Partner Id",
+          "example": "abc123xyz"
+        },
+        "retailerAccountNumber": {
+          "type": "string",
+          "maxLength": 10,
+          "description": "Account number",
+          "example": "0123456789"
+        }
+      },
+      "additionalProperties": false,
+      "description": "account details definition"
+    },
+    "addressNonMandatoryDef": {
+      "properties": {
+        "addressLine1": {
+          "type": "string",
+          "maxLength": 64,
+          "minLength": 1,
+          "description": "Address Line 1",
+          "example": "Southend Road"
+        },
+        "addressLine2": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Address Line 2",
+          "example": "EAST HAM"
+        },
+        "addressLine3": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Address Line 3",
+          "example": "addressLine3"
+        },
+        "postTown": {
+          "type": "string",
+          "maxLength": 64,
+          "minLength": 0,
+          "default": " ",
+          "description": "PostTown",
+          "example": "London"
+        },
+        "postcode": {
+          "type": "string",
+          "maxLength": 10,
+          "minLength": 1,
+          "description": "PostCode",
+          "example": "E62AL"
+        },
+        "DPS": {
+          "type": "string",
+          "maxLength": 10,
+          "minLength": 0,
+          "description": "Delivery Point Suffix",
+          "example": "1A"
+        },
+        "County": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "County",
+          "example": "Norfolk"
+        }
+      },
+      "additionalProperties": false,
+      "description": "account details definition",
+      "required": [
+        "addressLine1",
+        "postcode"
+      ]
+    },
+    "addressMandatoryDef": {
+      "properties": {
+        "addressLine1": {
+          "type": "string",
+          "maxLength": 64,
+          "minLength": 1,
+          "description": "Address Line 1",
+          "example": "Southend Road"
+        },
+        "addressLine2": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Address Line 2",
+          "example": "EAST HAM"
+        },
+        "addressLine3": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Address Line 3",
+          "example": "addressLine3"
+        },
+        "postTown": {
+          "type": "string",
+          "maxLength": 64,
+          "minLength": 0,
+          "default": " ",
+          "description": "PostTown",
+          "example": "London"
+        },
+        "postcode": {
+          "type": "string",
+          "maxLength": 10,
+          "minLength": 1,
+          "description": "PostCode",
+          "example": "E62AL"
+        },
+        "DPS": {
+          "type": "string",
+          "maxLength": 10,
+          "minLength": 0,
+          "description": "Delivery Point Suffix",
+          "example": "1A"
+        },
+        "County": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "County",
+          "example": "Norfolk"
+        }
+      },
+      "additionalProperties": false,
+      "description": "account details definition",
+      "required": [
+        "addressLine1",
+        "postcode",
+        "DPS"
+      ]
+    },
+    "addressDef": {
+      "properties": {
+        "addressLine1": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Address Line 1",
+          "example": "Southend Road"
+        },
+        "addressLine2": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Address Line 2",
+          "example": "EAST HAM"
+        },
+        "addressLine3": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Address Line 3",
+          "example": "addressLine3"
+        },
+        "postTown": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "PostTown",
+          "example": "London"
+        },
+        "postcode": {
+          "type": "string",
+          "maxLength": 10,
+          "description": "PostCode",
+          "example": "E62AL"
+        },
+        "DPS": {
+          "type": "string",
+          "maxLength": 10,
+          "description": "Delivery Point Suffix",
+          "example": "BD1"
+        },
+        "County": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "County",
+          "example": "Norfolk"
+        }
+      },
+      "additionalProperties": false,
+      "description": "account details definition"
+    },
+    "safePlaceDetailsDef": {
+      "type": "object",
+      "properties": {
+        "locationText": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "Location Text",
+          "example": "behind the bin"
+        },
+        "locationCode": {
+          "type": "string",
+          "maxLength": 10,
+          "description": "Location Code",
+          "example": "BHDBIN"
+        }
+      },
+      "additionalProperties": false,
+      "description": "safe place details definition"
+    },
+    "itemsPostDef": {
+      "type": "object",
+      "properties": {
+        "itemBarcodeId": {
+          "type": "string",
+          "maxLength": 21,
+          "minLength": 1,
+          "description": "Item BarCode Id",
+          "example": "WL902730228GB"
+        },
+        "itemReference": {
+          "type": "string",
+          "maxLength": 40,
+          "description": "Additional reference number for the item if any",
+          "example": "xyz123abc"
+        },
+        "weightInGrams": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 0,
+          "description": "Item weight in grams",
+          "example": 675
+        },
+        "itemServiceName": {
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 1,
+          "description": "Item Service Name",
+          "example": "Tracked Returns 24 (T24) Enhanced"
+        },
+        "itemStatus": {
+          "type": "string",
+          "enum": [
+            "AwaitingCollection",
+            "Collected",
+            "NotCollected",
+            "Processing",
+            "Attempted"
+          ]
+        },
+        "dimensions": {
+          "$ref": "#/definitions/dimensionsPostDef"
+        },
+        "itemPrice": {
+          "type": "number",
+          "format": "double",
+          "description": "Price paid for the doorstep collection for the item",
+          "example": 0.6
+        },
+        "itemType": {
+          "$ref": "#/definitions/CollectionItemType"
+        },
+        "itemProductCode": {
+          "type": "string",
+          "maxLength": 5
+        },
+        "labelInfo": {
+          "$ref": "#/definitions/LabelInfo"
+        }
+      },
+      "required": [
+        "itemBarcodeId",
+        "weightInGrams",
+        "itemServiceName",
+        "dimensions"
+      ],
+      "description": "items detail definition"
+    },
+    "CollectionItemType": {
+      "type": "string",
+      "enum": [
+        "Standard",
+        "NoLabel",
+        "NoPackage"
+      ]
+    },
+    "itemsDef": {
+      "type": "object",
+      "properties": {
+        "itemBarcodeId": {
+          "type": "string",
+          "maxLength": 21,
+          "description": "Item BarCode Id",
+          "example": "WL902730228GB"
+        },
+        "itemReference": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "weightInGrams": {
+          "type": "integer",
+          "description": "Weight of a parcel in grams",
+          "example": 100
+        },
+        "itemServiceName": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "Item Service Name",
+          "example": "create Order"
+        },
+        "itemStatus": {
+          "type": "string",
+          "enum": [
+            "AwaitingCollection",
+            "Collected",
+            "NotCollected",
+            "Attempted"
+          ]
+        },
+        "dimensions": {
+          "$ref": "#/definitions/dimensionsDef"
+        },
+        "itemPrice": {
+          "type": "number",
+          "format": "double"
+        },
+        "itemType": {
+          "$ref": "#/definitions/CollectionItemType"
+        },
+        "itemProductCode": {
+          "type": "string",
+          "maxLength": 5
+        },
+        "labelInfo": {
+          "$ref": "#/definitions/LabelInfo"
+        }
+      },
+      "description": "items detail definition",
+      "required": [
+        "weightInGrams",
+        "dimensions"
+      ]
+    },
+    "dimensionsPostDef": {
+      "type": "object",
+      "properties": {
+        "height": {
+          "type": "number",
+          "format": "float",
+          "description": "height or length of item",
+          "example": 45
+        },
+        "width": {
+          "type": "number",
+          "format": "float",
+          "description": "width of item",
+          "example": 35
+        },
+        "depth": {
+          "type": "number",
+          "format": "float",
+          "description": "depth of item",
+          "example": 16
+        }
+      },
+      "required": [
+        "height",
+        "width",
+        "depth"
+      ]
+    },
+    "dimensionsDef": {
+      "type": "object",
+      "properties": {
+        "height": {
+          "type": "number",
+          "format": "float",
+          "description": "height of item",
+          "example": 45
+        },
+        "width": {
+          "type": "number",
+          "format": "float",
+          "description": "width of item",
+          "example": 35
+        },
+        "depth": {
+          "type": "number",
+          "format": "float",
+          "description": "depth of item",
+          "example": 16
+        }
+      }
+    },
+    "LabelInfo": {
+      "type": "object",
+      "properties": {
+        "1DTrackingNumber": {
+          "type": "string",
+          "maxLength": 13
+        },
+        "2DUniqueIdentifier": {
+          "type": "string",
+          "maxLength": 21,
+          "minLength": 1
+        },
+        "postByDate": {
+          "type": "string",
+          "format": "date",
+          "minLength": 1
+        },
+        "RMService": {
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 1
+        },
+        "pricePaid": {
+          "type": "number",
+          "description": "price paid for the postage",
+          "example": 4.88
+        },
+        "referenceNumber": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "referenceText": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "weightInGrams": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 0
+        },
+        "itemFormat": {
+          "enum": [
+            "Letter",
+            "LargeLetter",
+            "SmallParcel",
+            "MediumParcel"
+          ]
+        },
+        "recipientAddress": {
+          "$ref": "#/definitions/LabelAddress"
+        },
+        "senderAddress": {
+          "$ref": "#/definitions/LabelAddress"
+        },
+        "customsInfo": {
+          "$ref": "#/definitions/LabelCustomsInfo"
+        }
+      },
+      "required": [
+        "2DUniqueIdentifier",
+        "postByDate",
+        "RMService",
+        "pricePaid",
+        "weightInGrams",
+        "itemFormat",
+        "recipientAddress",
+        "senderAddress"
+      ]
+    },
+    "LabelCustomsInfo": {
+      "type": "object",
+      "properties": {
+        "currencyCode": {
+          "type": "string",
+          "maxLength": 3
+        },
+        "totalCost": {
+          "type": "number"
+        },
+        "shipmentSubtotal": {
+          "type": "number"
+        },
+        "shippingCostCharged": {
+          "type": "number"
+        },
+        "customsDutyCost": {
+          "type": "number"
+        },
+        "IOSSNumber": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "AIRNumber": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "customsDeclarationCategory": {
+          "enum": [
+            "none",
+            "gift",
+            "commercialSample",
+            "documents",
+            "other",
+            "returnedGoods",
+            "saleOfGoods",
+            "mixedContent"
+          ]
+        },
+        "contents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LabelOrderItem"
+          }
+        }
+      }
+    },
+    "LabelOrderItem": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "customsCode": {
+          "type": "string",
+          "maxLength": 12
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "unitValue": {
+          "type": "number"
+        },
+        "unitWeightInGrams": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "originCountryCode": {
+          "type": "string",
+          "maxLength": 3
+        }
+      }
+    },
+    "LabelAddress": {
+      "type": "object",
+      "required": [
+        "addressLine1",
+        "postTown",
+        "postcode"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "companyName": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "addressLine1": {
+          "type": "string",
+          "maxLength": 64,
+          "minLength": 1
+        },
+        "addressLine2": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "addressLine3": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "postTown": {
+          "type": "string",
+          "maxLength": 64,
+          "minLength": 1
+        },
+        "county": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "postcode": {
+          "type": "string",
+          "maxLength": 10,
+          "minLength": 1
+        },
+        "DPS": {
+          "type": "string",
+          "maxLength": 10,
+          "default": "9Z"
+        },
+        "countryCode": {
+          "type": "string",
+          "maxLength": 3,
+          "description": "If not provided, defaults to GBR",
+          "default": "GBR"
+        }
+      }
+    },
+    "DraftCollectionLabelRequest": {
+      "required": [
+        "1DTrackingNumber",
+        "2DUniqueIdentifier",
+        "recipientAddress"
+      ],
+      "type": "object",
+      "properties": {
+        "1DTrackingNumber": {
+          "type": "string",
+          "maxLength": 13,
+          "minLength": 1
+        },
+        "2DUniqueIdentifier": {
+          "type": "string",
+          "maxLength": 21,
+          "minLength": 1
+        },
+        "postByDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "RMService": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "pricePaid": {
+          "type": "number"
+        },
+        "referenceNumber": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "displayReferenceAsBarcode": {
+          "type": "boolean"
+        },
+        "referenceText": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "weightInGrams": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "itemFormat": {
+          "enum": [
+            "Letter",
+            "LargeLetter",
+            "SmallParcel",
+            "MediumParcel"
+          ]
+        },
+        "recipientAddress": {
+          "$ref": "#/definitions/LabelAddress"
+        },
+        "senderAddress": {
+          "$ref": "#/definitions/LabelAddress"
+        },
+        "customsInfo": {
+          "$ref": "#/definitions/LabelCustomsInfo"
+        }
+      }
+    },
+    "DraftCollectionLabelResult": {
+      "type": "object",
+      "properties": {
+        "draftId": {
+          "type": "string",
+          "format": "uuid/definitions/ErrorResponse'"
+        }
+      }
+    }
+  },
+  "tags": [],
+  "parameters": {
+    "X-RMG-Language": {
+      "name": "X-RMG-Language",
+      "type": "string",
+      "required": false,
+      "in": "header",
+      "description": "Optional default english"
+    },
+    "X-RMG-Date-Time": {
+      "name": "X-RMG-Date-Time",
+      "type": "string",
+      "format": "date",
+      "required": true,
+      "in": "header",
+      "description": "This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00"
+    },
+    "Accept": {
+      "name": "Accept",
+      "type": "string",
+      "required": false,
+      "in": "header",
+      "description": "Pass though; used for markdown"
+    }
+  },
+  "x-ibm-configuration": {
+    "enforced": true,
+    "testable": true,
+    "phase": "realized",
+    "cors": {
+      "enabled": true
+    },
+    "type": "rest",
+    "servers": [
+      {
+        "url": "https://api.royalmail.net/orders/v1",
+        "description": "Prod API Endpoint",
+        "type": [
+          "production",
+          "development"
+        ]
+      },
+      {
+        "url": "https://api.royalmail.net/",
+        "description": "Prod API Endpoint",
+        "type": [
+          "production",
+          "development"
+        ]
+      }
+    ]
+  },
+  "basePath": "/orders/v1",
+  "host": "api.royalmail.net"
+}

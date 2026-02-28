@@ -1,0 +1,391 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.10",
+    "title": "Royal Mail Delivery Office Finder V1 (REST) API",
+    "description": "The Delivery Office Finder API enables customers to obtain details of the Royal Mail Delivery Office dedicated to the provided postcode with the name, address, facilities and business hours of the Delivery Office being returned.",
+    "x-ibm-name": "royal-mail-delivery-office-finder-v1-rest-api"
+  },
+  "basePath": "/deliveryOffices",
+  "schemes": [
+    "https"
+  ],
+  "x-ibm-configuration": {
+    "enforced": true,
+    "phase": "realized",
+    "testable": true,
+    "cors": {
+      "enabled": true
+    },
+    "type": "rest",
+    "servers": [
+      {
+        "url": "https://api.royalmail.net/deliveryOffices",
+        "description": "Prod API Endpoint",
+        "type": [
+          "production",
+          "development"
+        ]
+      },
+      {
+        "url": "https://api.royalmail.net/",
+        "description": "Prod API Endpoint",
+        "type": [
+          "production",
+          "development"
+        ]
+      }
+    ],
+    "oauth-servers": {
+      "Bearer": {
+        "tokenUrls": [
+          "https://Host_Address/Org_Segment/sb/oauth-end/oauth2/token"
+        ],
+        "authorizationUrls": [],
+        "refreshUrls": []
+      }
+    }
+  },
+  "tags": [],
+  "definitions": {
+    "ErrorResponse": {}
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "description": "",
+      "flow": "password",
+      "scopes": {
+        "$(scope)": ""
+      },
+      "tokenUrl": "https://Host_Address/Org_Segment/sb/oauth-end/oauth2/token",
+      "type": "oauth2",
+      "x-ibm-oauth-provider": "oauth-d2767793b5673dc0b9fb3c24b7041ffc",
+      "x-scopeValidate": {
+        "tls-profile": "",
+        "url": ""
+      }
+    },
+    "Client ID": {
+      "description": "",
+      "in": "header",
+      "name": "X-IBM-Client-Id",
+      "type": "apiKey"
+    },
+    "Client Secret": {
+      "description": "",
+      "in": "header",
+      "name": "X-IBM-Client-Secret",
+      "type": "apiKey"
+    }
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "description": "Enter a postcode in the URL and the response JSON will contain the name, the address and the business hours of the Delivery Office dedicated to this postcode.",
+        "tags": [],
+        "parameters": [
+          {
+            "default": "{postcode}",
+            "description": "Enter UK Postcode to locate a delivery office for.",
+            "name": "postcode",
+            "type": "string",
+            "required": true,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "header": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "string"
+                    },
+                    "responseDate": {
+                      "type": "string"
+                    },
+                    "apiVersion": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "searchedPostcode": {
+                  "type": "string"
+                },
+                "deliveryOffice": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "officeDetails": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "address1": {
+                          "type": "string"
+                        },
+                        "address2": {
+                          "type": "string"
+                        },
+                        "address3": {
+                          "type": "string"
+                        },
+                        "address4": {
+                          "type": "string"
+                        },
+                        "address5": {
+                          "type": "string"
+                        },
+                        "address6": {
+                          "type": "string"
+                        },
+                        "address7": {
+                          "type": "string"
+                        },
+                        "address8": {
+                          "type": "string"
+                        },
+                        "postcode": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "businessDays": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "businessDay": {
+                            "type": "string"
+                          },
+                          "openingTimes": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "opensAt": {
+                                  "type": "string"
+                                },
+                                "closesAt": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "locationDetails": {
+                      "type": "object",
+                      "properties": {
+                        "latitude": {
+                          "type": "number"
+                        },
+                        "longitude": {
+                          "type": "number"
+                        },
+                        "distance": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "facilities": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Successful query",
+            "examples": {
+              "application/json": {
+                "header": {
+                  "statusCode": "200",
+                  "responseDate": "2015-09-29 10:46:45",
+                  "apiVersion": "1"
+                },
+                "searchedPostcode": "M11AD",
+                "deliveryOffice": {
+                  "id": 7690,
+                  "officeDetails": {
+                    "name": "Manchester CDO Enquiry Office",
+                    "address1": "Royal Mail",
+                    "address2": "Manchester CDO Enquiry Office",
+                    "address3": "Manchester Mail Centre",
+                    "address4": "77 Oldham Road",
+                    "address5": "MANCHESTER",
+                    "address6": "",
+                    "address7": "",
+                    "address8": "",
+                    "postcode": "M4 5AA"
+                  },
+                  "businessDays": [
+                    {
+                      "businessDay": "Sunday",
+                      "openingTimes": [
+                        {
+                          "opensAt": "12:00",
+                          "closesAt": "16:00"
+                        }
+                      ]
+                    },
+                    {
+                      "businessDay": "Monday",
+                      "openingTimes": [
+                        {
+                          "opensAt": "06:00",
+                          "closesAt": "17:30"
+                        }
+                      ]
+                    },
+                    {
+                      "businessDay": "Tuesday",
+                      "openingTimes": [
+                        {
+                          "opensAt": "06:00",
+                          "closesAt": "17:30"
+                        }
+                      ]
+                    },
+                    {
+                      "businessDay": "Wednesday",
+                      "openingTimes": [
+                        {
+                          "opensAt": "06:00",
+                          "closesAt": "20:00"
+                        }
+                      ]
+                    },
+                    {
+                      "businessDay": "Thursday",
+                      "openingTimes": [
+                        {
+                          "opensAt": "06:00",
+                          "closesAt": "17:30"
+                        }
+                      ]
+                    },
+                    {
+                      "businessDay": "Friday",
+                      "openingTimes": [
+                        {
+                          "opensAt": "06:00",
+                          "closesAt": "17:30"
+                        }
+                      ]
+                    },
+                    {
+                      "businessDay": "Saturday",
+                      "openingTimes": [
+                        {
+                          "opensAt": "06:00",
+                          "closesAt": "14:00"
+                        }
+                      ]
+                    }
+                  ],
+                  "locationDetails": {
+                    "latitude": 53.4874,
+                    "longitude": -2.2272,
+                    "distance": 1255
+                  },
+                  "facilities": [
+                    "carParking",
+                    "disabledAccess"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request, invalid or incorrectly formatted postcode.",
+            "headers": {},
+            "examples": {
+              "application/json": {
+                "httpCode": "400",
+                "httpMessage": "Bad Request",
+                "moreInformation": "Invalid UK Postcode"
+              }
+            },
+            "schema": {
+              "type": "object",
+              "properties": {
+                "httpCode": {
+                  "type": "string"
+                },
+                "httpMessage": {
+                  "type": "string"
+                },
+                "moreInformation": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Invalid Postcode",
+            "headers": {},
+            "examples": {
+              "application/json": {
+                "httpCode": "404",
+                "httpMessage": "Not Found",
+                "moreInformation": "eBDofApi001 - No Delivery Office Found for postcode"
+              }
+            },
+            "schema": {
+              "type": "object",
+              "properties": {
+                "httpCode": {
+                  "type": "string"
+                },
+                "httpMessage": {
+                  "type": "string"
+                },
+                "moreInformation": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Client ID": [],
+            "Client Secret": []
+          },
+          {
+            "Client ID": [],
+            "Bearer": []
+          }
+        ],
+        "summary": "Locates the delivery office for a given UK Postcode."
+      }
+    }
+  },
+  "security": [
+    {
+      "Client ID": [],
+      "Client Secret": []
+    },
+    {
+      "Client ID": [],
+      "Bearer": []
+    }
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "host": "api.royalmail.net"
+}

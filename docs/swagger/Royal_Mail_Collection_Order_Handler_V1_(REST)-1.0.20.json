@@ -1,0 +1,761 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "x-ibm-name": "royal-mail-collection-order-handler-v1-rest",
+    "title": "Royal Mail Collection Order Handler V1 (REST)",
+    "version": "1.0.20",
+    "description": "Royal Mail Collection Order handler API exposes a REST service that allows Royal Mail customers to help in booking the doorstep collections. The purpose of this API is to allow Royal Mail customers to check the available slots and validate the subscription."
+  },
+  "basePath": "/collectionorders/v1",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "securityDefinitions": {
+    "BearerAuth": {
+      "description": "OAuth access token required. Valid access tokens can be retrieved from the Royal Mail Login API at *http://api.royalmail.net/login/v1/tokens*. Use the Authorization header Bearer scheme to send the access token in the following format \"Authorization: Bearer access_token\"",
+      "flow": "password",
+      "scopes": {},
+      "tokenUrl": "https://Host_Address/Org_Segment/sb/oauth-end/oauth2/token",
+      "type": "oauth2",
+      "x-ibm-oauth-provider": "oauth-8dccd0a537e1faf77d8584c7796c351b",
+      "x-scopeValidate": {
+        "tls-profile": "",
+        "url": ""
+      }
+    },
+    "Client-Id": {
+      "description": "Royal Mail Internal API Gateway unique client identifier.",
+      "in": "header",
+      "name": "X-IBM-Client-Id",
+      "type": "apiKey"
+    },
+    "Client-Secret": {
+      "description": "Royal Mail Internal API Gateway unique client secret.",
+      "in": "header",
+      "name": "X-IBM-Client-Secret",
+      "type": "apiKey"
+    }
+  },
+  "security": [
+    {
+      "Client-Secret": [],
+      "Client-Id": []
+    },
+    {
+      "Client-Id": [],
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "/slots": {
+      "get": {
+        "tags": [
+          "Get Available Slots"
+        ],
+        "summary": "Gets the available slots to book the order collection",
+        "description": "To get the available slots for order collection as per the customers request.",
+        "operationId": "order.getAvailableSlots",
+        "parameters": [
+          {
+            "name": "dps",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "delivery point suffix details."
+          },
+          {
+            "name": "itemCount",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "item/items count."
+          },
+          {
+            "name": "carrier",
+            "in": "query",
+            "type": "string",
+            "enum": [
+              "RM",
+              "PFW"
+            ],
+            "required": false,
+            "description": "carrier short name."
+          },
+          {
+            "$ref": "#/parameters/X-RMG-Date-Time"
+          },
+          {
+            "$ref": "#/parameters/Accept"
+          },
+          {
+            "$ref": "#/parameters/X-RMG-Idempotency-Key"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 OK.",
+            "schema": {
+              "$ref": "#/definitions/getAvailableSlotsResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request. A malformed request has been received.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/400"
+                }
+              ]
+            }
+          },
+          "401": {
+            "description": "Unauthorized.",
+            "schema": {
+              "$ref": "#/definitions/401"
+            }
+          },
+          "404": {
+            "description": "Not Found.",
+            "schema": {
+              "$ref": "#/definitions/404NotFound"
+            }
+          },
+          "405": {
+            "description": "Method Not Allowed.",
+            "schema": {
+              "$ref": "#/definitions/405"
+            }
+          },
+          "500": {
+            "description": "All server errors EXCEPT for 503. An unexpected error has occurred.",
+            "schema": {
+              "$ref": "#/definitions/500"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable. \nThe API is currently unavailable.",
+            "schema": {
+              "$ref": "#/definitions/503"
+            }
+          }
+        }
+      }
+    },
+    "/productfamily/subscription": {
+      "post": {
+        "tags": [
+          "Product Family Subscription"
+        ],
+        "summary": "Validate subscription to book the order collection",
+        "description": "To validate the subscription as per the customers.",
+        "operationId": "order.validateSubscription",
+        "parameters": [
+          {
+            "name": "productFamily",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/productFamily"
+            }
+          },
+          {
+            "$ref": "#/parameters/X-RMG-Date-Time"
+          },
+          {
+            "$ref": "#/parameters/Accept"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 OK.",
+            "examples": {
+              "application/json": {
+                "productFamily": [
+                  {
+                    "productFamilyName": "Special Delivery",
+                    "status": "200",
+                    "subscription": [
+                      {
+                        "name": "isEligibleForCC",
+                        "value": true
+                      },
+                      {
+                        "name": "isEligibleForSafeplace",
+                        "value": true
+                      },
+                      {
+                        "name": "isEligibleForCCLabelFree",
+                        "value": true
+                      }
+                    ],
+                    "account": {
+                      "accountNumber": "983764876",
+                      "subscription": [
+                        {
+                          "name": "isEligibleForCC",
+                          "value": true
+                        }
+                      ],
+                      "agreementLine": {
+                        "isContractAvailableForCCProduct": true
+                      },
+                      "contract": {
+                        "contractCode": "TRN9876543",
+                        "subscription": [
+                          {
+                            "name": "isCovidEnabled",
+                            "value": true
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/validateSubscriptionResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request. A malformed request has been received.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/400"
+                }
+              ]
+            }
+          },
+          "401": {
+            "description": "Unauthorized.",
+            "schema": {
+              "$ref": "#/definitions/401"
+            }
+          },
+          "404": {
+            "description": "Not Found.",
+            "schema": {
+              "$ref": "#/definitions/404"
+            }
+          },
+          "405": {
+            "description": "Method Not Allowed.",
+            "schema": {
+              "$ref": "#/definitions/405"
+            }
+          },
+          "500": {
+            "description": "All server errors EXCEPT for 503. An unexpected error has occurred.",
+            "schema": {
+              "$ref": "#/definitions/500"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable. \nThe API is currently unavailable.",
+            "schema": {
+              "$ref": "#/definitions/503"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "400": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/errorResponse"
+        }
+      ],
+      "example": {
+        "httpCode": "400",
+        "httpMessage": "Bad Request",
+        "errors": [
+          {
+            "code": "E1398",
+            "description": "[Field] is required and must not be empty",
+            "cause": "Missing or empty or invalid mandatory field",
+            "resolution": "Check mandatory field(s) and resubmit"
+          }
+        ]
+      }
+    },
+    "401": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/errorResponse"
+        }
+      ],
+      "example": {
+        "httpCode": "401",
+        "httpMessage": "Unauthorized",
+        "moreInformation": "Invalid client id or secret."
+      }
+    },
+    "404": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/errorResponse"
+        }
+      ],
+      "example": {
+        "httpCode": "404",
+        "httpMessage": "Not Found",
+        "moreInformation": "No resources match requested URI"
+      }
+    },
+    "405": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/errorResponse"
+        }
+      ],
+      "example": {
+        "httpCode": "405",
+        "httpMessage": "Method Not Allowed",
+        "moreInformation": "The method is not allowed for the requested URL"
+      }
+    },
+    "500": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/errorResponse"
+        }
+      ],
+      "example": {
+        "httpCode": "500",
+        "httpMessage": "Internal Server Error",
+        "errors": [
+          {
+            "code": "E0000",
+            "description": "Internal exception occurred",
+            "cause": "An internal error was identified while attempting to process your API request",
+            "resolution": "Please try again later"
+          }
+        ]
+      }
+    },
+    "503": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/errorResponse"
+        }
+      ],
+      "example": {
+        "httpCode": "503",
+        "httpMessage": "Service Unavailable",
+        "errors": [
+          {
+            "code": "E0001",
+            "description": "Service unavailable",
+            "cause": "An internal error was identified while attempting to process your API request",
+            "resolution": "Please try again later"
+          }
+        ]
+      }
+    },
+    "404NotFound": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/errorResponse"
+        }
+      ],
+      "example": {
+        "httpCode": "404",
+        "httpMessage": "Not Found",
+        "errors": [
+          {
+            "code": "E1715",
+            "description": "API with input values provided is not supported",
+            "cause": "Attributes to fulfill the request is not found",
+            "resolution": "Please try again later"
+          }
+        ]
+      }
+    },
+    "errorResponse": {
+      "properties": {
+        "httpCode": {
+          "type": "string",
+          "description": "HTTP error code.  Please note that this will only be populated in the event of an error condition.",
+          "example": "500"
+        },
+        "httpMessage": {
+          "type": "string",
+          "description": "HTTP error code description. Please note that this will only be populated in the event of an error condition.",
+          "example": "Internal Server Error"
+        },
+        "moreInformation": {
+          "type": "string",
+          "description": "Information relating to the error condition."
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/errorsDef"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "httpCode",
+        "httpMessage"
+      ]
+    },
+    "errorsDef": {
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Code associated with the error condition",
+          "example": "E0000"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the error condition",
+          "example": "Internal exception occurred"
+        },
+        "cause": {
+          "type": "string",
+          "description": "Cause of the error (if known)",
+          "example": "An internal error was identified while attempting to process your API request"
+        },
+        "resolution": {
+          "type": "string",
+          "description": "Description of the resolution and action required to correct the error",
+          "example": "Please try again later"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Array containing error information."
+    },
+    "productFamily": {
+      "properties": {
+        "productFamily": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/productFamilyDef"
+          }
+        }
+      },
+      "required": [
+        "productFamily"
+      ]
+    },
+    "productFamilyDef": {
+      "type": "object",
+      "description": "node of product family",
+      "properties": {
+        "barcode": {
+          "type": "string",
+          "description": "Item BarCode Id",
+          "example": "WL902730228GB"
+        },
+        "productFamilyName": {
+          "type": "string",
+          "description": "Product Family Name",
+          "example": "Special Delivery"
+        },
+        "accountNumber": {
+          "type": "string",
+          "description": "Account Number",
+          "example": "0983764876"
+        }
+      }
+    },
+    "validateSubscriptionResponse": {
+      "type": "object",
+      "properties": {
+        "productFamily": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/productFamilyResponseDef"
+          }
+        }
+      },
+      "required": [
+        "productFamily"
+      ]
+    },
+    "productFamilyResponseDef": {
+      "type": "object",
+      "description": "node of product family",
+      "properties": {
+        "productFamilyName": {
+          "type": "string",
+          "description": "Product Family Name",
+          "example": "Special Delivery"
+        },
+        "status": {
+          "type": "string",
+          "description": "Response Status",
+          "example": "200"
+        },
+        "subscription": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/subscriptionDef"
+          }
+        },
+        "account": {
+          "$ref": "#/definitions/accountDef"
+        }
+      },
+      "required": [
+        "productFamilyName",
+        "status"
+      ]
+    },
+    "accountDef": {
+      "type": "object",
+      "description": "node of account",
+      "properties": {
+        "accountNumber": {
+          "type": "string",
+          "description": "Account Number",
+          "example": "0983764876"
+        },
+        "subscription": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/subscriptionDef"
+          }
+        },
+        "agreementLine": {
+          "$ref": "#/definitions/agreementLineDef"
+        },
+        "contract": {
+          "$ref": "#/definitions/contractCodeDef"
+        }
+      },
+      "required": [
+        "accountNumber",
+        "agreementLine"
+      ]
+    },
+    "contractCodeDef": {
+      "type": "object",
+      "description": "Contract details",
+      "properties": {
+        "contractCode": {
+          "type": "string",
+          "description": "Contract code",
+          "example": "TRN9876543"
+        },
+        "subscription": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/contractSubscriptionDef"
+          }
+        }
+      }
+    },
+    "agreementLineDef": {
+      "type": "object",
+      "description": "node of agreementLine",
+      "properties": {
+        "isContractAvailableForCCProduct": {
+          "type": "string",
+          "description": "Is Contract available for CC product",
+          "example": true
+        }
+      },
+      "required": [
+        "isContractAvailableForCCProduct"
+      ]
+    },
+    "subscriptionDef": {
+      "type": "object",
+      "description": "node of subscription data",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "node of subscription data",
+          "example": "isEligibleForCC"
+        },
+        "value": {
+          "type": "boolean",
+          "description": "Return the subscription value",
+          "example": true
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ]
+    },
+    "contractSubscriptionDef": {
+      "type": "object",
+      "description": "node of subscription data",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "node of subscription data",
+          "example": "isCovidEnabled"
+        },
+        "value": {
+          "type": "boolean",
+          "description": "Return the subscription value",
+          "example": true
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ]
+    },
+    "getAvailableSlotsResponse": {
+      "type": "object",
+      "properties": {
+        "taskSlots": {
+          "$ref": "#/definitions/taskSlotsDef"
+        }
+      }
+    },
+    "taskSlotsDef": {
+      "description": "Node of slots data",
+      "type": "object",
+      "properties": {
+        "slotDetails": {
+          "$ref": "#/definitions/slotDetailsDef"
+        },
+        "datewiseSlots": {
+          "$ref": "#/definitions/datewiseSlotsDef"
+        }
+      }
+    },
+    "slotDetailsDef": {
+      "description": "Node of the details data",
+      "type": "object",
+      "properties": {
+        "dps": {
+          "type": "string",
+          "description": "Delivery point suffix",
+          "example": "SL64DU1Z"
+        },
+        "deliveryOfficeId": {
+          "type": "number",
+          "description": "Functional location id of Delivery office",
+          "example": 962680198
+        },
+        "itemCount": {
+          "type": "number",
+          "description": "count of Item.",
+          "example": 3
+        },
+        "tokenId": {
+          "type": "string",
+          "description": "Toekn Id.",
+          "example": "123489020101234"
+        },
+        "tokenIdExpiryTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "Token id expiry time, within which it should be used to create task. This will be populated with the date time in ISO 8601 subset format.",
+          "example": "2020-01-24T06:00:00Z"
+        }
+      }
+    },
+    "datewiseSlotsDef": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/slotDateDef"
+      }
+    },
+    "slotDateDef": {
+      "type": "object",
+      "properties": {
+        "slotDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Node of slot dates",
+          "example": "2020-01-26"
+        },
+        "estimatedWindow": {
+          "$ref": "#/definitions/estimatedWindowDef"
+        }
+      }
+    },
+    "estimatedWindowDef": {
+      "type": "object",
+      "properties": {
+        "startTime": {
+          "type": "string",
+          "example": "10:50",
+          "description": "the start of the estimated delivery window"
+        },
+        "endTime": {
+          "type": "string",
+          "example": "14:50",
+          "description": "the end of the estimated delivery window"
+        },
+        "EDWVisibility": {
+          "type": "number",
+          "example": 1,
+          "description": "EDW Visibility"
+        }
+      }
+    }
+  },
+  "parameters": {
+    "X-RMG-Date-Time": {
+      "name": "X-RMG-Date-Time",
+      "type": "string",
+      "format": "date",
+      "required": true,
+      "in": "header",
+      "description": "This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00 YYYY-MM-DDThh:mm:ss±hh:mm (To be used when there is an offset to GMT) YYYY-MM-DDThh:mm:ssZ  (To be used when value is in GMT)"
+    },
+    "Accept": {
+      "name": "Accept",
+      "type": "string",
+      "required": true,
+      "in": "header",
+      "description": "Content-Types that are acceptable for the response. Eg. application/json"
+    },
+    "X-RMG-Idempotency-Key": {
+      "name": "X-RMG-Idempotency-Key",
+      "type": "string",
+      "required": false,
+      "in": "header",
+      "minLength": 0,
+      "maxLength": 256,
+      "description": "Identifier to help denote whether the request is idempotent Eg: ANON:www.w3.org:j6oAOxCWZh/CD723LGeXlf-01:34"
+    }
+  },
+  "x-ibm-configuration": {
+    "enforced": true,
+    "testable": true,
+    "phase": "realized",
+    "cors": {
+      "enabled": true
+    },
+    "type": "rest",
+    "servers": [
+      {
+        "url": "https://api.royalmail.net/collectionorders/v1",
+        "description": "Prod API Endpoint",
+        "type": [
+          "production",
+          "development"
+        ]
+      }
+    ],
+    "oauth-servers": {
+      "BearerAuth": {
+        "tokenUrls": [
+          "https://Host_Address/Org_Segment/sb/oauth-end/oauth2/token"
+        ],
+        "authorizationUrls": [],
+        "refreshUrls": []
+      }
+    }
+  },
+  "host": "api.royalmail.net"
+}
