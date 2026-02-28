@@ -1,6 +1,22 @@
+from datetime import datetime
+
 from pydantic import StrictInt, StrictStr
 
 from royal_mail_combined import RMBaseModel
+
+
+class GetOrderInfoResource(RMBaseModel):
+    """
+    GetOrderInfoResource
+    """
+    order_identifier: StrictInt
+    order_reference: StrictStr | None = None
+    created_on: datetime
+    order_date: datetime | None = None
+    printed_on: datetime | None = None
+    manifested_on: datetime | None = None
+    shipped_on: datetime | None = None
+    tracking_number: StrictStr | None = None
 
 
 class DeletedOrderInfo(RMBaseModel):
