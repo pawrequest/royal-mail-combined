@@ -4,22 +4,25 @@ from pathlib import Path
 
 import pytest
 
-from royal_mail_combined.address.address import (
+from royal_mail_combined.models.address import (
     AddressFindDPSRequest,
     AddressFindDPSResponse,
     AddressRecord,
     AddressSummary,
 )
-from royal_mail_combined.collection_order.collection_order import (
+from royal_mail_combined.models.responses import GetOrdersResponse
+from royal_mail_combined.models.returns import ReturnsResponse
+from royal_mail_combined.models.collections import (
     AddressNonMandatoryDef,
     Collection,
     CollectionItemType,
     DimensionsPostDef,
+    GetAvailableSlotsResponse,
     ItemsPostDef,
+    SlotDateDef,
 )
-from royal_mail_combined.collection_order.collection_order_handler import GetAvailableSlotsResponse, SlotDateDef
 
-STORE_RESULTS = True
+STORE_RESULTS = False
 
 
 def dump_result(result: dict | list[dict], results_file):
@@ -28,10 +31,10 @@ def dump_result(result: dict | list[dict], results_file):
     results_file.write_text(results_json)
 
 
-@pytest.mark.skip(reason='Use Cached result')
-def test_address_search(sample_address_client, sample_address):
+# @pytest.mark.skip(reason='Use Cached result')
+def test_address_search(sample_client, sample_address):
     search_str = sample_address.addressLine1 + ', ' + sample_address.postcode
-    resp = sample_address_client.search(search_str)
+    resp = sample_client.address_search(search_str)
     if STORE_RESULTS:
         result = [_.model_dump(mode='json') for _ in resp]
         results_file = Path('data/address_search_results.json')
@@ -39,12 +42,13 @@ def test_address_search(sample_address_client, sample_address):
 
     assert isinstance(resp, list)
     assert isinstance(resp[0], AddressSummary)
+    ...
 
 
-@pytest.mark.skip(reason='Use Cached')
-def test_address_search_dps(sample_address_client, sample_address):
+# @pytest.mark.skip(reason='Use Cached')
+def test_address_search_dps(sample_client, sample_address):
     addresses_payload = AddressFindDPSRequest(addresses=[sample_address])
-    resp = sample_address_client.search_dps(addresses_payload)
+    resp = sample_client.address_search_dps(addresses_payload)
     if STORE_RESULTS:
         result = [_.model_dump(mode='json') for _ in resp]
         results_file = Path('data/address_search_dps_results.json')
@@ -54,7 +58,7 @@ def test_address_search_dps(sample_address_client, sample_address):
     assert isinstance(resp[0], AddressFindDPSResponse)
 
 
-@pytest.mark.skip(reason='Use Cached result')
+# @pytest.mark.skip(reason='Use Cached result')
 def test_address_get(sample_address_client, sample_address_id):
     resp = sample_address_client.get(sample_address_id)
     if STORE_RESULTS:
@@ -64,7 +68,7 @@ def test_address_get(sample_address_client, sample_address_id):
     assert isinstance(resp, AddressRecord)
 
 
-@pytest.mark.skip(reason='Use Cached result')
+# @pytest.mark.skip(reason='Use Cached result')
 def test_handler_get_slots(sample_order_handler_client, sample_dps_results):
     dps = sample_dps_results.dps
     postcode = sample_dps_results.input.postcode.replace(' ', '')
@@ -97,23 +101,23 @@ def test_my_slot(sample_slots_response):
 
 
 def test_inbound_booking_story(
-    sample_address,
-    sample_address_client,
-    sample_order_handler_client,
-    sample_order_client,
-    sample_sender,
-    sample_account_details,
+        sample_address,
+        sample_client,
+        sample_sender,
+        sample_account_details,
 ):
     # get DPS
     dps_request = AddressFindDPSRequest(addresses=[sample_address])
-    dps_responses = sample_address_client.search_dps(dps_request)
+    dps_responses = sample_client.address_search_dps(dps_request)
     dps_response = dps_responses[0]
 
     # get collection slot
     item_count = 1
-    send_date = date.today() + timedelta(days=1)
-    slots_response = sample_order_handler_client.get_slots(dps_response.dps_postcode, item_count)
+    send_date = date.today() + timedelta(days=2)
+    slots_response = sample_client.collection_slots_fetch(dps_response.dps_postcode, item_count)
     my_slot = slots_response.match_date(send_date)
+    if my_slot is None:
+        raise Exception('No slot found for date')
     token = slots_response.task_slots.slot_details.token_id
     ...
     dims = DimensionsPostDef(height=30, width=30, depth=30)
@@ -134,18 +138,23 @@ def test_inbound_booking_story(
         items=[item],
     )
 
-    order_resp = sample_order_client.create_order(collection_payload)
+    order_resp = sample_client.collection_create(collection_payload)
     ...
 
 
-def test_returns(sample_return_request, sample_return_client):
-    resp = sample_return_client.create_return(sample_return_request)
+# def test_returns(sample_return_request, sample_return_client):
+#     resp = sample_return_client.order_create_return(sample_return_request)
+#     assert isinstance(resp, ReturnsResponse)
+#     ...
+
+
+def test_returns(sample_return_request, sample_client):
+    resp = sample_client.order_create_return(sample_return_request)
+    assert isinstance(resp, ReturnsResponse)
     ...
 
 
-def test_returns_json(sample_return_request_json_example, sample_return_client):
-    resp = sample_return_client.create_return(sample_return_request_json_example)
+def test_fetch_orders(sample_client):
+    res = sample_client.orders_fetch()
+    assert isinstance(res, GetOrdersResponse)
     ...
-
-
-

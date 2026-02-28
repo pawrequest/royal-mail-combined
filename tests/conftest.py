@@ -1,24 +1,18 @@
 import json
+from pprint import pprint
+from typing import Any, Generator
 
 import pytest
 
-from royal_mail_combined.click_and_drop.services import RoyalMailServiceCode, RoyalMailServiceCodeClickDrop
-from royal_mail_combined.clients.address_client import AddressClient
-from royal_mail_combined.clients.collection_order_client import CollectionOrderClient
-from royal_mail_combined.clients.collection_order_handler_client import CollectionOrderHandlerClient
-from royal_mail_combined.clients.returns_client import (
-    Address,
-    CustomerReference,
-    ReturnsClient,
-    ReturnsRequest,
-    Service,
-    Shipment,
+from royal_mail_combined.client import RoyalMailClient
+from royal_mail_combined.models.responses import GetOrdersResponse
+from royal_mail_combined.models.services import (
+    RoyalMailServices26,
 )
-from royal_mail_combined.delivery_office_finder.delivery_office_finder_client import DeliveryOfficeClient
+from royal_mail_combined.models.returns import Address, CustomerReference, ReturnsRequest, Service, Shipment
 from royal_mail_combined.config import RMSettings
-from royal_mail_combined.address.address import AddressDef, AddressFindDPSResponse
-from royal_mail_combined.collection_order.collection_order import AccountDetailsDef, ItemsPostDef, SenderDetailsPostDef
-from royal_mail_combined.collection_order.collection_order_handler import GetAvailableSlotsResponse
+from royal_mail_combined.models.address import AddressDef, AddressFindDPSResponse
+from royal_mail_combined.models.collections import AccountDetailsDef, GetAvailableSlotsResponse, SenderDetailsPostDef
 
 
 @pytest.fixture(scope='session')
@@ -27,23 +21,21 @@ def sample_settings() -> RMSettings:
 
 
 @pytest.fixture(scope='session')
-def sample_address_client(sample_settings: RMSettings) -> AddressClient:
-    return AddressClient(settings=sample_settings)
+def sample_client(sample_settings) -> Generator[RoyalMailClient, Any, None]:
+    """Test client - automatically removes orders created during testing on completion"""
+    client = RoyalMailClient(sample_settings)
+    orders_before: GetOrdersResponse = client.orders_fetch()
+    pprint(orders_before.model_dump())
 
+    yield client
 
-@pytest.fixture(scope='session')
-def sample_order_handler_client(sample_settings: RMSettings) -> CollectionOrderHandlerClient:
-    return CollectionOrderHandlerClient(settings=sample_settings)
-
-
-@pytest.fixture(scope='session')
-def sample_order_client(sample_settings: RMSettings) -> CollectionOrderClient:
-    return CollectionOrderClient(settings=sample_settings)
-
-
-@pytest.fixture(scope='session')
-def sample_del_office_client(sample_settings: RMSettings) -> DeliveryOfficeClient:
-    return DeliveryOfficeClient(settings=sample_settings)
+    print('Deleting Test Orders')
+    orders_after: GetOrdersResponse = client.orders_fetch()
+    for o in orders_after.orders:
+        if o not in orders_before.orders:
+            res = client.order_cancel(order_ident=o.order_identifier)
+            assert o.order_identifier in res.idents, 'WARNING, FAILED TO DELETE TEST ORDERS!!'
+            print('Deleted Test Orders')
 
 
 @pytest.fixture(scope='session')
@@ -72,11 +64,6 @@ def sample_sender():
     return SenderDetailsPostDef(sender_name='Test Sender', sender_email='TestSender@Email.com')
 
 
-# @pytest.fixture(scope='session')
-# def sample_items():
-#     item = ItemsPostDef()
-
-
 @pytest.fixture(scope='session')
 def sample_account_details(sample_settings):
     return AccountDetailsDef(retailer_account_number=sample_settings.account_number)
@@ -100,11 +87,6 @@ def sample_dps_results() -> AddressFindDPSResponse:
         res = f.read()
         res = json.loads(res)
     return AddressFindDPSResponse.model_validate(res[0])
-
-
-@pytest.fixture(scope='session')
-def sample_return_client(sample_settings: RMSettings) -> ReturnsClient:
-    return ReturnsClient(settings=sample_settings)
 
 
 @pytest.fixture(scope='session')
@@ -138,7 +120,7 @@ def sample_return_request(sample_address, sample_sender, sample_return_address):
         country_iso_code='GBR',
     )
     cust_ref = CustomerReference(reference='RETURN123456')
-    service = Service(service_code=RoyalMailServiceCodeClickDrop.EXPRESS_24_RETURN)
+    service = Service(service_code=RoyalMailServices26.TRACKED_24_RTN)
     shipment = Shipment(
         shipping_address=ship_add,
         return_address=return_add,

@@ -1,12 +1,11 @@
 from royal_mail_combined import RMBaseModel
-from royal_mail_combined.click_and_drop.services import RoyalMailServiceCodeClickDrop
-from royal_mail_combined.clients._base_client import _RMBaseClient
+from royal_mail_combined.models.services import RoyalMailServices26
 
 RETURNS_ENDPOINT = r'https://api.parcel.royalmail.com/api/v1/returns'
 
 
 class Service(RMBaseModel):
-    service_code: RoyalMailServiceCodeClickDrop
+    service_code: RoyalMailServices26
 
 
 class CustomerReference(RMBaseModel):
@@ -39,7 +38,12 @@ class ReturnsRequest(RMBaseModel):
     shipment: Shipment
 
 
-class ReturnsClient(_RMBaseClient):
-    def create_return(self, return_request: ReturnsRequest | dict):
-        resp = self._do_post(url=RETURNS_ENDPOINT, data=return_request, headers=self.settings.headers_bearer())
-        ...
+class ReturnsResponseShipment(RMBaseModel):
+    tracking_number: str
+    unique_item_id: str
+
+
+class ReturnsResponse(RMBaseModel):
+    label: str
+    qrCode: str
+    shipment: ReturnsResponseShipment

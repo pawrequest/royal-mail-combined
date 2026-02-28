@@ -10,11 +10,9 @@ requires-python = ">=3.13"
 dependencies = [
     "httpx>=0.28.1",
     "python-dotenv>=1.2.1",
-    "royal-mail-address",
-    "royal-mail-click-and-drop",
-    "royal-mail-collection-order-handler",
-    "royal-mail-delivery-office-finder",
-    "royal-mail-order",
+    "pydantic>=2.12.5",
+    "loguru>=0.7.3",
+    "pydantic-settings>=2.13.1",
 ]
 [dependency-groups]
 dev = [

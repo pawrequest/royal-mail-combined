@@ -2,11 +2,11 @@ from datetime import datetime
 from enum import StrEnum
 from typing import Annotated
 
-from pydantic import Field, StrictBool, StrictFloat, StrictInt, StrictStr, StringConstraints, confloat, conint
+from pydantic import StringConstraints, Field, StrictInt, conint, confloat, StrictStr, StrictBool, StrictFloat
 
 from royal_mail_combined import RMBaseModel
-from royal_mail_combined.click_and_drop.consts import SendNotifcationsTo
-from royal_mail_combined.click_and_drop.services import RoyalMailServiceCode
+from royal_mail_combined.models.consts import SendNotifcationsTo
+from royal_mail_combined.models.services import RoyalMailServices26
 
 
 def str_length_constrained(length: int):
@@ -138,7 +138,7 @@ class PostageDetailsRequest(RMBaseModel):
     PostageDetailsRequest
     """
 
-    service_code: RoyalMailServiceCode | None = None
+    service_code: RoyalMailServices26 | None = None
     send_notifications_to: SendNotifcationsTo | None = None
 
     carrier_name: Annotated[str, Field(strict=True, max_length=50)] | None = None

@@ -1,5 +1,4 @@
 from typing import Annotated
-from xml.sax.handler import property_dom_node
 
 from pydantic import Field, StringConstraints, WithJsonSchema
 

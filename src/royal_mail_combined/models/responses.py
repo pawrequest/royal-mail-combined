@@ -1,9 +1,11 @@
 from datetime import datetime
+from typing import ClassVar
 
 from pydantic import Field, StrictInt, StrictStr
 
 from royal_mail_combined import RMBaseModel
-from royal_mail_combined.click_and_drop.models import CreateOrderRequest
+from royal_mail_combined.models.click_and_drop import CreateOrderRequest
+from royal_mail_combined.models.orders import GetOrderInfoResource
 
 
 class CreateOrderLabelErrorResponse(RMBaseModel):
@@ -57,3 +59,16 @@ class CreateOrdersResponse(RMBaseModel):
     @property
     def created_orders_idents_str(self) -> str:
         return ','.join(str(_) for _ in self.created_orders_idents)
+
+
+class GetOrdersResponse(RMBaseModel):
+    """
+    GetOrdersResponse
+    """
+
+    orders: list[GetOrderInfoResource] | None = None
+    continuation_token: StrictStr | None = None
+
+    @property
+    def order_ident_string(self):
+        return ';'.join(str(_.order_identifier) for _ in self.orders)
