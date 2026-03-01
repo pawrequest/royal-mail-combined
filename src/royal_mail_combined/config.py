@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 from functools import lru_cache
 from pathlib import Path
-from typing import Literal, Self
+from typing import Self
 
 from loguru import logger
 from pydantic import SecretStr, field_serializer
@@ -35,11 +35,14 @@ def base_headers() -> dict:
     }
 
 
-class RMSettings(BaseSettings):
+class RoyalMailSettingsGlobal(BaseSettings):
     client_id: SecretStr  # most RM APIs can use client-id/secret auth OR bearer
     client_secret: SecretStr
-    api_key: SecretStr  # but 'click and drop' uses bearer only
+    api_key: SecretStr  # but 'click and drop' uses bearer only so need to support both
     account_number: str
+
+    _cad_config = None
+    _address_config = None
 
     @field_serializer('client_id', 'client_secret', 'api_key', when_used='json')
     def dump_secret(self, v):
@@ -66,3 +69,11 @@ class RMSettings(BaseSettings):
         heads = {'Authorization': f'Bearer {self.api_key.get_secret_value()}'}
         heads.update(base_headers())
         return heads
+
+
+    def creds_dict(self):
+        return {
+            'Bearer': self.api_key.get_secret_value(),
+            'Client-Id': self.client_id.get_secret_value(),
+            'Client-Secret': self.client_secret.get_secret_value()
+        }

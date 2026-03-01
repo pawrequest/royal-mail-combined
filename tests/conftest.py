@@ -4,36 +4,39 @@ from typing import Any, Generator
 
 import pytest
 
-from royal_mail_combined.client import RoyalMailClient
-from royal_mail_combined.models.responses import GetOrdersResponse
-from royal_mail_combined.models.services import (
-    RoyalMailServices26,
+from royal_mail_combined.added_models.services import RoyalMailServiceCodes
+from royal_mail_combined.apis.click_and_drop.models import GetOrdersResponse
+from royal_mail_combined.apis.parcels_apis.address.models import AddressVerifyDef
+from royal_mail_combined.apis.parcels_apis.collection_handler.models import GetAvailableSlotsResponse
+from royal_mail_combined.apis.parcels_apis.address.added_models import AddressFindDPSResponse
+from royal_mail_combined.apis.parcels_apis.collection_order.models import AddressDef, SenderDetailsPostDef, AccountDetailsDef
+from royal_mail_combined.apis.returns.models import (
+    ReturnsRequest,
+    Service, Address, CustomerReference, Shipment,
 )
-from royal_mail_combined.models.returns import Address, CustomerReference, ReturnsRequest, Service, Shipment
-from royal_mail_combined.config import RMSettings
-from royal_mail_combined.models.address import AddressDef, AddressFindDPSResponse
-from royal_mail_combined.models.collections import AccountDetailsDef, GetAvailableSlotsResponse, SenderDetailsPostDef
+from royal_mail_combined.client_multi import RoyalMailClient
+from royal_mail_combined.config import RoyalMailSettingsGlobal
 
 
 @pytest.fixture(scope='session')
-def sample_settings() -> RMSettings:
-    return RMSettings.from_env()
+def sample_settings() -> RoyalMailSettingsGlobal:
+    return RoyalMailSettingsGlobal.from_env()
 
 
 @pytest.fixture(scope='session')
 def sample_client(sample_settings) -> Generator[RoyalMailClient, Any, None]:
     """Test client - automatically removes orders created during testing on completion"""
     client = RoyalMailClient(sample_settings)
-    orders_before: GetOrdersResponse = client.orders_fetch()
+    orders_before: GetOrdersResponse = client.click_and_drop.fetch_orders()
     pprint(orders_before.model_dump())
 
     yield client
 
     print('Deleting Test Orders')
-    orders_after: GetOrdersResponse = client.orders_fetch()
+    orders_after: GetOrdersResponse = client.click_and_drop.fetch_orders()
     for o in orders_after.orders:
         if o not in orders_before.orders:
-            res = client.order_cancel(order_ident=o.order_identifier)
+            res = client.click_and_drop.delete_orders(order_identifiers=o.order_identifier)
             assert o.order_identifier in res.idents, 'WARNING, FAILED TO DELETE TEST ORDERS!!'
             print('Deleted Test Orders')
 
@@ -44,7 +47,18 @@ def sample_address() -> AddressDef:
         addressLine1='Flat 43, Berberis House',
         addressLine2='Highfield Road',
         postTown='Feltham',
-        County='Middlesex',
+        County='Middlesex', #  mixed pascal and camel in rm api.
+        postcode='TW13 4GP',
+    )
+
+
+@pytest.fixture(scope='session')
+def sample_address_verify() -> AddressVerifyDef:
+    return AddressVerifyDef(
+        addressLine1='Flat 43, Berberis House',
+        addressLine2='Highfield Road',
+        postTown='Feltham',
+        County='Middlesex', #  mixed pascal and camel in rm api.
         postcode='TW13 4GP',
     )
 
@@ -96,10 +110,10 @@ def sample_return_request(sample_address, sample_sender, sample_return_address):
         first_name='ShipFirst',
         last_name='ShipLast',
         company_name='ShipCompany',
-        address_line_1=sample_address.addressLine1,
-        address_line_2=sample_address.addressLine2,
-        address_line_3=sample_address.addressLine3,
-        city=sample_address.postTown,
+        address_line_1=sample_address.address_line1,
+        address_line_2=sample_address.address_line2,
+        address_line_3=sample_address.address_line3,
+        city=sample_address.post_town,
         county=sample_address.county,
         postcode=sample_address.postcode,
         country='United Kingdom',
@@ -110,17 +124,17 @@ def sample_return_request(sample_address, sample_sender, sample_return_address):
         first_name='ReturnFirst',
         last_name='ReturnLast',
         company_name='ReturnCompany',
-        address_line_1=sample_return_address.addressLine1,
-        address_line_2=sample_return_address.addressLine2,
-        address_line_3=sample_return_address.addressLine3,
-        city=sample_return_address.postTown,
+        address_line_1=sample_return_address.address_line1,
+        address_line_2=sample_return_address.address_line2,
+        address_line_3=sample_return_address.address_line3,
+        city=sample_return_address.post_town,
         county=sample_return_address.county,
         postcode=sample_return_address.postcode,
         country='United Kingdom',
         country_iso_code='GBR',
     )
     cust_ref = CustomerReference(reference='RETURN123456')
-    service = Service(service_code=RoyalMailServices26.TRACKED_24_RTN)
+    service = Service(service_code=RoyalMailServiceCodes.TRACKED_24_RTN)
     shipment = Shipment(
         shipping_address=ship_add,
         return_address=return_add,

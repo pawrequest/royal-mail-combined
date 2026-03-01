@@ -13,6 +13,13 @@ dependencies = [
     "pydantic>=2.12.5",
     "loguru>=0.7.3",
     "pydantic-settings>=2.13.1",
+    #    "royal-mail-address",
+    #    "royal-mail-click-and-drop",
+    #    "royal-mail-collection-order-handler",
+    #    "royal-mail-delivery-office-finder",
+    #    "royal-mail-order",
+    "python-dateutil>=2.9.0.post0",
+    "urllib3>=2.6.3",
 ]
 [dependency-groups]
 dev = [
@@ -24,10 +31,10 @@ dev = [
 requires = ["uv_build>=0.8.22,<0.9.0"]
 build-backend = "uv_build"
 
-[tool.uv.sources]
-royal-mail-address = { path = "../royal-mail-address", editable = true }
-royal-mail-click-and-drop = { path = "../royal-mail-click-and-drop", editable = true }
-royal-mail-collection-order-handler = { path = "../royal-mail-collection-order-handler ", editable = true }
-royal-mail-delivery-office-finder = { path = "../royal-mail-delivery-office-finder", editable = true }
-royal-mail-order = { path = "../royal-mail-order", editable = true }
+#[tool.uv.sources]
+#royal-mail-address = { path = "../royal-mail-address", editable = true }
+#royal-mail-click-and-drop = { path = "../royal-mail-click-and-drop", editable = true }
+#royal-mail-collection-order-handler = { path = "../royal-mail-collection-order-handler ", editable = true }
+#royal-mail-delivery-office-finder = { path = "../royal-mail-delivery-office-finder", editable = true }
+#royal-mail-order = { path = "../royal-mail-order", editable = true }
 
