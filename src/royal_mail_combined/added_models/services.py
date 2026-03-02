@@ -5,6 +5,7 @@ class RoyalMailServiceCodes(StrEnum):
     TRACKED_24 = 'TPN24'  # no signature.
     TRACKED_24_RTN = 'TSN'  # no signature.
     EXPRESS_24 = 'NDA'
+    EXPRESS_24_RTN = 'RT0'
 
 
 # class RoyalMailServiceCodeClickDrop(StrEnum):

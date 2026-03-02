@@ -31,15 +31,17 @@ class ItemsPostDef(BaseModel):
     items detail definition
     """ # noqa: E501
     item_barcode_id: Annotated[str, Field(min_length=1, strict=True, max_length=21)] = Field(description="Item BarCode Id", alias="itemBarcodeId")
-    item_reference: Optional[Annotated[str, Field(strict=True, max_length=40)]] = Field(default=None, description="Additional reference number for the item if any", alias="itemReference")
     weight_in_grams: Annotated[int, Field(strict=True, ge=0)] = Field(description="Item weight in grams", alias="weightInGrams")
     item_service_name: Annotated[str, Field(min_length=1, strict=True, max_length=50)] = Field(description="Item Service Name", alias="itemServiceName")
-    item_status: Optional[StrictStr] = Field(default=None, alias="itemStatus")
     dimensions: DimensionsPostDef
+
+    item_reference: Optional[Annotated[str, Field(strict=True, max_length=40)]] = Field(default=None, description="Additional reference number for the item if any", alias="itemReference")
+    item_status: Optional[StrictStr] = Field(default=None, alias="itemStatus")
     item_price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Price paid for the doorstep collection for the item", alias="itemPrice")
     item_type: Optional[CollectionItemType] = Field(default=None, alias="itemType")
     item_product_code: Optional[Annotated[str, Field(strict=True, max_length=5)]] = Field(default=None, alias="itemProductCode")
     label_info: Optional[LabelInfo] = Field(default=None, alias="labelInfo")
+
     __properties: ClassVar[List[str]] = ["itemBarcodeId", "itemReference", "weightInGrams", "itemServiceName", "itemStatus", "dimensions", "itemPrice", "itemType", "itemProductCode", "labelInfo"]
 
     @field_validator('item_status')
@@ -48,7 +50,7 @@ class ItemsPostDef(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['AwaitingCollection', 'Collected', 'NotCollected', 'Processing', 'Attempted']):
+        if value not in {'AwaitingCollection', 'Collected', 'NotCollected', 'Processing', 'Attempted'}:
             raise ValueError("must be one of enum values ('AwaitingCollection', 'Collected', 'NotCollected', 'Processing', 'Attempted')")
         return value
 

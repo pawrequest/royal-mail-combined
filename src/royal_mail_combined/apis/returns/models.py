@@ -2,7 +2,6 @@ from royal_mail_combined import RMBaseModel
 from royal_mail_combined.added_models.services import RoyalMailServiceCodes
 
 
-
 class Service(RMBaseModel):
     service_code: RoyalMailServiceCodes
 
@@ -16,9 +15,9 @@ class Address(RMBaseModel):
     first_name: str
     last_name: str
     company_name: str | None
-    address_line_1: str
-    address_line_2: str | None
-    address_line_3: str | None
+    address_line1: str
+    address_line2: str | None
+    address_line3: str | None
     city: str
     county: str | None
     postcode: str
@@ -46,3 +45,20 @@ class ReturnsResponse(RMBaseModel):
     label: str
     qrCode: str
     shipment: ReturnsResponseShipment
+
+
+class AvailableReturnService(RMBaseModel):
+    carrier_guid: str
+    carrier_service_guid: str
+    service_name: str
+    service_code: str
+
+
+class AvailableServicesResponse(RMBaseModel):
+    services: list[AvailableReturnService]
+
+    def lookup_service_by_code(self, code: str) -> AvailableReturnService | None:
+        for service in self.services:
+            if service.service_code == code:
+                return service
+        return None

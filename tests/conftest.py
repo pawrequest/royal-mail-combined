@@ -1,21 +1,73 @@
 import json
+from datetime import date, datetime, timedelta
+from pathlib import Path
 from pprint import pprint
 from typing import Any, Generator
 
 import pytest
+from pydantic import BaseModel
 
 from royal_mail_combined.added_models.services import RoyalMailServiceCodes
-from royal_mail_combined.apis.click_and_drop.models import GetOrdersResponse
+from royal_mail_combined.apis.click_and_drop.models import (
+    AddressRequest,
+    BillingDetailsRequest,
+    CreateOrderRequest,
+    GetOrdersResponse,
+    PostageDetailsRequest,
+    RecipientDetailsRequest,
+    ShipmentPackageRequest,
+)
 from royal_mail_combined.apis.parcels_apis.address.models import AddressVerifyDef
 from royal_mail_combined.apis.parcels_apis.collection_handler.models import GetAvailableSlotsResponse
 from royal_mail_combined.apis.parcels_apis.address.added_models import AddressFindDPSResponse
-from royal_mail_combined.apis.parcels_apis.collection_order.models import AddressDef, SenderDetailsPostDef, AccountDetailsDef
+from royal_mail_combined.apis.parcels_apis.collection_order.models import (
+    AccountDetailsDef,
+    AddressDef,
+    SenderDetailsPostDef,
+)
 from royal_mail_combined.apis.returns.models import (
+    Address,
+    AvailableServicesResponse,
+    CustomerReference,
     ReturnsRequest,
-    Service, Address, CustomerReference, Shipment,
+    ReturnsResponse,
+    Service,
+    Shipment,
 )
 from royal_mail_combined.client_multi import RoyalMailClient
 from royal_mail_combined.config import RoyalMailSettingsGlobal
+from royal_mail_combined.core.consts_types import PackageFormat, SendNotifcationsTo
+
+REFERENCE = 'RETURN123456'
+
+STORE_RESULTS = True
+
+TEST_DATE = date.today() + timedelta(days=2)
+if TEST_DATE.weekday() in (5, 6):
+    TEST_DATE += timedelta(days=7 - TEST_DATE.weekday())
+# TEST_DATE = datetime.combine(TEST_DATE, datetime.min.time())
+
+
+def dump_result(result: dict | list[dict], results_file):
+    results_file.parent.mkdir(parents=True, exist_ok=True)
+    results_json = json.dumps(result)
+    results_file.write_text(results_json)
+
+
+def dump_result_model(result: BaseModel | list[BaseModel]):
+    if isinstance(result, list):
+        resmodel = result[0]
+        result_d = [_.model_dump(mode='json', by_alias=True, exclude_none=True) for _ in result]
+    elif isinstance(result, BaseModel):
+        resmodel = result
+        result_d = result.model_dump(mode='json', by_alias=True, exclude_none=True)
+    else:
+        raise ValueError('result must be BaseModel or list of BaseModel')
+
+    results_name = Path(f'dumped/{resmodel.__class__.__name__}.json')
+    results_name.parent.mkdir(parents=True, exist_ok=True)
+    results_json = json.dumps(result_d)
+    results_name.write_text(results_json)
 
 
 @pytest.fixture(scope='session')
@@ -32,39 +84,33 @@ def sample_client(sample_settings) -> Generator[RoyalMailClient, Any, None]:
 
     yield client
 
-    print('Deleting Test Orders')
     orders_after: GetOrdersResponse = client.click_and_drop.fetch_orders()
     for o in orders_after.orders:
         if o not in orders_before.orders:
-            res = client.click_and_drop.delete_orders(order_identifiers=o.order_identifier)
+            print('Deleting Test Order')
+            res = client.click_and_drop.delete_orders(order_identifiers=str(o.order_identifier))
             assert o.order_identifier in res.idents, 'WARNING, FAILED TO DELETE TEST ORDERS!!'
             print('Deleted Test Orders')
 
 
 @pytest.fixture(scope='session')
-def sample_address() -> AddressDef:
+def cached_address() -> AddressDef:
     return AddressDef(
         addressLine1='Flat 43, Berberis House',
         addressLine2='Highfield Road',
         postTown='Feltham',
-        County='Middlesex', #  mixed pascal and camel in rm api.
+        County='Middlesex',  # mixed pascal and camel in rm api.
         postcode='TW13 4GP',
     )
 
 
 @pytest.fixture(scope='session')
-def sample_address_verify() -> AddressVerifyDef:
-    return AddressVerifyDef(
-        addressLine1='Flat 43, Berberis House',
-        addressLine2='Highfield Road',
-        postTown='Feltham',
-        County='Middlesex', #  mixed pascal and camel in rm api.
-        postcode='TW13 4GP',
-    )
+def cached_address_verify(cached_address) -> AddressVerifyDef:
+    return AddressVerifyDef.model_validate(cached_address, from_attributes=True)
 
 
 @pytest.fixture(scope='session')
-def sample_return_address():
+def cached_return_address():
     return AddressDef(
         addressLine1='70 Kingsgate Road',
         postTown='Kilburn',
@@ -74,29 +120,29 @@ def sample_return_address():
 
 
 @pytest.fixture(scope='session')
-def sample_sender():
+def cached_sender():
     return SenderDetailsPostDef(sender_name='Test Sender', sender_email='TestSender@Email.com')
 
 
 @pytest.fixture(scope='session')
-def sample_account_details(sample_settings):
+def cached_account_details(sample_settings):
     return AccountDetailsDef(retailer_account_number=sample_settings.account_number)
 
 
 @pytest.fixture(scope='session')
-def sample_slots_response():
+def cached_slots_response():
     with open(r'data\collection_order_handler_get_slots.json', 'r') as f:
         res = f.read()
     return GetAvailableSlotsResponse.model_validate_json(res)
 
 
 @pytest.fixture(scope='session')
-def sample_address_id():
+def cached_address_id():
     return '068077252071149193225174041225027138078204116070010065014066078136091212102005045066044184012023'
 
 
 @pytest.fixture(scope='session')
-def sample_dps_results() -> AddressFindDPSResponse:
+def cached_dps_results() -> AddressFindDPSResponse:
     with open(r'data\address_search_dps_results.json', 'r') as f:
         res = f.read()
         res = json.loads(res)
@@ -104,18 +150,18 @@ def sample_dps_results() -> AddressFindDPSResponse:
 
 
 @pytest.fixture(scope='session')
-def sample_return_request(sample_address, sample_sender, sample_return_address):
+def cached_return_request(cached_address, cached_sender, cached_return_address):
     ship_add = Address(
         title='Mr',
         first_name='ShipFirst',
         last_name='ShipLast',
         company_name='ShipCompany',
-        address_line_1=sample_address.address_line1,
-        address_line_2=sample_address.address_line2,
-        address_line_3=sample_address.address_line3,
-        city=sample_address.post_town,
-        county=sample_address.county,
-        postcode=sample_address.postcode,
+        address_line1=cached_address.address_line1,
+        address_line2=cached_address.address_line2,
+        address_line3=cached_address.address_line3,
+        city=cached_address.post_town,
+        county=cached_address.county,
+        postcode=cached_address.postcode,
         country='United Kingdom',
         country_iso_code='GBR',
     )
@@ -124,16 +170,16 @@ def sample_return_request(sample_address, sample_sender, sample_return_address):
         first_name='ReturnFirst',
         last_name='ReturnLast',
         company_name='ReturnCompany',
-        address_line_1=sample_return_address.address_line1,
-        address_line_2=sample_return_address.address_line2,
-        address_line_3=sample_return_address.address_line3,
-        city=sample_return_address.post_town,
-        county=sample_return_address.county,
-        postcode=sample_return_address.postcode,
+        address_line1=cached_return_address.address_line1,
+        address_line2=cached_return_address.address_line2,
+        address_line3=cached_return_address.address_line3,
+        city=cached_return_address.post_town,
+        county=cached_return_address.county,
+        postcode=cached_return_address.postcode,
         country='United Kingdom',
         country_iso_code='GBR',
     )
-    cust_ref = CustomerReference(reference='RETURN123456')
+    cust_ref = CustomerReference(reference=REFERENCE)
     service = Service(service_code=RoyalMailServiceCodes.TRACKED_24_RTN)
     shipment = Shipment(
         shipping_address=ship_add,
@@ -147,7 +193,22 @@ def sample_return_request(sample_address, sample_sender, sample_return_address):
 
 
 @pytest.fixture(scope='session')
-def sample_return_request_json_example():
+def cached_return_response():
+    with open('data/create_return_shipment_order_result.json', 'r') as f:
+        res = f.read()
+    return ReturnsResponse.model_validate_json(res)
+
+
+@pytest.fixture(scope='session')
+def cached_return_services() -> AvailableServicesResponse:
+    with open('data/check_return_services_result.json', 'r') as f:
+        # res_j = json.load(f)
+        res = f.read()
+    return AvailableServicesResponse.model_validate_json(res)
+
+
+@pytest.fixture(scope='session')
+def cached_return_request_json_example():
     return {
         'service': {'serviceCode': 'TSS'},
         'shipment': {
@@ -185,7 +246,7 @@ def sample_return_request_json_example():
 
 
 @pytest.fixture(scope='session')
-def sample_return_request_json():
+def cached_return_request_json():
     return {
         'service': {'serviceCode': 'RT0'},
         'shipment': {
@@ -220,3 +281,88 @@ def sample_return_request_json():
             'customerReference': {'reference': 'Testing Reference'},
         },
     }
+
+
+@pytest.fixture(scope='session')
+def cached_address_request_recip():
+    return AddressRequest(
+        full_name='Testy Testson Recipient',
+        company_name='Recip Comp name',
+        address_line1='addr line1',
+        address_line2='',
+        address_line3='',
+        city='city',
+        county='county',
+        postcode='da163hu',
+        country_code='GB',
+    )
+
+
+@pytest.fixture(scope='session')
+def cached_address_req_sender():
+    return AddressRequest(
+        full_name='MY SENDER NAME',
+        company_name='MY COMPANY NAME',
+        address_line1='MY FIRSTLINE',
+        address_line2='',
+        address_line3='',
+        city='MY CITY',
+        county='COUNTY',
+        postcode='me88sp',
+        country_code='GB',
+    )
+
+
+@pytest.fixture(scope='session')
+def cached_recip_details(cached_address_request_recip):
+    return RecipientDetailsRequest(
+        address=cached_address_request_recip,
+        phone_number='07666666666',
+        email_address='recipient@sdgikhjbsdgijbsdigj.com',
+    )
+
+
+@pytest.fixture(scope='session')
+def cached_billing(cached_address_req_sender):
+    return BillingDetailsRequest(
+        address=cached_address_req_sender,
+        phone_number='07888888888',
+        email_address='billme@sikdjfsdjbfgjksbdgf.com',
+    )
+
+
+@pytest.fixture(scope='session')
+def cached_packages():
+    return [
+        ShipmentPackageRequest(
+            weight_in_grams=10000,
+            package_format_identifier=PackageFormat.PARCEL,
+        )
+        for _ in range(2)
+    ]
+
+
+@pytest.fixture(scope='session')
+def cached_postage_details() -> PostageDetailsRequest:
+    return PostageDetailsRequest(
+        send_notifications_to=SendNotifcationsTo.RECIPIENT,
+        service_code=RoyalMailServiceCodes.EXPRESS_24,
+        receive_email_notification=True,
+        receive_sms_notification=True,
+        # is_local_collect=True,
+    )
+
+
+@pytest.fixture(scope='session')
+def cached_order(cached_recip_details, cached_packages, cached_billing, cached_postage_details) -> CreateOrderRequest:
+    return CreateOrderRequest(
+        recipient=cached_recip_details.model_dump(),
+        order_date=datetime.now(),
+        subtotal=0,
+        shipping_cost_charged=0,
+        total=0,
+        packages=cached_packages,
+        billing=cached_billing,  # should be unnecessary with webportal settings
+        postage_details=cached_postage_details,
+        planned_despatch_date=TEST_DATE,
+    )

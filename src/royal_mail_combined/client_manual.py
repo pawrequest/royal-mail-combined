@@ -19,8 +19,8 @@ from royal_mail_combined.apis.returns.models import ReturnsRequest, ReturnsRespo
 from royal_mail_combined.core.endpoints import (
     ADDRESS_BASE,
     CAD_ORDERS,
-    COLLECTION_HANDLER_BASE,
-    COLLECTION_ORDER,
+    COLLECTION_HANDLER_NET,
+    CAD_COLLECTION_ORDER,
     COLLECTION_ORDER_CREATE,
     DELIVERY_OFFICE_BASE,
     RETURNS_ENDPOINT,
@@ -105,13 +105,13 @@ class RoyalMailClient(RMBaseClient):
         return res_model
 
     def collection_get(self, collection_id: str):
-        url = COLLECTION_ORDER + f'/{collection_id}'
+        url = CAD_COLLECTION_ORDER + f'/{collection_id}'
         res = self.do_get(url=url)
         res = res.json()
         return res
 
     def collection_cancel(self, collection_id: str):
-        url = COLLECTION_ORDER + f'/{collection_id}'
+        url = CAD_COLLECTION_ORDER + f'/{collection_id}'
         params = {'status': 'Cancelled'}
         res = self.do_put(url=url, data=params)
         res = res.json()
@@ -119,7 +119,7 @@ class RoyalMailClient(RMBaseClient):
 
     def collection_slots_fetch(self, dps: str, item_count: int | str) -> GetAvailableSlotsResponse:
         params = {'dps': dps, 'itemCount': item_count}
-        res = self.do_get(url=COLLECTION_HANDLER_BASE + r'/slots', params=params)
+        res = self.do_get(url=COLLECTION_HANDLER_NET + r'/slots', params=params)
         res_model = GetAvailableSlotsResponse.model_validate(res.json())
         return res_model
 
@@ -131,7 +131,7 @@ class RoyalMailClient(RMBaseClient):
                 "accountNumber": account_number
             }
         }
-        res = self.do_post(url=(COLLECTION_HANDLER_BASE + r'/productfamily/subscription'), data=params)
+        res = self.do_post(url=(COLLECTION_HANDLER_NET + r'/productfamily/subscription'), data=params)
         return res
 
     # DELIVERY OFFICE

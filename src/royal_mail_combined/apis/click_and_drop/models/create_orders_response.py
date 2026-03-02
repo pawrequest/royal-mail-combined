@@ -11,35 +11,36 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-
 from __future__ import annotations
+
 import pprint
 import re  # noqa: F401
 import json
+from typing import Any, ClassVar, Dict, List, Optional, Set
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
-from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Self
+
 from ..models.create_order_response import CreateOrderResponse
 from ..models.failed_order_response import FailedOrderResponse
-from typing import Set
-from typing_extensions import Self
+
 
 class CreateOrdersResponse(BaseModel):
     """
     CreateOrdersResponse
-    """ # noqa: E501
+    """  # noqa: E501
     success_count: Optional[StrictInt] = Field(default=None, alias="successCount")
     errors_count: Optional[StrictInt] = Field(default=None, alias="errorsCount")
     created_orders: Optional[List[CreateOrderResponse]] = Field(default=None, alias="createdOrders")
     failed_orders: Optional[List[FailedOrderResponse]] = Field(default=None, alias="failedOrders")
     __properties: ClassVar[List[str]] = ["successCount", "errorsCount", "createdOrders", "failedOrders"]
 
+
     model_config = ConfigDict(
         populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
-
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -65,8 +66,10 @@ class CreateOrdersResponse(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
-        excluded_fields: Set[str] = set([
-        ])
+        excluded_fields: Set[str] = set(
+            [
+            ]
+        )
 
         _dict = self.model_dump(
             by_alias=True,
@@ -98,12 +101,16 @@ class CreateOrdersResponse(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
-            "successCount": obj.get("successCount"),
-            "errorsCount": obj.get("errorsCount"),
-            "createdOrders": [CreateOrderResponse.from_dict(_item) for _item in obj["createdOrders"]] if obj.get("createdOrders") is not None else None,
-            "failedOrders": [FailedOrderResponse.from_dict(_item) for _item in obj["failedOrders"]] if obj.get("failedOrders") is not None else None
-        })
+        _obj = cls.model_validate(
+            {
+                "successCount": obj.get("successCount"),
+                "errorsCount": obj.get("errorsCount"),
+                "createdOrders": [CreateOrderResponse.from_dict(_item) for _item in obj["createdOrders"]] if obj.get(
+                    "createdOrders"
+                ) is not None else None,
+                "failedOrders": [FailedOrderResponse.from_dict(_item) for _item in obj["failedOrders"]] if obj.get(
+                    "failedOrders"
+                ) is not None else None
+            }
+        )
         return _obj
-
-

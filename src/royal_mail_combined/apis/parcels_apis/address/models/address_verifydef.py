@@ -35,6 +35,7 @@ class AddressVerifyDef(BaseModel):
     postcode: Annotated[str, Field(min_length=1, strict=True, max_length=10)]
     __properties: ClassVar[List[str]] = ["addressLine1", "addressLine2", "addressLine3", "postTown", "County", "postcode"]
 
+
     model_config = ConfigDict(
         populate_by_name=True,
         validate_assignment=True,

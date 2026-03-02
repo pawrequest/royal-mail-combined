@@ -1,11 +1,15 @@
-from pprint import pprint
+from pprint import pprint, pformat
+
+from loguru import logger
 
 from royal_mail_combined.build_client import build_client
 from royal_mail_combined.config import RoyalMailSettingsGlobal
+from royal_mail_combined.converters import add_label_gen_request
 from royal_mail_combined.core.endpoints import CAD_BASE
 from royal_mail_combined.core.exceptions import ApiException
 from royal_mail_combined.apis.click_and_drop.api import LabelsApi, ManifestsApi, OrdersApi, VersionApi
 from royal_mail_combined.apis.click_and_drop.models import (
+    CreateOrderRequest,
     CreateOrdersRequest,
     CreateOrdersResponse,
 )
@@ -39,16 +43,29 @@ class ClickAndDropClient:
         self.manifests_api = ManifestsApi(client)
         self.do_manifest = self.manifests_api.manifest_eligible_async
 
-    def book_shipment(self, orders: CreateOrdersRequest) -> CreateOrdersResponse:
+    # def book_shipment1(self, orders: CreateOrdersRequest, with_label: bool = True) -> CreateOrdersResponse:
+    #     if with_label:
+    #         add_label_gen_request(orders)
+    #     try:
+    #         response = self.orders_api.create_orders_async(create_orders_request=orders)
+    #         failed_order_errors(response)
+    #     except Exception as e:
+    #         print(f'Exception when calling OrdersApi->create_orders_async: {e}\n')
+    #         raise e
+    #     return response
+
+    def book_shipment(self, *orders: CreateOrderRequest, with_label: bool = True) -> CreateOrdersResponse:
+        orders = list(orders)
+        for order in orders:
+            if with_label:
+                add_label_gen_request(order)
         try:
-            response = self.orders_api.create_orders_async(create_orders_request=orders)
+            create_orders = CreateOrdersRequest(items=orders)
+            response = self.orders_api.create_orders_async(create_orders_request=create_orders)
+            astr = response.model_dump(exclude={'created_orders': {'__all__': {'label', 'qr_code'}}})
+            logger.info(f'Booked orders response: {pformat(astr, indent=4, width=120)}')
             failed_order_errors(response)
         except Exception as e:
             print(f'Exception when calling OrdersApi->create_orders_async: {e}\n')
             raise e
         return response
-
-    def fetch_save_label(self, order_idents: str, outpath):
-        response = self.fetch_label_data(order_idents)
-        with open(outpath, 'wb') as f:
-            f.write(response)

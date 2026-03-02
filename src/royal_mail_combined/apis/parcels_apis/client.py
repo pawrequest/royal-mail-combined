@@ -3,7 +3,13 @@ from royal_mail_combined.apis.parcels_apis.address.models import AddressFindRequ
 from royal_mail_combined.apis.parcels_apis.collection_handler.models import (ProductFamily, ProductFamilyDef)
 from royal_mail_combined.build_client import build_client
 from royal_mail_combined.config import RoyalMailSettingsGlobal
-from royal_mail_combined.core.endpoints import ADDRESS_BASE, COLLECTION_HANDLER_BASE, COLLECTION_ORDER
+from royal_mail_combined.core.endpoints import (
+    ADDRESS_BASE,
+    COLLECTION_HANDLER_NET,
+    CAD_COLLECTION_ORDER,
+    CAD_ORDERS,
+    ORDERS_NET,
+)
 
 
 class ParcelAPIClient:
@@ -15,15 +21,16 @@ class ParcelAPIClient:
         self.address_retrieve = self.address_api.address_retrieve
         self.address_verify = self.address_api.address_verify
 
-        # order_client = ApiClient(configuration=settings.api_config(COLLECTION_ORDER))
-        order_client = build_client(settings, host=COLLECTION_ORDER)
-        self.order_api = CollectionOrderApi(order_client)
-        self.collection_create = self.order_api.order_create
+        # collection_client = ApiClient(configuration=settings.api_config(COLLECTION_ORDER))
+        collection_client = build_client(settings, host=ORDERS_NET)
+        self.collection_orders_api = CollectionOrderApi(collection_client)
+        self.collection_create = self.collection_orders_api.order_create
+        self.collection_create_mandatory = self.collection_orders_api.order_create_mandatory
 
-        handler_client = build_client(settings, COLLECTION_HANDLER_BASE)
-        self.slots_api = GetAvailableSlotsApi(handler_client)
+        collection_handler_client = build_client(settings, host=COLLECTION_HANDLER_NET)
+        self.slots_api = GetAvailableSlotsApi(collection_handler_client)
         self.slots_get_available = self.slots_api.order_get_available_slots
-        self.subs_api = ProductFamilySubscriptionApi(handler_client)
+        self.subs_api = ProductFamilySubscriptionApi(collection_handler_client)
 
     def address_search(self, address_text: str):
         req = AddressFindRequestDef(address_text=address_text)
