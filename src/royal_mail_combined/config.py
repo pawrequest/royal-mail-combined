@@ -41,6 +41,8 @@ class RoyalMailSettingsGlobal(BaseSettings):
     api_key: SecretStr  # but 'click and drop' uses bearer only so need to support both
     account_number: str
 
+    data_dir: Path = Path.home() / 'royal_mail_data'
+
     _cad_config = None
     _address_config = None
 
@@ -69,7 +71,6 @@ class RoyalMailSettingsGlobal(BaseSettings):
         heads = {'Authorization': f'Bearer {self.api_key.get_secret_value()}'}
         heads.update(base_headers())
         return heads
-
 
     def creds_dict(self):
         return {
