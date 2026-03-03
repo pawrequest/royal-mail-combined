@@ -1,5 +1,6 @@
 from datetime import date
 from urllib.parse import quote
+import base64
 
 from royal_mail_combined.apis.click_and_drop.models import (
     CreateOrderRequest,
@@ -25,6 +26,21 @@ def rtn_address_to_addr_verify(address: Address) -> AddressVerifyDef:
     )
 
 
+def address_angonstic_to_verify_def(addr) -> AddressVerifyDef:
+    data = addr.model_dump()
+    if not data.get('postTown'):
+        if data.get('city'):
+            data['post_town'] = data['city']
+    return AddressVerifyDef(
+        address_line1=data.get('address_line1'),
+        address_line2=data.get('address_line2'),
+        address_line3=data.get('address_line3'),
+        post_town=data.get('post_town'),
+        county=data.get('county'),
+        postcode=data.get('postcode'),
+    )
+
+
 def dps_postcode(verify_resp: AddressVerifyReqRespdef) -> str:
     return verify_resp.input.postcode.replace(' ', '') + verify_resp.dps
 
@@ -33,7 +49,7 @@ def addr_non_mandatory_from_addr(cached_address_verify: AddressVerifyDef) -> Add
     return AddressNonMandatoryDef.model_validate(cached_address_verify, from_attributes=True)
 
 
-def addr_mandatory(addr: AddressVerifyDef, dps: str):
+def addr_mandatory_f_addr_and_dps(addr: AddressVerifyDef, dps: str):
     addr_mand = AddressMandatoryDef(
         **addr.model_dump(),
         dps=dps,
@@ -83,3 +99,7 @@ def order_identifiers_to_string(
 def match_date(slots: GetAvailableSlotsResponse, d: date) -> SlotDateDef | None:
     datewise = slots.task_slots.datewise_slots or ()
     return next((_ for _ in datewise if _.slot_date == d), None)
+
+
+def decode_b64(s: str) -> bytes:
+    return base64.b64decode(s)

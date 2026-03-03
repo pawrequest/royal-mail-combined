@@ -5,6 +5,7 @@ from pprint import pprint
 from typing import Any, Generator
 
 import pytest
+from dateutil.utils import today
 from pydantic import BaseModel
 
 from royal_mail_combined.added_models.services import RoyalMailServiceCodes
@@ -64,7 +65,9 @@ def dump_result_model(result: BaseModel | list[BaseModel]):
     else:
         raise ValueError('result must be BaseModel or list of BaseModel')
 
-    results_name = Path(f'dumped/{resmodel.__class__.__name__}.json')
+    dumped = f"dumped-{datetime.now().strftime('%Y-%m-%dT%H')}"
+    # dumped = f'dumped-{today().isoformat(sep='T')}'
+    results_name = Path(f'{dumped}/{resmodel.__class__.__name__}.json')
     results_name.parent.mkdir(parents=True, exist_ok=True)
     results_json = json.dumps(result_d)
     results_name.write_text(results_json)
@@ -151,7 +154,7 @@ def cached_dps_results() -> AddressFindDPSResponse:
 
 @pytest.fixture(scope='session')
 def cached_return_request(cached_address, cached_sender, cached_return_address):
-    ship_add = Address(
+    sender_address = Address(
         title='Mr',
         first_name='ShipFirst',
         last_name='ShipLast',
@@ -165,7 +168,7 @@ def cached_return_request(cached_address, cached_sender, cached_return_address):
         country='United Kingdom',
         country_iso_code='GBR',
     )
-    return_add = Address(
+    destination_address = Address(
         title='Mr',
         first_name='ReturnFirst',
         last_name='ReturnLast',
@@ -182,8 +185,8 @@ def cached_return_request(cached_address, cached_sender, cached_return_address):
     cust_ref = CustomerReference(reference=REFERENCE)
     service = Service(service_code=RoyalMailServiceCodes.TRACKED_24_RTN)
     shipment = Shipment(
-        shipping_address=ship_add,
-        return_address=return_add,
+        shipping_address=destination_address,
+        return_address=sender_address,
         customer_reference=cust_ref,
     )
     return ReturnsRequest(
@@ -194,14 +197,14 @@ def cached_return_request(cached_address, cached_sender, cached_return_address):
 
 @pytest.fixture(scope='session')
 def cached_return_response():
-    with open('data/create_return_shipment_order_result.json', 'r') as f:
+    with open(r'dumped/ReturnsResponse.json', 'r') as f:
         res = f.read()
     return ReturnsResponse.model_validate_json(res)
 
 
 @pytest.fixture(scope='session')
 def cached_return_services() -> AvailableServicesResponse:
-    with open('data/check_return_services_result.json', 'r') as f:
+    with open(r'dumped/AvailableServicesResponse.json', 'r') as f:
         # res_j = json.load(f)
         res = f.read()
     return AvailableServicesResponse.model_validate_json(res)

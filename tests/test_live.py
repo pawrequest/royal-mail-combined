@@ -3,33 +3,15 @@ from pathlib import Path
 import pytest
 
 from royal_mail_combined.apis.parcels_apis.collection_handler.models import GetAvailableSlotsResponse
-from royal_mail_combined.apis.parcels_apis.collection_order.models import (
-    Collection,
-    CollectionItemType,
-    DimensionsPostDef,
-    ItemsPostDef, AddressNonMandatoryDef,
-)
-from royal_mail_combined.apis.returns.models import ReturnsResponse
 from royal_mail_combined.converters import (
-    addr_mandatory,
-    addr_non_mandatory_from_addr,
-    dps_postcode,
-    match_date,
-    rtn_address_to_addr_verify,
+    order_identifier_to_string,
 )
-from conftest import (STORE_RESULTS, TEST_DATE, cached_order, dump_result, dump_result_model)
+from conftest import (STORE_RESULTS, dump_result, dump_result_model)
 
 
 # @pytest.mark.skip(
 #     reason='This is a live test, it will create an order in the account, check online portal to confirm deletion after test'
 # )
-def test_make_booking(sample_client, cached_order):
-    res = sample_client.click_and_drop.book_shipment(cached_order)
-    dump_result_model(res)
-    ident = str(res.created_orders[0].order_identifier)
-    fetched = sample_client.click_and_drop.fetch_specific(order_identifiers=ident)
-    assert str(fetched[0].order_identifier) == ident
-    ...
 
 
 from royal_mail_combined.apis.parcels_apis.address.models import (
@@ -59,13 +41,7 @@ def test_addresses(sample_client):
     ...
 
 
-@pytest.mark.skip(reason='unable to cancel?')
-def test_returns(cached_return_request, sample_client):
-    resp = sample_client.create_return_shipment_order(cached_return_request)
-    if STORE_RESULTS:
-        dump_result_model(resp)
-    assert isinstance(resp, ReturnsResponse)
-    ...
+# @pytest.mark.skip(reason='unable to cancel?')
 
 
 def test_return_services(sample_client):
@@ -95,7 +71,12 @@ def test_fetch_specific(sample_client):
     # idents = f'"{quote(unique_item_id)}"'
     idents = str(anitem)
 
-    res = sample_client.click_and_drop.fetch_specific(order_identifiers=idents)
+    office_res_unique = r'32073580900070CE96492'
+    office_res_track = r'ZS191785065GB'
+
+    identifier = order_identifier_to_string(office_res_track)
+
+    res = sample_client.click_and_drop.fetch_specific(order_identifiers=identifier)
     if STORE_RESULTS:
         dump_result_model(res)
     ...
@@ -161,76 +142,3 @@ def test_handler_get_slots(sample_client, cached_dps_results):
     assert isinstance(resp, GetAvailableSlotsResponse)
 
 
-def test_inbound_booking_story(
-        cached_address_verify,
-        sample_client,
-        cached_sender,
-        cached_account_details,
-        cached_return_response,
-        cached_return_request,
-        cached_return_services
-):
-    # get DPS
-    collection_address_verify = rtn_address_to_addr_verify(cached_return_request.shipment.shipping_address)
-    dps_request = AddressVerifyRequestDef(addresses=[collection_address_verify])
-    dps_responses = sample_client.parcel_api.address_verify(dps_request)
-    dump_result_model(dps_responses)
-
-    addr_verify_reqresp = dps_responses[0]
-    dps_pc = dps_postcode(addr_verify_reqresp)
-
-    # get collection slot
-    item_count = 1
-    slots_response = sample_client.parcel_api.slots_get_available(
-        dps=dps_pc,
-        item_count=item_count
-    )
-    dump_result_model(slots_response)
-    my_slot = match_date(slots_response, TEST_DATE)
-    if my_slot is None:
-        raise Exception('No slot found for date')
-    token = slots_response.task_slots.slot_details.token_id
-    ...
-
-    serv = cached_return_services.lookup_service_by_code(cached_return_request.service.service_code)
-    barcode_id = cached_return_response.shipment.tracking_number
-    dims = DimensionsPostDef(height=30, width=30, depth=30)
-    item = ItemsPostDef(
-        item_barcode_id=barcode_id,
-        weight_in_grams=10000,
-        item_service_name=serv.service_name,
-        item_type=CollectionItemType.STANDARD,
-        dimensions=dims,
-    )
-
-    # book collection
-    collection_address_mand = addr_mandatory(collection_address_verify, dps=addr_verify_reqresp.dps)
-    collection_address_non = AddressNonMandatoryDef(
-        **collection_address_verify.model_dump(), dps=addr_verify_reqresp.dps,
-    )
-    collection = Collection(
-        timeslot_reservation_id=token,
-        sender_details=cached_sender,
-        account_details=cached_account_details,
-        address=collection_address_non,
-        collection_date=TEST_DATE,
-        items=[item],
-    )
-
-    dump_result_model(collection)
-    order_resp = sample_client.parcel_api.collection_create(collection=collection)
-    ...
-    # order_resp = sample_client.parcel_api.collection_create_mandatory(collection=collection_mandatory)
-    # collection = Collection(
-    #     timeslot_reservation_id=token,
-    #     sender_details=cached_sender,
-    #     account_details=cached_account_details,
-    #     address=addr_non_mandatory_from_addr(cached_address_verify),
-    #     collection_date=TEST_DATE,
-    #     items=[item],
-    # )
-    # dump_result_model(collection_payload)
-    # order_resp = sample_client.parcel_api.collection_create(collection=collection_payload)
-    ...
-
-    # order_resp = sample_client.parcel_api.collection_create(collection=collection_payload)

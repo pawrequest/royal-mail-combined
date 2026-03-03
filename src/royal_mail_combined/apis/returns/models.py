@@ -14,12 +14,12 @@ class Address(RMBaseModel):
     title: str
     first_name: str
     last_name: str
-    company_name: str | None
+    company_name: str | None = None
     address_line1: str
-    address_line2: str | None
-    address_line3: str | None
+    address_line2: str | None = None
+    address_line3: str | None = None
     city: str
-    county: str | None
+    county: str | None = None
     postcode: str
     country: str
     country_iso_code: str
