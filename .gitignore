@@ -11,3 +11,4 @@ wheels/
 .idea
 /tests/data
 /tests/data1
+/tests/dumped*
