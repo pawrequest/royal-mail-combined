@@ -13,7 +13,7 @@ from royal_mail_combined.apis.parcels_apis.collection_order import LabelInfo
 class SenderDetailsPostDef(RMBaseModel):
     """
     SenderDetailsPostDef
-    """  # noqa: E501
+    """
 
     sender_name: Annotated[str, StringConstraints(min_length=1, strict=True, max_length=100)]
     sender_email: Annotated[str, StringConstraints(min_length=1, strict=True, max_length=50)]
@@ -22,7 +22,7 @@ class SenderDetailsPostDef(RMBaseModel):
 class AccountDetailsDef(RMBaseModel):
     """
     account details definition
-    """  # noqa: E501
+    """
 
     partner_id: Annotated[str | None, StringConstraints(strict=True, max_length=20)] = None
     retailer_account_number: Annotated[str | None, Field(strict=True, max_length=10)] = None
@@ -31,7 +31,7 @@ class AccountDetailsDef(RMBaseModel):
 class AddressNonMandatoryDef(RMBaseModel):
     """
     account details definition
-    """  # noqa: E501
+    """
 
     address_line1: Annotated[str, StringConstraints(min_length=1, strict=True, max_length=64)]
     address_line2: Annotated[str | None, StringConstraints(strict=True, max_length=64)] = None
@@ -45,7 +45,7 @@ class AddressNonMandatoryDef(RMBaseModel):
 class SafePlaceDetailsDef(RMBaseModel):
     """
     safe place details definition
-    """  # noqa: E501
+    """
 
     location_text: Annotated[str | None, StringConstraints(strict=True, max_length=50)] = None
     location_code: Annotated[str | None, StringConstraints(strict=True, max_length=10)] = None
@@ -54,7 +54,7 @@ class SafePlaceDetailsDef(RMBaseModel):
 class DimensionsPostDef(RMBaseModel):
     """
     DimensionsPostDef
-    """  # noqa: E501
+    """
 
     height: StrictFloat | StrictInt
     width: StrictFloat | StrictInt
@@ -70,7 +70,7 @@ class CollectionItemType(StrEnum):
 class ItemsPostDef(RMBaseModel):
     """
     items detail definition
-    """  # noqa: E501
+    """
 
     item_barcode_id: Annotated[str | None, StringConstraints(min_length=1, strict=True, max_length=21)] = None
     item_reference: Annotated[str | None, StringConstraints(strict=True, max_length=40)] = None

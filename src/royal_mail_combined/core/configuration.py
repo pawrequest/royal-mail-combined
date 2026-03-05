@@ -100,12 +100,12 @@ HTTPSignatureAuthSetting = TypedDict(
 #     Bearer: APIKeyAuthSetting
 
 AuthSettings = TypedDict(
-    "AuthSettings",
+    'AuthSettings',
     {
-        "BearerAuth": OAuth2AuthSetting,
-        "Bearer": BearerAuthSetting,
-        "Client-Id": APIKeyAuthSetting,
-        "Client-Secret": APIKeyAuthSetting,
+        'BearerAuth': OAuth2AuthSetting,
+        'Bearer': BearerAuthSetting,
+        'Client-Id': APIKeyAuthSetting,
+        'Client-Secret': APIKeyAuthSetting,
     },
     total=False,
 )

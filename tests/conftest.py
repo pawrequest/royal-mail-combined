@@ -5,7 +5,6 @@ from pprint import pprint
 from typing import Any, Generator
 
 import pytest
-from dateutil.utils import today
 from pydantic import BaseModel
 
 from royal_mail_combined.added_models.services import RoyalMailServiceCodes
@@ -134,7 +133,7 @@ def cached_account_details(sample_settings):
 
 @pytest.fixture(scope='session')
 def cached_slots_response():
-    with open(r'data\collection_order_handler_get_slots.json', 'r') as f:
+    with open(r'data\collection_order_handler_get_slots.json') as f:
         res = f.read()
     return GetAvailableSlotsResponse.model_validate_json(res)
 
@@ -146,7 +145,7 @@ def cached_address_id():
 
 @pytest.fixture(scope='session')
 def cached_dps_results() -> AddressFindDPSResponse:
-    with open(r'data\address_search_dps_results.json', 'r') as f:
+    with open(r'data\address_search_dps_results.json') as f:
         res = f.read()
         res = json.loads(res)
     return AddressFindDPSResponse.model_validate(res[0])
@@ -197,14 +196,14 @@ def cached_return_request(cached_address, cached_sender, cached_return_address):
 
 @pytest.fixture(scope='session')
 def cached_return_response():
-    with open(r'dumped/ReturnsResponse.json', 'r') as f:
+    with open(r'dumped/ReturnsResponse.json') as f:
         res = f.read()
     return ReturnsResponse.model_validate_json(res)
 
 
 @pytest.fixture(scope='session')
 def cached_return_services() -> AvailableServicesResponse:
-    with open(r'dumped/AvailableServicesResponse.json', 'r') as f:
+    with open(r'dumped/AvailableServicesResponse.json') as f:
         # res_j = json.load(f)
         res = f.read()
     return AvailableServicesResponse.model_validate_json(res)

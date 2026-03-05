@@ -19,7 +19,7 @@ def test_loads_return_services(cached_return_services):
 
 
 def test_label_from_return():
-    with open(r'dumped/ReturnsResponse.json', 'r') as f:
+    with open(r'dumped/ReturnsResponse.json') as f:
         data = f.read()
     rtn = ReturnsResponse.model_validate_json(data)
     labeldata = rtn.label

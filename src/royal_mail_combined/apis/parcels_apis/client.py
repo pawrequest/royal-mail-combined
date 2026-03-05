@@ -6,8 +6,6 @@ from royal_mail_combined.config import RoyalMailSettingsGlobal
 from royal_mail_combined.core.endpoints import (
     ADDRESS_BASE,
     COLLECTION_HANDLER_NET,
-    CAD_COLLECTION_ORDER,
-    CAD_ORDERS,
     ORDERS_NET,
 )
 

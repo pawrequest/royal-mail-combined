@@ -126,9 +126,9 @@ class RoyalMailClient(RMBaseClient):
     def collection_subscription_check(self, barcode, family_name, account_number):
         params = {
             'productFamily': {
-                "barcode": barcode,
-                "productFamilyName": family_name,
-                "accountNumber": account_number
+                'barcode': barcode,
+                'productFamilyName': family_name,
+                'accountNumber': account_number
             }
         }
         res = self.do_post(url=(COLLECTION_HANDLER_NET + r'/productfamily/subscription'), data=params)

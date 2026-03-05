@@ -64,8 +64,8 @@ def test_fetch_orders(sample_client):
 def test_fetch_specific(sample_client):
     track2 = 'PK007810419GB'
     anitem = 1038
-    tracking_number = "ZS191785051GB"
-    unique_item_id = "32073580900070C28FE67"
+    tracking_number = 'ZS191785051GB'
+    unique_item_id = '32073580900070C28FE67'
     # idents = quote(tracking_number)
     # idents = quote(f'"{tracking_number}";"{unique_item_id}"')
     # idents = f'"{quote(unique_item_id)}"'

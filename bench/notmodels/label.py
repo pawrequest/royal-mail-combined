@@ -12,7 +12,7 @@ from royal_mail_combined.models.consts_types import OptionalStrictNumber
 class LabelOrderItem(RMBaseModel):
     """
     LabelOrderItem
-    """  # noqa: E501
+    """
 
     description: Annotated[str | None, StringConstraints(strict=True, max_length=50)] = None
     customs_code: Annotated[str | None, StringConstraints(strict=True, max_length=12)] = None
@@ -25,7 +25,7 @@ class LabelOrderItem(RMBaseModel):
 class LabelAddress(RMBaseModel):
     """
     LabelAddress
-    """  # noqa: E501
+    """
 
     name: Annotated[str | None, StringConstraints(strict=True, max_length=50)] = None
     company_name: Annotated[str | None, StringConstraints(strict=True, max_length=50)]
@@ -42,7 +42,7 @@ class LabelAddress(RMBaseModel):
 class LabelCustomsInfo(RMBaseModel):
     """
     LabelCustomsInfo
-    """  # noqa: E501
+    """
 
     currency_code: Annotated[str | None, StringConstraints(strict=True, max_length=3)] = None
     total_cost: OptionalStrictNumber = None
@@ -58,7 +58,7 @@ class LabelCustomsInfo(RMBaseModel):
 class LabelInfo(RMBaseModel):
     """
     LabelInfo
-    """  # noqa: E501
+    """
 
     var_1_d_tracking_number: Annotated[str | None, StringConstraints(strict=True, max_length=13)] = Field(
         default=None, alias='1DTrackingNumber'

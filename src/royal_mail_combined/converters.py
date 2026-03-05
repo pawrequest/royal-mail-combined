@@ -84,7 +84,7 @@ def order_identifier_to_string(id_or_ref: int | str) -> str:
         return str(id_or_ref)
     elif isinstance(id_or_ref, str):
         return f'"{quote(id_or_ref)}"'
-    raise TypeError(f"Expected int or str, got {id_or_ref}.")
+    raise TypeError(f'Expected int or str, got {id_or_ref}.')
 
 
 def order_identifiers_to_string(
@@ -93,7 +93,7 @@ def order_identifiers_to_string(
     """Encode order ids and references."""
     if not isinstance(order_identifiers, list):
         order_identifiers = [order_identifiers]
-    return ";".join(map(order_identifier_to_string, order_identifiers))
+    return ';'.join(map(order_identifier_to_string, order_identifiers))
 
 
 def match_date(slots: GetAvailableSlotsResponse, d: date) -> SlotDateDef | None:
