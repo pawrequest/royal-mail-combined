@@ -11,7 +11,6 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-
 from __future__ import annotations
 import pprint
 import re  # noqa: F401
@@ -23,25 +22,50 @@ from typing_extensions import Annotated
 from typing import Set
 from typing_extensions import Self
 
+
 class AddressDef(BaseModel):
     """
     account details definition
-    """ # noqa: E501
-    address_line1: Optional[Annotated[str, Field(strict=True, max_length=64)]] = Field(default=None, description="Address Line 1", alias="addressLine1")
-    address_line2: Optional[Annotated[str, Field(strict=True, max_length=64)]] = Field(default=None, description="Address Line 2", alias="addressLine2")
-    address_line3: Optional[Annotated[str, Field(strict=True, max_length=64)]] = Field(default=None, description="Address Line 3", alias="addressLine3")
-    post_town: Optional[Annotated[str, Field(strict=True, max_length=64)]] = Field(default=None, description="PostTown", alias="postTown")
+    """  # noqa: E501
+    address_line1: Optional[Annotated[str, Field(strict=True, max_length=64)]] = Field(
+        default=None,
+        description="Address Line 1",
+        alias="addressLine1"
+    )
+    address_line2: Optional[Annotated[str, Field(strict=True, max_length=64)]] = Field(
+        default=None,
+        description="Address Line 2",
+        alias="addressLine2"
+    )
+    address_line3: Optional[Annotated[str, Field(strict=True, max_length=64)]] = Field(
+        default=None,
+        description="Address Line 3",
+        alias="addressLine3"
+    )
+    post_town: Optional[Annotated[str, Field(strict=True, max_length=64)]] = Field(
+        default=None,
+        description="PostTown",
+        alias="postTown"
+    )
     postcode: Optional[Annotated[str, Field(strict=True, max_length=10)]] = Field(default=None, description="PostCode")
-    dps: Optional[Annotated[str, Field(strict=True, max_length=10)]] = Field(default=None, description="Delivery Point Suffix", alias="DPS")
-    county: Optional[Annotated[str, Field(strict=True, max_length=64)]] = Field(default=None, description="County", alias="County")
-    __properties: ClassVar[List[str]] = ["addressLine1", "addressLine2", "addressLine3", "postTown", "postcode", "DPS", "County"]
+    dps: Optional[Annotated[str, Field(strict=True, max_length=10)]] = Field(
+        default=None,
+        description="Delivery Point Suffix",
+        alias="DPS"
+    )
+    county: Optional[Annotated[str, Field(strict=True, max_length=64)]] = Field(
+        default=None,
+        description="County",
+        alias="County"
+    )
+    __properties: ClassVar[List[str]] = ["addressLine1", "addressLine2", "addressLine3", "postTown", "postcode", "DPS",
+                                         "County"]
 
     model_config = ConfigDict(
         populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
-
 
     def to_str(self) -> str:
         """Returns the string representation of the model using alias"""
@@ -50,7 +74,8 @@ class AddressDef(BaseModel):
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return self.model_dump_json(by_alias=True, exclude_unset=True)
+        # return self.model_dump_json(by_alias=True, exclude_unset=True)
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -67,8 +92,10 @@ class AddressDef(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
-        excluded_fields: Set[str] = set([
-        ])
+        excluded_fields: Set[str] = set(
+            [
+            ]
+        )
 
         _dict = self.model_dump(
             by_alias=True,
@@ -86,15 +113,15 @@ class AddressDef(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate({
-            "addressLine1": obj.get("addressLine1"),
-            "addressLine2": obj.get("addressLine2"),
-            "addressLine3": obj.get("addressLine3"),
-            "postTown": obj.get("postTown"),
-            "postcode": obj.get("postcode"),
-            "DPS": obj.get("DPS"),
-            "County": obj.get("County")
-        })
+        _obj = cls.model_validate(
+            {
+                "addressLine1": obj.get("addressLine1"),
+                "addressLine2": obj.get("addressLine2"),
+                "addressLine3": obj.get("addressLine3"),
+                "postTown": obj.get("postTown"),
+                "postcode": obj.get("postcode"),
+                "DPS": obj.get("DPS"),
+                "County": obj.get("County")
+            }
+        )
         return _obj
-
-
