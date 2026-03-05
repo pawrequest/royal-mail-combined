@@ -9,6 +9,7 @@ class GetOrderInfoResource(RMBaseModel):
     """
     GetOrderInfoResource
     """
+
     order_identifier: StrictInt
     order_reference: StrictStr | None = None
     created_on: datetime

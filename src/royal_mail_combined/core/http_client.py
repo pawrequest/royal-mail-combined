@@ -10,11 +10,11 @@ class RMBaseClient:
         self.settings = settings
 
     def do_post(
-            self,
-            *,
-            url: str,
-            data: dict | BaseModel | None = None,
-            headers: dict | None = None,
+        self,
+        *,
+        url: str,
+        data: dict | BaseModel | None = None,
+        headers: dict | None = None,
     ) -> httpx.Response:
         headers = headers or self.settings.headers()
         if isinstance(data, BaseModel):
@@ -24,11 +24,11 @@ class RMBaseClient:
         return res
 
     def do_get(
-            self,
-            *,
-            url: str,
-            params: BaseModel | dict | None = None,
-            headers: dict | None = None,
+        self,
+        *,
+        url: str,
+        params: BaseModel | dict | None = None,
+        headers: dict | None = None,
     ) -> httpx.Response:
         headers = headers or self.settings.headers()
         if isinstance(params, BaseModel):
@@ -38,10 +38,10 @@ class RMBaseClient:
         return res
 
     def do_delete(
-            self,
-            *,
-            url: str,
-            headers: dict | None = None,
+        self,
+        *,
+        url: str,
+        headers: dict | None = None,
     ) -> httpx.Response:
         headers = headers or self.settings.headers()
         res = httpx.delete(url, headers=headers, timeout=30)

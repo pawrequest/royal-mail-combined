@@ -1,6 +1,6 @@
 from royal_mail_combined.apis import AddressApi, CollectionOrderApi, GetAvailableSlotsApi, ProductFamilySubscriptionApi
 from royal_mail_combined.apis.parcels_apis.address.models import AddressFindRequestDef
-from royal_mail_combined.apis.parcels_apis.collection_handler.models import (ProductFamily, ProductFamilyDef)
+from royal_mail_combined.apis.parcels_apis.collection_handler.models import ProductFamily, ProductFamilyDef
 from royal_mail_combined.build_client import build_client
 from royal_mail_combined.config import RoyalMailSettingsGlobal
 from royal_mail_combined.core.endpoints import (

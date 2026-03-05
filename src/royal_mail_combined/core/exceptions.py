@@ -304,4 +304,3 @@ def raise_for_rm_status(response: Response):
         msg = str(rm_error) + failed_req
         logger.error(msg)
         raise rm_error from httpx_error
-

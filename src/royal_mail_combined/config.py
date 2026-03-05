@@ -76,5 +76,5 @@ class RoyalMailSettingsGlobal(BaseSettings):
         return {
             'Bearer': self.api_key.get_secret_value(),
             'Client-Id': self.client_id.get_secret_value(),
-            'Client-Secret': self.client_secret.get_secret_value()
+            'Client-Secret': self.client_secret.get_secret_value(),
         }

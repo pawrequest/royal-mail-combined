@@ -2,25 +2,24 @@ from pathlib import Path
 
 import pytest
 
+from conftest import STORE_RESULTS, dump_result, dump_result_model, print_object
+from royal_mail_combined.apis.click_and_drop.models import GetOrdersResponse, GetVersionResource
+from royal_mail_combined.apis.parcels_apis.address.models import (
+    AddressRecordDef,
+    AddressVerifyDef,
+    AddressVerifyReqRespdef,
+    AddressVerifyRequestDef,
+    AddressesDef,
+)
 from royal_mail_combined.apis.parcels_apis.collection_handler.models import GetAvailableSlotsResponse
 from royal_mail_combined.converters import (
     order_identifier_to_string,
 )
-from conftest import (STORE_RESULTS, dump_result, dump_result_model)
 
 
 # @pytest.mark.skip(
 #     reason='This is a live test, it will create an order in the account, check online portal to confirm deletion after test'
 # )
-
-
-from royal_mail_combined.apis.parcels_apis.address.models import (
-    AddressesDef,
-    AddressVerifyDef,
-    AddressVerifyRequestDef,
-    AddressVerifyReqRespdef, AddressRecordDef,
-)
-from royal_mail_combined.apis.click_and_drop.models import GetOrdersResponse, GetVersionResource
 
 
 def test_version(sample_client):
@@ -32,12 +31,14 @@ def test_version(sample_client):
 def test_get_orders(sample_client):
     res = sample_client.click_and_drop.fetch_orders()
     assert isinstance(res, GetOrdersResponse)
+    print_object(res)
     ...
 
 
 def test_addresses(sample_client):
     res = sample_client.parcel_api.address_search('30 bennet close')
     assert isinstance(res, AddressesDef)
+    print_object(res)
     ...
 
 
@@ -104,7 +105,7 @@ def test_address_search(sample_client, cached_address):
     ...
 
 
-@pytest.mark.skip(reason='Use Cached')
+# @pytest.mark.skip(reason='Use Cached')
 def test_address_search_dps(sample_client, cached_address):
     addr = AddressVerifyDef.model_validate(cached_address, from_attributes=True)
     addresses_payload = AddressVerifyRequestDef(addresses=[addr])
@@ -118,9 +119,9 @@ def test_address_search_dps(sample_client, cached_address):
     assert isinstance(resp[0], AddressVerifyReqRespdef)
 
 
-@pytest.mark.skip(reason='Use Cached result')
+# @pytest.mark.skip(reason='Use Cached result')
 def test_address_get(sample_client, cached_address_id):
-    resp = sample_client.address_fetch(cached_address_id)
+    resp = sample_client.parcel_api.address_retrieve(cached_address_id)
     if STORE_RESULTS:
         result = resp.model_dump(mode='json')
         results_file = Path('data/address_get_result.json')
@@ -140,5 +141,3 @@ def test_handler_get_slots(sample_client, cached_dps_results):
         results_file = Path('data/collection_order_handler_get_slots.json')
         dump_result(result, results_file)
     assert isinstance(resp, GetAvailableSlotsResponse)
-
-

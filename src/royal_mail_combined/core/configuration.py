@@ -9,11 +9,17 @@ from typing import NotRequired, Self
 
 import urllib3
 
-
 JSON_SCHEMA_VALIDATION_KEYWORDS = {
-    'multipleOf', 'maximum', 'exclusiveMaximum',
-    'minimum', 'exclusiveMinimum', 'maxLength',
-    'minLength', 'pattern', 'maxItems', 'minItems'
+    'multipleOf',
+    'maximum',
+    'exclusiveMaximum',
+    'minimum',
+    'exclusiveMinimum',
+    'maxLength',
+    'minLength',
+    'pattern',
+    'maxItems',
+    'minItems',
 }
 
 ServerVariablesT = dict[str, str]
@@ -28,7 +34,6 @@ GenericAuthSetting = TypedDict(
     },
 )
 
-
 OAuth2AuthSetting = TypedDict(
     'OAuth2AuthSetting',
     {
@@ -38,7 +43,6 @@ OAuth2AuthSetting = TypedDict(
         'value': str,
     },
 )
-
 
 APIKeyAuthSetting = TypedDict(
     'APIKeyAuthSetting',
@@ -50,7 +54,6 @@ APIKeyAuthSetting = TypedDict(
     },
 )
 
-
 BasicAuthSetting = TypedDict(
     'BasicAuthSetting',
     {
@@ -60,7 +63,6 @@ BasicAuthSetting = TypedDict(
         'value': str | None,
     },
 )
-
 
 BearerFormatAuthSetting = TypedDict(
     'BearerFormatAuthSetting',
@@ -73,7 +75,6 @@ BearerFormatAuthSetting = TypedDict(
     },
 )
 
-
 BearerAuthSetting = TypedDict(
     'BearerAuthSetting',
     {
@@ -84,7 +85,6 @@ BearerAuthSetting = TypedDict(
     },
 )
 
-
 HTTPSignatureAuthSetting = TypedDict(
     'HTTPSignatureAuthSetting',
     {
@@ -94,7 +94,6 @@ HTTPSignatureAuthSetting = TypedDict(
         'value': None,
     },
 )
-
 
 # class AuthSettings(TypedDict, total=False):
 #     Bearer: APIKeyAuthSetting
@@ -109,6 +108,7 @@ AuthSettings = TypedDict(
     },
     total=False,
 )
+
 
 class HostSettingVariable(TypedDict):
     description: str
@@ -125,81 +125,80 @@ class HostSetting(TypedDict):
 class Configuration:
     """This class contains various settings of the API client.
 
-    :param host: Base url.
-    :param ignore_operation_servers
-      Boolean to ignore operation servers for the API client.
-      Config will use `host` as the base url regardless of the operation servers.
-    :param api_key: Dict to store API key(s).
-      Each entry in the dict specifies an API key.
-      The dict key is the name of the security scheme in the OAS specification.
-      The dict value is the API key secret.
-    :param api_key_prefix: Dict to store API prefix (e.g. Bearer).
-      The dict key is the name of the security scheme in the OAS specification.
-      The dict value is an API key prefix when generating the auth data.
-    :param username: Username for HTTP basic authentication.
-    :param password: Password for HTTP basic authentication.
-    :param access_token: Access token.
-    :param server_index: Index to servers configuration.
-    :param server_variables: Mapping with string values to replace variables in
-      templated server configuration. The validation of enums is performed for
-      variables with defined enum values before.
-    :param server_operation_index: Mapping from operation ID to an index to server
-      configuration.
-    :param server_operation_variables: Mapping from operation ID to a mapping with
-      string values to replace variables in templated server configuration.
-      The validation of enums is performed for variables with defined enum
-      values before.
-    :param ssl_ca_cert: str - the path to a file of concatenated CA certificates
-      in PEM format.
-    :param retries: Number of retries for API requests.
-    :param ca_cert_data: verify the peer using concatenated CA certificate data
-      in PEM (str) or DER (bytes) format.
+        :param host: Base url.
+        :param ignore_operation_servers
+          Boolean to ignore operation servers for the API client.
+          Config will use `host` as the base url regardless of the operation servers.
+        :param api_key: Dict to store API key(s).
+          Each entry in the dict specifies an API key.
+          The dict key is the name of the security scheme in the OAS specification.
+          The dict value is the API key secret.
+        :param api_key_prefix: Dict to store API prefix (e.g. Bearer).
+          The dict key is the name of the security scheme in the OAS specification.
+          The dict value is an API key prefix when generating the auth data.
+        :param username: Username for HTTP basic authentication.
+        :param password: Password for HTTP basic authentication.
+        :param access_token: Access token.
+        :param server_index: Index to servers configuration.
+        :param server_variables: Mapping with string values to replace variables in
+          templated server configuration. The validation of enums is performed for
+          variables with defined enum values before.
+        :param server_operation_index: Mapping from operation ID to an index to server
+          configuration.
+        :param server_operation_variables: Mapping from operation ID to a mapping with
+          string values to replace variables in templated server configuration.
+          The validation of enums is performed for variables with defined enum
+          values before.
+        :param ssl_ca_cert: str - the path to a file of concatenated CA certificates
+          in PEM format.
+        :param retries: Number of retries for API requests.
+        :param ca_cert_data: verify the peer using concatenated CA certificate data
+          in PEM (str) or DER (bytes) format.
 
-    :Example:
+        :Example:
 
-    API Key Authentication Example.
-    Given the following security scheme in the OpenAPI specification:
-      components:
-        securitySchemes:
-          cookieAuth:         # name for the security scheme
-            type: apiKey
-            in: cookie
-            name: JSESSIONID  # cookie name
+        API Key Authentication Example.
+        Given the following security scheme in the OpenAPI specification:
+          components:
+            securitySchemes:
+              cookieAuth:         # name for the security scheme
+                type: apiKey
+                in: cookie
+                name: JSESSIONID  # cookie name
 
-    You can programmatically set the cookie:
+        You can programmatically set the cookie:
 
-conf = royal-mail-click-and-drop.Configuration(
-    api_key={'cookieAuth': 'abc123'}
-    api_key_prefix={'cookieAuth': 'JSESSIONID'}
-)
+    conf = royal-mail-click-and-drop.Configuration(
+        api_key={'cookieAuth': 'abc123'}
+        api_key_prefix={'cookieAuth': 'JSESSIONID'}
+    )
 
-    The following cookie will be added to the HTTP request:
-       Cookie: JSESSIONID abc123
+        The following cookie will be added to the HTTP request:
+           Cookie: JSESSIONID abc123
     """
 
     _default: ClassVar[Self | None] = None
 
     def __init__(
         self,
-        host: str | None=None,
-        api_key: dict[str, str] | None=None,
-        api_key_prefix: dict[str, str] | None=None,
-        username: str | None=None,
-        password: str | None=None,
-        access_token: str | None=None,
-        server_index: int | None=None,
-        server_variables: ServerVariablesT | None=None,
-        server_operation_index: dict[int, int] | None=None,
-        server_operation_variables: dict[int, ServerVariablesT] | None=None,
-        ignore_operation_servers: bool=False,
-        ssl_ca_cert: str | None=None,
+        host: str | None = None,
+        api_key: dict[str, str] | None = None,
+        api_key_prefix: dict[str, str] | None = None,
+        username: str | None = None,
+        password: str | None = None,
+        access_token: str | None = None,
+        server_index: int | None = None,
+        server_variables: ServerVariablesT | None = None,
+        server_operation_index: dict[int, int] | None = None,
+        server_operation_variables: dict[int, ServerVariablesT] | None = None,
+        ignore_operation_servers: bool = False,
+        ssl_ca_cert: str | None = None,
         retries: int | None = None,
         ca_cert_data: str | bytes | None = None,
         *,
         debug: bool | None = None,
     ) -> None:
-        """Constructor
-        """
+        """Constructor"""
         self._base_path = '/api/v1' if host is None else host
         """Default Base url
         """
@@ -325,7 +324,7 @@ conf = royal-mail-click-and-drop.Configuration(
         """date format
         """
 
-    def __deepcopy__(self, memo:  dict[int, Any]) -> Self:
+    def __deepcopy__(self, memo: dict[int, Any]) -> Self:
         cls = self.__class__
         result = cls.__new__(cls)
         memo[id(self)] = result
@@ -462,7 +461,7 @@ conf = royal-mail-click-and-drop.Configuration(
         self.__logger_format = value
         self.logger_formatter = logging.Formatter(self.__logger_format)
 
-    def get_api_key_with_prefix(self, identifier: str, alias: str | None=None) -> str | None:
+    def get_api_key_with_prefix(self, identifier: str, alias: str | None = None) -> str | None:
         """Gets API key (with prefix if set).
 
         :param identifier: The identifier of apiKey.
@@ -493,12 +492,9 @@ conf = royal-mail-click-and-drop.Configuration(
         password = ''
         if self.password is not None:
             password = self.password
-        return urllib3.util.make_headers(
-            basic_auth=username + ':' + password
-        ).get('authorization')
+        return urllib3.util.make_headers(basic_auth=username + ':' + password).get('authorization')
 
-
-    def auth_settings(self)-> AuthSettings:
+    def auth_settings(self) -> AuthSettings:
         """Gets Auth Settings dict for api client.
 
         :return: The Auth Settings information dict.
@@ -509,14 +505,14 @@ conf = royal-mail-click-and-drop.Configuration(
                 'type': 'oauth2',
                 'in': 'header',
                 'key': 'Authorization',
-                'value': 'Bearer ' + self.access_token
+                'value': 'Bearer ' + self.access_token,
             }
         if 'Bearer' in self.api_key:
             auth['Bearer'] = {
                 'type': 'oauth2',
                 'in': 'header',
                 'key': 'Authorization',
-                'value': 'Bearer ' + self.get_api_key_with_prefix('Bearer')
+                'value': 'Bearer ' + self.get_api_key_with_prefix('Bearer'),
             }
         if 'Client-Id' in self.api_key:
             auth['Client-Id'] = {
@@ -538,9 +534,7 @@ conf = royal-mail-click-and-drop.Configuration(
             }
         return auth
 
-
-
-    def auth_settings1(self)-> AuthSettings:
+    def auth_settings1(self) -> AuthSettings:
         """Gets Auth Settings dict for api client.
 
         :return: The Auth Settings information dict.
@@ -562,11 +556,13 @@ conf = royal-mail-click-and-drop.Configuration(
 
         :return: The report for debugging.
         """
-        return 'Python SDK Debug Report:\n'\
-               f'OS: {sys.platform}\n'\
-               f'Python Version: {sys.version}\n'\
-               'Version of the API: 1.0.0\n'\
-               'SDK Package Version: 1.0.0'
+        return (
+            'Python SDK Debug Report:\n'
+            f'OS: {sys.platform}\n'
+            f'Python Version: {sys.version}\n'
+            'Version of the API: 1.0.0\n'
+            'SDK Package Version: 1.0.0'
+        )
 
     def get_host_settings(self) -> list[HostSetting]:
         """Gets an array of host settings
@@ -583,8 +579,8 @@ conf = royal-mail-click-and-drop.Configuration(
     def get_host_from_settings(
         self,
         index: int | None,
-        variables: ServerVariablesT | None=None,
-        servers: list[HostSetting] | None=None,
+        variables: ServerVariablesT | None = None,
+        servers: list[HostSetting] | None = None,
     ) -> str:
         """Gets host URL based on the index and variables
         :param index: array index of the host settings
@@ -609,11 +605,9 @@ conf = royal-mail-click-and-drop.Configuration(
 
         # go through variables and replace placeholders
         for variable_name, variable in server.get('variables', {}).items():
-            used_value = variables.get(
-                variable_name, variable['default_value'])
+            used_value = variables.get(variable_name, variable['default_value'])
 
-            if 'enum_values' in variable \
-                    and used_value not in variable['enum_values']:
+            if 'enum_values' in variable and used_value not in variable['enum_values']:
                 raise ValueError(
                     f'The variable `{variable_name}` in the host URL has invalid value '
                     f'{variables[variable_name]}. Must be {variable["enum_values"]}.'

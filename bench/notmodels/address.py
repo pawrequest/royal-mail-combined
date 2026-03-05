@@ -94,4 +94,3 @@ class AddressRecord(RMBaseModel):
     label: str = ''
     type: str = ''
     data_level: str = ''
-

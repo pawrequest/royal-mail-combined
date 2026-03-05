@@ -1,7 +1,7 @@
 import json
 from datetime import date, datetime, timedelta
 from pathlib import Path
-from pprint import pprint
+from pprint import pformat, pprint
 from typing import Any, Generator
 
 import pytest
@@ -45,6 +45,8 @@ STORE_RESULTS = True
 TEST_DATE = date.today() + timedelta(days=2)
 if TEST_DATE.weekday() in (5, 6):
     TEST_DATE += timedelta(days=7 - TEST_DATE.weekday())
+
+
 # TEST_DATE = datetime.combine(TEST_DATE, datetime.min.time())
 
 
@@ -75,6 +77,10 @@ def dump_result_model(result: BaseModel | list[BaseModel]):
 @pytest.fixture(scope='session')
 def sample_settings() -> RoyalMailSettingsGlobal:
     return RoyalMailSettingsGlobal.from_env()
+
+
+def print_object(res: BaseModel):
+    print(pformat(res.model_dump(mode='json'), indent=4, width=120))
 
 
 @pytest.fixture(scope='session')

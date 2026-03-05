@@ -121,19 +121,19 @@ class ApiClient:
         cls._default = default
 
     def param_serialize(
-            self,
-            method,
-            resource_path,
-            path_params=None,
-            query_params=None,
-            header_params=None,
-            body=None,
-            post_params=None,
-            files=None,
-            auth_settings=None,
-            collection_formats=None,
-            _host=None,
-            _request_auth=None,
+        self,
+        method,
+        resource_path,
+        path_params=None,
+        query_params=None,
+        header_params=None,
+        body=None,
+        post_params=None,
+        files=None,
+        auth_settings=None,
+        collection_formats=None,
+        _host=None,
+        _request_auth=None,
     ) -> RequestSerialized:
         """Builds the HTTP request params needed by the request.
         :param method: Method to call.
@@ -218,7 +218,7 @@ class ApiClient:
         return method, url, header_params, body, post_params
 
     def call_api(
-            self, method, url, header_params=None, body=None, post_params=None, _request_timeout=None
+        self, method, url, header_params=None, body=None, post_params=None, _request_timeout=None
     ) -> RESTResponse:
         """Makes the HTTP request (synchronous)
         :param method: Method to call.
@@ -252,9 +252,9 @@ class ApiClient:
         return response_data
 
     def response_deserialize(
-            self,
-            response_data: RESTResponse,
-            response_types_map: dict[str, ApiResponseT] | None = None,
+        self,
+        response_data: RESTResponse,
+        response_types_map: dict[str, ApiResponseT] | None = None,
     ) -> ApiResponse[ApiResponseT]:
         """Deserializes response into an object.
         :param response_data: RESTResponse object to be deserialized.
@@ -489,8 +489,8 @@ class ApiClient:
         return '&'.join(['='.join(map(str, item)) for item in new_params])
 
     def files_parameters(
-            self,
-            files: dict[str, str | bytes | list[str] | list[bytes] | tuple[str, bytes]],
+        self,
+        files: dict[str, str | bytes | list[str] | list[bytes] | tuple[str, bytes]],
     ):
         """Builds form parameters.
 
@@ -549,7 +549,7 @@ class ApiClient:
         return content_types[0]
 
     def update_params_for_auth(
-            self, headers, queries, auth_settings, resource_path, method, body, request_auth=None
+        self, headers, queries, auth_settings, resource_path, method, body, request_auth=None
     ) -> None:
         """Updates header and query params based on authentication setting.
 
@@ -683,15 +683,9 @@ class ApiClient:
         try:
             return klass(data)
         except ValueError:
-            raise ApiException(
-                status=0,
-                reason=(
-                    f'Failed to parse `{data}` as `{klass}`'
+            raise ApiException(status=0, reason=(f'Failed to parse `{data}` as `{klass}`'))
 
-                )
-            )
-
-    def __deserialize_model(self, data, klass:type[BaseModel]):
+    def __deserialize_model(self, data, klass: type[BaseModel]):
         """Deserializes list or dict to model.
 
         :param data: dict, list.

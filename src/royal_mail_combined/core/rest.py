@@ -1,4 +1,3 @@
-
 """
 ChannelShipper & Royal Mail Public API
 
@@ -107,9 +106,7 @@ class RESTClientObject:
         else:
             self.pool_manager = urllib3.PoolManager(**pool_args)
 
-    def request(
-        self, method, url, headers=None, body=None, post_params=None, _request_timeout=None
-    ):
+    def request(self, method, url, headers=None, body=None, post_params=None, _request_timeout=None):
         """Perform requests.
 
         :param method: http request method
@@ -176,10 +173,7 @@ class RESTClientObject:
                     # overwritten.
                     del headers['Content-Type']
                     # Ensures that dict objects are serialized
-                    post_params = [
-                        (a, json.dumps(b)) if isinstance(b, dict) else (a, b)
-                        for a, b in post_params
-                    ]
+                    post_params = [(a, json.dumps(b)) if isinstance(b, dict) else (a, b) for a, b in post_params]
                     r = self.pool_manager.request(
                         method,
                         url,

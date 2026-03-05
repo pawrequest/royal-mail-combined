@@ -1,4 +1,3 @@
-
 from royal_mail_combined.config import RoyalMailSettingsGlobal
 from royal_mail_combined.core import ApiClient, Configuration
 

@@ -27,9 +27,7 @@ class SlotDetailsDef(RMBaseModel):
 class EstimatedWindowDef(RMBaseModel):
     start_time: StrictStr | None = None
     end_time: StrictStr | None = None
-    edw_visibility: OptionalStrictNumber = Field(
-        default=None, description='EDW Visibility', alias='EDWVisibility'
-    )
+    edw_visibility: OptionalStrictNumber = Field(default=None, description='EDW Visibility', alias='EDWVisibility')
 
 
 class SlotDateDef(RMBaseModel):

@@ -44,23 +44,19 @@ class RoyalMailClient(RMBaseClient):
     # ORDERS
     @handle_errors
     def orders_fetch(
-            self,
-            page_size: int | None = None,
-            start_date_time: datetime | None = None,
-            end_date_time: datetime | None = None,
-            continuation_token: str | None = None
+        self,
+        page_size: int | None = None,
+        start_date_time: datetime | None = None,
+        end_date_time: datetime | None = None,
+        continuation_token: str | None = None,
     ) -> GetOrdersResponse:
         params = {
             'pageSize': page_size,
             'startDateTime': start_date_time.isoformat() if start_date_time else None,
             'endDateTime': end_date_time.isoformat() if end_date_time else None,
-            'continuationToken': continuation_token
+            'continuationToken': continuation_token,
         }
-        res = self.do_get(
-            url=CAD_ORDERS,
-            headers=self.settings.headers_bearer(),
-            params=params
-        )
+        res = self.do_get(url=CAD_ORDERS, headers=self.settings.headers_bearer(), params=params)
         res_model = GetOrdersResponse.model_validate(res.json())
         return res_model
 
@@ -125,11 +121,7 @@ class RoyalMailClient(RMBaseClient):
 
     def collection_subscription_check(self, barcode, family_name, account_number):
         params = {
-            'productFamily': {
-                'barcode': barcode,
-                'productFamilyName': family_name,
-                'accountNumber': account_number
-            }
+            'productFamily': {'barcode': barcode, 'productFamilyName': family_name, 'accountNumber': account_number}
         }
         res = self.do_post(url=(COLLECTION_HANDLER_NET + r'/productfamily/subscription'), data=params)
         return res

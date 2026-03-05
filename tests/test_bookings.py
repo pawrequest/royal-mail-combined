@@ -4,9 +4,15 @@ from conftest import REFERENCE, STORE_RESULTS, TEST_DATE, dump_result_model
 from royal_mail_combined.added_models.services import RoyalMailServiceCodes
 from royal_mail_combined.apis.parcels_apis.address.models import AddressVerifyRequestDef
 from royal_mail_combined.apis.parcels_apis.collection_order.models import (
-    AccountDetailsDef, AddressMandatoryDef, AddressNonMandatoryDef, Collection, CollectionItemType,
-    CollectionMandatory, DimensionsPostDef,
-    ItemsPostDef, SenderDetailsPostDef,
+    AccountDetailsDef,
+    AddressMandatoryDef,
+    AddressNonMandatoryDef,
+    Collection,
+    CollectionItemType,
+    CollectionMandatory,
+    DimensionsPostDef,
+    ItemsPostDef,
+    SenderDetailsPostDef,
 )
 from royal_mail_combined.apis.returns.models import (
     Address,
@@ -80,11 +86,7 @@ def test_make_booking_return(return_request, sample_client):
     ...
 
 
-def test_inbound_booking_story(
-        sample_client,
-        return_request,
-        sample_settings
-):
+def test_inbound_booking_story(sample_client, return_request, sample_settings):
     # book return shipment
     return_response = sample_client.create_return_shipment_order(return_request)
     dump_result_model(return_response)

@@ -66,7 +66,7 @@ def created_orders_idents_str(created_order_response: CreateOrdersResponse) -> s
 
 
 def tracking_link(tracking_number: str) -> str:
-    tlink = fr'https://www.royalmail.com/track-your-item#/tracking-results/{tracking_number}'
+    tlink = rf'https://www.royalmail.com/track-your-item#/tracking-results/{tracking_number}'
     return tlink
 
 
@@ -88,7 +88,7 @@ def order_identifier_to_string(id_or_ref: int | str) -> str:
 
 
 def order_identifiers_to_string(
-        order_identifiers: list[str | int] | str | int,
+    order_identifiers: list[str | int] | str | int,
 ) -> str:
     """Encode order ids and references."""
     if not isinstance(order_identifiers, list):

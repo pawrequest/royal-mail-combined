@@ -96,5 +96,3 @@ class Collection(RMBaseModel):
     safe_place_details: SafePlaceDetailsDef | None = None
     animal_hazard_details: Annotated[str | None, StringConstraints(max_length=50)] = None
     suppress_rm_notifications: bool | None = None
-
-
