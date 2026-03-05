@@ -341,8 +341,8 @@ class ApiClient:
             # and attributes which value is not None.
             # Convert attribute name to json key in
             # model definition for request.
-            if hasattr(obj, 'to_dict') and callable(getattr(obj, 'to_dict')):
-                obj_dict = obj.to_dict()
+            if isinstance(obj, BaseModel):
+                obj_dict = obj.model_dump(mode='json')
             else:
                 obj_dict = obj.__dict__
 

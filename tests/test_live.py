@@ -91,7 +91,7 @@ def test_fetch_specific(sample_client):
     ...
 
 
-@pytest.mark.skip(reason='Use Cached result')
+# @pytest.mark.skip(reason='Use Cached result')
 def test_address_search(sample_client, cached_address):
     search_str = cached_address.address_line1 + ', ' + cached_address.postcode
     resp: AddressesDef = sample_client.parcel_api.address_search(search_str)

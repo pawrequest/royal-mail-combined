@@ -367,5 +367,5 @@ def cached_order(cached_recip_details, cached_packages, cached_billing, cached_p
         packages=cached_packages,
         billing=cached_billing,  # should be unnecessary with webportal settings
         postage_details=cached_postage_details,
-        planned_despatch_date=TEST_DATE,
+        # planned_despatch_date=TEST_DATE,
     )
