@@ -36,6 +36,7 @@ class ClickAndDropClient:
         self.fetch_orders = self.orders_api.get_orders_async
         self.fetch_specific = self.orders_api.get_specific_orders_async
         self.delete_orders = self.orders_api.delete_orders_async
+        self.update_orders = self.orders_api.update_orders_status_async
 
         self.labels_api = LabelsApi(client)
         self.fetch_label_data = self.labels_api.get_orders_label_async

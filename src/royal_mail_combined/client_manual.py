@@ -43,11 +43,11 @@ class RoyalMailClient(RMBaseClient):
     # ORDERS
     @handle_errors
     def orders_fetch(
-            self,
-            page_size: int | None = None,
-            start_date_time: datetime | None = None,
-            end_date_time: datetime | None = None,
-            continuation_token: str | None = None,
+        self,
+        page_size: int | None = None,
+        start_date_time: datetime | None = None,
+        end_date_time: datetime | None = None,
+        continuation_token: str | None = None,
     ) -> GetOrdersResponse:
         params = {
             'pageSize': page_size,

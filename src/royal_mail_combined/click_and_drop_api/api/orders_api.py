@@ -63,17 +63,17 @@ class OrdersApi:
 
     @validate_call
     def create_orders_async(
-            self,
-            create_orders_request: CreateOrdersRequest,
-            _request_timeout: Union[
-                None,
-                Annotated[StrictFloat, Field(gt=0)],
-                Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
-            ] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        self,
+        create_orders_request: CreateOrdersRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> CreateOrdersResponse:
         """Create orders
 
@@ -125,17 +125,17 @@ class OrdersApi:
 
     @validate_call
     def create_orders_async_with_http_info(
-            self,
-            create_orders_request: CreateOrdersRequest,
-            _request_timeout: Union[
-                None,
-                Annotated[StrictFloat, Field(gt=0)],
-                Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
-            ] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        self,
+        create_orders_request: CreateOrdersRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[CreateOrdersResponse]:
         """Create orders
 
@@ -187,17 +187,17 @@ class OrdersApi:
 
     @validate_call
     def create_orders_async_without_preload_content(
-            self,
-            create_orders_request: CreateOrdersRequest,
-            _request_timeout: Union[
-                None,
-                Annotated[StrictFloat, Field(gt=0)],
-                Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
-            ] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        self,
+        create_orders_request: CreateOrdersRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
         """Create orders
 
@@ -244,12 +244,12 @@ class OrdersApi:
         return response_data.response
 
     def _create_orders_async_serialize(
-            self,
-            create_orders_request,
-            _request_auth,
-            _content_type,
-            _headers,
-            _host_index,
+        self,
+        create_orders_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
     ) -> RequestSerialized:
         _host = None
 
@@ -302,22 +302,22 @@ class OrdersApi:
 
     @validate_call
     def delete_orders_async(
-            self,
-            order_identifiers: Annotated[
-                StrictStr,
-                Field(
-                    description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
-                ),
-            ],
-            _request_timeout: Union[
-                None,
-                Annotated[StrictFloat, Field(gt=0)],
-                Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
-            ] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        self,
+        order_identifiers: Annotated[
+            StrictStr,
+            Field(
+                description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
+            ),
+        ],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> DeleteOrdersResource:
         """Delete orders
 
@@ -372,22 +372,22 @@ class OrdersApi:
 
     @validate_call
     def delete_orders_async_with_http_info(
-            self,
-            order_identifiers: Annotated[
-                StrictStr,
-                Field(
-                    description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
-                ),
-            ],
-            _request_timeout: Union[
-                None,
-                Annotated[StrictFloat, Field(gt=0)],
-                Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
-            ] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        self,
+        order_identifiers: Annotated[
+            StrictStr,
+            Field(
+                description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
+            ),
+        ],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[DeleteOrdersResource]:
         """Delete orders
 
@@ -442,22 +442,22 @@ class OrdersApi:
 
     @validate_call
     def delete_orders_async_without_preload_content(
-            self,
-            order_identifiers: Annotated[
-                StrictStr,
-                Field(
-                    description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
-                ),
-            ],
-            _request_timeout: Union[
-                None,
-                Annotated[StrictFloat, Field(gt=0)],
-                Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
-            ] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        self,
+        order_identifiers: Annotated[
+            StrictStr,
+            Field(
+                description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
+            ),
+        ],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
         """Delete orders
 
@@ -507,12 +507,12 @@ class OrdersApi:
         return response_data.response
 
     def _delete_orders_async_serialize(
-            self,
-            order_identifiers,
-            _request_auth,
-            _content_type,
-            _headers,
-            _host_index,
+        self,
+        order_identifiers,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
     ) -> RequestSerialized:
         _host = None
 
@@ -557,29 +557,29 @@ class OrdersApi:
 
     @validate_call
     def get_orders_async(
-            self,
-            page_size: Annotated[
-                Optional[Annotated[int, Field(le=100, strict=True, ge=1)]],
-                Field(description='The number of items to return'),
-            ] = None,
-            start_date_time: Annotated[
-                Optional[datetime], Field(description='Date and time lower bound for items filtering')
-            ] = None,
-            end_date_time: Annotated[
-                Optional[datetime], Field(description='Date and time upper bound for items filtering')
-            ] = None,
-            continuation_token: Annotated[
-                Optional[StrictStr], Field(description='The token for retrieving the next page of items')
-            ] = None,
-            _request_timeout: Union[
-                None,
-                Annotated[StrictFloat, Field(gt=0)],
-                Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
-            ] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        self,
+        page_size: Annotated[
+            Optional[Annotated[int, Field(le=100, strict=True, ge=1)]],
+            Field(description='The number of items to return'),
+        ] = None,
+        start_date_time: Annotated[
+            Optional[datetime], Field(description='Date and time lower bound for items filtering')
+        ] = None,
+        end_date_time: Annotated[
+            Optional[datetime], Field(description='Date and time upper bound for items filtering')
+        ] = None,
+        continuation_token: Annotated[
+            Optional[StrictStr], Field(description='The token for retrieving the next page of items')
+        ] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> GetOrdersResponse:
         """Retrieve pageable list of orders
 
@@ -641,29 +641,29 @@ class OrdersApi:
 
     @validate_call
     def get_orders_async_with_http_info(
-            self,
-            page_size: Annotated[
-                Optional[Annotated[int, Field(le=100, strict=True, ge=1)]],
-                Field(description='The number of items to return'),
-            ] = None,
-            start_date_time: Annotated[
-                Optional[datetime], Field(description='Date and time lower bound for items filtering')
-            ] = None,
-            end_date_time: Annotated[
-                Optional[datetime], Field(description='Date and time upper bound for items filtering')
-            ] = None,
-            continuation_token: Annotated[
-                Optional[StrictStr], Field(description='The token for retrieving the next page of items')
-            ] = None,
-            _request_timeout: Union[
-                None,
-                Annotated[StrictFloat, Field(gt=0)],
-                Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
-            ] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        self,
+        page_size: Annotated[
+            Optional[Annotated[int, Field(le=100, strict=True, ge=1)]],
+            Field(description='The number of items to return'),
+        ] = None,
+        start_date_time: Annotated[
+            Optional[datetime], Field(description='Date and time lower bound for items filtering')
+        ] = None,
+        end_date_time: Annotated[
+            Optional[datetime], Field(description='Date and time upper bound for items filtering')
+        ] = None,
+        continuation_token: Annotated[
+            Optional[StrictStr], Field(description='The token for retrieving the next page of items')
+        ] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[GetOrdersResponse]:
         """Retrieve pageable list of orders
 
@@ -725,29 +725,29 @@ class OrdersApi:
 
     @validate_call
     def get_orders_async_without_preload_content(
-            self,
-            page_size: Annotated[
-                Optional[Annotated[int, Field(le=100, strict=True, ge=1)]],
-                Field(description='The number of items to return'),
-            ] = None,
-            start_date_time: Annotated[
-                Optional[datetime], Field(description='Date and time lower bound for items filtering')
-            ] = None,
-            end_date_time: Annotated[
-                Optional[datetime], Field(description='Date and time upper bound for items filtering')
-            ] = None,
-            continuation_token: Annotated[
-                Optional[StrictStr], Field(description='The token for retrieving the next page of items')
-            ] = None,
-            _request_timeout: Union[
-                None,
-                Annotated[StrictFloat, Field(gt=0)],
-                Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
-            ] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        self,
+        page_size: Annotated[
+            Optional[Annotated[int, Field(le=100, strict=True, ge=1)]],
+            Field(description='The number of items to return'),
+        ] = None,
+        start_date_time: Annotated[
+            Optional[datetime], Field(description='Date and time lower bound for items filtering')
+        ] = None,
+        end_date_time: Annotated[
+            Optional[datetime], Field(description='Date and time upper bound for items filtering')
+        ] = None,
+        continuation_token: Annotated[
+            Optional[StrictStr], Field(description='The token for retrieving the next page of items')
+        ] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
         """Retrieve pageable list of orders
 
@@ -804,15 +804,15 @@ class OrdersApi:
         return response_data.response
 
     def _get_orders_async_serialize(
-            self,
-            page_size,
-            start_date_time,
-            end_date_time,
-            continuation_token,
-            _request_auth,
-            _content_type,
-            _headers,
-            _host_index,
+        self,
+        page_size,
+        start_date_time,
+        end_date_time,
+        continuation_token,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
     ) -> RequestSerialized:
         _host = None
 
@@ -877,29 +877,29 @@ class OrdersApi:
 
     @validate_call
     def get_orders_with_details_async(
-            self,
-            page_size: Annotated[
-                Optional[Annotated[int, Field(le=100, strict=True, ge=1)]],
-                Field(description='The number of items to return'),
-            ] = None,
-            start_date_time: Annotated[
-                Optional[datetime], Field(description='Date and time lower bound for items filtering')
-            ] = None,
-            end_date_time: Annotated[
-                Optional[datetime], Field(description='Date and time upper bound for items filtering')
-            ] = None,
-            continuation_token: Annotated[
-                Optional[StrictStr], Field(description='The token for retrieving the next page of items')
-            ] = None,
-            _request_timeout: Union[
-                None,
-                Annotated[StrictFloat, Field(gt=0)],
-                Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
-            ] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        self,
+        page_size: Annotated[
+            Optional[Annotated[int, Field(le=100, strict=True, ge=1)]],
+            Field(description='The number of items to return'),
+        ] = None,
+        start_date_time: Annotated[
+            Optional[datetime], Field(description='Date and time lower bound for items filtering')
+        ] = None,
+        end_date_time: Annotated[
+            Optional[datetime], Field(description='Date and time upper bound for items filtering')
+        ] = None,
+        continuation_token: Annotated[
+            Optional[StrictStr], Field(description='The token for retrieving the next page of items')
+        ] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> GetOrdersDetailsResponse:
         """Retrieve pageable list of orders with details
 
@@ -963,29 +963,29 @@ class OrdersApi:
 
     @validate_call
     def get_orders_with_details_async_with_http_info(
-            self,
-            page_size: Annotated[
-                Optional[Annotated[int, Field(le=100, strict=True, ge=1)]],
-                Field(description='The number of items to return'),
-            ] = None,
-            start_date_time: Annotated[
-                Optional[datetime], Field(description='Date and time lower bound for items filtering')
-            ] = None,
-            end_date_time: Annotated[
-                Optional[datetime], Field(description='Date and time upper bound for items filtering')
-            ] = None,
-            continuation_token: Annotated[
-                Optional[StrictStr], Field(description='The token for retrieving the next page of items')
-            ] = None,
-            _request_timeout: Union[
-                None,
-                Annotated[StrictFloat, Field(gt=0)],
-                Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
-            ] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        self,
+        page_size: Annotated[
+            Optional[Annotated[int, Field(le=100, strict=True, ge=1)]],
+            Field(description='The number of items to return'),
+        ] = None,
+        start_date_time: Annotated[
+            Optional[datetime], Field(description='Date and time lower bound for items filtering')
+        ] = None,
+        end_date_time: Annotated[
+            Optional[datetime], Field(description='Date and time upper bound for items filtering')
+        ] = None,
+        continuation_token: Annotated[
+            Optional[StrictStr], Field(description='The token for retrieving the next page of items')
+        ] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[GetOrdersDetailsResponse]:
         """Retrieve pageable list of orders with details
 
@@ -1049,29 +1049,29 @@ class OrdersApi:
 
     @validate_call
     def get_orders_with_details_async_without_preload_content(
-            self,
-            page_size: Annotated[
-                Optional[Annotated[int, Field(le=100, strict=True, ge=1)]],
-                Field(description='The number of items to return'),
-            ] = None,
-            start_date_time: Annotated[
-                Optional[datetime], Field(description='Date and time lower bound for items filtering')
-            ] = None,
-            end_date_time: Annotated[
-                Optional[datetime], Field(description='Date and time upper bound for items filtering')
-            ] = None,
-            continuation_token: Annotated[
-                Optional[StrictStr], Field(description='The token for retrieving the next page of items')
-            ] = None,
-            _request_timeout: Union[
-                None,
-                Annotated[StrictFloat, Field(gt=0)],
-                Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
-            ] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        self,
+        page_size: Annotated[
+            Optional[Annotated[int, Field(le=100, strict=True, ge=1)]],
+            Field(description='The number of items to return'),
+        ] = None,
+        start_date_time: Annotated[
+            Optional[datetime], Field(description='Date and time lower bound for items filtering')
+        ] = None,
+        end_date_time: Annotated[
+            Optional[datetime], Field(description='Date and time upper bound for items filtering')
+        ] = None,
+        continuation_token: Annotated[
+            Optional[StrictStr], Field(description='The token for retrieving the next page of items')
+        ] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
         """Retrieve pageable list of orders with details
 
@@ -1130,15 +1130,15 @@ class OrdersApi:
         return response_data.response
 
     def _get_orders_with_details_async_serialize(
-            self,
-            page_size,
-            start_date_time,
-            end_date_time,
-            continuation_token,
-            _request_auth,
-            _content_type,
-            _headers,
-            _host_index,
+        self,
+        page_size,
+        start_date_time,
+        end_date_time,
+        continuation_token,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
     ) -> RequestSerialized:
         _host = None
 
@@ -1203,22 +1203,22 @@ class OrdersApi:
 
     @validate_call
     def get_specific_orders_async(
-            self,
-            order_identifiers: Annotated[
-                StrictStr,
-                Field(
-                    description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
-                ),
-            ],
-            _request_timeout: Union[
-                None,
-                Annotated[StrictFloat, Field(gt=0)],
-                Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
-            ] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        self,
+        order_identifiers: Annotated[
+            StrictStr,
+            Field(
+                description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
+            ),
+        ],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[GetOrderInfoResource]:
         """Retrieve specific orders
 
@@ -1271,22 +1271,22 @@ class OrdersApi:
 
     @validate_call
     def get_specific_orders_async_with_http_info(
-            self,
-            order_identifiers: Annotated[
-                StrictStr,
-                Field(
-                    description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
-                ),
-            ],
-            _request_timeout: Union[
-                None,
-                Annotated[StrictFloat, Field(gt=0)],
-                Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
-            ] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        self,
+        order_identifiers: Annotated[
+            StrictStr,
+            Field(
+                description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
+            ),
+        ],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[GetOrderInfoResource]]:
         """Retrieve specific orders
 
@@ -1339,22 +1339,22 @@ class OrdersApi:
 
     @validate_call
     def get_specific_orders_async_without_preload_content(
-            self,
-            order_identifiers: Annotated[
-                StrictStr,
-                Field(
-                    description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
-                ),
-            ],
-            _request_timeout: Union[
-                None,
-                Annotated[StrictFloat, Field(gt=0)],
-                Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
-            ] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        self,
+        order_identifiers: Annotated[
+            StrictStr,
+            Field(
+                description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
+            ),
+        ],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
         """Retrieve specific orders
 
@@ -1402,12 +1402,12 @@ class OrdersApi:
         return response_data.response
 
     def _get_specific_orders_async_serialize(
-            self,
-            order_identifiers,
-            _request_auth,
-            _content_type,
-            _headers,
-            _host_index,
+        self,
+        order_identifiers,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
     ) -> RequestSerialized:
         _host = None
 
@@ -1452,22 +1452,22 @@ class OrdersApi:
 
     @validate_call
     def get_specific_orders_with_details_async(
-            self,
-            order_identifiers: Annotated[
-                StrictStr,
-                Field(
-                    description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
-                ),
-            ],
-            _request_timeout: Union[
-                None,
-                Annotated[StrictFloat, Field(gt=0)],
-                Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
-            ] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        self,
+        order_identifiers: Annotated[
+            StrictStr,
+            Field(
+                description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
+            ),
+        ],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[GetOrderDetailsResource]:
         """Retrieve details of the specific orders
 
@@ -1522,22 +1522,22 @@ class OrdersApi:
 
     @validate_call
     def get_specific_orders_with_details_async_with_http_info(
-            self,
-            order_identifiers: Annotated[
-                StrictStr,
-                Field(
-                    description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
-                ),
-            ],
-            _request_timeout: Union[
-                None,
-                Annotated[StrictFloat, Field(gt=0)],
-                Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
-            ] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        self,
+        order_identifiers: Annotated[
+            StrictStr,
+            Field(
+                description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
+            ),
+        ],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[GetOrderDetailsResource]]:
         """Retrieve details of the specific orders
 
@@ -1592,22 +1592,22 @@ class OrdersApi:
 
     @validate_call
     def get_specific_orders_with_details_async_without_preload_content(
-            self,
-            order_identifiers: Annotated[
-                StrictStr,
-                Field(
-                    description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
-                ),
-            ],
-            _request_timeout: Union[
-                None,
-                Annotated[StrictFloat, Field(gt=0)],
-                Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
-            ] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        self,
+        order_identifiers: Annotated[
+            StrictStr,
+            Field(
+                description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
+            ),
+        ],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
         """Retrieve details of the specific orders
 
@@ -1657,12 +1657,12 @@ class OrdersApi:
         return response_data.response
 
     def _get_specific_orders_with_details_async_serialize(
-            self,
-            order_identifiers,
-            _request_auth,
-            _content_type,
-            _headers,
-            _host_index,
+        self,
+        order_identifiers,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
     ) -> RequestSerialized:
         _host = None
 
@@ -1707,22 +1707,22 @@ class OrdersApi:
 
     @validate_call
     def update_orders_status_async(
-            self,
-            update_orders_status_request: Annotated[
-                UpdateOrdersStatusRequest,
-                Field(
-                    description="At least one of 'orderIdentifier' and 'orderReference' is required. Providing both is disallowed to avoid ambiguity.  When the status is set to 'despatchedByOtherCourier', if the optional parameter 'trackingNumber' is provided then the parameters 'despatchDate', 'shippingCarrier' and 'shippingService' are also required. The maximum collection length is 100. "
-                ),
-            ],
-            _request_timeout: Union[
-                None,
-                Annotated[StrictFloat, Field(gt=0)],
-                Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
-            ] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        self,
+        update_orders_status_request: Annotated[
+            UpdateOrdersStatusRequest,
+            Field(
+                description="At least one of 'orderIdentifier' and 'orderReference' is required. Providing both is disallowed to avoid ambiguity.  When the status is set to 'despatchedByOtherCourier', if the optional parameter 'trackingNumber' is provided then the parameters 'despatchDate', 'shippingCarrier' and 'shippingService' are also required. The maximum collection length is 100. "
+            ),
+        ],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> UpdateOrderStatusResponse:
         """Set order status
 
@@ -1775,22 +1775,22 @@ class OrdersApi:
 
     @validate_call
     def update_orders_status_async_with_http_info(
-            self,
-            update_orders_status_request: Annotated[
-                UpdateOrdersStatusRequest,
-                Field(
-                    description="At least one of 'orderIdentifier' and 'orderReference' is required. Providing both is disallowed to avoid ambiguity.  When the status is set to 'despatchedByOtherCourier', if the optional parameter 'trackingNumber' is provided then the parameters 'despatchDate', 'shippingCarrier' and 'shippingService' are also required. The maximum collection length is 100. "
-                ),
-            ],
-            _request_timeout: Union[
-                None,
-                Annotated[StrictFloat, Field(gt=0)],
-                Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
-            ] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        self,
+        update_orders_status_request: Annotated[
+            UpdateOrdersStatusRequest,
+            Field(
+                description="At least one of 'orderIdentifier' and 'orderReference' is required. Providing both is disallowed to avoid ambiguity.  When the status is set to 'despatchedByOtherCourier', if the optional parameter 'trackingNumber' is provided then the parameters 'despatchDate', 'shippingCarrier' and 'shippingService' are also required. The maximum collection length is 100. "
+            ),
+        ],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[UpdateOrderStatusResponse]:
         """Set order status
 
@@ -1843,22 +1843,22 @@ class OrdersApi:
 
     @validate_call
     def update_orders_status_async_without_preload_content(
-            self,
-            update_orders_status_request: Annotated[
-                UpdateOrdersStatusRequest,
-                Field(
-                    description="At least one of 'orderIdentifier' and 'orderReference' is required. Providing both is disallowed to avoid ambiguity.  When the status is set to 'despatchedByOtherCourier', if the optional parameter 'trackingNumber' is provided then the parameters 'despatchDate', 'shippingCarrier' and 'shippingService' are also required. The maximum collection length is 100. "
-                ),
-            ],
-            _request_timeout: Union[
-                None,
-                Annotated[StrictFloat, Field(gt=0)],
-                Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
-            ] = None,
-            _request_auth: Optional[Dict[StrictStr, Any]] = None,
-            _content_type: Optional[StrictStr] = None,
-            _headers: Optional[Dict[StrictStr, Any]] = None,
-            _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+        self,
+        update_orders_status_request: Annotated[
+            UpdateOrdersStatusRequest,
+            Field(
+                description="At least one of 'orderIdentifier' and 'orderReference' is required. Providing both is disallowed to avoid ambiguity.  When the status is set to 'despatchedByOtherCourier', if the optional parameter 'trackingNumber' is provided then the parameters 'despatchDate', 'shippingCarrier' and 'shippingService' are also required. The maximum collection length is 100. "
+            ),
+        ],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]],
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
         """Set order status
 
@@ -1906,12 +1906,12 @@ class OrdersApi:
         return response_data.response
 
     def _update_orders_status_async_serialize(
-            self,
-            update_orders_status_request,
-            _request_auth,
-            _content_type,
-            _headers,
-            _host_index,
+        self,
+        update_orders_status_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
     ) -> RequestSerialized:
         _host = None
 

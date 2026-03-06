@@ -1,13 +1,16 @@
-from pathlib import Path
+import pytest
 
-from conftest import STORE_RESULTS, dump_result, dump_result_model, print_object
+from conftest import STORE_RESULTS, dump_result_model, print_object
 from royal_mail_combined.all_models import (
-    GetOrdersResponse, GetVersionResource,
     AddressRecordDef,
     AddressVerifyDef,
     AddressVerifyReqRespdef,
     AddressVerifyRequestDef,
     AddressesDef,
+    GetOrdersResponse,
+    GetVersionResource,
+    UpdateOrderStatusRequest,
+    UpdateOrdersStatusRequest,
 )
 from royal_mail_combined.parcels_apis.collection_handler.models import GetAvailableSlotsResponse
 
@@ -45,9 +48,7 @@ def test_return_services(sample_client):
 def test_fetch_orders(sample_client):
     res = sample_client.click_and_drop.fetch_orders()
     if STORE_RESULTS:
-        result = res.model_dump(mode='json')
-        results_file = Path('data/fetch_orders_result.json')
-        dump_result(result, results_file)
+        dump_result_model(res)
     assert isinstance(res, GetOrdersResponse)
     ...
 
@@ -82,14 +83,39 @@ def test_fetch_specific(sample_client):
     ...
 
 
+@pytest.mark.skip(reason='Unable to delete manifested orders?')
+def test_kill_that_order(sample_client):
+    a_real_shipment_id = 1028
+    identifier = str(a_real_shipment_id)
+    # res = sample_client.click_and_drop.delete_orders(order_identifiers=identifier)
+    thing = UpdateOrderStatusRequest(
+        orderIdentifier=a_real_shipment_id,
+        status='deleted',
+    )
+    update_orders_status_request = UpdateOrdersStatusRequest.model_validate(dict(items=[thing]))
+    res = sample_client.click_and_drop.update_orders(update_orders_status_request=update_orders_status_request)
+    dump_result_model(res)
+    ...
+
+
+lies = r"""
+>           raise BadRequestException(http_resp=http_resp, body=body, data=data)
+E           royal_mail_combined.core.exceptions.BadRequestException: (400)
+E           Reason: Bad Request
+E           HTTP response headers: HTTPHeaderDict({'Date': 'Fri, 06 Mar 2026 21:04:30 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'api-supported-versions': '1.0', 'X-Correlation-Id': '1a066426-4f4c-4dff-bb6d-2df3a92f0d70', 'Strict-Transport-Security': 'max-age=31536000; includeSubDomains', 'Referrer-Policy': 'no-referrer', 'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'SAMEORIGIN', 'X-XSS-Protection': '1; mode=block'})
+E           HTTP response body: {"message":"A value for the 'request' parameter or property was not provided.  CorrelationId:1a066426-4f4c-4dff-bb6d-2df3a92f0d70"}
+
+..\src\royal_mail_combined\core\exceptions.py:139: BadRequestException
+
+"""
+
+
 # @pytest.mark.skip(reason='Use Cached result')
 def test_address_search(sample_client, cached_address):
     search_str = cached_address.address_line1 + ', ' + cached_address.postcode
     resp: AddressesDef = sample_client.parcel_api.address_search(search_str)
     if STORE_RESULTS:
-        result = resp.model_dump(mode='json')
-        results_file = Path('data/address_search_results.json')
-        dump_result(result, results_file)
+        dump_result_model(resp)
 
     assert isinstance(resp, AddressesDef)
     ...
@@ -101,10 +127,7 @@ def test_address_search_dps(sample_client, cached_address):
     addresses_payload = AddressVerifyRequestDef(addresses=[addr])
     resp: list[AddressVerifyReqRespdef] = sample_client.parcel_api.address_verify(addresses_payload)
     if STORE_RESULTS:
-        result = [_.model_dump(mode='json') for _ in resp]
-        results_file = Path('data/address_search_dps_results.json')
-        dump_result(result, results_file)
-
+        dump_result_model(resp)
     assert isinstance(resp, list)
     assert isinstance(resp[0], AddressVerifyReqRespdef)
 
@@ -113,9 +136,7 @@ def test_address_search_dps(sample_client, cached_address):
 def test_address_get(sample_client, cached_address_id):
     resp = sample_client.parcel_api.address_retrieve(cached_address_id)
     if STORE_RESULTS:
-        result = resp.model_dump(mode='json')
-        results_file = Path('data/address_get_result.json')
-        dump_result(result, results_file)
+        dump_result_model(resp)
     assert isinstance(resp, AddressRecordDef)
 
 
@@ -127,7 +148,5 @@ def test_handler_get_slots(sample_client, cached_dps_results):
     item_count = 1
     resp = sample_client.parcel_api.slots_get_available(dps_postcode_str, item_count)
     if STORE_RESULTS:
-        result = resp.model_dump(mode='json')
-        results_file = Path('data/collection_order_handler_get_slots.json')
-        dump_result(result, results_file)
+        dump_result_model(resp)
     assert isinstance(resp, GetAvailableSlotsResponse)

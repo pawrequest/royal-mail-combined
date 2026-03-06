@@ -1,6 +1,8 @@
 import os
 from datetime import date, timedelta
+from pathlib import Path
 
+from conftest import get_dumped_dir
 from royal_mail_combined.all_models import ReturnsResponse, SlotDateDef
 from royal_mail_combined.converters import decode_b64, match_date
 
@@ -18,12 +20,13 @@ def test_loads_return_services(cached_return_services):
 
 
 def test_label_from_return():
-    with open(r'dumped/ReturnsResponse.json') as f:
+    dumped_dir = get_dumped_dir()
+    with open(rf'{dumped_dir}/ReturnsResponse.json') as f:
         data = f.read()
     rtn = ReturnsResponse.model_validate_json(data)
     labeldata = rtn.label
     label_bytes = decode_b64(labeldata)
-    outp = r'dumped/return_label.pdf'
+    outp = Path(rf'{dumped_dir}/return_label.pdf').absolute()
     with open(outp, 'wb') as f:
         f.write(label_bytes)
     os.startfile(outp)

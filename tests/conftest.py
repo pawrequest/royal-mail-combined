@@ -34,8 +34,7 @@ from royal_mail_combined.core.consts_types import PackageFormat, SendNotifcation
 from royal_mail_combined.parcels_apis.address.models import AddressVerifyDef
 from royal_mail_combined.parcels_apis.collection_handler.models import GetAvailableSlotsResponse
 
-REFERENCE = 'RETURN123456'
-
+REFERENCE = 'TEST RETURN123456'
 STORE_RESULTS = True
 
 TEST_DATE = date.today() + timedelta(days=2)
@@ -43,13 +42,8 @@ if TEST_DATE.weekday() in (5, 6):
     TEST_DATE += timedelta(days=7 - TEST_DATE.weekday())
 
 
-# TEST_DATE = datetime.combine(TEST_DATE, datetime.min.time())
-
-
-def dump_result(result: dict | list[dict], results_file):
-    results_file.parent.mkdir(parents=True, exist_ok=True)
-    results_json = json.dumps(result)
-    results_file.write_text(results_json)
+def get_dumped_dir():
+    return f"dumped-{datetime.now().strftime('%Y-%m-%dT%H')}"
 
 
 def dump_result_model(result: BaseModel | list[BaseModel]):
@@ -62,9 +56,9 @@ def dump_result_model(result: BaseModel | list[BaseModel]):
     else:
         raise ValueError('result must be BaseModel or list of BaseModel')
 
-    dumped = f"dumped-{datetime.now().strftime('%Y-%m-%dT%H')}"
+    dumped_dir = get_dumped_dir()
     # dumped = f'dumped-{today().isoformat(sep='T')}'
-    results_name = Path(f'{dumped}/{resmodel.__class__.__name__}.json')
+    results_name = Path(f'{dumped_dir}/{resmodel.__class__.__name__}.json')
     results_name.parent.mkdir(parents=True, exist_ok=True)
     results_json = json.dumps(result_d)
     results_name.write_text(results_json)

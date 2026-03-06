@@ -87,7 +87,7 @@ def test_make_booking_return(return_request, sample_client):
     ...
 
 
-@pytest.mark.xfail(reason='COllection API not working?')
+@pytest.mark.xfail(reason='Collection API not working?')
 def test_inbound_booking_story(sample_client, return_request, sample_settings):
     # book return shipment
     return_response = sample_client.create_return_shipment_order(return_request)

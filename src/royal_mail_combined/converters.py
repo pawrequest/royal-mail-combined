@@ -6,9 +6,12 @@ from royal_mail_combined.all_models import (
     CreateOrderRequest,
     CreateOrdersResponse,
     LabelGenerationRequest,
-    GetAvailableSlotsResponse, SlotDateDef,
-    AddressMandatoryDef, AddressNonMandatoryDef,
-    AddressVerifyDef, AddressVerifyReqRespdef,
+    GetAvailableSlotsResponse,
+    SlotDateDef,
+    AddressMandatoryDef,
+    AddressNonMandatoryDef,
+    AddressVerifyDef,
+    AddressVerifyReqRespdef,
     AddressReturns,
 )
 
@@ -88,7 +91,7 @@ def order_identifier_to_string(id_or_ref: int | str) -> str:
 
 
 def order_identifiers_to_string(
-        order_identifiers: list[str | int] | str | int,
+    order_identifiers: list[str | int] | str | int,
 ) -> str:
     """Encode order ids and references."""
     if not isinstance(order_identifiers, list):

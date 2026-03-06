@@ -4,7 +4,7 @@ from datetime import date, datetime
 from enum import StrEnum
 from typing_extensions import Annotated
 
-from pydantic import StrictFloat, StrictInt, Field
+from pydantic import Field
 
 
 class SendNotifcationsTo(StrEnum):
