@@ -12,11 +12,6 @@ from royal_mail_combined.all_models import (
 from royal_mail_combined.parcels_apis.collection_handler.models import GetAvailableSlotsResponse
 
 
-# @pytest.mark.skip(
-#     reason='This is a live test, it will create an order in the account, check online portal to confirm deletion after test'
-# )
-
-
 def test_version(sample_client):
     res = sample_client.click_and_drop.fetch_version()
     assert isinstance(res, GetVersionResource)

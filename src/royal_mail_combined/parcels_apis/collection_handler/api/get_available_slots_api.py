@@ -25,7 +25,7 @@ ACCEPT = Annotated[
 from royal_mail_combined.parcels_apis.collection_handler.models.get_available_slots_response import (
     GetAvailableSlotsResponse,
 )
-from royal_mail_combined.core.api_client import RequestSerialized
+from royal_mail_combined.core.core_api_client import RequestSerialized
 from royal_mail_combined.core import ApiResponse
 from royal_mail_combined.core.consts_types import X_RMG_DATETIME
 from royal_mail_combined.core.rest import RESTResponseType

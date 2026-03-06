@@ -19,7 +19,7 @@ from royal_mail_combined.parcels_apis.collection_handler.models.product_family i
 from royal_mail_combined.parcels_apis.collection_handler.models.validate_subscription_response import (
     ValidateSubscriptionResponse,
 )
-from royal_mail_combined.core.api_client import RequestSerialized
+from royal_mail_combined.core.core_api_client import RequestSerialized
 from royal_mail_combined.core import ApiResponse
 from royal_mail_combined.core.rest import RESTResponseType
 

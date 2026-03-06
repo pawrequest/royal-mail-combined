@@ -19,7 +19,7 @@ from royal_mail_combined.parcels_apis.collection_order.models import (
     DraftCollectionLabelRequest,
     DraftCollectionLabelResult,
 )
-from royal_mail_combined.core.api_client import RequestSerialized
+from royal_mail_combined.core.core_api_client import RequestSerialized
 from royal_mail_combined.core.api_response import ApiResponse
 from royal_mail_combined.core.rest import RESTResponseType
 
