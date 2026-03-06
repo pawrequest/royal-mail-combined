@@ -1,7 +1,7 @@
-from royal_mail_combined.apis.parcels_apis.client import ParcelAPIClient
-from royal_mail_combined.apis.click_and_drop.client import ClickAndDropClient
+from royal_mail_combined.parcels_apis.client import ParcelAPIClient
+from royal_mail_combined.click_and_drop_api.client import ClickAndDropClient
 from royal_mail_combined.config import RoyalMailSettingsGlobal
-from royal_mail_combined.apis.returns.models import ReturnsRequest, ReturnsResponse, AvailableServicesResponse
+from royal_mail_combined.all_models import ReturnsRequest, ReturnsResponse, AvailableServicesResponse
 from royal_mail_combined.core.endpoints import RETURNS_ENDPOINT, RETURNS_SERVICES_ENDPOINT
 from royal_mail_combined.core.http_client import RMBaseClient
 

@@ -1,8 +1,7 @@
 import os
 from datetime import date, timedelta
 
-from royal_mail_combined.apis.parcels_apis.collection_handler.models import SlotDateDef
-from royal_mail_combined.apis.returns.models import ReturnsResponse
+from royal_mail_combined.all_models import ReturnsResponse, SlotDateDef
 from royal_mail_combined.converters import decode_b64, match_date
 
 

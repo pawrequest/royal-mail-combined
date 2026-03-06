@@ -22,7 +22,7 @@ from urllib.parse import quote
 from dateutil.parser import parse
 from pydantic import SecretStr, BaseModel
 
-from royal_mail_combined.apis import all_models
+from royal_mail_combined import all_models
 from royal_mail_combined.core.configuration import Configuration
 from royal_mail_combined.core.exceptions import ApiException, ApiValueError
 from royal_mail_combined.core.rest import RESTResponse, RESTClientObject
@@ -310,7 +310,7 @@ class ApiClient:
         elif isinstance(obj, decimal.Decimal):
             return str(obj)
         elif isinstance(obj, BaseModel):
-            obj_dict = obj.model_dump(mode='json', by_alias=True, exclude_unset=True)
+            obj_dict = obj.model_dump(mode='json', by_alias=True, exclude_none=True)
         elif isinstance(obj, dict):
             obj_dict = obj
         else:

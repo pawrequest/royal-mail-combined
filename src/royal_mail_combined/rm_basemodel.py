@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+
 from pydantic import AliasGenerator, BaseModel, ConfigDict
 from pydantic.alias_generators import to_camel
 
@@ -15,3 +18,7 @@ class RMBaseModel(BaseModel):
         use_enum_values=True,
         # validate_assignment=True,
     )
+
+
+def order_idents_str(order_idents: list[str | int]) -> str:
+    return ';'.join([str(_) for _ in order_idents])

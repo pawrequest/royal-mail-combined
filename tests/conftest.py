@@ -8,35 +8,31 @@ import pytest
 from pydantic import BaseModel
 
 from royal_mail_combined.added_models.services import RoyalMailServiceCodes
-from royal_mail_combined.apis.click_and_drop.models import (
+from royal_mail_combined.all_models import (
+    AccountDetailsDef,
+    AddressDef,
     AddressRequest,
+    AddressReturns,
+    AddressVerifyReqRespdef,
+    AvailableServicesResponse,
     BillingDetailsRequest,
     CreateOrderRequest,
+    CustomerReference,
     GetOrdersResponse,
     PostageDetailsRequest,
     RecipientDetailsRequest,
-    ShipmentPackageRequest,
-)
-from royal_mail_combined.apis.parcels_apis.address.models import AddressVerifyDef
-from royal_mail_combined.apis.parcels_apis.collection_handler.models import GetAvailableSlotsResponse
-from royal_mail_combined.apis.parcels_apis.address.added_models import AddressFindDPSResponse
-from royal_mail_combined.apis.parcels_apis.collection_order.models import (
-    AccountDetailsDef,
-    AddressDef,
-    SenderDetailsPostDef,
-)
-from royal_mail_combined.apis.returns.models import (
-    Address,
-    AvailableServicesResponse,
-    CustomerReference,
     ReturnsRequest,
     ReturnsResponse,
+    SenderDetailsPostDef,
     Service,
     Shipment,
+    ShipmentPackageRequest,
 )
 from royal_mail_combined.client_multi import RoyalMailClient
 from royal_mail_combined.config import RoyalMailSettingsGlobal
 from royal_mail_combined.core.consts_types import PackageFormat, SendNotifcationsTo
+from royal_mail_combined.parcels_apis.address.models import AddressVerifyDef
+from royal_mail_combined.parcels_apis.collection_handler.models import GetAvailableSlotsResponse
 
 REFERENCE = 'RETURN123456'
 
@@ -97,7 +93,7 @@ def sample_client(sample_settings) -> Generator[RoyalMailClient, Any, None]:
         if o not in orders_before.orders:
             print('Deleting Test Order')
             res = client.click_and_drop.delete_orders(order_identifiers=str(o.order_identifier))
-            assert o.order_identifier in res.idents, 'WARNING, FAILED TO DELETE TEST ORDERS!!'
+            assert o.order_identifier in res.order_idents(), 'WARNING, FAILED TO DELETE TEST ORDERS!!'
             print('Deleted Test Orders')
 
 
@@ -150,16 +146,16 @@ def cached_address_id():
 
 
 @pytest.fixture(scope='session')
-def cached_dps_results() -> AddressFindDPSResponse:
+def cached_dps_results() -> AddressVerifyReqRespdef:
     with open(r'data\address_search_dps_results.json') as f:
         res = f.read()
         res = json.loads(res)
-    return AddressFindDPSResponse.model_validate(res[0])
+    return AddressVerifyReqRespdef.model_validate(res[0])
 
 
 @pytest.fixture(scope='session')
 def cached_return_request(cached_address, cached_sender, cached_return_address):
-    sender_address = Address(
+    sender_address = AddressReturns(
         title='Mr',
         first_name='ShipFirst',
         last_name='ShipLast',
@@ -173,7 +169,7 @@ def cached_return_request(cached_address, cached_sender, cached_return_address):
         country='United Kingdom',
         country_iso_code='GBR',
     )
-    destination_address = Address(
+    destination_address = AddressReturns(
         title='Mr',
         first_name='ReturnFirst',
         last_name='ReturnLast',
@@ -216,83 +212,7 @@ def cached_return_services() -> AvailableServicesResponse:
 
 
 @pytest.fixture(scope='session')
-def cached_return_request_json_example():
-    return {
-        'service': {'serviceCode': 'TSS'},
-        'shipment': {
-            'shippingAddress': {
-                'title': 'Mr',
-                'firstName': 'Name',
-                'lastName': 'Surname',
-                'companyName': 'Company LTD',
-                'addressLine1': '23 fish lane',
-                'addressLine2': '',
-                'addressLine3': '',
-                'city': 'Milton Keynes',
-                'county': '',
-                'postcode': 'MK17 8EW',
-                'country': 'United kingdom',
-                'countryIsoCode': 'GBR',
-            },
-            'returnAddress': {
-                'title': 'string',
-                'firstName': 'string',
-                'lastName': 'string',
-                'companyName': 'string',
-                'addressLine1': '15 clown lane',
-                'addressLine2': 'string',
-                'addressLine3': 'string',
-                'city': 'string',
-                'county': 'string',
-                'postcode': 'MK17 8EW',
-                'country': 'united kingdom',
-                'countryIsoCode': 'GBR',
-            },
-            'customerReference': {'reference': 'Testing Reference'},
-        },
-    }
-
-
-@pytest.fixture(scope='session')
-def cached_return_request_json():
-    return {
-        'service': {'serviceCode': 'RT0'},
-        'shipment': {
-            'shippingAddress': {
-                'title': 'Mr',
-                'firstName': 'Name',
-                'lastName': 'Surname',
-                'companyName': 'Company LTD',
-                'addressLine1': '30 Bennet Close',
-                'addressLine2': '',
-                'addressLine3': '',
-                'city': 'Welling',
-                'county': 'Kent',
-                'postcode': 'DA16 3HU',
-                'country': 'United kingdom',
-                'countryIsoCode': 'GBR',
-            },
-            'returnAddress': {
-                'title': 'Mr',
-                'firstName': 'Giles',
-                'lastName': 'Toman',
-                'companyName': 'Amherst Enterprises',
-                'addressLine1': '70 Kingsgate Road',
-                'addressLine2': '',
-                'addressLine3': '',
-                'city': 'Kilburn',
-                'county': 'London',
-                'postcode': 'NW64TE',
-                'country': 'United Kingdom',
-                'countryIsoCode': 'GBR',
-            },
-            'customerReference': {'reference': 'Testing Reference'},
-        },
-    }
-
-
-@pytest.fixture(scope='session')
-def cached_address_request_recip():
+def address_request_recip_fxt():
     return AddressRequest(
         full_name='Testy Testson Recipient',
         company_name='Recip Comp name',
@@ -322,9 +242,9 @@ def cached_address_req_sender():
 
 
 @pytest.fixture(scope='session')
-def cached_recip_details(cached_address_request_recip):
+def cached_recip_details(address_request_recip_fxt):
     return RecipientDetailsRequest(
-        address=cached_address_request_recip,
+        address=address_request_recip_fxt,
         phone_number='07666666666',
         email_address='recipient@sdgikhjbsdgijbsdigj.com',
     )

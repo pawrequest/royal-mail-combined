@@ -1,20 +1,15 @@
 from pathlib import Path
 
-import pytest
-
 from conftest import STORE_RESULTS, dump_result, dump_result_model, print_object
-from royal_mail_combined.apis.click_and_drop.models import GetOrdersResponse, GetVersionResource
-from royal_mail_combined.apis.parcels_apis.address.models import (
+from royal_mail_combined.all_models import (
+    GetOrdersResponse, GetVersionResource,
     AddressRecordDef,
     AddressVerifyDef,
     AddressVerifyReqRespdef,
     AddressVerifyRequestDef,
     AddressesDef,
 )
-from royal_mail_combined.apis.parcels_apis.collection_handler.models import GetAvailableSlotsResponse
-from royal_mail_combined.converters import (
-    order_identifier_to_string,
-)
+from royal_mail_combined.parcels_apis.collection_handler.models import GetAvailableSlotsResponse
 
 
 # @pytest.mark.skip(
@@ -64,18 +59,18 @@ def test_fetch_orders(sample_client):
 
 def test_fetch_specific(sample_client):
     track2 = 'PK007810419GB'
-    anitem = 1038
+    a_real_shipment_id = 1037
     tracking_number = 'ZS191785051GB'
     unique_item_id = '32073580900070C28FE67'
     # idents = quote(tracking_number)
     # idents = quote(f'"{tracking_number}";"{unique_item_id}"')
     # idents = f'"{quote(unique_item_id)}"'
-    idents = str(anitem)
 
     office_res_unique = r'32073580900070CE96492'
     office_res_track = r'ZS191785065GB'
 
-    identifier = order_identifier_to_string(office_res_track)
+    identifier = str(a_real_shipment_id)
+    # identifier = order_identifier_to_string(office_res_track)
 
     res = sample_client.click_and_drop.fetch_specific(order_identifiers=identifier)
     if STORE_RESULTS:
@@ -109,7 +104,7 @@ def test_address_search(sample_client, cached_address):
 def test_address_search_dps(sample_client, cached_address):
     addr = AddressVerifyDef.model_validate(cached_address, from_attributes=True)
     addresses_payload = AddressVerifyRequestDef(addresses=[addr])
-    resp: list[AddressVerifyReqRespdef] = sample_client.address_search_verify(addresses_payload)
+    resp: list[AddressVerifyReqRespdef] = sample_client.parcel_api.address_verify(addresses_payload)
     if STORE_RESULTS:
         result = [_.model_dump(mode='json') for _ in resp]
         results_file = Path('data/address_search_dps_results.json')
@@ -129,7 +124,7 @@ def test_address_get(sample_client, cached_address_id):
     assert isinstance(resp, AddressRecordDef)
 
 
-@pytest.mark.skip(reason='Use Cached result')
+# @pytest.mark.skip(reason='Use Cached result')
 def test_handler_get_slots(sample_client, cached_dps_results):
     dps = cached_dps_results.dps
     postcode = cached_dps_results.input.postcode.replace(' ', '')

@@ -1,21 +1,20 @@
 from datetime import datetime
 
-from royal_mail_combined.apis.parcels_apis.address.models import (
+from royal_mail_combined.all_models import (
     AddressFindRequestDef,
     AddressRecordDef,
     AddressSummaryDef,
     AddressVerifyReqRespdef,
     AddressVerifyRequestDef,
-)
-from royal_mail_combined.apis.click_and_drop.models import (
     CreateOrdersRequest,
     CreateOrdersResponse,
     DeleteOrdersResource,
     GetOrdersResponse,
+    Collection,
+    ReturnsRequest,
+    ReturnsResponse,
+    GetAvailableSlotsResponse,
 )
-from royal_mail_combined.apis.parcels_apis.collection_handler.models import GetAvailableSlotsResponse
-from royal_mail_combined.apis.parcels_apis.collection_order.models import Collection
-from royal_mail_combined.apis.returns.models import ReturnsRequest, ReturnsResponse
 from royal_mail_combined.core.endpoints import (
     ADDRESS_BASE,
     CAD_ORDERS,
@@ -44,11 +43,11 @@ class RoyalMailClient(RMBaseClient):
     # ORDERS
     @handle_errors
     def orders_fetch(
-        self,
-        page_size: int | None = None,
-        start_date_time: datetime | None = None,
-        end_date_time: datetime | None = None,
-        continuation_token: str | None = None,
+            self,
+            page_size: int | None = None,
+            start_date_time: datetime | None = None,
+            end_date_time: datetime | None = None,
+            continuation_token: str | None = None,
     ) -> GetOrdersResponse:
         params = {
             'pageSize': page_size,

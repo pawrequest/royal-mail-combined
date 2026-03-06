@@ -2,18 +2,18 @@ from datetime import date
 from urllib.parse import quote
 import base64
 
-from royal_mail_combined.apis.click_and_drop.models import (
+from royal_mail_combined.all_models import (
     CreateOrderRequest,
     CreateOrdersResponse,
     LabelGenerationRequest,
+    GetAvailableSlotsResponse, SlotDateDef,
+    AddressMandatoryDef, AddressNonMandatoryDef,
+    AddressVerifyDef, AddressVerifyReqRespdef,
+    AddressReturns,
 )
-from royal_mail_combined.apis.parcels_apis.collection_handler.models import GetAvailableSlotsResponse, SlotDateDef
-from royal_mail_combined.apis.parcels_apis.collection_order.models import AddressMandatoryDef, AddressNonMandatoryDef
-from royal_mail_combined.apis.returns.models import Address
-from royal_mail_combined.apis.parcels_apis.address.models import AddressVerifyDef, AddressVerifyReqRespdef
 
 
-def rtn_address_to_addr_verify(address: Address) -> AddressVerifyDef:
+def rtn_address_to_addr_verify(address: AddressReturns) -> AddressVerifyDef:
     return AddressVerifyDef.model_validate(
         dict(
             address_line1=address.address_line1,
@@ -88,7 +88,7 @@ def order_identifier_to_string(id_or_ref: int | str) -> str:
 
 
 def order_identifiers_to_string(
-    order_identifiers: list[str | int] | str | int,
+        order_identifiers: list[str | int] | str | int,
 ) -> str:
     """Encode order ids and references."""
     if not isinstance(order_identifiers, list):
