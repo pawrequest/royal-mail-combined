@@ -12,6 +12,7 @@ from royal_mail_combined.all_models import (
     UpdateOrderStatusRequest,
     UpdateOrdersStatusRequest,
 )
+from royal_mail_combined.click_and_drop_api.models import GetOrderInfoResource
 from royal_mail_combined.parcels_apis.collection_handler.models import GetAvailableSlotsResponse
 
 
@@ -69,6 +70,7 @@ def test_fetch_specific(sample_client):
     # identifier = order_identifier_to_string(office_res_track)
 
     res = sample_client.click_and_drop.fetch_specific(order_identifiers=identifier)
+    assert isinstance(res[0], GetOrderInfoResource)
     if STORE_RESULTS:
         dump_result_model(res)
     ...
