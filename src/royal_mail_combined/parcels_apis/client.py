@@ -2,7 +2,7 @@ from royal_mail_combined.all_models import AddressFindRequestDef, ProductFamily,
 from royal_mail_combined.parcels_apis.address.api import AddressApi
 from royal_mail_combined.parcels_apis.collection_order.api import CollectionOrderApi
 from royal_mail_combined.parcels_apis.collection_handler.api import GetAvailableSlotsApi, ProductFamilySubscriptionApi
-from royal_mail_combined.build_client import build_client
+from royal_mail_combined.core.build_client import build_client
 from royal_mail_combined.config import RoyalMailSettingsGlobal
 from royal_mail_combined.core.endpoints import (
     ADDRESS_BASE,

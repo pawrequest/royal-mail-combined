@@ -2,7 +2,7 @@ from pprint import pprint, pformat
 
 from loguru import logger
 
-from royal_mail_combined.build_client import build_client
+from royal_mail_combined.core.build_client import build_client
 from royal_mail_combined.config import RoyalMailSettingsGlobal
 from royal_mail_combined.converters import add_label_gen_request
 from royal_mail_combined.core.endpoints import CAD_BASE
