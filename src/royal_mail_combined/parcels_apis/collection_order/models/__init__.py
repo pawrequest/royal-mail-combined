@@ -41,3 +41,35 @@ from .safe_place_details_def import SafePlaceDetailsDef
 from .sender_details_def import SenderDetailsDef
 from .sender_details_post_def import SenderDetailsPostDef
 from .update_collection import UpdateCollection
+
+
+__all__ = [
+    'AccountDetailsDef',
+    'AddressDef',
+    'AddressMandatoryDef',
+    'AddressNonMandatoryDef',
+    'Collection',
+    'CollectionItemType',
+    'CollectionMandatory',
+    'CollectionOrderCreateResponse',
+    'CollectionOrderDeleteResponse',
+    'CollectionOrderGetResponse',
+    'CollectionOrderUpdateResponse',
+    'CollectionStatus',
+    'CollectionStatusRequestDef',
+    'DimensionsDef',
+    'DimensionsPostDef',
+    'DraftCollectionLabelRequest',
+    'DraftCollectionLabelResult',
+    'ErrorResponse',
+    'ItemsDef',
+    'ItemsPostDef',
+    'LabelAddress',
+    'LabelCustomsInfo',
+    'LabelInfo',
+    'LabelOrderItem',
+    'SafePlaceDetailsDef',
+    'SenderDetailsDef',
+    'SenderDetailsPostDef',
+    'UpdateCollection',
+]

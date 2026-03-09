@@ -1,6 +1,5 @@
 from datetime import date
 from urllib.parse import quote
-import base64
 
 from royal_mail_combined.all_models import (
     CreateOrderRequest,
@@ -45,6 +44,7 @@ def address_angonstic_to_verify_def(addr) -> AddressVerifyDef:
 
 
 def dps_postcode(verify_resp: AddressVerifyReqRespdef) -> str:
+    """Get DPS + postcode string from an address verify response."""
     return verify_resp.input.postcode.replace(' ', '') + verify_resp.dps
 
 
@@ -53,10 +53,7 @@ def addr_non_mandatory_from_addr(cached_address_verify: AddressVerifyDef) -> Add
 
 
 def addr_mandatory_f_addr_and_dps(addr: AddressVerifyDef, dps: str):
-    addr_mand = AddressMandatoryDef(
-        **addr.model_dump(),
-        dps=dps,
-    )
+    addr_mand = AddressMandatoryDef(**addr.model_dump(), dps=dps)
     return addr_mand
 
 
@@ -99,10 +96,6 @@ def order_identifiers_to_string(
     return ';'.join(map(order_identifier_to_string, order_identifiers))
 
 
-def match_date(slots: GetAvailableSlotsResponse, d: date) -> SlotDateDef | None:
+def match_collection_slot_date(slots: GetAvailableSlotsResponse, d: date) -> SlotDateDef | None:
     datewise = slots.task_slots.datewise_slots or ()
     return next((_ for _ in datewise if _.slot_date == d), None)
-
-
-def decode_b64(s: str) -> bytes:
-    return base64.b64decode(s)

@@ -24,7 +24,7 @@ from royal_mail_combined.all_models import (
 )
 from royal_mail_combined.converters import (
     address_angonstic_to_verify_def,
-    match_date,
+    match_collection_slot_date,
 )
 
 
@@ -111,7 +111,7 @@ def test_inbound_booking_story(sample_client, return_request, sample_settings):
     slots_response = sample_client.parcel_api.slots_get_available(dps=postcode_and_dps, item_count=item_count)
     dump_result_model(slots_response)
 
-    my_slot = match_date(slots_response, TEST_DATE)
+    my_slot = match_collection_slot_date(slots_response, TEST_DATE)
     if my_slot is None:
         raise Exception('No slot found for date')
     token = slots_response.task_slots.slot_details.token_id

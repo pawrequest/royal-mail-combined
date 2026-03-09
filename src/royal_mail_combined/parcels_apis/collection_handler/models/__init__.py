@@ -27,3 +27,20 @@ from .slot_details_def import SlotDetailsDef
 from .subscription_def import SubscriptionDef
 from .task_slots_def import TaskSlotsDef
 from .validate_subscription_response import ValidateSubscriptionResponse
+
+__all__ = [
+    'AccountDef',
+    'AgreementLineDef',
+    'ContractCodeDef',
+    'ContractSubscriptionDef',
+    'EstimatedWindowDef',
+    'GetAvailableSlotsResponse',
+    'ProductFamily',
+    'ProductFamilyDef',
+    'ProductFamilyResponseDef',
+    'SlotDateDef',
+    'SlotDetailsDef',
+    'SubscriptionDef',
+    'TaskSlotsDef',
+    'ValidateSubscriptionResponse',
+]

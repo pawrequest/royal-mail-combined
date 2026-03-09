@@ -42,7 +42,7 @@ if TEST_DATE.weekday() in (5, 6):
     TEST_DATE += timedelta(days=7 - TEST_DATE.weekday())
 
 
-def get_dumped_dir():
+def get_dumped_dir_this_hour():
     return f"dumped-{datetime.now().strftime('%Y-%m-%dT%H')}"
 
 
@@ -56,7 +56,7 @@ def dump_result_model(result: BaseModel | list[BaseModel]):
     else:
         raise ValueError('result must be BaseModel or list of BaseModel')
 
-    dumped_dir = get_dumped_dir()
+    dumped_dir = get_dumped_dir_this_hour()
     # dumped = f'dumped-{today().isoformat(sep='T')}'
     results_name = Path(f'{dumped_dir}/{resmodel.__class__.__name__}.json')
     results_name.parent.mkdir(parents=True, exist_ok=True)
