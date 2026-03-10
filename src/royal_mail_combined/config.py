@@ -59,7 +59,7 @@ class RoyalMailSettingsGlobal(BaseSettings):
     def from_env_file(cls, env_file: Path) -> Self:
         return cls(_env_file=env_file)
 
-    def headers(self) -> dict:
+    def authorised_headers_client(self) -> dict:
         heads = {
             'X-IBM-Client-Id': self.client_id.get_secret_value(),
             'X-IBM-Client-Secret': self.client_secret.get_secret_value(),
@@ -67,7 +67,7 @@ class RoyalMailSettingsGlobal(BaseSettings):
         heads.update(base_headers())
         return heads
 
-    def headers_bearer(self) -> dict:
+    def authorised_headers_bearer(self) -> dict:
         heads = {'Authorization': f'Bearer {self.api_key.get_secret_value()}'}
         heads.update(base_headers())
         return heads

@@ -16,13 +16,13 @@ class RoyalMailClient:
     # ORDERS
     def create_return_shipment_order(self, return_request: ReturnsRequest) -> ReturnsResponse:
         res = self.http_client.do_post(
-            url=RETURNS_ENDPOINT, data=return_request, headers=self.settings.headers_bearer()
+            url=RETURNS_ENDPOINT, data=return_request, headers=self.settings.authorised_headers_bearer()
         )
         res_model = ReturnsResponse.model_validate(res.json())
         return res_model
 
     # ORDERS
     def check_return_services(self) -> AvailableServicesResponse:
-        res = self.http_client.do_get(url=RETURNS_SERVICES_ENDPOINT, headers=self.settings.headers_bearer())
+        res = self.http_client.do_get(url=RETURNS_SERVICES_ENDPOINT, headers=self.settings.authorised_headers_bearer())
         res_model = AvailableServicesResponse.model_validate(res.json())
         return res_model
