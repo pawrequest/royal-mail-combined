@@ -46,9 +46,9 @@ class RoyalMailSettingsGlobal(BaseSettings):
     _cad_config = None
     _address_config = None
 
-    @field_serializer('client_id', 'client_secret', 'api_key', when_used='json')
-    def dump_secret(self, v):
-        return v.get_secret_value()
+    # @field_serializer('client_id', 'client_secret', 'api_key', when_used='json')
+    # def dump_secret(self, v):
+    #     return v.get_secret_value()
 
     @classmethod
     @lru_cache
