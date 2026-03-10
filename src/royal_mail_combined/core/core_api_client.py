@@ -29,6 +29,7 @@ from royal_mail_combined.core.rest import RESTResponse, RESTClientObject
 from royal_mail_combined.core.api_response import ApiResponse, T as ApiResponseT
 
 RequestSerialized = tuple[str, str, dict[str, str], str | None, list[str]]
+"""METHOD[str], URL[str], HEADERS[dict[str,str]], BODY[str | None], POST_PARAMS[list[str]]"""
 
 
 class ApiClient:

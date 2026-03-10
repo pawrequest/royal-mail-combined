@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Self
 
 from loguru import logger
-from pydantic import SecretStr, field_serializer
+from pydantic import SecretStr
 from pydantic_settings import BaseSettings
 
 RM_ENV_NAME = 'ROYAL_MAIL_ENV'

@@ -166,3 +166,112 @@ def test_inbound_booking_story(sample_client, return_request, sample_settings):
     ...
 
     # order_resp = sample_client.parcel_api.collection_create(collection=collection_payload)
+
+
+returns_params = (
+    'POST',
+    'https://api.parcel.royalmail.com/api/v1/returns',
+    {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ***-4ef8-a73d-7f8a76401801',
+        'Content-Type': 'application/json',
+        'X-RMG-Date-Time': '2026-03-10T11:39:06',
+    },
+    {
+        'service': {'serviceCode': 'TSN'},
+        'shipment': {
+            'customerReference': {'reference': 'TEST RETURN123456'},
+            'returnAddress': {
+                'addressLine1': 'Flat 43, Berberis House',
+                'addressLine2': 'Highfield Road',
+                'addressLine3': None,
+                'city': 'Feltham',
+                'companyName': 'ShipCompany',
+                'country': 'United Kingdom',
+                'countryIsoCode': 'GBR',
+                'county': 'Middlesex',
+                'firstName': 'ShipFirst',
+                'lastName': 'ShipLast',
+                'postcode': 'TW13 4GP',
+                'title': 'Mr',
+            },
+            'shippingAddress': {
+                'addressLine1': '70 Kingsgate road',
+                'addressLine2': None,
+                'addressLine3': None,
+                'city': 'Kilburn',
+                'companyName': 'ReturnCompany',
+                'country': 'United Kingdom',
+                'countryIsoCode': 'GBR',
+                'county': 'London',
+                'firstName': 'ReturnFirst',
+                'lastName': 'ReturnLast',
+                'postcode': 'NW6 4TE',
+                'title': 'Mr',
+            },
+        },
+    },
+)
+
+outbound_params = (
+    'POST',
+    'https://api.parcel.royalmail.com/api/v1/orders',
+    {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ***-4ef8-a73d-7f8a76401801',
+        'Content-Type': 'application/json',
+        'User-Agent': 'AmShip/0.0.1',
+    },
+    {
+        'items': [
+            {
+                'billing': {
+                    'address': {
+                        'addressLine1': 'MY FIRSTLINE',
+                        'addressLine2': '',
+                        'addressLine3': '',
+                        'city': 'MY CITY',
+                        'companyName': 'MY COMPANY NAME',
+                        'countryCode': 'GB',
+                        'county': 'COUNTY',
+                        'fullName': 'MY SENDER NAME',
+                        'postcode': 'me88sp',
+                    },
+                    'emailAddress': 'billme@sikdjfsdjbfgjksbdgf.com',
+                    'phoneNumber': '07888888888',
+                },
+                'label': {'includeLabelInResponse': True},
+                'orderDate': '2026-03-10T11:36:08.415761',
+                'packages': [
+                    {'packageFormatIdentifier': 'parcel', 'weightInGrams': 10000},
+                    {'packageFormatIdentifier': 'parcel', 'weightInGrams': 10000},
+                ],
+                'postageDetails': {
+                    'receiveEmailNotification': True,
+                    'receiveSmsNotification': True,
+                    'sendNotificationsTo': 'recipient',
+                    'serviceCode': 'NDA',
+                },
+                'recipient': {
+                    'address': {
+                        'addressLine1': 'addr line1',
+                        'addressLine2': '',
+                        'addressLine3': '',
+                        'city': 'city',
+                        'companyName': 'Recip Comp name',
+                        'countryCode': 'GB',
+                        'county': 'county',
+                        'fullName': 'Testy Testson Recipient',
+                        'postcode': 'da163hu',
+                    },
+                    'emailAddress': 'recipient@sdgikhjbsdgijbsdigj.com',
+                    'phoneNumber': '07666666666',
+                },
+                'shippingCostCharged': 0,
+                'subtotal': 0,
+                'total': 0,
+            }
+        ]
+    },
+    [],
+)
