@@ -13,8 +13,7 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field
-from typing import Optional
-from typing_extensions import Annotated
+from typing import Annotated
 
 from royal_mail_combined import RMBaseModel
 
@@ -27,19 +26,19 @@ class AddressNonMandatoryDef(RMBaseModel):
     address_line1: Annotated[str, Field(min_length=1, strict=True, max_length=64)] = Field(
         description='Address Line 1', alias='addressLine1'
     )
-    address_line2: Optional[Annotated[str, Field(strict=True, max_length=64)]] = Field(
+    address_line2: Annotated[str, Field(strict=True, max_length=64)] | None = Field(
         default=None, description='Address Line 2', alias='addressLine2'
     )
-    address_line3: Optional[Annotated[str, Field(strict=True, max_length=64)]] = Field(
+    address_line3: Annotated[str, Field(strict=True, max_length=64)] | None = Field(
         default=None, description='Address Line 3', alias='addressLine3'
     )
-    post_town: Optional[Annotated[str, Field(min_length=0, strict=True, max_length=64)]] = Field(
+    post_town: Annotated[str, Field(min_length=0, strict=True, max_length=64)] | None = Field(
         default=' ', description='PostTown', alias='postTown'
     )
     postcode: Annotated[str, Field(min_length=1, strict=True, max_length=10)] = Field(description='PostCode')
-    dps: Optional[Annotated[str, Field(min_length=0, strict=True, max_length=10)]] = Field(
+    dps: Annotated[str, Field(min_length=0, strict=True, max_length=10)] | None = Field(
         default=None, description='Delivery Point Suffix', alias='DPS'
     )
-    county: Optional[Annotated[str, Field(strict=True, max_length=64)]] = Field(
+    county: Annotated[str, Field(strict=True, max_length=64)] | None = Field(
         default=None, description='County', alias='County'
     )

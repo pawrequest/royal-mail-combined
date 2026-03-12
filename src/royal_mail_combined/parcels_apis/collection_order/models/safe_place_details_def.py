@@ -13,8 +13,7 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field
-from typing import Optional
-from typing_extensions import Annotated
+from typing import Annotated
 
 from royal_mail_combined import RMBaseModel
 
@@ -24,9 +23,9 @@ class SafePlaceDetailsDef(RMBaseModel):
     safe place details definition
     """
 
-    location_text: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(
+    location_text: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
         default=None, description='Location Text', alias='locationText'
     )
-    location_code: Optional[Annotated[str, Field(strict=True, max_length=10)]] = Field(
+    location_code: Annotated[str, Field(strict=True, max_length=10)] | None = Field(
         default=None, description='Location Code', alias='locationCode'
     )

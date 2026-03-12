@@ -13,7 +13,7 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field, StrictStr
-from typing import List, Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from royal_mail_combined.parcels_apis.common_models.errors_def import ErrorsDef
@@ -35,7 +35,7 @@ class ErrorResponse(RMBaseModel):
         description='HTTP error code description. Please note that this will only be populated in the event of an error condition.',
         alias='httpMessage',
     )
-    more_information: Optional[StrictStr] = Field(
+    more_information: StrictStr | None = Field(
         default=None, description='Information relating to the error condition.', alias='moreInformation'
     )
-    errors: Optional[List[ErrorsDef]] = None
+    errors: list[ErrorsDef] | None = None

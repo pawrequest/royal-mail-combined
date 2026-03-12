@@ -13,7 +13,6 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field, StrictStr
-from typing import Optional
 
 from royal_mail_combined import RMBaseModel
 
@@ -23,4 +22,4 @@ class DraftCollectionLabelResult(RMBaseModel):
     DraftCollectionLabelResult
     """
 
-    draft_id: Optional[StrictStr] = Field(default=None, alias='draftId')
+    draft_id: StrictStr | None = Field(default=None, alias='draftId')

@@ -12,7 +12,6 @@ Do not edit the class manually.
 from __future__ import annotations
 
 import re  # noqa: F401
-from typing import Optional, Union
 
 from pydantic import Field, StrictFloat, StrictInt, StrictStr
 
@@ -25,7 +24,7 @@ class ManifestOrdersResponse(RMBaseModel):
     ManifestOrdersResponse
     """
 
-    manifest_number: Union[StrictFloat, StrictInt] = Field(alias='manifestNumber')
-    document_pdf: Optional[StrictStr] = Field(
+    manifest_number: StrictFloat | StrictInt = Field(alias='manifestNumber')
+    document_pdf: StrictStr | None = Field(
         default=None, description='manifest in format base64 string', alias='documentPdf'
     )

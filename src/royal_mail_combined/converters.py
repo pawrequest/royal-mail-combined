@@ -13,7 +13,6 @@ from royal_mail_combined.all_models import (
     AddressVerifyReqRespdef,
     AddressReturns,
 )
-from royal_mail_combined.parcels_apis.collection_order.models import CollectionItemType, ItemsPostDef
 
 
 def rtn_address_to_addr_verify(address: AddressReturns) -> AddressVerifyDef:

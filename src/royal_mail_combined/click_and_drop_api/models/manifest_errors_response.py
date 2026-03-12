@@ -12,7 +12,6 @@ Do not edit the class manually.
 from __future__ import annotations
 
 import re  # noqa: F401
-from typing import List, Optional
 
 
 from ..models.manifest_errors_error_details_response import ManifestErrorsErrorDetailsResponse
@@ -26,4 +25,4 @@ class ManifestErrorsResponse(RMBaseModel):
     ManifestErrorsResponse
     """
 
-    errors: Optional[List[ManifestErrorsErrorDetailsResponse]] = None
+    errors: list[ManifestErrorsErrorDetailsResponse] | None = None

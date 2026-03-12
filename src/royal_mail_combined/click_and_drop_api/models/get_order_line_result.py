@@ -12,7 +12,6 @@ Do not edit the class manually.
 from __future__ import annotations
 
 import re  # noqa: F401
-from typing import Optional, Union
 
 from pydantic import Field, StrictFloat, StrictInt, StrictStr
 
@@ -25,13 +24,13 @@ class GetOrderLineResult(RMBaseModel):
     GetOrderLineResult
     """
 
-    sku: Optional[StrictStr] = Field(default=None, alias='SKU')
-    name: Optional[StrictStr] = None
+    sku: StrictStr | None = Field(default=None, alias='SKU')
+    name: StrictStr | None = None
     quantity: StrictInt = Field(description='The number of units in a given line')
-    unit_value: Optional[Union[StrictFloat, StrictInt]] = Field(
+    unit_value: StrictFloat | StrictInt | None = Field(
         default=None, description='The price of a single unit excluding tax', alias='unitValue'
     )
-    line_total: Optional[Union[StrictFloat, StrictInt]] = Field(
+    line_total: StrictFloat | StrictInt | None = Field(
         default=None, description='The sum of the line items including tax', alias='lineTotal'
     )
-    customs_code: Optional[StrictStr] = Field(default=None, alias='customsCode')
+    customs_code: StrictStr | None = Field(default=None, alias='customsCode')

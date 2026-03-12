@@ -13,8 +13,7 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field, StrictFloat, StrictInt, StrictStr
-from typing import Optional, Union
-from typing_extensions import Annotated
+from typing import Annotated
 from .collection_item_type import CollectionItemType
 from .dimensions_def import DimensionsDef
 from .label_info import LabelInfo
@@ -27,21 +26,21 @@ class ItemsDef(RMBaseModel):
     items detail definition
     """
 
-    item_barcode_id: Optional[Annotated[str, Field(strict=True, max_length=21)]] = Field(
+    item_barcode_id: Annotated[str, Field(strict=True, max_length=21)] | None = Field(
         default=None, description='Item BarCode Id', alias='itemBarcodeId'
     )
-    item_reference: Optional[Annotated[str, Field(strict=True, max_length=40)]] = Field(
+    item_reference: Annotated[str, Field(strict=True, max_length=40)] | None = Field(
         default=None, alias='itemReference'
     )
     weight_in_grams: StrictInt = Field(description='Weight of a parcel in grams', alias='weightInGrams')
-    item_service_name: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(
+    item_service_name: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
         default=None, description='Item Service Name', alias='itemServiceName'
     )
-    item_status: Optional[StrictStr] = Field(default=None, alias='itemStatus')
+    item_status: StrictStr | None = Field(default=None, alias='itemStatus')
     dimensions: DimensionsDef
-    item_price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias='itemPrice')
-    item_type: Optional[CollectionItemType] = Field(default=None, alias='itemType')
-    item_product_code: Optional[Annotated[str, Field(strict=True, max_length=5)]] = Field(
+    item_price: StrictFloat | StrictInt | None = Field(default=None, alias='itemPrice')
+    item_type: CollectionItemType | None = Field(default=None, alias='itemType')
+    item_product_code: Annotated[str, Field(strict=True, max_length=5)] | None = Field(
         default=None, alias='itemProductCode'
     )
-    label_info: Optional[LabelInfo] = Field(default=None, alias='labelInfo')
+    label_info: LabelInfo | None = Field(default=None, alias='labelInfo')

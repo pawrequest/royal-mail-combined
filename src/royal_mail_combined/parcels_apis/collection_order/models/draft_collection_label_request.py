@@ -14,8 +14,7 @@ import re  # noqa: F401
 
 from datetime import date
 from pydantic import Field, StrictBool, StrictFloat, StrictInt, StrictStr
-from typing import Optional, Union
-from typing_extensions import Annotated
+from typing import Annotated
 from .label_address import LabelAddress
 from .label_customs_info import LabelCustomsInfo
 
@@ -33,18 +32,18 @@ class DraftCollectionLabelRequest(RMBaseModel):
     var_2_d_unique_identifier: Annotated[str, Field(min_length=1, strict=True, max_length=21)] = Field(
         alias='2DUniqueIdentifier'
     )
-    post_by_date: Optional[date] = Field(default=None, alias='postByDate')
-    rm_service: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(default=None, alias='RMService')
-    price_paid: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias='pricePaid')
-    reference_number: Optional[Annotated[str, Field(strict=True, max_length=20)]] = Field(
+    post_by_date: date | None = Field(default=None, alias='postByDate')
+    rm_service: Annotated[str, Field(strict=True, max_length=50)] | None = Field(default=None, alias='RMService')
+    price_paid: StrictFloat | StrictInt | None = Field(default=None, alias='pricePaid')
+    reference_number: Annotated[str, Field(strict=True, max_length=20)] | None = Field(
         default=None, alias='referenceNumber'
     )
-    display_reference_as_barcode: Optional[StrictBool] = Field(default=None, alias='displayReferenceAsBarcode')
-    reference_text: Optional[Annotated[str, Field(strict=True, max_length=40)]] = Field(
+    display_reference_as_barcode: StrictBool | None = Field(default=None, alias='displayReferenceAsBarcode')
+    reference_text: Annotated[str, Field(strict=True, max_length=40)] | None = Field(
         default=None, alias='referenceText'
     )
-    weight_in_grams: Optional[StrictInt] = Field(default=None, alias='weightInGrams')
-    item_format: Optional[StrictStr] = Field(default=None, alias='itemFormat')
+    weight_in_grams: StrictInt | None = Field(default=None, alias='weightInGrams')
+    item_format: StrictStr | None = Field(default=None, alias='itemFormat')
     recipient_address: LabelAddress = Field(alias='recipientAddress')
-    sender_address: Optional[LabelAddress] = Field(default=None, alias='senderAddress')
-    customs_info: Optional[LabelCustomsInfo] = Field(default=None, alias='customsInfo')
+    sender_address: LabelAddress | None = Field(default=None, alias='senderAddress')
+    customs_info: LabelCustomsInfo | None = Field(default=None, alias='customsInfo')

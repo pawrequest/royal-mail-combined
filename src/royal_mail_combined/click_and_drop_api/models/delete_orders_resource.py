@@ -12,7 +12,6 @@ Do not edit the class manually.
 from __future__ import annotations
 
 import re  # noqa: F401
-from typing import List, Optional
 
 from pydantic import Field
 
@@ -27,10 +26,10 @@ class DeleteOrdersResource(RMBaseModel):
     DeleteOrdersResource
     """
 
-    deleted_orders: Optional[List[DeletedOrderInfo]] = Field(default=None, alias='deletedOrders')
-    errors: Optional[List[OrderErrorInfo]] = None
+    deleted_orders: list[DeletedOrderInfo] | None = Field(default=None, alias='deletedOrders')
+    errors: list[OrderErrorInfo] | None = None
 
-    def order_idents(self) -> List[int | str]:
+    def order_idents(self) -> list[int | str]:
         return [_.order_identifier for _ in self.deleted_orders]
 
     def order_idents_str(self):

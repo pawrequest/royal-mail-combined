@@ -14,8 +14,7 @@ import re  # noqa: F401
 
 from datetime import date
 from pydantic import Field, StrictFloat, StrictInt, StrictStr, field_validator
-from typing import Optional, Union
-from typing_extensions import Annotated
+from typing import Annotated
 from .label_address import LabelAddress
 from .label_customs_info import LabelCustomsInfo
 
@@ -27,7 +26,7 @@ class LabelInfo(RMBaseModel):
     LabelInfo
     """
 
-    var_1_d_tracking_number: Optional[Annotated[str, Field(strict=True, max_length=13)]] = Field(
+    var_1_d_tracking_number: Annotated[str, Field(strict=True, max_length=13)] | None = Field(
         default=None, alias='1DTrackingNumber'
     )
     var_2_d_unique_identifier: Annotated[str, Field(min_length=1, strict=True, max_length=21)] = Field(
@@ -35,18 +34,18 @@ class LabelInfo(RMBaseModel):
     )
     post_by_date: date = Field(alias='postByDate')
     rm_service: Annotated[str, Field(min_length=1, strict=True, max_length=50)] = Field(alias='RMService')
-    price_paid: Union[StrictFloat, StrictInt] = Field(description='price paid for the postage', alias='pricePaid')
-    reference_number: Optional[Annotated[str, Field(strict=True, max_length=20)]] = Field(
+    price_paid: StrictFloat | StrictInt = Field(description='price paid for the postage', alias='pricePaid')
+    reference_number: Annotated[str, Field(strict=True, max_length=20)] | None = Field(
         default=None, alias='referenceNumber'
     )
-    reference_text: Optional[Annotated[str, Field(strict=True, max_length=40)]] = Field(
+    reference_text: Annotated[str, Field(strict=True, max_length=40)] | None = Field(
         default=None, alias='referenceText'
     )
     weight_in_grams: Annotated[int, Field(strict=True, ge=0)] = Field(alias='weightInGrams')
     item_format: StrictStr = Field(alias='itemFormat')
     recipient_address: LabelAddress = Field(alias='recipientAddress')
     sender_address: LabelAddress = Field(alias='senderAddress')
-    customs_info: Optional[LabelCustomsInfo] = Field(default=None, alias='customsInfo')
+    customs_info: LabelCustomsInfo | None = Field(default=None, alias='customsInfo')
 
     @field_validator('item_format')
     def item_format_validate_enum(cls, value):

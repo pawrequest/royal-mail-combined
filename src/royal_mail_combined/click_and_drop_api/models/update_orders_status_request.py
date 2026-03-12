@@ -12,7 +12,6 @@ Do not edit the class manually.
 from __future__ import annotations
 import re  # noqa: F401
 
-from typing import List, Optional
 from ..models.update_order_status_request import UpdateOrderStatusRequest
 
 from royal_mail_combined import RMBaseModel
@@ -23,4 +22,4 @@ class UpdateOrdersStatusRequest(RMBaseModel):
     UpdateOrdersStatusRequest
     """
 
-    items: Optional[List[UpdateOrderStatusRequest]] = None
+    items: list[UpdateOrderStatusRequest] | None = None

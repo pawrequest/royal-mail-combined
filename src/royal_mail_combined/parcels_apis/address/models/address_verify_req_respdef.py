@@ -13,8 +13,7 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field
-from typing import Optional
-from typing_extensions import Annotated
+from typing import Annotated
 from .address_verifydef import AddressVerifyDef
 
 from royal_mail_combined import RMBaseModel
@@ -25,5 +24,5 @@ class AddressVerifyReqRespdef(RMBaseModel):
     Returns the DPS
     """
 
-    input: Optional[AddressVerifyDef] = Field(default=None, alias='Input')
-    dps: Optional[Annotated[str, Field(strict=True, max_length=2)]] = Field(default=None, alias='DPS')
+    input: AddressVerifyDef | None = Field(default=None, alias='Input')
+    dps: Annotated[str, Field(strict=True, max_length=2)] | None = Field(default=None, alias='DPS')

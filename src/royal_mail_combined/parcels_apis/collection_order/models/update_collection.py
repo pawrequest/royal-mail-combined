@@ -12,10 +12,9 @@ Do not edit the class manually.
 from __future__ import annotations
 
 import re  # noqa: F401
-from typing import Optional
 from datetime import date
 
-from typing_extensions import Annotated
+from typing import Annotated
 from pydantic import Field, StrictBool
 
 from .address_mandatory_def import AddressMandatoryDef
@@ -31,14 +30,14 @@ class UpdateCollection(RMBaseModel):
     create Order
     """
 
-    timeslot_reservation_id: Optional[Annotated[str, Field(min_length=1, strict=True, max_length=64)]] = Field(
+    timeslot_reservation_id: Annotated[str, Field(min_length=1, strict=True, max_length=64)] | None = Field(
         default=None, description='time slot reservation Id', alias='timeslotReservationId'
     )
-    sender_details: Optional[SenderDetailsDef] = Field(default=None, alias='senderDetails')
-    address: Optional[AddressMandatoryDef] = None
-    safe_place_details: Optional[SafePlaceDetailsDef] = Field(default=None, alias='safePlaceDetails')
-    animal_hazard_details: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(
+    sender_details: SenderDetailsDef | None = Field(default=None, alias='senderDetails')
+    address: AddressMandatoryDef | None = None
+    safe_place_details: SafePlaceDetailsDef | None = Field(default=None, alias='safePlaceDetails')
+    animal_hazard_details: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
         default=None, description='location animal hazard details', alias='animalHazardDetails'
     )
     collection_date: date = Field(description='Date of order collection', alias='collectionDate')
-    suppress_rm_notifications: Optional[StrictBool] = Field(default=None, alias='suppressRmNotifications')
+    suppress_rm_notifications: StrictBool | None = Field(default=None, alias='suppressRmNotifications')

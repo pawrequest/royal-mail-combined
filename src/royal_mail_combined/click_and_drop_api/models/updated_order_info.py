@@ -12,7 +12,6 @@ Do not edit the class manually.
 from __future__ import annotations
 
 import re  # noqa: F401
-from typing import Optional
 
 from pydantic import Field, StrictInt, StrictStr
 
@@ -25,6 +24,6 @@ class UpdatedOrderInfo(RMBaseModel):
     UpdatedOrderInfo
     """
 
-    order_identifier: Optional[StrictInt] = Field(default=None, alias='orderIdentifier')
-    order_reference: Optional[StrictStr] = Field(default=None, alias='orderReference')
-    status: Optional[StrictStr] = Field(default=None, description='Current status of the order')
+    order_identifier: StrictInt | None = Field(default=None, alias='orderIdentifier')
+    order_reference: StrictStr | None = Field(default=None, alias='orderReference')
+    status: StrictStr | None = Field(default=None, description='Current status of the order')

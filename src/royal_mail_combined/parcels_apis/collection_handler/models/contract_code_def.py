@@ -13,7 +13,6 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field, StrictStr
-from typing import List, Optional
 from ..models.contract_subscription_def import ContractSubscriptionDef
 
 from royal_mail_combined import RMBaseModel
@@ -24,5 +23,5 @@ class ContractCodeDef(RMBaseModel):
     Contract details
     """
 
-    contract_code: Optional[StrictStr] = Field(default=None, description='Contract code', alias='contractCode')
-    subscription: Optional[List[ContractSubscriptionDef]] = None
+    contract_code: StrictStr | None = Field(default=None, description='Contract code', alias='contractCode')
+    subscription: list[ContractSubscriptionDef] | None = None

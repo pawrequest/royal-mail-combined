@@ -4,7 +4,7 @@ from datetime import date
 from enum import StrEnum
 
 from pydantic import Field, NonNegativeInt, StrictFloat, StrictInt, StrictStr, StringConstraints
-from typing_extensions import Annotated
+from typing import Annotated
 
 from royal_mail_combined import RMBaseModel
 from royal_mail_combined.apis.parcels_apis.collection_order import LabelInfo

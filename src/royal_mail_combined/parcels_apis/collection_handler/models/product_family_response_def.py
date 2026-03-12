@@ -13,7 +13,6 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field, StrictStr
-from typing import List, Optional
 from ..models.account_def import AccountDef
 from ..models.subscription_def import SubscriptionDef
 
@@ -27,5 +26,5 @@ class ProductFamilyResponseDef(RMBaseModel):
 
     product_family_name: StrictStr = Field(description='Product Family Name', alias='productFamilyName')
     status: StrictStr = Field(description='Response Status')
-    subscription: Optional[List[SubscriptionDef]] = None
-    account: Optional[AccountDef] = None
+    subscription: list[SubscriptionDef] | None = None
+    account: AccountDef | None = None

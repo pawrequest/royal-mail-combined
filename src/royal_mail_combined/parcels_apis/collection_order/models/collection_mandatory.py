@@ -14,8 +14,7 @@ import re  # noqa: F401
 
 from datetime import date
 from pydantic import Field, StrictBool
-from typing import List, Optional
-from typing_extensions import Annotated
+from typing import Annotated
 from .account_details_def import AccountDetailsDef
 from .address_mandatory_def import AddressMandatoryDef
 from .items_post_def import ItemsPostDef
@@ -36,10 +35,10 @@ class CollectionMandatory(RMBaseModel):
     sender_details: SenderDetailsPostDef = Field(alias='senderDetails')
     account_details: AccountDetailsDef = Field(alias='accountDetails')
     address: AddressMandatoryDef
-    safe_place_details: Optional[SafePlaceDetailsDef] = Field(default=None, alias='safePlaceDetails')
-    animal_hazard_details: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(
+    safe_place_details: SafePlaceDetailsDef | None = Field(default=None, alias='safePlaceDetails')
+    animal_hazard_details: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
         default=None, description='Details of unrestrained pets', alias='animalHazardDetails'
     )
     collection_date: date = Field(description='Date of order collection', alias='collectionDate')
-    items: List[ItemsPostDef]
-    suppress_rm_notifications: Optional[StrictBool] = Field(default=None, alias='suppressRmNotifications')
+    items: list[ItemsPostDef]
+    suppress_rm_notifications: StrictBool | None = Field(default=None, alias='suppressRmNotifications')

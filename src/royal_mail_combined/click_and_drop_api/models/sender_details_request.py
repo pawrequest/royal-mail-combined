@@ -12,10 +12,9 @@ Do not edit the class manually.
 from __future__ import annotations
 
 import re  # noqa: F401
-from typing import Optional
 
 from pydantic import Field
-from typing_extensions import Annotated
+from typing import Annotated
 
 
 from royal_mail_combined import RMBaseModel
@@ -26,10 +25,10 @@ class SenderDetailsRequest(RMBaseModel):
     SenderDetailsRequest
     """
 
-    trading_name: Optional[Annotated[str, Field(strict=True, max_length=250)]] = Field(
+    trading_name: Annotated[str, Field(strict=True, max_length=250)] | None = Field(
         default=None, alias='tradingName'
     )
-    phone_number: Optional[Annotated[str, Field(strict=True, max_length=25)]] = Field(default=None, alias='phoneNumber')
-    email_address: Optional[Annotated[str, Field(strict=True, max_length=254)]] = Field(
+    phone_number: Annotated[str, Field(strict=True, max_length=25)] | None = Field(default=None, alias='phoneNumber')
+    email_address: Annotated[str, Field(strict=True, max_length=254)] | None = Field(
         default=None, alias='emailAddress'
     )

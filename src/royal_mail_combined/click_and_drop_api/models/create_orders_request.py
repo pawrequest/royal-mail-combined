@@ -12,7 +12,6 @@ Do not edit the class manually.
 from __future__ import annotations
 import re  # noqa: F401
 
-from typing import List
 from ..models.create_order_request import CreateOrderRequest
 
 from royal_mail_combined import RMBaseModel
@@ -23,4 +22,4 @@ class CreateOrdersRequest(RMBaseModel):
     CreateOrdersRequest
     """
 
-    items: List[CreateOrderRequest]
+    items: list[CreateOrderRequest]

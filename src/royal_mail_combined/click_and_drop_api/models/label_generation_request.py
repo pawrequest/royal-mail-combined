@@ -12,7 +12,6 @@ Do not edit the class manually.
 from __future__ import annotations
 
 import re  # noqa: F401
-from typing import Optional
 
 from pydantic import Field, StrictBool
 
@@ -26,5 +25,5 @@ class LabelGenerationRequest(RMBaseModel):
     """
 
     include_label_in_response: StrictBool = Field(alias='includeLabelInResponse')
-    include_cn: Optional[StrictBool] = Field(default=None, alias='includeCN')
-    include_returns_label: Optional[StrictBool] = Field(default=None, alias='includeReturnsLabel')
+    include_cn: StrictBool | None = Field(default=None, alias='includeCN')
+    include_returns_label: StrictBool | None = Field(default=None, alias='includeReturnsLabel')

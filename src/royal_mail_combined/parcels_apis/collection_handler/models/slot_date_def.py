@@ -14,7 +14,6 @@ import re  # noqa: F401
 
 from datetime import date
 from pydantic import Field
-from typing import Optional
 from ..models.estimated_window_def import EstimatedWindowDef
 
 from royal_mail_combined import RMBaseModel
@@ -25,5 +24,5 @@ class SlotDateDef(RMBaseModel):
     SlotDateDef
     """
 
-    slot_date: Optional[date] = Field(default=None, description='Node of slot dates', alias='slotDate')
-    estimated_window: Optional[EstimatedWindowDef] = Field(default=None, alias='estimatedWindow')
+    slot_date: date | None = Field(default=None, description='Node of slot dates', alias='slotDate')
+    estimated_window: EstimatedWindowDef | None = Field(default=None, alias='estimatedWindow')

@@ -12,7 +12,6 @@ Do not edit the class manually.
 from __future__ import annotations
 
 import re  # noqa: F401
-from typing import Optional
 
 from pydantic import StrictStr
 
@@ -25,4 +24,4 @@ class CreateOrderLabelErrorResponse(RMBaseModel):
     CreateOrderLabelErrorResponse
     """
 
-    message: Optional[StrictStr] = None
+    message: StrictStr | None = None

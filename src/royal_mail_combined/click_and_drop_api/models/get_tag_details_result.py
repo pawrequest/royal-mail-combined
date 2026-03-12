@@ -12,10 +12,9 @@ Do not edit the class manually.
 from __future__ import annotations
 
 import re  # noqa: F401
-from typing import Optional
 
 from pydantic import Field
-from typing_extensions import Annotated
+from typing import Annotated
 
 
 from royal_mail_combined import RMBaseModel
@@ -26,5 +25,5 @@ class GetTagDetailsResult(RMBaseModel):
     GetTagDetailsResult
     """
 
-    key: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
-    value: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
+    key: Annotated[str, Field(strict=True, max_length=100)] | None = None
+    value: Annotated[str, Field(strict=True, max_length=100)] | None = None

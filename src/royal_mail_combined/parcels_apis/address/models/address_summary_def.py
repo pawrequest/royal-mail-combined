@@ -13,8 +13,7 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field
-from typing import Optional
-from typing_extensions import Annotated
+from typing import Annotated
 
 from royal_mail_combined import RMBaseModel
 
@@ -25,19 +24,19 @@ class AddressSummaryDef(RMBaseModel):
     """
 
     # address_id: Optional[Annotated[str, Field(strict=True, max_length=30)]] = Field(default=None, description="Unique identifier for address record retrieval", alias="addressId")
-    address_id: Optional[Annotated[str, Field(strict=True)]] = Field(
+    address_id: Annotated[str, Field(strict=True)] | None = Field(
         default=None, description='Unique identifier for address record retrieval', alias='addressId'
     )
-    type: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(
+    type: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
         default=None, description='Type of the response entity'
     )
-    address_summary1: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(
+    address_summary1: Annotated[str, Field(strict=True, max_length=200)] | None = Field(
         default=None, description='Address Line 3', alias='addressSummary1'
     )
-    address_summary2: Optional[Annotated[str, Field(strict=True, max_length=200)]] = Field(
+    address_summary2: Annotated[str, Field(strict=True, max_length=200)] | None = Field(
         default=None, description='PostTown', alias='addressSummary2'
     )
-    highlight: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(
+    highlight: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
         default=None,
         description='A list of number ranges identifying the matched characters in the Text and Description',
     )

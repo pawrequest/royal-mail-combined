@@ -14,7 +14,6 @@ import re  # noqa: F401
 
 from datetime import datetime
 from pydantic import Field, StrictInt, StrictStr
-from typing import List, Optional
 
 from ..models.create_order_label_error_response import CreateOrderLabelErrorResponse
 
@@ -27,13 +26,13 @@ class CreateOrderResponse(RMBaseModel):
     """
 
     order_identifier: StrictInt = Field(alias='orderIdentifier')
-    order_reference: Optional[StrictStr] = Field(default=None, alias='orderReference')
+    order_reference: StrictStr | None = Field(default=None, alias='orderReference')
     created_on: datetime = Field(alias='createdOn')
-    order_date: Optional[datetime] = Field(default=None, alias='orderDate')
-    printed_on: Optional[datetime] = Field(default=None, alias='printedOn')
-    manifested_on: Optional[datetime] = Field(default=None, alias='manifestedOn')
-    shipped_on: Optional[datetime] = Field(default=None, alias='shippedOn')
-    tracking_number: Optional[StrictStr] = Field(default=None, alias='trackingNumber')
-    label: Optional[StrictStr] = Field(default=None, description='label in format base64 string')
-    label_errors: Optional[List[CreateOrderLabelErrorResponse]] = Field(default=None, alias='labelErrors')
-    generated_documents: Optional[List[StrictStr]] = Field(default=None, alias='generatedDocuments')
+    order_date: datetime | None = Field(default=None, alias='orderDate')
+    printed_on: datetime | None = Field(default=None, alias='printedOn')
+    manifested_on: datetime | None = Field(default=None, alias='manifestedOn')
+    shipped_on: datetime | None = Field(default=None, alias='shippedOn')
+    tracking_number: StrictStr | None = Field(default=None, alias='trackingNumber')
+    label: StrictStr | None = Field(default=None, description='label in format base64 string')
+    label_errors: list[CreateOrderLabelErrorResponse] | None = Field(default=None, alias='labelErrors')
+    generated_documents: list[StrictStr] | None = Field(default=None, alias='generatedDocuments')

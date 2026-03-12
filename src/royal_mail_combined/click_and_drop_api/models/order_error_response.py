@@ -12,7 +12,6 @@ Do not edit the class manually.
 from __future__ import annotations
 
 import re  # noqa: F401
-from typing import Optional
 
 from pydantic import Field, StrictInt, StrictStr
 
@@ -25,7 +24,7 @@ class OrderErrorResponse(RMBaseModel):
     OrderErrorResponse
     """
 
-    account_order_number: Optional[StrictInt] = Field(default=None, alias='accountOrderNumber')
-    channel_order_reference: Optional[StrictStr] = Field(default=None, alias='channelOrderReference')
-    code: Optional[StrictStr] = None
-    message: Optional[StrictStr] = None
+    account_order_number: StrictInt | None = Field(default=None, alias='accountOrderNumber')
+    channel_order_reference: StrictStr | None = Field(default=None, alias='channelOrderReference')
+    code: StrictStr | None = None
+    message: StrictStr | None = None

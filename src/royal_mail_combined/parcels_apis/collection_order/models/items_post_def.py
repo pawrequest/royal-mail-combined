@@ -13,8 +13,7 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field, StrictFloat, StrictInt, StrictStr, field_validator
-from typing import Optional, Union
-from typing_extensions import Annotated
+from typing import Annotated
 from .collection_item_type import CollectionItemType
 from .dimensions_post_def import DimensionsPostDef
 from .label_info import LabelInfo
@@ -38,18 +37,18 @@ class ItemsPostDef(RMBaseModel):
     )
     dimensions: DimensionsPostDef
 
-    item_reference: Optional[Annotated[str, Field(strict=True, max_length=40)]] = Field(
+    item_reference: Annotated[str, Field(strict=True, max_length=40)] | None = Field(
         default=None, description='Additional reference number for the item if any', alias='itemReference'
     )
-    item_status: Optional[StrictStr] = Field(default=None, alias='itemStatus')
-    item_price: Optional[Union[StrictFloat, StrictInt]] = Field(
+    item_status: StrictStr | None = Field(default=None, alias='itemStatus')
+    item_price: StrictFloat | StrictInt | None = Field(
         default=None, description='Price paid for the doorstep collection for the item', alias='itemPrice'
     )
-    item_type: Optional[CollectionItemType] = Field(default=None, alias='itemType')
-    item_product_code: Optional[Annotated[str, Field(strict=True, max_length=5)]] = Field(
+    item_type: CollectionItemType | None = Field(default=None, alias='itemType')
+    item_product_code: Annotated[str, Field(strict=True, max_length=5)] | None = Field(
         default=None, alias='itemProductCode'
     )
-    label_info: Optional[LabelInfo] = Field(default=None, alias='labelInfo')
+    label_info: LabelInfo | None = Field(default=None, alias='labelInfo')
 
     @field_validator('item_status')
     def item_status_validate_enum(cls, value):

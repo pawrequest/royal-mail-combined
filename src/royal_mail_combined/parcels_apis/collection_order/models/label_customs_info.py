@@ -13,8 +13,7 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field, StrictFloat, StrictInt, StrictStr, field_validator
-from typing import List, Optional, Union
-from typing_extensions import Annotated
+from typing import Annotated
 from .label_order_item import LabelOrderItem
 
 from royal_mail_combined import RMBaseModel
@@ -25,17 +24,17 @@ class LabelCustomsInfo(RMBaseModel):
     LabelCustomsInfo
     """
 
-    currency_code: Optional[Annotated[str, Field(strict=True, max_length=3)]] = Field(
+    currency_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(
         default=None, alias='currencyCode'
     )
-    total_cost: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias='totalCost')
-    shipment_subtotal: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias='shipmentSubtotal')
-    shipping_cost_charged: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias='shippingCostCharged')
-    customs_duty_cost: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias='customsDutyCost')
-    ioss_number: Optional[Annotated[str, Field(strict=True, max_length=20)]] = Field(default=None, alias='IOSSNumber')
-    air_number: Optional[Annotated[str, Field(strict=True, max_length=20)]] = Field(default=None, alias='AIRNumber')
-    customs_declaration_category: Optional[StrictStr] = Field(default=None, alias='customsDeclarationCategory')
-    contents: Optional[List[LabelOrderItem]] = None
+    total_cost: StrictFloat | StrictInt | None = Field(default=None, alias='totalCost')
+    shipment_subtotal: StrictFloat | StrictInt | None = Field(default=None, alias='shipmentSubtotal')
+    shipping_cost_charged: StrictFloat | StrictInt | None = Field(default=None, alias='shippingCostCharged')
+    customs_duty_cost: StrictFloat | StrictInt | None = Field(default=None, alias='customsDutyCost')
+    ioss_number: Annotated[str, Field(strict=True, max_length=20)] | None = Field(default=None, alias='IOSSNumber')
+    air_number: Annotated[str, Field(strict=True, max_length=20)] | None = Field(default=None, alias='AIRNumber')
+    customs_declaration_category: StrictStr | None = Field(default=None, alias='customsDeclarationCategory')
+    contents: list[LabelOrderItem] | None = None
 
     @field_validator('customs_declaration_category')
     def customs_declaration_category_validate_enum(cls, value):

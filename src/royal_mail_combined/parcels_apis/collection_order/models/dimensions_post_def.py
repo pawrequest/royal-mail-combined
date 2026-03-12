@@ -13,7 +13,6 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field, StrictFloat, StrictInt
-from typing import Union
 
 from royal_mail_combined import RMBaseModel
 

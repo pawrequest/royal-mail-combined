@@ -12,10 +12,9 @@ Do not edit the class manually.
 from __future__ import annotations
 
 import re  # noqa: F401
-from typing import Optional
 
 from pydantic import Field
-from typing_extensions import Annotated
+from typing import Annotated
 
 
 from royal_mail_combined import RMBaseModel
@@ -26,18 +25,18 @@ class AddressRequest(RMBaseModel):
     AddressRequest
     """
 
-    full_name: Optional[Annotated[str, Field(strict=True, max_length=210)]] = Field(default=None, alias='fullName')
-    company_name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(
+    full_name: Annotated[str, Field(strict=True, max_length=210)] | None = Field(default=None, alias='fullName')
+    company_name: Annotated[str, Field(strict=True, max_length=100)] | None = Field(
         default=None, alias='companyName'
     )
     address_line1: Annotated[str, Field(strict=True, max_length=100)] = Field(alias='addressLine1')
-    address_line2: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(
+    address_line2: Annotated[str, Field(strict=True, max_length=100)] | None = Field(
         default=None, alias='addressLine2'
     )
-    address_line3: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(
+    address_line3: Annotated[str, Field(strict=True, max_length=100)] | None = Field(
         default=None, alias='addressLine3'
     )
     city: Annotated[str, Field(strict=True, max_length=100)]
-    county: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
-    postcode: Optional[Annotated[str, Field(strict=True, max_length=20)]] = None
+    county: Annotated[str, Field(strict=True, max_length=100)] | None = None
+    postcode: Annotated[str, Field(strict=True, max_length=20)] | None = None
     country_code: Annotated[str, Field(strict=True, max_length=3)] = Field(alias='countryCode')

@@ -12,7 +12,6 @@ Do not edit the class manually.
 from __future__ import annotations
 
 import re  # noqa: F401
-from typing import Optional
 
 from pydantic import Field, StrictStr
 
@@ -25,5 +24,5 @@ class OrderFieldResponse(RMBaseModel):
     OrderFieldResponse
     """
 
-    field_name: Optional[StrictStr] = Field(default=None, alias='fieldName')
-    value: Optional[StrictStr] = None
+    field_name: StrictStr | None = Field(default=None, alias='fieldName')
+    value: StrictStr | None = None

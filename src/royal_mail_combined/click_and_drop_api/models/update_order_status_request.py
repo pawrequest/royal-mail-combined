@@ -14,7 +14,6 @@ import re  # noqa: F401
 
 from datetime import datetime
 from pydantic import Field, StrictInt, StrictStr
-from typing import Optional
 
 from royal_mail_combined import RMBaseModel
 
@@ -24,13 +23,13 @@ class UpdateOrderStatusRequest(RMBaseModel):
     UpdateOrderStatusRequest
     """
 
-    order_identifier: Optional[StrictInt] = Field(default=None, alias='orderIdentifier')
-    order_reference: Optional[StrictStr] = Field(default=None, alias='orderReference')
-    status: Optional[StrictStr] = Field(
+    order_identifier: StrictInt | None = Field(default=None, alias='orderIdentifier')
+    order_reference: StrictStr | None = Field(default=None, alias='orderReference')
+    status: StrictStr | None = Field(
         default=None,
         description='<br/> "<i>despatchedByOtherCourier</i> ": <b>Reserved for ChannelShipper customers only - please visit <a href="https://channelshipper.com/" target="_self">ChannelShipper.com</a> for more information</b>  "<i>new</i> ": This will remove the order from its batch. Order information will not be lost during this process.  Please be aware labels generated on orders which are then set to "new" (reset) are no longer valid and must be destroyed. If the order is required to be despatched after setting to "new" status, a new label must be generated to attach to the item.  Cancelled label information is automatically shared with Royal Mail Revenue Protection, and should a cancelled label be identified on an item in the Royal Mail Network, you will be charged on your account and an additional handling fee applied. ',
     )
-    tracking_number: Optional[StrictStr] = Field(default=None, alias='trackingNumber')
-    despatch_date: Optional[datetime] = Field(default=None, alias='despatchDate')
-    shipping_carrier: Optional[StrictStr] = Field(default=None, alias='shippingCarrier')
-    shipping_service: Optional[StrictStr] = Field(default=None, alias='shippingService')
+    tracking_number: StrictStr | None = Field(default=None, alias='trackingNumber')
+    despatch_date: datetime | None = Field(default=None, alias='despatchDate')
+    shipping_carrier: StrictStr | None = Field(default=None, alias='shippingCarrier')
+    shipping_service: StrictStr | None = Field(default=None, alias='shippingService')

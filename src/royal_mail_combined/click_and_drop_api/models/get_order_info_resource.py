@@ -13,7 +13,6 @@ from __future__ import annotations
 
 import re  # noqa: F401
 from datetime import datetime
-from typing import Optional
 
 from pydantic import Field, StrictInt, StrictStr
 
@@ -27,10 +26,10 @@ class GetOrderInfoResource(RMBaseModel):
     """
 
     order_identifier: StrictInt = Field(alias='orderIdentifier')
-    order_reference: Optional[StrictStr] = Field(default=None, alias='orderReference')
+    order_reference: StrictStr | None = Field(default=None, alias='orderReference')
     created_on: datetime = Field(alias='createdOn')
-    order_date: Optional[datetime] = Field(default=None, alias='orderDate')
-    printed_on: Optional[datetime] = Field(default=None, alias='printedOn')
-    manifested_on: Optional[datetime] = Field(default=None, alias='manifestedOn')
-    shipped_on: Optional[datetime] = Field(default=None, alias='shippedOn')
-    tracking_number: Optional[StrictStr] = Field(default=None, alias='trackingNumber')
+    order_date: datetime | None = Field(default=None, alias='orderDate')
+    printed_on: datetime | None = Field(default=None, alias='printedOn')
+    manifested_on: datetime | None = Field(default=None, alias='manifestedOn')
+    shipped_on: datetime | None = Field(default=None, alias='shippedOn')
+    tracking_number: StrictStr | None = Field(default=None, alias='trackingNumber')

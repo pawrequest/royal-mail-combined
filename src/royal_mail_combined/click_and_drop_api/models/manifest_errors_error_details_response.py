@@ -12,7 +12,6 @@ Do not edit the class manually.
 from __future__ import annotations
 
 import re  # noqa: F401
-from typing import Optional
 
 from pydantic import StrictStr
 
@@ -25,5 +24,5 @@ class ManifestErrorsErrorDetailsResponse(RMBaseModel):
     ManifestErrorsErrorDetailsResponse
     """
 
-    code: Optional[StrictStr] = None
-    description: Optional[StrictStr] = None
+    code: StrictStr | None = None
+    description: StrictStr | None = None

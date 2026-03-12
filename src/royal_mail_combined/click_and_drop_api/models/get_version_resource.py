@@ -13,7 +13,6 @@ from __future__ import annotations
 
 import re  # noqa: F401
 from datetime import datetime
-from typing import Optional
 
 from pydantic import Field, StrictStr
 
@@ -26,7 +25,7 @@ class GetVersionResource(RMBaseModel):
     GetVersionResource
     """
 
-    commit: Optional[StrictStr] = None
-    build: Optional[StrictStr] = None
-    release: Optional[StrictStr] = None
+    commit: StrictStr | None = None
+    build: StrictStr | None = None
+    release: StrictStr | None = None
     release_date: datetime = Field(alias='releaseDate')

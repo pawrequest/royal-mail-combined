@@ -13,7 +13,6 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import StrictStr
-from typing import Optional
 
 from royal_mail_combined import RMBaseModel
 
@@ -23,6 +22,6 @@ class ErrorResponse(RMBaseModel):
     ErrorResponse
     """
 
-    code: Optional[StrictStr] = None
+    code: StrictStr | None = None
     message: StrictStr
-    details: Optional[StrictStr] = None
+    details: StrictStr | None = None

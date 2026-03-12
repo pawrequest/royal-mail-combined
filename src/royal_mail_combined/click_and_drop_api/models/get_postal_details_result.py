@@ -12,10 +12,9 @@ Do not edit the class manually.
 from __future__ import annotations
 
 import re  # noqa: F401
-from typing import Optional
 
 from pydantic import Field, StrictStr
-from typing_extensions import Annotated
+from typing import Annotated
 
 
 from royal_mail_combined import RMBaseModel
@@ -26,16 +25,16 @@ class GetPostalDetailsResult(RMBaseModel):
     GetPostalDetailsResult
     """
 
-    title: Optional[StrictStr] = None
-    first_name: Optional[StrictStr] = Field(default=None, alias='firstName')
-    last_name: Optional[StrictStr] = Field(default=None, alias='lastName')
-    company_name: Optional[StrictStr] = Field(default=None, alias='companyName')
-    address_line1: Optional[StrictStr] = Field(default=None, alias='addressLine1')
-    address_line2: Optional[StrictStr] = Field(default=None, alias='addressLine2')
-    address_line3: Optional[StrictStr] = Field(default=None, alias='addressLine3')
-    city: Optional[StrictStr] = None
-    county: Optional[StrictStr] = None
-    postcode: Optional[StrictStr] = None
-    country_code: Optional[Annotated[str, Field(strict=True, max_length=3)]] = Field(default=None, alias='countryCode')
-    phone_number: Optional[StrictStr] = Field(default=None, alias='phoneNumber')
-    email_address: Optional[StrictStr] = Field(default=None, alias='emailAddress')
+    title: StrictStr | None = None
+    first_name: StrictStr | None = Field(default=None, alias='firstName')
+    last_name: StrictStr | None = Field(default=None, alias='lastName')
+    company_name: StrictStr | None = Field(default=None, alias='companyName')
+    address_line1: StrictStr | None = Field(default=None, alias='addressLine1')
+    address_line2: StrictStr | None = Field(default=None, alias='addressLine2')
+    address_line3: StrictStr | None = Field(default=None, alias='addressLine3')
+    city: StrictStr | None = None
+    county: StrictStr | None = None
+    postcode: StrictStr | None = None
+    country_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(default=None, alias='countryCode')
+    phone_number: StrictStr | None = Field(default=None, alias='phoneNumber')
+    email_address: StrictStr | None = Field(default=None, alias='emailAddress')

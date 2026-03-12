@@ -12,7 +12,6 @@ Do not edit the class manually.
 from __future__ import annotations
 
 import re  # noqa: F401
-from typing import Optional, Union
 
 from pydantic import Field, StrictFloat, StrictInt, StrictStr
 
@@ -25,12 +24,12 @@ class EstimatedWindowDef(RMBaseModel):
     EstimatedWindowDef
     """
 
-    start_time: Optional[StrictStr] = Field(
+    start_time: StrictStr | None = Field(
         default=None, description='the start of the estimated delivery window', alias='startTime'
     )
-    end_time: Optional[StrictStr] = Field(
+    end_time: StrictStr | None = Field(
         default=None, description='the end of the estimated delivery window', alias='endTime'
     )
-    edw_visibility: Optional[Union[StrictFloat, StrictInt]] = Field(
+    edw_visibility: StrictFloat | StrictInt | None = Field(
         default=None, description='EDW Visibility', alias='EDWVisibility'
     )

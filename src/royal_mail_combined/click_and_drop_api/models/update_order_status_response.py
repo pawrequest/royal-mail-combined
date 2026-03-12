@@ -13,7 +13,6 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field
-from typing import List, Optional
 from ..models.order_update_error import OrderUpdateError
 from ..models.updated_order_info import UpdatedOrderInfo
 
@@ -25,5 +24,5 @@ class UpdateOrderStatusResponse(RMBaseModel):
     UpdateOrderStatusResponse
     """
 
-    updated_orders: Optional[List[UpdatedOrderInfo]] = Field(default=None, alias='updatedOrders')
-    errors: Optional[List[OrderUpdateError]] = None
+    updated_orders: list[UpdatedOrderInfo] | None = Field(default=None, alias='updatedOrders')
+    errors: list[OrderUpdateError] | None = None

@@ -13,7 +13,6 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field
-from typing import List
 from ..models.product_family_def import ProductFamilyDef
 
 from royal_mail_combined import RMBaseModel
@@ -24,4 +23,4 @@ class ProductFamily(RMBaseModel):
     ProductFamily
     """
 
-    product_family: List[ProductFamilyDef] = Field(alias='productFamily')
+    product_family: list[ProductFamilyDef] = Field(alias='productFamily')

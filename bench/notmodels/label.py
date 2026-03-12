@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import date
 
 from pydantic import StringConstraints, StrictInt, Field, StrictStr, StrictFloat, NonNegativeInt
-from typing_extensions import Annotated
+from typing import Annotated
 
 from royal_mail_combined import RMBaseModel
 from royal_mail_combined.models.consts_types import OptionalStrictNumber

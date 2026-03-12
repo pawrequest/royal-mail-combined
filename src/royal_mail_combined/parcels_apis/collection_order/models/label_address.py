@@ -13,8 +13,7 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field
-from typing import Optional
-from typing_extensions import Annotated
+from typing import Annotated
 
 from royal_mail_combined import RMBaseModel
 
@@ -24,19 +23,19 @@ class LabelAddress(RMBaseModel):
     LabelAddress
     """
 
-    name: Optional[Annotated[str, Field(strict=True, max_length=50)]] = None
-    company_name: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(default=None, alias='companyName')
+    name: Annotated[str, Field(strict=True, max_length=50)] | None = None
+    company_name: Annotated[str, Field(strict=True, max_length=50)] | None = Field(default=None, alias='companyName')
     address_line1: Annotated[str, Field(min_length=1, strict=True, max_length=64)] = Field(alias='addressLine1')
-    address_line2: Optional[Annotated[str, Field(strict=True, max_length=64)]] = Field(
+    address_line2: Annotated[str, Field(strict=True, max_length=64)] | None = Field(
         default=None, alias='addressLine2'
     )
-    address_line3: Optional[Annotated[str, Field(strict=True, max_length=64)]] = Field(
+    address_line3: Annotated[str, Field(strict=True, max_length=64)] | None = Field(
         default=None, alias='addressLine3'
     )
     post_town: Annotated[str, Field(min_length=1, strict=True, max_length=64)] = Field(alias='postTown')
-    county: Optional[Annotated[str, Field(strict=True, max_length=64)]] = None
+    county: Annotated[str, Field(strict=True, max_length=64)] | None = None
     postcode: Annotated[str, Field(min_length=1, strict=True, max_length=10)]
-    dps: Optional[Annotated[str, Field(strict=True, max_length=10)]] = Field(default='9Z', alias='DPS')
-    country_code: Optional[Annotated[str, Field(strict=True, max_length=3)]] = Field(
+    dps: Annotated[str, Field(strict=True, max_length=10)] | None = Field(default='9Z', alias='DPS')
+    country_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(
         default='GBR', description='If not provided, defaults to GBR', alias='countryCode'
     )

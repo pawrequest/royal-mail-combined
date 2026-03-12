@@ -13,7 +13,6 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field, StrictFloat, StrictInt, StrictStr
-from typing import Optional, Union
 
 from royal_mail_combined import RMBaseModel
 
@@ -23,15 +22,15 @@ class SlotDetailsDef(RMBaseModel):
     Node of the details data
     """
 
-    dps: Optional[StrictStr] = Field(default=None, description='Delivery point suffix')
-    delivery_office_id: Optional[Union[float, int]] = Field(
+    dps: StrictStr | None = Field(default=None, description='Delivery point suffix')
+    delivery_office_id: float | int | None = Field(
         default=None, description='Functional location id of Delivery office', alias='deliveryOfficeId'
     )
-    item_count: Optional[Union[StrictFloat, StrictInt]] = Field(
+    item_count: StrictFloat | StrictInt | None = Field(
         default=None, description='count of Item.', alias='itemCount'
     )
-    token_id: Optional[StrictStr] = Field(default=None, description='Toekn Id.', alias='tokenId')
-    token_id_expiry_time: Optional[StrictStr] = Field(
+    token_id: StrictStr | None = Field(default=None, description='Toekn Id.', alias='tokenId')
+    token_id_expiry_time: StrictStr | None = Field(
         default=None,
         description='Token id expiry time, within which it should be used to create task. This will be populated with the date time in ISO 8601 subset format.',
         alias='tokenIdExpiryTime',

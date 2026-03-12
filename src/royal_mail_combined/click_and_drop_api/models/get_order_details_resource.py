@@ -14,8 +14,7 @@ import re  # noqa: F401
 
 from datetime import datetime
 from pydantic import Field, StrictBool, StrictFloat, StrictInt, StrictStr
-from typing import List, Optional, Union
-from typing_extensions import Annotated
+from typing import Annotated
 from ..models.get_order_line_result import GetOrderLineResult
 from ..models.get_postal_details_result import GetPostalDetailsResult
 from ..models.get_shipping_details_result import GetShippingDetailsResult
@@ -29,43 +28,43 @@ class GetOrderDetailsResource(RMBaseModel):
     GetOrderDetailsResource
     """
 
-    order_identifier: Optional[StrictInt] = Field(default=None, alias='orderIdentifier')
-    order_status: Optional[StrictStr] = Field(default=None, alias='orderStatus')
-    created_on: Optional[datetime] = Field(default=None, alias='createdOn')
-    printed_on: Optional[datetime] = Field(default=None, alias='printedOn')
-    shipped_on: Optional[datetime] = Field(default=None, alias='shippedOn')
-    postage_applied_on: Optional[datetime] = Field(default=None, alias='postageAppliedOn')
-    manifested_on: Optional[datetime] = Field(default=None, alias='manifestedOn')
-    order_date: Optional[datetime] = Field(default=None, alias='orderDate')
-    despatched_by_other_courier_on: Optional[datetime] = Field(default=None, alias='despatchedByOtherCourierOn')
-    trading_name: Optional[StrictStr] = Field(default=None, alias='tradingName')
-    channel: Optional[StrictStr] = None
-    marketplace_type_name: Optional[StrictStr] = Field(default=None, alias='marketplaceTypeName')
-    department: Optional[StrictStr] = None
-    air_number: Optional[StrictStr] = Field(default=None, alias='AIRNumber')
-    requires_export_license: Optional[StrictBool] = Field(default=None, alias='requiresExportLicense')
-    commercial_invoice_number: Optional[StrictStr] = Field(default=None, alias='commercialInvoiceNumber')
-    commercial_invoice_date: Optional[datetime] = Field(default=None, alias='commercialInvoiceDate')
-    order_reference: Optional[StrictStr] = Field(default=None, alias='orderReference')
-    channel_shipping_method: Optional[StrictStr] = Field(default=None, alias='channelShippingMethod')
-    special_instructions: Optional[StrictStr] = Field(default=None, alias='specialInstructions')
-    picker_special_instructions: Optional[StrictStr] = Field(default=None, alias='pickerSpecialInstructions')
-    subtotal: Union[StrictFloat, StrictInt] = Field(
+    order_identifier: StrictInt | None = Field(default=None, alias='orderIdentifier')
+    order_status: StrictStr | None = Field(default=None, alias='orderStatus')
+    created_on: datetime | None = Field(default=None, alias='createdOn')
+    printed_on: datetime | None = Field(default=None, alias='printedOn')
+    shipped_on: datetime | None = Field(default=None, alias='shippedOn')
+    postage_applied_on: datetime | None = Field(default=None, alias='postageAppliedOn')
+    manifested_on: datetime | None = Field(default=None, alias='manifestedOn')
+    order_date: datetime | None = Field(default=None, alias='orderDate')
+    despatched_by_other_courier_on: datetime | None = Field(default=None, alias='despatchedByOtherCourierOn')
+    trading_name: StrictStr | None = Field(default=None, alias='tradingName')
+    channel: StrictStr | None = None
+    marketplace_type_name: StrictStr | None = Field(default=None, alias='marketplaceTypeName')
+    department: StrictStr | None = None
+    air_number: StrictStr | None = Field(default=None, alias='AIRNumber')
+    requires_export_license: StrictBool | None = Field(default=None, alias='requiresExportLicense')
+    commercial_invoice_number: StrictStr | None = Field(default=None, alias='commercialInvoiceNumber')
+    commercial_invoice_date: datetime | None = Field(default=None, alias='commercialInvoiceDate')
+    order_reference: StrictStr | None = Field(default=None, alias='orderReference')
+    channel_shipping_method: StrictStr | None = Field(default=None, alias='channelShippingMethod')
+    special_instructions: StrictStr | None = Field(default=None, alias='specialInstructions')
+    picker_special_instructions: StrictStr | None = Field(default=None, alias='pickerSpecialInstructions')
+    subtotal: StrictFloat | StrictInt = Field(
         description='The total value of all the goods in the order, excluding tax'
     )
-    shipping_cost_charged: Union[StrictFloat, StrictInt] = Field(
+    shipping_cost_charged: StrictFloat | StrictInt = Field(
         description='The shipping costs you charged to your customer', alias='shippingCostCharged'
     )
-    order_discount: Union[StrictFloat, StrictInt] = Field(alias='orderDiscount')
-    total: Union[StrictFloat, StrictInt] = Field(description='The sum of order subtotal, tax and retail shipping costs')
+    order_discount: StrictFloat | StrictInt = Field(alias='orderDiscount')
+    total: StrictFloat | StrictInt = Field(description='The sum of order subtotal, tax and retail shipping costs')
     weight_in_grams: StrictInt = Field(alias='weightInGrams')
-    package_size: Optional[StrictStr] = Field(default=None, alias='packageSize')
-    account_batch_number: Optional[StrictStr] = Field(default=None, alias='accountBatchNumber')
-    currency_code: Optional[Annotated[str, Field(strict=True, max_length=3)]] = Field(
+    package_size: StrictStr | None = Field(default=None, alias='packageSize')
+    account_batch_number: StrictStr | None = Field(default=None, alias='accountBatchNumber')
+    currency_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(
         default=None, alias='currencyCode'
     )
     shipping_details: GetShippingDetailsResult = Field(alias='shippingDetails')
     shipping_info: GetPostalDetailsResult = Field(alias='shippingInfo')
     billing_info: GetPostalDetailsResult = Field(alias='billingInfo')
-    order_lines: List[GetOrderLineResult] = Field(alias='orderLines')
-    tags: Optional[List[GetTagDetailsResult]] = None
+    order_lines: list[GetOrderLineResult] = Field(alias='orderLines')
+    tags: list[GetTagDetailsResult] | None = None

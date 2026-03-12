@@ -13,7 +13,6 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field, StrictStr
-from typing import List, Optional
 from .agreement_line_def import AgreementLineDef
 from .contract_code_def import ContractCodeDef
 from .subscription_def import SubscriptionDef
@@ -27,6 +26,6 @@ class AccountDef(RMBaseModel):
     """
 
     account_number: StrictStr = Field(description='Account Number', alias='accountNumber')
-    subscription: Optional[List[SubscriptionDef]] = None
+    subscription: list[SubscriptionDef] | None = None
     agreement_line: AgreementLineDef = Field(alias='agreementLine')
-    contract: Optional[ContractCodeDef] = None
+    contract: ContractCodeDef | None = None

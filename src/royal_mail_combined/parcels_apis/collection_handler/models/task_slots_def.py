@@ -13,7 +13,6 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field
-from typing import List, Optional
 from ..models.slot_date_def import SlotDateDef
 from ..models.slot_details_def import SlotDetailsDef
 
@@ -25,5 +24,5 @@ class TaskSlotsDef(RMBaseModel):
     Node of slots data
     """
 
-    slot_details: Optional[SlotDetailsDef] = Field(default=None, alias='slotDetails')
-    datewise_slots: Optional[List[SlotDateDef]] = Field(default=None, alias='datewiseSlots')
+    slot_details: SlotDetailsDef | None = Field(default=None, alias='slotDetails')
+    datewise_slots: list[SlotDateDef] | None = Field(default=None, alias='datewiseSlots')

@@ -14,8 +14,7 @@ import re  # noqa: F401
 
 from datetime import datetime
 from pydantic import Field, StrictBool, StrictStr
-from typing import List, Optional
-from typing_extensions import Annotated
+from typing import Annotated
 from .account_details_def import AccountDetailsDef
 from .address_def import AddressDef
 from .collection_status import CollectionStatus
@@ -31,26 +30,26 @@ class CollectionOrderGetResponse(RMBaseModel):
     Response for Get collection Order
     """
 
-    collection_order_id: Optional[StrictStr] = Field(
+    collection_order_id: StrictStr | None = Field(
         default=None, description='Collection Order Id', alias='collectionOrderId'
     )
-    timeslot_reservation_id: Optional[StrictStr] = Field(
+    timeslot_reservation_id: StrictStr | None = Field(
         default=None, description='time slot reservation Id', alias='timeslotReservationId'
     )
-    sender_details: Optional[SenderDetailsDef] = Field(default=None, alias='senderDetails')
-    account_details: Optional[AccountDetailsDef] = Field(default=None, alias='accountDetails')
-    address: Optional[AddressDef] = None
-    safe_place_details: Optional[SafePlaceDetailsDef] = Field(default=None, alias='safePlaceDetails')
-    animal_hazard_details: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(
+    sender_details: SenderDetailsDef | None = Field(default=None, alias='senderDetails')
+    account_details: AccountDetailsDef | None = Field(default=None, alias='accountDetails')
+    address: AddressDef | None = None
+    safe_place_details: SafePlaceDetailsDef | None = Field(default=None, alias='safePlaceDetails')
+    animal_hazard_details: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
         default=None, description='location animal hazard details', alias='animalHazardDetails'
     )
-    collection_status: Optional[CollectionStatus] = Field(default=None, alias='collectionStatus')
-    collection_date_time: Optional[datetime] = Field(
+    collection_status: CollectionStatus | None = Field(default=None, alias='collectionStatus')
+    collection_date_time: datetime | None = Field(
         default=None, description='Date of order collection', alias='collectionDateTime'
     )
-    items: Optional[List[ItemsDef]] = None
-    created_on: Optional[datetime] = Field(default=None, description='Date of order creation', alias='createdOn')
-    last_modified_on: Optional[datetime] = Field(
+    items: list[ItemsDef] | None = None
+    created_on: datetime | None = Field(default=None, description='Date of order creation', alias='createdOn')
+    last_modified_on: datetime | None = Field(
         default=None, description='Date of last modified', alias='lastModifiedOn'
     )
     suppress_rm_notifications: StrictBool = Field(alias='suppressRmNotifications')

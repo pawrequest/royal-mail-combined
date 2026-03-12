@@ -13,8 +13,7 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field
-from typing import Optional
-from typing_extensions import Annotated
+from typing import Annotated
 
 from royal_mail_combined import RMBaseModel
 
@@ -24,5 +23,5 @@ class TagRequest(RMBaseModel):
     TagRequest
     """
 
-    key: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
-    value: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
+    key: Annotated[str, Field(strict=True, max_length=100)] | None = None
+    value: Annotated[str, Field(strict=True, max_length=100)] | None = None

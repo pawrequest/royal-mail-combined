@@ -13,7 +13,6 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field
-from typing import List
 from ..models.product_family_response_def import ProductFamilyResponseDef
 
 from royal_mail_combined import RMBaseModel
@@ -24,4 +23,4 @@ class ValidateSubscriptionResponse(RMBaseModel):
     ValidateSubscriptionResponse
     """
 
-    product_family: List[ProductFamilyResponseDef] = Field(alias='productFamily')
+    product_family: list[ProductFamilyResponseDef] = Field(alias='productFamily')

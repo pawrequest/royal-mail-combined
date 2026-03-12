@@ -12,7 +12,6 @@ Do not edit the class manually.
 from __future__ import annotations
 
 import re  # noqa: F401
-from typing import List, Optional
 
 from pydantic import Field, StrictStr
 
@@ -27,10 +26,10 @@ class GetOrdersDetailsResponse(RMBaseModel):
     GetOrdersDetailsResponse
     """
 
-    orders: Optional[List[GetOrderDetailsResource]] = None
-    continuation_token: Optional[StrictStr] = Field(default=None, alias='continuationToken')
+    orders: list[GetOrderDetailsResource] | None = None
+    continuation_token: StrictStr | None = Field(default=None, alias='continuationToken')
 
-    def order_idents(self) -> List[int | str]:
+    def order_idents(self) -> list[int | str]:
         return [_.order_identifier for _ in self.orders]
 
     def order_idents_str(self):

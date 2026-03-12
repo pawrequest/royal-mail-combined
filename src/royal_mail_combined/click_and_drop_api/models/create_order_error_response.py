@@ -13,7 +13,6 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field, StrictInt, StrictStr
-from typing import List, Optional
 
 from royal_mail_combined.click_and_drop_api.models.order_field_response import OrderFieldResponse
 
@@ -26,6 +25,6 @@ class CreateOrderErrorResponse(RMBaseModel):
     CreateOrderErrorResponse
     """
 
-    error_code: Optional[StrictInt] = Field(default=None, alias='errorCode')
-    error_message: Optional[StrictStr] = Field(default=None, alias='errorMessage')
-    fields: Optional[List[OrderFieldResponse]] = None
+    error_code: StrictInt | None = Field(default=None, alias='errorCode')
+    error_message: StrictStr | None = Field(default=None, alias='errorMessage')
+    fields: list[OrderFieldResponse] | None = None

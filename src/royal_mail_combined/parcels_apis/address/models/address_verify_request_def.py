@@ -13,8 +13,7 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field
-from typing import List, Optional
-from typing_extensions import Annotated
+from typing import Annotated
 from .address_verifydef import AddressVerifyDef
 
 from royal_mail_combined import RMBaseModel
@@ -25,6 +24,6 @@ class AddressVerifyRequestDef(RMBaseModel):
     AddressVerifyRequestDef
     """
 
-    addresses: Optional[Annotated[List[AddressVerifyDef], Field(min_length=1, max_length=100)]] = Field(
+    addresses: Annotated[list[AddressVerifyDef], Field(min_length=1, max_length=100)] | None = Field(
         default=None, alias='Addresses'
     )

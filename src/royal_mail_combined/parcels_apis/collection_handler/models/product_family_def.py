@@ -13,7 +13,6 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field, StrictStr
-from typing import Optional
 
 from royal_mail_combined import RMBaseModel
 
@@ -23,8 +22,8 @@ class ProductFamilyDef(RMBaseModel):
     node of product family
     """
 
-    barcode: Optional[StrictStr] = Field(default=None, description='Item BarCode Id')
-    product_family_name: Optional[StrictStr] = Field(
+    barcode: StrictStr | None = Field(default=None, description='Item BarCode Id')
+    product_family_name: StrictStr | None = Field(
         default=None, description='Product Family Name', alias='productFamilyName'
     )
-    account_number: Optional[StrictStr] = Field(default=None, description='Account Number', alias='accountNumber')
+    account_number: StrictStr | None = Field(default=None, description='Account Number', alias='accountNumber')

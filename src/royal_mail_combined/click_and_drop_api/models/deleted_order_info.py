@@ -13,7 +13,6 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field, StrictInt, StrictStr
-from typing import Optional
 
 from royal_mail_combined import RMBaseModel
 
@@ -23,6 +22,6 @@ class DeletedOrderInfo(RMBaseModel):
     DeletedOrderInfo
     """
 
-    order_identifier: Optional[StrictInt] = Field(default=None, alias='orderIdentifier')
-    order_reference: Optional[StrictStr] = Field(default=None, alias='orderReference')
-    order_info: Optional[StrictStr] = Field(default=None, alias='orderInfo')
+    order_identifier: StrictInt | None = Field(default=None, alias='orderIdentifier')
+    order_reference: StrictStr | None = Field(default=None, alias='orderReference')
+    order_info: StrictStr | None = Field(default=None, alias='orderInfo')

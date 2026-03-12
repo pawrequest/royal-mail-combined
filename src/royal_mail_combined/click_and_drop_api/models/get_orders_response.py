@@ -13,7 +13,6 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field, StrictStr
-from typing import List, Optional
 from ..models.get_order_info_resource import GetOrderInfoResource
 
 from royal_mail_combined import RMBaseModel
@@ -24,5 +23,5 @@ class GetOrdersResponse(RMBaseModel):
     GetOrdersResponse
     """
 
-    orders: Optional[List[GetOrderInfoResource]] = None
-    continuation_token: Optional[StrictStr] = Field(default=None, alias='continuationToken')
+    orders: list[GetOrderInfoResource] | None = None
+    continuation_token: StrictStr | None = Field(default=None, alias='continuationToken')

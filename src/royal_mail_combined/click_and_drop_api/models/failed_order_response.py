@@ -12,7 +12,6 @@ Do not edit the class manually.
 from __future__ import annotations
 import re  # noqa: F401
 
-from typing import List, Optional
 from ..models.create_order_error_response import CreateOrderErrorResponse
 from ..models.create_order_request import CreateOrderRequest
 
@@ -25,5 +24,5 @@ class FailedOrderResponse(RMBaseModel):
     FailedOrderResponse
     """
 
-    order: Optional[CreateOrderRequest] = None
-    errors: Optional[List[CreateOrderErrorResponse]] = None
+    order: CreateOrderRequest | None = None
+    errors: list[CreateOrderErrorResponse] | None = None

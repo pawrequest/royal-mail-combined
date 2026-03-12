@@ -13,7 +13,6 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field, StrictFloat, StrictInt
-from typing import Optional, Union
 
 from royal_mail_combined import RMBaseModel
 
@@ -23,6 +22,6 @@ class DimensionsDef(RMBaseModel):
     DimensionsDef
     """
 
-    height: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description='height of item')
-    width: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description='width of item')
-    depth: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description='depth of item')
+    height: StrictFloat | StrictInt | None = Field(default=None, description='height of item')
+    width: StrictFloat | StrictInt | None = Field(default=None, description='width of item')
+    depth: StrictFloat | StrictInt | None = Field(default=None, description='depth of item')

@@ -13,8 +13,7 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field, StrictFloat, StrictInt
-from typing import Optional, Union
-from typing_extensions import Annotated
+from typing import Annotated
 
 from royal_mail_combined import RMBaseModel
 
@@ -24,11 +23,11 @@ class LabelOrderItem(RMBaseModel):
     LabelOrderItem
     """
 
-    description: Optional[Annotated[str, Field(strict=True, max_length=50)]] = None
-    customs_code: Optional[Annotated[str, Field(strict=True, max_length=12)]] = Field(default=None, alias='customsCode')
-    quantity: Optional[StrictInt] = None
-    unit_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias='unitValue')
-    unit_weight_in_grams: Optional[StrictInt] = Field(default=None, alias='unitWeightInGrams')
-    origin_country_code: Optional[Annotated[str, Field(strict=True, max_length=3)]] = Field(
+    description: Annotated[str, Field(strict=True, max_length=50)] | None = None
+    customs_code: Annotated[str, Field(strict=True, max_length=12)] | None = Field(default=None, alias='customsCode')
+    quantity: StrictInt | None = None
+    unit_value: StrictFloat | StrictInt | None = Field(default=None, alias='unitValue')
+    unit_weight_in_grams: StrictInt | None = Field(default=None, alias='unitWeightInGrams')
+    origin_country_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(
         default=None, alias='originCountryCode'
     )

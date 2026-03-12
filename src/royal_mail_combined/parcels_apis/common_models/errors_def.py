@@ -13,7 +13,6 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field, StrictStr
-from typing import Optional
 
 from royal_mail_combined import RMBaseModel
 
@@ -23,9 +22,9 @@ class ErrorsDef(RMBaseModel):
     Array containing error information.
     """
 
-    code: Optional[StrictStr] = Field(default=None, description='Code associated with the error condition')
-    description: Optional[StrictStr] = Field(default=None, description='Description of the error condition')
-    cause: Optional[StrictStr] = Field(default=None, description='Cause of the error (if known)')
-    resolution: Optional[StrictStr] = Field(
+    code: StrictStr | None = Field(default=None, description='Code associated with the error condition')
+    description: StrictStr | None = Field(default=None, description='Description of the error condition')
+    cause: StrictStr | None = Field(default=None, description='Cause of the error (if known)')
+    resolution: StrictStr | None = Field(
         default=None, description='Description of the resolution and action required to correct the error'
     )

@@ -13,8 +13,7 @@ from __future__ import annotations
 import re  # noqa: F401
 
 from pydantic import Field
-from typing import Optional
-from typing_extensions import Annotated
+from typing import Annotated
 
 from royal_mail_combined import RMBaseModel
 
@@ -24,9 +23,9 @@ class SenderDetailsDef(RMBaseModel):
     SenderDetailsDef
     """
 
-    sender_name: Optional[Annotated[str, Field(strict=True, max_length=100)]] = Field(
+    sender_name: Annotated[str, Field(strict=True, max_length=100)] | None = Field(
         default=None, description='Name of sender', alias='senderName'
     )
-    sender_email: Optional[Annotated[str, Field(strict=True, max_length=50)]] = Field(
+    sender_email: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
         default=None, description='Email Address of sender', alias='senderEmail'
     )
