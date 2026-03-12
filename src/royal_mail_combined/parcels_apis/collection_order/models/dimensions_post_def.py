@@ -23,6 +23,6 @@ class DimensionsPostDef(RMBaseModel):
     DimensionsPostDef
     """
 
-    height: Union[StrictFloat, StrictInt] = Field(description='height or length of item')
-    width: Union[StrictFloat, StrictInt] = Field(description='width of item')
-    depth: Union[StrictFloat, StrictInt] = Field(description='depth of item')
+    height: StrictFloat | StrictInt = Field(description='height or length of item')
+    width: StrictFloat | StrictInt = Field(description='width of item')
+    depth: StrictFloat | StrictInt = Field(description='depth of item')

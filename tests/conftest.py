@@ -2,7 +2,8 @@ import json
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from pprint import pformat, pprint
-from typing import Any, Generator
+from typing import Any
+from collections.abc import Generator
 
 import pytest
 from pydantic import BaseModel
@@ -43,10 +44,14 @@ if TEST_DATE.weekday() in (5, 6):
 
 
 def get_dumped_dir_this_hour():
-    return f"dumped-{datetime.now().strftime('%Y-%m-%dT%H')}"
+    return f'dumped-{datetime.now().strftime("%Y-%m-%dT%H")}'
 
 
 def dump_result_model(result: BaseModel | list[BaseModel]):
+    print_object(result)
+    if result is None:
+        print('No result to dump')
+        return
     if isinstance(result, list):
         resmodel = result[0]
         result_d = [_.model_dump(mode='json', by_alias=True, exclude_none=True) for _ in result]
@@ -55,7 +60,6 @@ def dump_result_model(result: BaseModel | list[BaseModel]):
         result_d = result.model_dump(mode='json', by_alias=True, exclude_none=True)
     else:
         raise ValueError('result must be BaseModel or list of BaseModel')
-
     dumped_dir = get_dumped_dir_this_hour()
     # dumped = f'dumped-{today().isoformat(sep='T')}'
     results_name = Path(f'{dumped_dir}/{resmodel.__class__.__name__}.json')
@@ -65,18 +69,22 @@ def dump_result_model(result: BaseModel | list[BaseModel]):
 
 
 @pytest.fixture(scope='session')
-def sample_settings() -> RoyalMailSettingsGlobal:
+def fxt_settings() -> RoyalMailSettingsGlobal:
     return RoyalMailSettingsGlobal.from_env()
 
 
-def print_object(res: BaseModel):
-    print(pformat(res.model_dump(mode='json'), indent=4, width=120))
+def print_object(obj):
+    if isinstance(obj, BaseModel):
+        obj = obj.model_dump(mode='json', by_alias=True)
+    if isinstance(obj, list):
+        obj = [o.model_dump(mode='json', by_alias=True) if isinstance(o, BaseModel) else o for o in obj]
+    print(pformat(obj, indent=4, width=120))
 
 
 @pytest.fixture(scope='session')
-def sample_client(sample_settings) -> Generator[RoyalMailClient, Any, None]:
+def fxt_client(fxt_settings) -> Generator[RoyalMailClient, Any]:
     """Test client - automatically removes orders created during testing on completion"""
-    client = RoyalMailClient(sample_settings)
+    client = RoyalMailClient(fxt_settings)
     orders_before: GetOrdersResponse = client.click_and_drop.fetch_orders()
     pprint(orders_before.model_dump())
 
@@ -92,7 +100,7 @@ def sample_client(sample_settings) -> Generator[RoyalMailClient, Any, None]:
 
 
 @pytest.fixture(scope='session')
-def cached_address() -> AddressDef:
+def fxt_address() -> AddressDef:
     return AddressDef(
         addressLine1='Flat 43, Berberis House',
         addressLine2='Highfield Road',
@@ -103,8 +111,8 @@ def cached_address() -> AddressDef:
 
 
 @pytest.fixture(scope='session')
-def cached_address_verify(cached_address) -> AddressVerifyDef:
-    return AddressVerifyDef.model_validate(cached_address, from_attributes=True)
+def fxt_address_verify(fxt_address) -> AddressVerifyDef:
+    return AddressVerifyDef.model_validate(fxt_address, from_attributes=True)
 
 
 @pytest.fixture(scope='session')
@@ -123,8 +131,8 @@ def cached_sender():
 
 
 @pytest.fixture(scope='session')
-def cached_account_details(sample_settings):
-    return AccountDetailsDef(retailer_account_number=sample_settings.account_number)
+def cached_account_details(fxt_settings):
+    return AccountDetailsDef(retailer_account_number=fxt_settings.account_number)
 
 
 @pytest.fixture(scope='session')
@@ -148,49 +156,6 @@ def cached_dps_results() -> AddressVerifyReqRespdef:
 
 
 @pytest.fixture(scope='session')
-def cached_return_request(cached_address, cached_sender, cached_return_address):
-    sender_address = AddressReturns(
-        title='Mr',
-        first_name='ShipFirst',
-        last_name='ShipLast',
-        company_name='ShipCompany',
-        address_line1=cached_address.address_line1,
-        address_line2=cached_address.address_line2,
-        address_line3=cached_address.address_line3,
-        city=cached_address.post_town,
-        county=cached_address.county,
-        postcode=cached_address.postcode,
-        country='United Kingdom',
-        country_iso_code='GBR',
-    )
-    destination_address = AddressReturns(
-        title='Mr',
-        first_name='ReturnFirst',
-        last_name='ReturnLast',
-        company_name='ReturnCompany',
-        address_line1=cached_return_address.address_line1,
-        address_line2=cached_return_address.address_line2,
-        address_line3=cached_return_address.address_line3,
-        city=cached_return_address.post_town,
-        county=cached_return_address.county,
-        postcode=cached_return_address.postcode,
-        country='United Kingdom',
-        country_iso_code='GBR',
-    )
-    cust_ref = CustomerReference(reference=REFERENCE)
-    service = Service(service_code=RoyalMailServiceCodes.TRACKED_24_RTN)
-    shipment = Shipment(
-        shipping_address=destination_address,
-        return_address=sender_address,
-        customer_reference=cust_ref,
-    )
-    return ReturnsRequest(
-        service=service,
-        shipment=shipment,
-    )
-
-
-@pytest.fixture(scope='session')
 def cached_return_response():
     with open(r'dumped/ReturnsResponse.json') as f:
         res = f.read()
@@ -206,7 +171,7 @@ def cached_return_services() -> AvailableServicesResponse:
 
 
 @pytest.fixture(scope='session')
-def address_request_recip_fxt():
+def fxt_request_recip():
     return AddressRequest(
         full_name='Testy Testson Recipient',
         company_name='Recip Comp name',
@@ -221,7 +186,7 @@ def address_request_recip_fxt():
 
 
 @pytest.fixture(scope='session')
-def cached_address_req_sender():
+def fxt_address_req_sender():
     return AddressRequest(
         full_name='MY SENDER NAME',
         company_name='MY COMPANY NAME',
@@ -236,25 +201,25 @@ def cached_address_req_sender():
 
 
 @pytest.fixture(scope='session')
-def cached_recip_details(address_request_recip_fxt):
+def fxt_recip_details(fxt_request_recip):
     return RecipientDetailsRequest(
-        address=address_request_recip_fxt,
+        address=fxt_request_recip,
         phone_number='07666666666',
         email_address='recipient@sdgikhjbsdgijbsdigj.com',
     )
 
 
 @pytest.fixture(scope='session')
-def cached_billing(cached_address_req_sender):
+def fxt_billing(fxt_address_req_sender):
     return BillingDetailsRequest(
-        address=cached_address_req_sender,
+        address=fxt_address_req_sender,
         phone_number='07888888888',
         email_address='billme@sikdjfsdjbfgjksbdgf.com',
     )
 
 
 @pytest.fixture(scope='session')
-def cached_packages():
+def fxt_packages():
     return [
         ShipmentPackageRequest(
             weight_in_grams=10000,
@@ -265,7 +230,7 @@ def cached_packages():
 
 
 @pytest.fixture(scope='session')
-def cached_postage_details() -> PostageDetailsRequest:
+def fxt_postage_details() -> PostageDetailsRequest:
     return PostageDetailsRequest(
         send_notifications_to=SendNotifcationsTo.RECIPIENT,
         service_code=RoyalMailServiceCodes.EXPRESS_24,
@@ -276,15 +241,57 @@ def cached_postage_details() -> PostageDetailsRequest:
 
 
 @pytest.fixture(scope='session')
-def cached_order(cached_recip_details, cached_packages, cached_billing, cached_postage_details) -> CreateOrderRequest:
+def fxt_order(fxt_recip_details, fxt_packages, fxt_billing, fxt_postage_details) -> CreateOrderRequest:
     return CreateOrderRequest(
-        recipient=cached_recip_details.model_dump(),
+        recipient=fxt_recip_details.model_dump(),
         order_date=datetime.now(),
         subtotal=0,
         shipping_cost_charged=0,
         total=0,
-        packages=cached_packages,
-        billing=cached_billing,  # should be unnecessary with webportal settings
-        postage_details=cached_postage_details,
+        packages=fxt_packages,
+        billing=fxt_billing,  # should be unnecessary with webportal settings
+        postage_details=fxt_postage_details,
         # planned_despatch_date=TEST_DATE,
+    )
+
+
+@pytest.fixture(scope='session')
+def fxt_return_req():
+    sender_address = AddressReturns(
+        title='Mr',
+        first_name='ShipFirst',
+        last_name='ShipLast',
+        company_name='ShipCompany',
+        address_line1='Flat 43, Berberis House',
+        address_line2='Highfield Road',
+        city='Feltham',
+        county='Middlesex',  # mixed pascal and camel in rm api.
+        postcode='TW13 4GP',
+        country='United Kingdom',
+        country_iso_code='GBR',
+        email='sender_emaiol@faaaaaaaaaaaaaaake.com',
+    )
+    recip_address = AddressReturns(
+        title='Mr',
+        first_name='ReturnFirst',
+        last_name='ReturnLast',
+        company_name='ReturnCompany',
+        address_line1='70 Kingsgate road',
+        city='Kilburn',
+        county='London',
+        postcode='NW6 4TE',
+        country='United Kingdom',
+        country_iso_code='GBR',
+        email='recipient@faaaaaaake.com',
+    )
+
+    cust_ref = CustomerReference(reference=REFERENCE)
+    service = Service(service_code=RoyalMailServiceCodes.TRACKED_24_RTN)
+    return ReturnsRequest(
+        service=service,
+        shipment=Shipment(
+            recipient_address=recip_address,
+            sender_address=sender_address,
+            customer_reference=cust_ref,
+        ),
     )

@@ -3,7 +3,7 @@ import os
 from datetime import date, timedelta
 from pathlib import Path
 
-from conftest import get_dumped_dir_this_hour
+from conftest import get_dumped_dir_this_hour, print_object
 from royal_mail_combined.all_models import ReturnsResponse, SlotDateDef
 from royal_mail_combined.converters import match_collection_slot_date
 
@@ -18,6 +18,7 @@ def test_loads_return_services(cached_return_services):
     assert cached_return_services.services
     for service in cached_return_services.services:
         assert service.carrier_guid
+    print_object(cached_return_services)
 
 
 def test_label_from_return():

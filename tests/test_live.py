@@ -16,21 +16,21 @@ from royal_mail_combined.click_and_drop_api.models import GetOrderInfoResource
 from royal_mail_combined.parcels_apis.collection_handler.models import GetAvailableSlotsResponse
 
 
-def test_version(sample_client):
-    res = sample_client.click_and_drop.fetch_version()
+def test_version(fxt_client):
+    res = fxt_client.click_and_drop.fetch_version()
     assert isinstance(res, GetVersionResource)
     ...
 
 
-def test_get_orders(sample_client):
-    res = sample_client.click_and_drop.fetch_orders()
+def test_get_orders(fxt_client):
+    res = fxt_client.click_and_drop.fetch_orders()
     assert isinstance(res, GetOrdersResponse)
     print_object(res)
     ...
 
 
-def test_addresses(sample_client):
-    res = sample_client.parcel_api.address_search('30 bennet close')
+def test_addresses(fxt_client):
+    res = fxt_client.parcel_api.address_search('30 bennet close')
     assert isinstance(res, AddressesDef)
     print_object(res)
     ...
@@ -39,22 +39,22 @@ def test_addresses(sample_client):
 # @pytest.mark.skip(reason='unable to cancel?')
 
 
-def test_return_services(sample_client):
-    res = sample_client.check_return_services()
+def test_return_services(fxt_client):
+    res = fxt_client.check_return_services()
     if STORE_RESULTS:
         dump_result_model(res)
     ...
 
 
-def test_fetch_orders(sample_client):
-    res = sample_client.click_and_drop.fetch_orders()
+def test_fetch_orders(fxt_client):
+    res = fxt_client.click_and_drop.fetch_orders()
     if STORE_RESULTS:
         dump_result_model(res)
     assert isinstance(res, GetOrdersResponse)
     ...
 
 
-def test_fetch_specific(sample_client):
+def test_fetch_specific(fxt_client):
     track2 = 'PK007810419GB'
     a_real_shipment_id = 1037
     tracking_number = 'ZS191785051GB'
@@ -69,7 +69,7 @@ def test_fetch_specific(sample_client):
     identifier = str(a_real_shipment_id)
     # identifier = order_identifier_to_string(office_res_track)
 
-    res = sample_client.click_and_drop.fetch_specific(order_identifiers=identifier)
+    res = fxt_client.click_and_drop.fetch_specific(order_identifiers=identifier)
     assert isinstance(res[0], GetOrderInfoResource)
     if STORE_RESULTS:
         dump_result_model(res)
@@ -86,7 +86,7 @@ def test_fetch_specific(sample_client):
 
 
 @pytest.mark.skip(reason='Unable to delete manifested orders?')
-def test_kill_that_order(sample_client):
+def test_kill_that_order(fxt_client):
     a_real_shipment_id = 1028
     identifier = str(a_real_shipment_id)
     # res = sample_client.click_and_drop.delete_orders(order_identifiers=identifier)
@@ -95,7 +95,7 @@ def test_kill_that_order(sample_client):
         status='deleted',
     )
     update_orders_status_request = UpdateOrdersStatusRequest.model_validate(dict(items=[thing]))
-    res = sample_client.click_and_drop.update_orders(update_orders_status_request=update_orders_status_request)
+    res = fxt_client.click_and_drop.update_orders(update_orders_status_request=update_orders_status_request)
     dump_result_model(res)
     ...
 
@@ -113,9 +113,9 @@ E           HTTP response body: {"message":"A value for the 'request' parameter 
 
 
 # @pytest.mark.skip(reason='Use Cached result')
-def test_address_search(sample_client, cached_address):
-    search_str = cached_address.address_line1 + ', ' + cached_address.postcode
-    resp: AddressesDef = sample_client.parcel_api.address_search(search_str)
+def test_address_search(fxt_client, fxt_address):
+    search_str = fxt_address.address_line1 + ', ' + fxt_address.postcode
+    resp: AddressesDef = fxt_client.parcel_api.address_search(search_str)
     if STORE_RESULTS:
         dump_result_model(resp)
 
@@ -124,10 +124,10 @@ def test_address_search(sample_client, cached_address):
 
 
 # @pytest.mark.skip(reason='Use Cached')
-def test_address_search_dps(sample_client, cached_address):
-    addr = AddressVerifyDef.model_validate(cached_address, from_attributes=True)
+def test_address_search_dps(fxt_client, fxt_address):
+    addr = AddressVerifyDef.model_validate(fxt_address, from_attributes=True)
     addresses_payload = AddressVerifyRequestDef(addresses=[addr])
-    resp: list[AddressVerifyReqRespdef] = sample_client.parcel_api.address_verify(addresses_payload)
+    resp: list[AddressVerifyReqRespdef] = fxt_client.parcel_api.address_verify(addresses_payload)
     if STORE_RESULTS:
         dump_result_model(resp)
     assert isinstance(resp, list)
@@ -135,20 +135,20 @@ def test_address_search_dps(sample_client, cached_address):
 
 
 # @pytest.mark.skip(reason='Use Cached result')
-def test_address_get(sample_client, cached_address_id):
-    resp = sample_client.parcel_api.address_retrieve(cached_address_id)
+def test_address_get(fxt_client, cached_address_id):
+    resp = fxt_client.parcel_api.address_retrieve(cached_address_id)
     if STORE_RESULTS:
         dump_result_model(resp)
     assert isinstance(resp, AddressRecordDef)
 
 
 # @pytest.mark.skip(reason='Use Cached result')
-def test_handler_get_slots(sample_client, cached_dps_results):
+def test_handler_get_slots(fxt_client, cached_dps_results):
     dps = cached_dps_results.dps
     postcode = cached_dps_results.input.postcode.replace(' ', '')
     dps_postcode_str = postcode + dps
     item_count = 1
-    resp = sample_client.parcel_api.slots_get_available(dps_postcode_str, item_count)
+    resp = fxt_client.parcel_api.slots_get_available(dps_postcode_str, item_count)
     if STORE_RESULTS:
         dump_result_model(resp)
     assert isinstance(resp, GetAvailableSlotsResponse)

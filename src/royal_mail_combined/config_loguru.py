@@ -57,15 +57,15 @@ def get_loguru(
 
 
 def log_fmt_local_terminal(record: loguru.Record) -> str:
-    file_txt = f"{record['file'].path}:{record['line']}"
+    file_txt = f'{record["file"].path}:{record["line"]}'
 
     category = record['extra'].get('category', 'General')
     category_txt = f'{category.title():<9}'
 
     color = CAT_COLOR_DICT.get(category.lower(), 'white')
     category_txt = f'| {coloured(category_txt, color)}' if category_txt != 'General' else ''
-    lvltext = f'<lvl>{record['level']: <7}</lvl>'
-    msg_txt = f'<lvl>{record['message']}</lvl>'
+    lvltext = f'<lvl>{record["level"]: <7}</lvl>'
+    msg_txt = f'<lvl>{record["message"]}</lvl>'
     msg_txt = msg_txt.replace('{', '{{').replace('}', '}}')
     # msg_txt = f'{record['message']}'
     return f'{lvltext} {category_txt} | {msg_txt} | {file_txt}\n'
@@ -93,10 +93,10 @@ def log_fmt_server_terminal(record) -> str:
     category = f'{category:<9}'
     colour = CAT_COLOR_DICT.get(category, 'white')
 
-    file_line = f"{record['file']}:{record['line']}- {record['function']}()"
-    bot_says = f"<bold>{coloured(category, colour):<9} </bold> | {coloured(record['message'], colour)}"
+    file_line = f'{record["file"]}:{record["line"]}- {record["function"]}()'
+    bot_says = f'<bold>{coloured(category, colour):<9} </bold> | {coloured(record["message"], colour)}'
 
-    return f"<lvl>{record['level']: <7} </lvl>| {bot_says} | {file_line}\n"
+    return f'<lvl>{record["level"]: <7} </lvl>| {bot_says} | {file_line}\n'
 
 
 def logger_wraps(*, entries=True, exits=True, level='DEBUG') -> callable:

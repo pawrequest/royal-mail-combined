@@ -1,4 +1,5 @@
 import httpx
+from loguru import logger
 from pydantic import BaseModel
 
 from royal_mail_combined.config import RoyalMailSettingsGlobal

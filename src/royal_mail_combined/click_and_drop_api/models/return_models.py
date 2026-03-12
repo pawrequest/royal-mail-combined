@@ -1,5 +1,8 @@
+from pydantic import Field
+
 from royal_mail_combined import RMBaseModel
 from royal_mail_combined.added_models.services import RoyalMailServiceCodes
+from royal_mail_combined.parcels_apis.collection_order.models import SenderDetailsPostDef
 
 
 class Service(RMBaseModel):
@@ -22,12 +25,21 @@ class AddressReturns(RMBaseModel):
     county: str | None = None
     postcode: str
     country: str
-    country_iso_code: str
+    country_iso_code: str = 'GBR'
+    email: str
+
+    @property
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
+
+    @property
+    def details(self) -> SenderDetailsPostDef:
+        return SenderDetailsPostDef(sender_name=self.full_name, sender_email=self.email)
 
 
 class Shipment(RMBaseModel):
-    shipping_address: AddressReturns
-    return_address: AddressReturns
+    recipient_address: AddressReturns = Field(alias='shippingAddress')
+    sender_address: AddressReturns = Field(alias='returnAddress')
     customer_reference: CustomerReference | None = None
 
 

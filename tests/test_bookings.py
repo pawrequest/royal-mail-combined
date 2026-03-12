@@ -1,277 +1,46 @@
 import pytest
 
-from conftest import REFERENCE, STORE_RESULTS, TEST_DATE, dump_result_model
-from royal_mail_combined.added_models.services import RoyalMailServiceCodes
-from royal_mail_combined.parcels_apis.address.models import AddressVerifyRequestDef
+from conftest import STORE_RESULTS, TEST_DATE, dump_result_model
 from royal_mail_combined.all_models import (
-    AccountDetailsDef,
-    AddressMandatoryDef,
-    AddressNonMandatoryDef,
-    Collection,
-    CollectionItemType,
-    CollectionMandatory,
-    DimensionsPostDef,
-    ItemsPostDef,
-    SenderDetailsPostDef,
-)
-from royal_mail_combined.all_models import (
-    AddressReturns,
-    CustomerReference,
-    ReturnsRequest,
     ReturnsResponse,
-    Service,
-    Shipment,
-)
-from royal_mail_combined.converters import (
-    address_angonstic_to_verify_def,
-    match_collection_slot_date,
 )
 
 
-def test_make_booking(sample_client, cached_order):
-    dump_result_model(cached_order)
-    res = sample_client.click_and_drop.book_shipment(cached_order)
+def test_book_outbound(fxt_client, fxt_order):
+    dump_result_model(fxt_order)
+    res = fxt_client.click_and_drop.book_shipment(fxt_order)
     dump_result_model(res)
     ident = str(res.created_orders[0].order_identifier)
-    fetched = sample_client.click_and_drop.fetch_specific(order_identifiers=ident)
+    fetched = fxt_client.click_and_drop.fetch_specific(order_identifiers=ident)
     assert str(fetched[0].order_identifier) == ident
     ...
 
 
-@pytest.fixture(scope='session')
-def return_request():
-    sender_address = AddressReturns(
-        title='Mr',
-        first_name='ShipFirst',
-        last_name='ShipLast',
-        company_name='ShipCompany',
-        address_line1='Flat 43, Berberis House',
-        address_line2='Highfield Road',
-        city='Feltham',
-        county='Middlesex',  # mixed pascal and camel in rm api.
-        postcode='TW13 4GP',
-        country='United Kingdom',
-        country_iso_code='GBR',
-    )
-    destination_address = AddressReturns(
-        title='Mr',
-        first_name='ReturnFirst',
-        last_name='ReturnLast',
-        company_name='ReturnCompany',
-        address_line1='70 Kingsgate road',
-        city='Kilburn',
-        county='London',
-        postcode='NW6 4TE',
-        country='United Kingdom',
-        country_iso_code='GBR',
-    )
-
-    cust_ref = CustomerReference(reference=REFERENCE)
-    service = Service(service_code=RoyalMailServiceCodes.TRACKED_24_RTN)
-    shipment = Shipment(
-        shipping_address=destination_address,
-        return_address=sender_address,
-        customer_reference=cust_ref,
-    )
-    return ReturnsRequest(
-        service=service,
-        shipment=shipment,
-    )
-
-
-def test_make_booking_return(return_request, sample_client):
-    resp = sample_client.create_return_shipment_order(return_request)
+def test_book_dropoff(fxt_return_req, fxt_client):
+    resp = fxt_client.book_return_shipment_order(fxt_return_req)
     if STORE_RESULTS:
         dump_result_model(resp)
     assert isinstance(resp, ReturnsResponse)
     ...
 
 
-@pytest.mark.xfail(reason='Collection API not working?')
-def test_inbound_booking_story(sample_client, return_request, sample_settings):
-    # book return shipment
-    return_response = sample_client.create_return_shipment_order(return_request)
-    dump_result_model(return_response)
+def test_book_and_cancel_inbound(fxt_client, fxt_return_req):
+    res = fxt_client.book_return_with_collection(fxt_return_req, TEST_DATE, 2)
+    dump_result_model(res)
+    assert res.status == 'Order created successfully'
+    collect_id = res.collection_order_id
 
-    # convert addresses
-    sender_address = return_request.shipment.return_address
-    sender_address_verify = address_angonstic_to_verify_def(sender_address)
+    res = fxt_client.parcel_api.cancel_collection(collect_id)
+    dump_result_model(res)
+    assert res.status == 'Order cancelled successfully'
 
-    # get DPS
-    dps_request = AddressVerifyRequestDef(addresses=[sender_address_verify])
-    dps_responses = sample_client.parcel_api.address_verify(dps_request)
 
-    sender_address_verified = dps_responses[0]
-    assert sender_address_verified.input.address_line1 == sender_address_verify.address_line1
-    dps = sender_address_verified.dps
-    postcode_and_dps = sender_address_verified.input.postcode.replace(' ', '') + dps
+BOOKEDIDS = []
 
-    # get collection slot
-    item_count = 1
-    slots_response = sample_client.parcel_api.slots_get_available(dps=postcode_and_dps, item_count=item_count)
-    dump_result_model(slots_response)
 
-    my_slot = match_collection_slot_date(slots_response, TEST_DATE)
-    if my_slot is None:
-        raise Exception('No slot found for date')
-    token = slots_response.task_slots.slot_details.token_id
+@pytest.mark.skip(reason='Need real collection ids to test cancellation')
+def test_cancel_collection(fxt_client):
+    res = fxt_client.parcel_api.cancel_collection(BOOKEDIDS[1])
+    dump_result_model(res)
+    assert res.status == 'Order cancelled successfully'
     ...
-    # get services
-    available_services_response = sample_client.check_return_services()
-    serv = available_services_response.lookup_service_by_code(return_request.service.service_code)
-    barcode_id = return_response.shipment.tracking_number
-
-    dims = DimensionsPostDef(height=30, width=30, depth=30)
-    item = ItemsPostDef(
-        item_barcode_id=barcode_id,
-        weight_in_grams=10000,
-        item_service_name=serv.service_name,
-        item_type=CollectionItemType.STANDARD,
-        dimensions=dims,
-    )
-
-    # book collection
-    dps_string = sender_address_verified.dps
-
-    collection_address_mand = AddressMandatoryDef(**sender_address_verified.input.model_dump(), dps=dps_string)
-    collection_address_non = AddressNonMandatoryDef(**sender_address_verified.input.model_dump(), dps=dps_string)
-    sender_detials = SenderDetailsPostDef(sender_name='Test Sender', sender_email='TestSender@Email.com')
-    account_details = AccountDetailsDef(retailer_account_number=sample_settings.account_number)
-    collection_non_mand = Collection(
-        timeslot_reservation_id=token,
-        sender_details=sender_detials,
-        account_details=account_details,
-        address=collection_address_non,
-        collection_date=TEST_DATE,
-        items=[item],
-    )
-
-    collection_mand = CollectionMandatory(
-        timeslot_reservation_id=token,
-        sender_details=sender_detials,
-        account_details=account_details,
-        address=collection_address_mand,
-        collection_date=TEST_DATE,
-        items=[item],
-    )
-
-    dump_result_model(collection_mand)
-    dump_result_model(collection_non_mand)
-    order_resp = sample_client.parcel_api.collection_create_mandatory(collection=collection_mand)
-    order_resp = sample_client.parcel_api.collection_create(collection=collection_non_mand)
-    ...
-    # order_resp = sample_client.parcel_api.collection_create_mandatory(collection=collection_mandatory)
-    # dump_result_model(collection_payload)
-    # order_resp = sample_client.parcel_api.collection_create(collection=collection_payload)
-    ...
-
-    # order_resp = sample_client.parcel_api.collection_create(collection=collection_payload)
-
-
-returns_params = (
-    'POST',
-    'https://api.parcel.royalmail.com/api/v1/returns',
-    {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ***-4ef8-a73d-7f8a76401801',
-        'Content-Type': 'application/json',
-        'X-RMG-Date-Time': '2026-03-10T11:39:06',
-    },
-    {
-        'service': {'serviceCode': 'TSN'},
-        'shipment': {
-            'customerReference': {'reference': 'TEST RETURN123456'},
-            'returnAddress': {
-                'addressLine1': 'Flat 43, Berberis House',
-                'addressLine2': 'Highfield Road',
-                'addressLine3': None,
-                'city': 'Feltham',
-                'companyName': 'ShipCompany',
-                'country': 'United Kingdom',
-                'countryIsoCode': 'GBR',
-                'county': 'Middlesex',
-                'firstName': 'ShipFirst',
-                'lastName': 'ShipLast',
-                'postcode': 'TW13 4GP',
-                'title': 'Mr',
-            },
-            'shippingAddress': {
-                'addressLine1': '70 Kingsgate road',
-                'addressLine2': None,
-                'addressLine3': None,
-                'city': 'Kilburn',
-                'companyName': 'ReturnCompany',
-                'country': 'United Kingdom',
-                'countryIsoCode': 'GBR',
-                'county': 'London',
-                'firstName': 'ReturnFirst',
-                'lastName': 'ReturnLast',
-                'postcode': 'NW6 4TE',
-                'title': 'Mr',
-            },
-        },
-    },
-)
-
-outbound_params = (
-    'POST',
-    'https://api.parcel.royalmail.com/api/v1/orders',
-    {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ***-4ef8-a73d-7f8a76401801',
-        'Content-Type': 'application/json',
-        'User-Agent': 'AmShip/0.0.1',
-    },
-    {
-        'items': [
-            {
-                'billing': {
-                    'address': {
-                        'addressLine1': 'MY FIRSTLINE',
-                        'addressLine2': '',
-                        'addressLine3': '',
-                        'city': 'MY CITY',
-                        'companyName': 'MY COMPANY NAME',
-                        'countryCode': 'GB',
-                        'county': 'COUNTY',
-                        'fullName': 'MY SENDER NAME',
-                        'postcode': 'me88sp',
-                    },
-                    'emailAddress': 'billme@sikdjfsdjbfgjksbdgf.com',
-                    'phoneNumber': '07888888888',
-                },
-                'label': {'includeLabelInResponse': True},
-                'orderDate': '2026-03-10T11:36:08.415761',
-                'packages': [
-                    {'packageFormatIdentifier': 'parcel', 'weightInGrams': 10000},
-                    {'packageFormatIdentifier': 'parcel', 'weightInGrams': 10000},
-                ],
-                'postageDetails': {
-                    'receiveEmailNotification': True,
-                    'receiveSmsNotification': True,
-                    'sendNotificationsTo': 'recipient',
-                    'serviceCode': 'NDA',
-                },
-                'recipient': {
-                    'address': {
-                        'addressLine1': 'addr line1',
-                        'addressLine2': '',
-                        'addressLine3': '',
-                        'city': 'city',
-                        'companyName': 'Recip Comp name',
-                        'countryCode': 'GB',
-                        'county': 'county',
-                        'fullName': 'Testy Testson Recipient',
-                        'postcode': 'da163hu',
-                    },
-                    'emailAddress': 'recipient@sdgikhjbsdgijbsdigj.com',
-                    'phoneNumber': '07666666666',
-                },
-                'shippingCostCharged': 0,
-                'subtotal': 0,
-                'total': 0,
-            }
-        ]
-    },
-    [],
-)

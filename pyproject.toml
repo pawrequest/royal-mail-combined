@@ -20,6 +20,7 @@ dependencies = [
     #    "royal-mail-order",
     "python-dateutil>=2.9.0.post0",
     "urllib3>=2.6.3",
+    "ruff>=0.15.5",
 ]
 [dependency-groups]
 dev = [

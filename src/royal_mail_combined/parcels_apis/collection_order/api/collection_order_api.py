@@ -401,6 +401,7 @@ class CollectionOrderApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '201': 'CollectionOrderCreateResponse',
+            '200': 'CollectionOrderCreateResponse',
             '400': 'Model400',
             '401': 'Model401',
             '403': 'Model403',
