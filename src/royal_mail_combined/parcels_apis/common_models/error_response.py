@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 from royal_mail_combined import RMBaseModel
 
 
-class ErrorResponse(RMBaseModel):
+class ErrorResponseHttp(RMBaseModel):
     """
     ErrorResponse
     """

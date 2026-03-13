@@ -1,5 +1,5 @@
 from .errors_def import ErrorsDef
-from .error_response import ErrorResponse
+from .error_response import ErrorResponseHttp
 from .model400 import Model400
 from .model401 import Model401
 from .model403 import Model403
@@ -11,7 +11,7 @@ from .model503 import Model503
 
 __all__ = [
     'ErrorsDef',
-    'ErrorResponse',
+    'ErrorResponseHttp',
     'Model400',
     'Model401',
     'Model403',
