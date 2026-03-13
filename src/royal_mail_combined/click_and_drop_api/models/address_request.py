@@ -25,12 +25,12 @@ class AddressRequest(RMBaseModel):
     AddressRequest
     """
 
-    full_name: Annotated[str, Field(strict=True, max_length=210)] | None = Field(default=None, alias='fullName')
-    company_name: Annotated[str, Field(strict=True, max_length=100)] | None = Field(default=None, alias='companyName')
-    address_line1: Annotated[str, Field(strict=True, max_length=100)] = Field(alias='addressLine1')
-    address_line2: Annotated[str, Field(strict=True, max_length=100)] | None = Field(default=None, alias='addressLine2')
-    address_line3: Annotated[str, Field(strict=True, max_length=100)] | None = Field(default=None, alias='addressLine3')
+    full_name: Annotated[str, Field(strict=True, max_length=210)] | None = None
+    company_name: Annotated[str, Field(strict=True, max_length=100)] | None = None
+    address_line1: Annotated[str, Field(strict=True, max_length=100)]
+    address_line2: Annotated[str, Field(strict=True, max_length=100)] | None = None
+    address_line3: Annotated[str, Field(strict=True, max_length=100)] | None = None
     city: Annotated[str, Field(strict=True, max_length=100)]
     county: Annotated[str, Field(strict=True, max_length=100)] | None = None
     postcode: Annotated[str, Field(strict=True, max_length=20)] | None = None
-    country_code: Annotated[str, Field(strict=True, max_length=3)] = Field(alias='countryCode')
+    country_code: Annotated[str, Field(strict=True, max_length=3)]
