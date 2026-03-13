@@ -25,7 +25,7 @@ class ShipmentPackageRequest(RMBaseModel):
     ShipmentPackageRequest
     """
 
-    weight_in_grams: Annotated[int, Field(le=30000, strict=True, ge=1)] = Field(alias='weightInGrams')
+    weight_in_grams: Annotated[int, Field(le=30000, strict=True, ge=1)]
     package_format_identifier: StrictStr = Field(
         description="<b>If you have a ChannelShipper account, you can also pass the name of any of your custom package formats instead of the values below.</b><br> Enum: 'undefined', 'letter', 'largeLetter', 'smallParcel', 'mediumParcel', 'parcel', 'documents'",
         alias='packageFormatIdentifier',

@@ -650,7 +650,7 @@ class ApiClient:
         try:
             return klass(data)
         except ValueError:
-            raise ApiException(status=0, reason=(f'Failed to parse `{data}` as `{klass}`'))
+            raise ApiException(status=0, reason=f'Failed to parse `{data}` as `{klass}`')
 
     def __deserialize_model(self, data, klass: type[BaseModel]):
         """Deserializes list or dict to model.

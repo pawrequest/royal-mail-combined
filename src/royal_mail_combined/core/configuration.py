@@ -378,14 +378,6 @@ class Configuration:
 
     @property
     def logger_file(self) -> str | None:
-        """The logger file.
-
-        If the logger_file is None, then add stream handler and remove file
-        handler. Otherwise, add file handler and remove stream handler.
-
-        :param value: The logger_file path.
-        :type: str
-        """
         return self.__logger_file
 
     @logger_file.setter
@@ -409,11 +401,6 @@ class Configuration:
 
     @property
     def debug(self) -> bool:
-        """Debug status
-
-        :param value: The debug status, True or False.
-        :type: bool
-        """
         return self.__debug
 
     @debug.setter
@@ -440,13 +427,6 @@ class Configuration:
 
     @property
     def logger_format(self) -> str:
-        """The logger format.
-
-        The logger_formatter will be updated when sets logger_format.
-
-        :param value: The format string.
-        :type: str
-        """
         return self.__logger_format
 
     @logger_format.setter

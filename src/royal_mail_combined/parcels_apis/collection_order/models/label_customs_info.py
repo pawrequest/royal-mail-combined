@@ -40,9 +40,16 @@ class LabelCustomsInfo(RMBaseModel):
         if value is None:
             return value
 
-        if value not in set(
-            ['none', 'gift', 'commercialSample', 'documents', 'other', 'returnedGoods', 'saleOfGoods', 'mixedContent']
-        ):
+        if value not in {
+            'none',
+            'gift',
+            'commercialSample',
+            'documents',
+            'other',
+            'returnedGoods',
+            'saleOfGoods',
+            'mixedContent',
+        }:
             raise ValueError(
                 "must be one of enum values ('none', 'gift', 'commercialSample', 'documents', 'other', 'returnedGoods', 'saleOfGoods', 'mixedContent')"
             )

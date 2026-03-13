@@ -26,29 +26,18 @@ class ItemsPostDef(RMBaseModel):
     items detail definition
     """
 
-    item_barcode_id: Annotated[str, Field(min_length=1, strict=True, max_length=21)] = Field(
-        description='Item BarCode Id', alias='itemBarcodeId'
-    )
-    weight_in_grams: Annotated[int, Field(strict=True, ge=0)] = Field(
-        description='Item weight in grams', alias='weightInGrams'
-    )
-    item_service_name: Annotated[str, Field(min_length=1, strict=True, max_length=50)] = Field(
-        description='Item Service Name', alias='itemServiceName'
-    )
+    item_barcode_id: Annotated[str, Field(min_length=1, strict=True, max_length=21)]
+    weight_in_grams: Annotated[int, Field(strict=True, ge=0)]
+    item_service_name: Annotated[str, Field(min_length=1, strict=True, max_length=50)]
     dimensions: DimensionsPostDef
-
-    item_reference: Annotated[str, Field(strict=True, max_length=40)] | None = Field(
-        default=None, description='Additional reference number for the item if any', alias='itemReference'
-    )
+    item_reference: Annotated[str, Field(strict=True, max_length=40)] | None = None
     item_status: StrictStr | None = Field(default=None, alias='itemStatus')
     item_price: StrictFloat | StrictInt | None = Field(
         default=None, description='Price paid for the doorstep collection for the item', alias='itemPrice'
     )
-    item_type: CollectionItemType | None = Field(default=None, alias='itemType')
-    item_product_code: Annotated[str, Field(strict=True, max_length=5)] | None = Field(
-        default=None, alias='itemProductCode'
-    )
-    label_info: LabelInfo | None = Field(default=None, alias='labelInfo')
+    item_type: CollectionItemType | None = None
+    item_product_code: Annotated[str, Field(strict=True, max_length=5)] | None = None
+    label_info: LabelInfo | None = None
 
     @field_validator('item_status')
     def item_status_validate_enum(cls, value):

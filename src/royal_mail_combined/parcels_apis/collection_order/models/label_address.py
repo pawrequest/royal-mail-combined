@@ -24,14 +24,12 @@ class LabelAddress(RMBaseModel):
     """
 
     name: Annotated[str, Field(strict=True, max_length=50)] | None = None
-    company_name: Annotated[str, Field(strict=True, max_length=50)] | None = Field(default=None, alias='companyName')
-    address_line1: Annotated[str, Field(min_length=1, strict=True, max_length=64)] = Field(alias='addressLine1')
-    address_line2: Annotated[str, Field(strict=True, max_length=64)] | None = Field(default=None, alias='addressLine2')
-    address_line3: Annotated[str, Field(strict=True, max_length=64)] | None = Field(default=None, alias='addressLine3')
-    post_town: Annotated[str, Field(min_length=1, strict=True, max_length=64)] = Field(alias='postTown')
+    company_name: Annotated[str, Field(strict=True, max_length=50)] | None = None
+    address_line1: Annotated[str, Field(min_length=1, strict=True, max_length=64)]
+    address_line2: Annotated[str, Field(strict=True, max_length=64)] | None = None
+    address_line3: Annotated[str, Field(strict=True, max_length=64)] | None = None
+    post_town: Annotated[str, Field(min_length=1, strict=True, max_length=64)]
     county: Annotated[str, Field(strict=True, max_length=64)] | None = None
     postcode: Annotated[str, Field(min_length=1, strict=True, max_length=10)]
     dps: Annotated[str, Field(strict=True, max_length=10)] | None = Field(default='9Z', alias='DPS')
-    country_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(
-        default='GBR', description='If not provided, defaults to GBR', alias='countryCode'
-    )
+    country_code: Annotated[str, Field(strict=True, max_length=3)] | None = 'GBR'

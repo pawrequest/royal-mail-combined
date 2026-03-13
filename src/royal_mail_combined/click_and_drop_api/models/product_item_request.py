@@ -31,9 +31,7 @@ class ProductItemRequest(RMBaseModel):
         description='The presence or not of field <b>SKU</b> and other fields in the request body will determine which of the following behaviours occur:- <br>1) A minimum of <b>SKU</b>, <b>unitValue</b>, <b>unitWeightInGrams</b> and <b>quantity</b> provided - In addition to the provided product fields being used for the order creation, an existing account Product with matching SKU will be overwritten with all provided product parameters. If no existing account Product with matching SKU can be found then a new product will be created with the provided SKU and product parameters.<br>2) <b>SKU</b>, <b>quantity</b> provided and <b>no other fields</b> provided - An account Product with the provided SKU will be used for the order if it exists.<br>3) <b>SKU not provided</b> and a minimum of <b>unitValue</b>, <b>unitWeightInGrams</b> and <b>quantity</b> provided - All provided product fields will be used for the order creation.<br>4) All other scenarios will result in a validation error.',
         alias='SKU',
     )
-    quantity: Annotated[int, Field(le=999999, strict=True, ge=1)] = Field(
-        description='The number of units in a given line'
-    )
+    quantity: Annotated[int, Field(le=999999, strict=True, ge=1)]
     unit_value: (
         Annotated[float, Field(multiple_of=0.01, le=999999, strict=True, ge=0)]
         | Annotated[int, Field(le=999999, strict=True, ge=0)]

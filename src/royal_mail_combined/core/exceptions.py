@@ -11,6 +11,14 @@ Do not edit the class manually.
 
 from typing import Any
 from typing import Self
+import json
+import pprint
+from dataclasses import dataclass
+from json import JSONDecodeError
+
+import httpx
+from httpx import Response
+from loguru import logger
 
 
 class OpenApiException(Exception):
@@ -211,16 +219,6 @@ def render_path(path_to_item):
         else:
             result += f"['{pth}']"
     return result
-
-
-import json
-import pprint
-from dataclasses import dataclass
-from json import JSONDecodeError
-
-import httpx
-from httpx import Response
-from loguru import logger
 
 
 @dataclass
