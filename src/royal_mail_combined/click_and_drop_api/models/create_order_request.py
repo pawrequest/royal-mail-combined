@@ -25,7 +25,7 @@ from ..models.shipment_package_request import ShipmentPackageRequest
 from ..models.tag_request import TagRequest
 
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class CreateOrderRequest(RMBaseModel):
@@ -50,24 +50,43 @@ class CreateOrderRequest(RMBaseModel):
     special_instructions: Annotated[str, Field(strict=True, max_length=500)] | None = Field(
         default=None, alias='specialInstructions'
     )
-    subtotal: Annotated[float, Field(multiple_of=0.01, le=999999, strict=True, ge=0)] | Annotated[int, Field(le=999999, strict=True, ge=0)] = Field(
+    subtotal: (
+        Annotated[float, Field(multiple_of=0.01, le=999999, strict=True, ge=0)]
+        | Annotated[int, Field(le=999999, strict=True, ge=0)]
+    ) = Field(
         description='The total value of all the goods in the order, excluding tax. This should not include retail shipping costs'
     )
-    shipping_cost_charged: Annotated[float, Field(multiple_of=0.01, le=999999, strict=True, ge=0)] | Annotated[int, Field(le=999999, strict=True, ge=0)] = Field(description='The shipping costs you charged to your customer', alias='shippingCostCharged')
-    other_costs: Annotated[float, Field(multiple_of=0.01, le=999999, strict=True, ge=0)] | Annotated[int, Field(le=999999, strict=True, ge=0)] | None = Field(default=None, alias='otherCosts')
-    customs_duty_costs: Annotated[float, Field(multiple_of=0.01, le=99999.99, strict=True, ge=0)] | Annotated[int, Field(le=99999, strict=True, ge=0)] | None = Field(
+    shipping_cost_charged: (
+        Annotated[float, Field(multiple_of=0.01, le=999999, strict=True, ge=0)]
+        | Annotated[int, Field(le=999999, strict=True, ge=0)]
+    ) = Field(description='The shipping costs you charged to your customer', alias='shippingCostCharged')
+    other_costs: (
+        Annotated[float, Field(multiple_of=0.01, le=999999, strict=True, ge=0)]
+        | Annotated[int, Field(le=999999, strict=True, ge=0)]
+        | None
+    ) = Field(default=None, alias='otherCosts')
+    customs_duty_costs: (
+        Annotated[float, Field(multiple_of=0.01, le=99999.99, strict=True, ge=0)]
+        | Annotated[int, Field(le=99999, strict=True, ge=0)]
+        | None
+    ) = Field(
         default=None,
         description='Customs Duty Costs is only supported in DDP (Delivery Duty Paid) services',
         alias='customsDutyCosts',
     )
-    total: Annotated[float, Field(multiple_of=0.01, le=999999, strict=True, ge=0)] | Annotated[int, Field(le=999999, strict=True, ge=0)] = Field(description='The sum of order subtotal, tax and retail shipping costs')
-    currency_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(
-        default=None, alias='currencyCode'
-    )
+    total: (
+        Annotated[float, Field(multiple_of=0.01, le=999999, strict=True, ge=0)]
+        | Annotated[int, Field(le=999999, strict=True, ge=0)]
+    ) = Field(description='The sum of order subtotal, tax and retail shipping costs')
+    currency_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(default=None, alias='currencyCode')
     postage_details: PostageDetailsRequest | None = Field(default=None, alias='postageDetails')
     tags: list[TagRequest] | None = None
     label: LabelGenerationRequest | None = None
-    order_tax: Annotated[float, Field(multiple_of=0.01, le=999999, strict=True, ge=0)] | Annotated[int, Field(le=999999, strict=True, ge=0)] | None = Field(default=None, description='The total tax charged for the order', alias='orderTax')
+    order_tax: (
+        Annotated[float, Field(multiple_of=0.01, le=999999, strict=True, ge=0)]
+        | Annotated[int, Field(le=999999, strict=True, ge=0)]
+        | None
+    ) = Field(default=None, description='The total tax charged for the order', alias='orderTax')
     contains_dangerous_goods: StrictBool | None = Field(
         default=None,
         description='Indicates that the package contents contain a dangerous goods item',
@@ -76,7 +95,9 @@ class CreateOrderRequest(RMBaseModel):
     dangerous_goods_un_code: Annotated[str, Field(strict=True, max_length=4)] | None = Field(
         default=None, description='UN Code of the dangerous goods', alias='dangerousGoodsUnCode'
     )
-    dangerous_goods_description: Annotated[float, Field(strict=True)] | Annotated[int, Field(strict=True)] | None = Field(default=None, description='Description of the dangerous goods', alias='dangerousGoodsDescription')
+    dangerous_goods_description: Annotated[float, Field(strict=True)] | Annotated[int, Field(strict=True)] | None = (
+        Field(default=None, description='Description of the dangerous goods', alias='dangerousGoodsDescription')
+    )
     dangerous_goods_quantity: StrictFloat | StrictInt | None = Field(
         default=None, description='Quantity or volume of the dangerous goods', alias='dangerousGoodsQuantity'
     )

@@ -15,7 +15,7 @@ import re  # noqa: F401
 from pydantic import Field, StrictStr
 from ..models.contract_subscription_def import ContractSubscriptionDef
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class ContractCodeDef(RMBaseModel):

@@ -16,7 +16,7 @@ from pydantic import Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Annotated
 from .label_order_item import LabelOrderItem
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class LabelCustomsInfo(RMBaseModel):
@@ -24,9 +24,7 @@ class LabelCustomsInfo(RMBaseModel):
     LabelCustomsInfo
     """
 
-    currency_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(
-        default=None, alias='currencyCode'
-    )
+    currency_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(default=None, alias='currencyCode')
     total_cost: StrictFloat | StrictInt | None = Field(default=None, alias='totalCost')
     shipment_subtotal: StrictFloat | StrictInt | None = Field(default=None, alias='shipmentSubtotal')
     shipping_cost_charged: StrictFloat | StrictInt | None = Field(default=None, alias='shippingCostCharged')

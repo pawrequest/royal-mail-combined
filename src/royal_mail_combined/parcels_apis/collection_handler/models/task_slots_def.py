@@ -16,7 +16,7 @@ from pydantic import Field
 from ..models.slot_date_def import SlotDateDef
 from ..models.slot_details_def import SlotDetailsDef
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class TaskSlotsDef(RMBaseModel):

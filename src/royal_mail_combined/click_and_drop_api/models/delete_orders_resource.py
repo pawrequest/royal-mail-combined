@@ -18,7 +18,7 @@ from pydantic import Field
 from royal_mail_combined.core.rm_basemodel import order_idents_str
 from royal_mail_combined.click_and_drop_api.models.deleted_order_info import DeletedOrderInfo
 from royal_mail_combined.click_and_drop_api.models.order_error_info import OrderErrorInfo
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class DeleteOrdersResource(RMBaseModel):

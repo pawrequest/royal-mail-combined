@@ -14,7 +14,7 @@ import re  # noqa: F401
 
 from ..models.update_order_status_request import UpdateOrderStatusRequest
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class UpdateOrdersStatusRequest(RMBaseModel):

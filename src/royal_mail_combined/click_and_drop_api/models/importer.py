@@ -17,7 +17,7 @@ from pydantic import Field
 from typing import Annotated
 
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class Importer(RMBaseModel):
@@ -25,31 +25,17 @@ class Importer(RMBaseModel):
     Importer
     """
 
-    company_name: Annotated[str, Field(strict=True, max_length=100)] | None = Field(
-        default=None, alias='companyName'
-    )
-    address_line1: Annotated[str, Field(strict=True, max_length=100)] | None = Field(
-        default=None, alias='addressLine1'
-    )
-    address_line2: Annotated[str, Field(strict=True, max_length=100)] | None = Field(
-        default=None, alias='addressLine2'
-    )
-    address_line3: Annotated[str, Field(strict=True, max_length=100)] | None = Field(
-        default=None, alias='addressLine3'
-    )
+    company_name: Annotated[str, Field(strict=True, max_length=100)] | None = Field(default=None, alias='companyName')
+    address_line1: Annotated[str, Field(strict=True, max_length=100)] | None = Field(default=None, alias='addressLine1')
+    address_line2: Annotated[str, Field(strict=True, max_length=100)] | None = Field(default=None, alias='addressLine2')
+    address_line3: Annotated[str, Field(strict=True, max_length=100)] | None = Field(default=None, alias='addressLine3')
     city: Annotated[str, Field(strict=True, max_length=100)] | None = None
     postcode: Annotated[str, Field(strict=True, max_length=20)] | None = None
     country: Annotated[str, Field(strict=True, max_length=100)] | None = None
-    business_name: Annotated[str, Field(strict=True, max_length=100)] | None = Field(
-        default=None, alias='businessName'
-    )
-    contact_name: Annotated[str, Field(strict=True, max_length=100)] | None = Field(
-        default=None, alias='contactName'
-    )
+    business_name: Annotated[str, Field(strict=True, max_length=100)] | None = Field(default=None, alias='businessName')
+    contact_name: Annotated[str, Field(strict=True, max_length=100)] | None = Field(default=None, alias='contactName')
     phone_number: Annotated[str, Field(strict=True, max_length=25)] | None = Field(default=None, alias='phoneNumber')
-    email_address: Annotated[str, Field(strict=True, max_length=254)] | None = Field(
-        default=None, alias='emailAddress'
-    )
+    email_address: Annotated[str, Field(strict=True, max_length=254)] | None = Field(default=None, alias='emailAddress')
     vat_number: Annotated[str, Field(strict=True, max_length=15)] | None = Field(default=None, alias='vatNumber')
     tax_code: Annotated[str, Field(strict=True, max_length=25)] | None = Field(default=None, alias='taxCode')
     eori_number: Annotated[str, Field(strict=True, max_length=18)] | None = Field(default=None, alias='eoriNumber')

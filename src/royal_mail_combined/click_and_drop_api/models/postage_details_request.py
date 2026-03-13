@@ -18,7 +18,7 @@ from pydantic import Field, StrictBool, StrictStr
 from typing import Annotated
 
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class PostageDetailsRequest(RMBaseModel):

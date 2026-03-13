@@ -14,7 +14,7 @@ import re  # noqa: F401
 
 from pydantic import Field, StrictBool, StrictStr
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class SubscriptionDef(RMBaseModel):

@@ -8,8 +8,8 @@ from collections.abc import Generator
 import pytest
 from pydantic import BaseModel
 
-from royal_mail_combined.added_models.services import RoyalMailServiceCodes
 from royal_mail_combined.all_models import (
+    RoyalMailServiceCodes,
     AccountDetailsDef,
     AddressDef,
     AddressRequest,
@@ -28,12 +28,12 @@ from royal_mail_combined.all_models import (
     Service,
     Shipment,
     ShipmentPackageRequest,
+    AddressVerifyDef,
+    GetAvailableSlotsResponse,
 )
 from royal_mail_combined.royal_mail_client import RoyalMailClient
 from royal_mail_combined.config import RoyalMailSettingsGlobal
 from royal_mail_combined.core.consts_types import PackageFormat, SendNotifcationsTo
-from royal_mail_combined.parcels_apis.address.models import AddressVerifyDef
-from royal_mail_combined.parcels_apis.collection_handler.models import GetAvailableSlotsResponse
 
 REFERENCE = 'TEST RETURN123456'
 STORE_RESULTS = True
@@ -85,16 +85,16 @@ def print_object(obj):
 def fxt_client(fxt_settings) -> Generator[RoyalMailClient, Any]:
     """Test client - automatically removes orders created during testing on completion"""
     client = RoyalMailClient(fxt_settings)
-    orders_before: GetOrdersResponse = client.click_and_drop.fetch_orders()
+    orders_before: GetOrdersResponse = client.fetch_orders()
     pprint(orders_before.model_dump())
 
     yield client
 
-    orders_after: GetOrdersResponse = client.click_and_drop.fetch_orders()
+    orders_after: GetOrdersResponse = client.fetch_orders()
     for o in orders_after.orders:
         if o not in orders_before.orders:
             print('Deleting Test Order')
-            res = client.click_and_drop.delete_orders(order_identifiers=str(o.order_identifier))
+            res = client.cancel_outbound_shipment(order_identifiers=str(o.order_identifier))
             assert o.order_identifier in res.order_idents(), 'WARNING, FAILED TO DELETE TEST ORDERS!!'
             print('Deleted Test Orders')
 
@@ -137,7 +137,8 @@ def cached_account_details(fxt_settings):
 
 @pytest.fixture(scope='session')
 def cached_slots_response():
-    with open(r'data\collection_order_handler_get_slots.json') as f:
+    dump_dir = get_dumped_dir_this_hour()
+    with open(rf'{dump_dir}/GetAvailableSlotsResponse.json') as f:
         res = f.read()
     return GetAvailableSlotsResponse.model_validate_json(res)
 

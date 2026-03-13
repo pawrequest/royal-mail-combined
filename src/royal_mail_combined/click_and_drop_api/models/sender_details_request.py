@@ -17,7 +17,7 @@ from pydantic import Field
 from typing import Annotated
 
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class SenderDetailsRequest(RMBaseModel):
@@ -25,10 +25,6 @@ class SenderDetailsRequest(RMBaseModel):
     SenderDetailsRequest
     """
 
-    trading_name: Annotated[str, Field(strict=True, max_length=250)] | None = Field(
-        default=None, alias='tradingName'
-    )
+    trading_name: Annotated[str, Field(strict=True, max_length=250)] | None = Field(default=None, alias='tradingName')
     phone_number: Annotated[str, Field(strict=True, max_length=25)] | None = Field(default=None, alias='phoneNumber')
-    email_address: Annotated[str, Field(strict=True, max_length=254)] | None = Field(
-        default=None, alias='emailAddress'
-    )
+    email_address: Annotated[str, Field(strict=True, max_length=254)] | None = Field(default=None, alias='emailAddress')

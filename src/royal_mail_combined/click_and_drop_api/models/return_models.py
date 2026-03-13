@@ -1,6 +1,6 @@
 from pydantic import Field
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core.rm_basemodel import RMBaseModel
 from royal_mail_combined.added_models.services import RoyalMailServiceCodes
 from royal_mail_combined.parcels_apis.collection_order.models import SenderDetailsPostDef
 

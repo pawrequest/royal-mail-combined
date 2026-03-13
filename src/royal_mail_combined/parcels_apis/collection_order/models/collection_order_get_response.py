@@ -22,7 +22,7 @@ from .items_def import ItemsDef
 from .safe_place_details_def import SafePlaceDetailsDef
 from .sender_details_def import SenderDetailsDef
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class CollectionOrderGetResponse(RMBaseModel):
@@ -49,8 +49,6 @@ class CollectionOrderGetResponse(RMBaseModel):
     )
     items: list[ItemsDef] | None = None
     created_on: datetime | None = Field(default=None, description='Date of order creation', alias='createdOn')
-    last_modified_on: datetime | None = Field(
-        default=None, description='Date of last modified', alias='lastModifiedOn'
-    )
+    last_modified_on: datetime | None = Field(default=None, description='Date of last modified', alias='lastModifiedOn')
     suppress_rm_notifications: StrictBool = Field(alias='suppressRmNotifications')
     is_collection_window_visible: StrictBool = Field(alias='isCollectionWindowVisible')

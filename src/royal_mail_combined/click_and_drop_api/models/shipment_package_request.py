@@ -17,7 +17,7 @@ from typing import Annotated
 from ..models.dimensions_request import DimensionsRequest
 from ..models.product_item_request import ProductItemRequest
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class ShipmentPackageRequest(RMBaseModel):

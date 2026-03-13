@@ -14,7 +14,7 @@ import re  # noqa: F401
 
 from ..models.create_order_request import CreateOrderRequest
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class CreateOrdersRequest(RMBaseModel):

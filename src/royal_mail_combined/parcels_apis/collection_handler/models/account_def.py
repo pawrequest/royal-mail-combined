@@ -17,7 +17,7 @@ from .agreement_line_def import AgreementLineDef
 from .contract_code_def import ContractCodeDef
 from .subscription_def import SubscriptionDef
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class AccountDef(RMBaseModel):

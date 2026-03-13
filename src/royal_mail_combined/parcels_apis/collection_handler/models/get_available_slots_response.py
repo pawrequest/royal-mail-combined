@@ -15,7 +15,7 @@ import re  # noqa: F401
 from pydantic import Field
 from ..models.task_slots_def import TaskSlotsDef
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class GetAvailableSlotsResponse(RMBaseModel):

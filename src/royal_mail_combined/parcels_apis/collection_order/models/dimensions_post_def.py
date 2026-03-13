@@ -14,7 +14,7 @@ import re  # noqa: F401
 
 from pydantic import Field, StrictFloat, StrictInt
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class DimensionsPostDef(RMBaseModel):
@@ -25,3 +25,11 @@ class DimensionsPostDef(RMBaseModel):
     height: StrictFloat | StrictInt = Field(description='height or length of item')
     width: StrictFloat | StrictInt = Field(description='width of item')
     depth: StrictFloat | StrictInt = Field(description='depth of item')
+
+    @classmethod
+    def small(cls):
+        return cls(height=32, width=24, depth=40)
+
+    @classmethod
+    def large(cls):
+        return cls(height=32, width=24, depth=63)

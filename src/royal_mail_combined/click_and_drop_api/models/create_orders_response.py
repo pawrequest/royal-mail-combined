@@ -19,7 +19,7 @@ from ..models.create_order_response import CreateOrderResponse
 from ..models.failed_order_response import FailedOrderResponse
 
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class CreateOrdersResponse(RMBaseModel):

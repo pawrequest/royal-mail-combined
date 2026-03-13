@@ -15,7 +15,7 @@ import re  # noqa: F401
 from datetime import datetime
 from pydantic import Field, StrictBool, StrictFloat, StrictInt, StrictStr
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class GetShippingDetailsResult(RMBaseModel):

@@ -17,7 +17,7 @@ from pydantic import Field, StrictBool, StrictStr
 from typing import Annotated
 
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class ProductItemRequest(RMBaseModel):
@@ -34,7 +34,11 @@ class ProductItemRequest(RMBaseModel):
     quantity: Annotated[int, Field(le=999999, strict=True, ge=1)] = Field(
         description='The number of units in a given line'
     )
-    unit_value: Annotated[float, Field(multiple_of=0.01, le=999999, strict=True, ge=0)] | Annotated[int, Field(le=999999, strict=True, ge=0)] | None = Field(default=None, description='The price of a single unit excluding tax', alias='unitValue')
+    unit_value: (
+        Annotated[float, Field(multiple_of=0.01, le=999999, strict=True, ge=0)]
+        | Annotated[int, Field(le=999999, strict=True, ge=0)]
+        | None
+    ) = Field(default=None, description='The price of a single unit excluding tax', alias='unitValue')
     unit_weight_in_grams: Annotated[int, Field(le=999999, strict=True, ge=0)] | None = Field(
         default=None, alias='unitWeightInGrams'
     )

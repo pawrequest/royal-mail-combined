@@ -16,7 +16,7 @@ from pydantic import Field, StrictStr
 from ..models.account_def import AccountDef
 from ..models.subscription_def import SubscriptionDef
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class ProductFamilyResponseDef(RMBaseModel):

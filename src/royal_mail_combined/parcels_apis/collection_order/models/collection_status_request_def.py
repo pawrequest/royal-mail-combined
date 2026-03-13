@@ -15,7 +15,7 @@ import re  # noqa: F401
 from pydantic import Field, StrictStr, field_validator
 
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class CollectionStatusRequestDef(RMBaseModel):

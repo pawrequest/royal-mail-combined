@@ -16,7 +16,7 @@ from pydantic import Field
 from ..models.order_update_error import OrderUpdateError
 from ..models.updated_order_info import UpdatedOrderInfo
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class UpdateOrderStatusResponse(RMBaseModel):

@@ -29,31 +29,10 @@ def failed_order_errors(response):
 class ClickAndDropClient:
     def __init__(self, settings: RoyalMailSettingsGlobal):
         client = build_client(settings=settings, host=CAD_BASE)
-        self._version_api = VersionApi(client)
-        self.fetch_version = self._version_api.get_version_async
-
+        self.version_api = VersionApi(client)
         self.orders_api = OrdersApi(client)
-        self.fetch_orders = self.orders_api.get_orders_async
-        self.fetch_specific = self.orders_api.get_specific_orders_async
-        self.delete_orders = self.orders_api.delete_orders_async
-        self.update_orders = self.orders_api.update_orders_status_async
-
         self.labels_api = LabelsApi(client)
-        self.fetch_label_data = self.labels_api.get_orders_label_async
-
         self.manifests_api = ManifestsApi(client)
-        self.do_manifest = self.manifests_api.manifest_eligible_async
-
-    # def book_shipment1(self, orders: CreateOrdersRequest, with_label: bool = True) -> CreateOrdersResponse:
-    #     if with_label:
-    #         add_label_gen_request(orders)
-    #     try:
-    #         response = self.orders_api.create_orders_async(create_orders_request=orders)
-    #         failed_order_errors(response)
-    #     except Exception as e:
-    #         print(f'Exception when calling OrdersApi->create_orders_async: {e}\n')
-    #         raise e
-    #     return response
 
     def book_shipment(self, *orders: CreateOrderRequest, with_label: bool = True) -> CreateOrdersResponse:
         orders = list(orders)

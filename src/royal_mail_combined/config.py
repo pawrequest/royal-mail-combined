@@ -9,6 +9,8 @@ from loguru import logger
 from pydantic import SecretStr
 from pydantic_settings import BaseSettings
 
+from royal_mail_combined.parcels_apis.collection_order.models import AccountDetailsDef
+
 RM_ENV_NAME = 'ROYAL_MAIL_ENV'
 
 
@@ -71,3 +73,7 @@ class RoyalMailSettingsGlobal(BaseSettings):
             'Client-Id': self.client_id.get_secret_value(),
             'Client-Secret': self.client_secret.get_secret_value(),
         }
+
+    @property
+    def account_details(self) -> AccountDetailsDef:
+        return AccountDetailsDef(retailer_account_number=self.account_number)

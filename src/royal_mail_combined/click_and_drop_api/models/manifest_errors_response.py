@@ -17,7 +17,7 @@ import re  # noqa: F401
 from ..models.manifest_errors_error_details_response import ManifestErrorsErrorDetailsResponse
 
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class ManifestErrorsResponse(RMBaseModel):

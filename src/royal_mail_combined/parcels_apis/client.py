@@ -1,8 +1,10 @@
 from datetime import date
 
 from royal_mail_combined.all_models import AddressFindRequestDef, ProductFamily, ProductFamilyDef
-from royal_mail_combined.converters import match_collection_slot_date
+from royal_mail_combined.click_and_drop_api.models import AddressReturns
+from royal_mail_combined.converters import address_angonstic_to_verify_def, match_collection_slot_date
 from royal_mail_combined.parcels_apis.address.api import AddressApi
+from royal_mail_combined.parcels_apis.address.models import AddressVerifyRequestDef
 from royal_mail_combined.parcels_apis.collection_order.api import CollectionOrderApi
 from royal_mail_combined.parcels_apis.collection_handler.api import GetAvailableSlotsApi, ProductFamilySubscriptionApi
 from royal_mail_combined.core.build_client import build_client
@@ -18,22 +20,25 @@ from royal_mail_combined.parcels_apis.collection_order.models import CollectionS
 class ParcelAPIClient:
     def __init__(self, settings: RoyalMailSettingsGlobal):
         self.settings = settings
-        # address_client = ApiClient(configuration=settings.api_config(ADDRESS_BASE))
         address_client = build_client(settings, host=ADDRESS_BASE)
         self.address_api = AddressApi(address_client)
-        self.address_retrieve = self.address_api.address_retrieve
-        self.address_verify = self.address_api.address_verify
 
-        # collection_client = ApiClient(configuration=settings.api_config(COLLECTION_ORDER))
         collection_client = build_client(settings, host=ORDERS_NET)
         self.collection_orders_api = CollectionOrderApi(collection_client)
-        self.collection_create = self.collection_orders_api.order_create
-        self.collection_create_mandatory = self.collection_orders_api.order_create_mandatory
 
         collection_handler_client = build_client(settings, host=COLLECTION_HANDLER_NET)
         self.slots_api = GetAvailableSlotsApi(collection_handler_client)
-        self.slots_get_available = self.slots_api.order_get_available_slots
         self.subs_api = ProductFamilySubscriptionApi(collection_handler_client)
+
+    def verify_return_address(self, address: AddressReturns):
+        address_verify = address_angonstic_to_verify_def(address)
+        dps_request = AddressVerifyRequestDef(addresses=[address_verify])
+        dps_responses = self.address_api.address_verify(dps_request)
+        if len(dps_responses) == 0:
+            raise Exception('No address verify responses returned')
+        if len(dps_responses) > 1:
+            raise Exception('Multiple address verify responses returned')
+        return dps_responses[0]
 
     def address_search(self, address_text: str):
         req = AddressFindRequestDef(address_text=address_text)
@@ -50,7 +55,7 @@ class ParcelAPIClient:
         return self.collection_orders_api.order_delete(collection_id=collection_id, collection_status_request=req)
 
     def get_token(self, collection_date: date, num_boxes: int, postcode_and_dps: str) -> str | None:
-        slots_response = self.slots_get_available(dps=postcode_and_dps, item_count=num_boxes)
+        slots_response = self.slots_api.order_get_available_slots(dps=postcode_and_dps, item_count=num_boxes)
         my_slot = match_collection_slot_date(slots_response, collection_date)
         if my_slot is None:
             raise Exception('No slot found for date')

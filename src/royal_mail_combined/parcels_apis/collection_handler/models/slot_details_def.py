@@ -14,7 +14,7 @@ import re  # noqa: F401
 
 from pydantic import Field, StrictFloat, StrictInt, StrictStr
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class SlotDetailsDef(RMBaseModel):
@@ -26,9 +26,7 @@ class SlotDetailsDef(RMBaseModel):
     delivery_office_id: float | int | None = Field(
         default=None, description='Functional location id of Delivery office', alias='deliveryOfficeId'
     )
-    item_count: StrictFloat | StrictInt | None = Field(
-        default=None, description='count of Item.', alias='itemCount'
-    )
+    item_count: StrictFloat | StrictInt | None = Field(default=None, description='count of Item.', alias='itemCount')
     token_id: StrictStr | None = Field(default=None, description='Toekn Id.', alias='tokenId')
     token_id_expiry_time: StrictStr | None = Field(
         default=None,

@@ -15,7 +15,7 @@ import re  # noqa: F401
 from pydantic import Field
 from ..models.product_family_def import ProductFamilyDef
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class ProductFamily(RMBaseModel):

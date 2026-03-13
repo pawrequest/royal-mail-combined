@@ -16,7 +16,7 @@ from datetime import date
 from pydantic import Field
 from ..models.estimated_window_def import EstimatedWindowDef
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class SlotDateDef(RMBaseModel):

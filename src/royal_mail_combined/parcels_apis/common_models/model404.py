@@ -15,7 +15,7 @@ import re  # noqa: F401
 from pydantic import Field, StrictStr
 from royal_mail_combined.parcels_apis.common_models.errors_def import ErrorsDef
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class Model404(RMBaseModel):

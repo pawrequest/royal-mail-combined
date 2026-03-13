@@ -17,7 +17,7 @@ from datetime import datetime
 from pydantic import Field, StrictStr
 
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class GetVersionResource(RMBaseModel):

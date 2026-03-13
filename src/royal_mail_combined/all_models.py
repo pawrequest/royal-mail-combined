@@ -1,3 +1,4 @@
+from royal_mail_combined.core.rm_basemodel import RMBaseModel
 from royal_mail_combined.added_models import *
 from royal_mail_combined.click_and_drop_api.models import *
 from royal_mail_combined.parcels_apis.address.models import *
@@ -6,6 +7,7 @@ from royal_mail_combined.parcels_apis.collection_order.models import *
 from royal_mail_combined.parcels_apis.common_models import *
 
 __all__ = [
+    'RMBaseModel',
     # added
     'RoyalMailServiceCodes',
     # click and drop

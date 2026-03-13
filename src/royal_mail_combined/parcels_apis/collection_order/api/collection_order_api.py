@@ -43,7 +43,9 @@ class CollectionOrderApi:
         x_rmg_date_time: X_RMG_DATETIME,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
-        _request_timeout: None | Annotated[StrictFloat, Field(gt=0)] | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
+        _request_timeout: None
+        | Annotated[StrictFloat, Field(gt=0)]
+        | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
         _request_auth: dict[StrictStr, Any] | None = None,
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
@@ -118,7 +120,9 @@ class CollectionOrderApi:
         x_rmg_date_time: X_RMG_DATETIME,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
-        _request_timeout: None | Annotated[StrictFloat, Field(gt=0)] | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
+        _request_timeout: None
+        | Annotated[StrictFloat, Field(gt=0)]
+        | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
         _request_auth: dict[StrictStr, Any] | None = None,
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
@@ -193,7 +197,9 @@ class CollectionOrderApi:
         x_rmg_date_time: X_RMG_DATETIME,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
-        _request_timeout: None | Annotated[StrictFloat, Field(gt=0)] | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
+        _request_timeout: None
+        | Annotated[StrictFloat, Field(gt=0)]
+        | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
         _request_auth: dict[StrictStr, Any] | None = None,
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
@@ -332,7 +338,9 @@ class CollectionOrderApi:
         x_rmg_date_time: X_RMG_DATETIME,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
-        _request_timeout: None | Annotated[StrictFloat, Field(gt=0)] | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
+        _request_timeout: None
+        | Annotated[StrictFloat, Field(gt=0)]
+        | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
         _request_auth: dict[StrictStr, Any] | None = None,
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
@@ -385,7 +393,7 @@ class CollectionOrderApi:
 
         _response_types_map: dict[str, str | None] = {
             '201': 'CollectionOrderCreateResponse',
-            '200': 'CollectionOrderCreateResponse',
+            '200': 'CollectionOrderCreateResponse',  # added manually because RM swagger docs are wrong
             '400': 'Model400',
             '401': 'Model401',
             '403': 'Model403',
@@ -408,7 +416,9 @@ class CollectionOrderApi:
         x_rmg_date_time: X_RMG_DATETIME,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
-        _request_timeout: None | Annotated[StrictFloat, Field(gt=0)] | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
+        _request_timeout: None
+        | Annotated[StrictFloat, Field(gt=0)]
+        | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
         _request_auth: dict[StrictStr, Any] | None = None,
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
@@ -483,7 +493,9 @@ class CollectionOrderApi:
         x_rmg_date_time: X_RMG_DATETIME,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
-        _request_timeout: None | Annotated[StrictFloat, Field(gt=0)] | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
+        _request_timeout: None
+        | Annotated[StrictFloat, Field(gt=0)]
+        | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
         _request_auth: dict[StrictStr, Any] | None = None,
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
@@ -555,7 +567,9 @@ class CollectionOrderApi:
         x_rmg_date_time: X_RMG_DATETIME,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
-        _request_timeout: None | Annotated[StrictFloat, Field(gt=0)] | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
+        _request_timeout: None
+        | Annotated[StrictFloat, Field(gt=0)]
+        | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
         _request_auth: dict[StrictStr, Any] | None = None,
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
@@ -633,7 +647,9 @@ class CollectionOrderApi:
         x_rmg_date_time: X_RMG_DATETIME,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
-        _request_timeout: None | Annotated[StrictFloat, Field(gt=0)] | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
+        _request_timeout: None
+        | Annotated[StrictFloat, Field(gt=0)]
+        | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
         _request_auth: dict[StrictStr, Any] | None = None,
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
@@ -779,7 +795,9 @@ class CollectionOrderApi:
         x_rmg_date_time: X_RMG_DATETIME,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
-        _request_timeout: None | Annotated[StrictFloat, Field(gt=0)] | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
+        _request_timeout: None
+        | Annotated[StrictFloat, Field(gt=0)]
+        | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
         _request_auth: dict[StrictStr, Any] | None = None,
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
@@ -923,7 +941,9 @@ class CollectionOrderApi:
         x_rmg_date_time: X_RMG_DATETIME,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
-        _request_timeout: None | Annotated[StrictFloat, Field(gt=0)] | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
+        _request_timeout: None
+        | Annotated[StrictFloat, Field(gt=0)]
+        | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
         _request_auth: dict[StrictStr, Any] | None = None,
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
@@ -997,7 +1017,9 @@ class CollectionOrderApi:
         x_rmg_date_time: X_RMG_DATETIME,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
-        _request_timeout: None | Annotated[StrictFloat, Field(gt=0)] | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
+        _request_timeout: None
+        | Annotated[StrictFloat, Field(gt=0)]
+        | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
         _request_auth: dict[StrictStr, Any] | None = None,
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
@@ -1071,7 +1093,9 @@ class CollectionOrderApi:
         x_rmg_date_time: X_RMG_DATETIME,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
-        _request_timeout: None | Annotated[StrictFloat, Field(gt=0)] | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
+        _request_timeout: None
+        | Annotated[StrictFloat, Field(gt=0)]
+        | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
         _request_auth: dict[StrictStr, Any] | None = None,
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
@@ -1202,7 +1226,9 @@ class CollectionOrderApi:
         x_rmg_date_time: X_RMG_DATETIME,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
-        _request_timeout: None | Annotated[StrictFloat, Field(gt=0)] | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
+        _request_timeout: None
+        | Annotated[StrictFloat, Field(gt=0)]
+        | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
         _request_auth: dict[StrictStr, Any] | None = None,
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
@@ -1280,7 +1306,9 @@ class CollectionOrderApi:
         x_rmg_date_time: X_RMG_DATETIME,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
-        _request_timeout: None | Annotated[StrictFloat, Field(gt=0)] | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
+        _request_timeout: None
+        | Annotated[StrictFloat, Field(gt=0)]
+        | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
         _request_auth: dict[StrictStr, Any] | None = None,
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
@@ -1358,7 +1386,9 @@ class CollectionOrderApi:
         x_rmg_date_time: X_RMG_DATETIME,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
-        _request_timeout: None | Annotated[StrictFloat, Field(gt=0)] | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
+        _request_timeout: None
+        | Annotated[StrictFloat, Field(gt=0)]
+        | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
         _request_auth: dict[StrictStr, Any] | None = None,
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,

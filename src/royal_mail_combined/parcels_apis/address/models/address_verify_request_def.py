@@ -16,7 +16,7 @@ from pydantic import Field
 from typing import Annotated
 from .address_verifydef import AddressVerifyDef
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class AddressVerifyRequestDef(RMBaseModel):

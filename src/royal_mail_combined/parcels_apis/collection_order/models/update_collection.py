@@ -22,7 +22,7 @@ from .safe_place_details_def import SafePlaceDetailsDef
 from .sender_details_def import SenderDetailsDef
 
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class UpdateCollection(RMBaseModel):

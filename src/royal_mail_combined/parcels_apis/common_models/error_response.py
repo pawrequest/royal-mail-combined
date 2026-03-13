@@ -19,7 +19,7 @@ if TYPE_CHECKING:
     from royal_mail_combined.parcels_apis.common_models.errors_def import ErrorsDef
 
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class ErrorResponseHttp(RMBaseModel):

@@ -5,7 +5,7 @@ from royal_mail_combined.config import RoyalMailSettingsGlobal
 from royal_mail_combined.core.exceptions import raise_for_rm_status
 
 
-class RMBaseClient:
+class BaseHttpClient:
     def __init__(self, settings: RoyalMailSettingsGlobal):
         self.settings = settings
 

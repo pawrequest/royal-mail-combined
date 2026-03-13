@@ -21,7 +21,7 @@ from .items_post_def import ItemsPostDef
 from .safe_place_details_def import SafePlaceDetailsDef
 from .sender_details_post_def import SenderDetailsPostDef
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class Collection(RMBaseModel):

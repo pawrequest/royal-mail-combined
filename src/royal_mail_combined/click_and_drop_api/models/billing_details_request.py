@@ -18,7 +18,7 @@ from typing import Annotated
 from royal_mail_combined.click_and_drop_api.models import AddressRequest
 
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class BillingDetailsRequest(RMBaseModel):
@@ -28,6 +28,4 @@ class BillingDetailsRequest(RMBaseModel):
 
     address: AddressRequest | None = None
     phone_number: Annotated[str, Field(strict=True, max_length=25)] | None = Field(default=None, alias='phoneNumber')
-    email_address: Annotated[str, Field(strict=True, max_length=254)] | None = Field(
-        default=None, alias='emailAddress'
-    )
+    email_address: Annotated[str, Field(strict=True, max_length=254)] | None = Field(default=None, alias='emailAddress')

@@ -18,7 +18,7 @@ from .collection_item_type import CollectionItemType
 from .dimensions_def import DimensionsDef
 from .label_info import LabelInfo
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class ItemsDef(RMBaseModel):

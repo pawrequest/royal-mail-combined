@@ -20,7 +20,7 @@ from ..models.get_postal_details_result import GetPostalDetailsResult
 from ..models.get_shipping_details_result import GetShippingDetailsResult
 from ..models.get_tag_details_result import GetTagDetailsResult
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class GetOrderDetailsResource(RMBaseModel):
@@ -60,9 +60,7 @@ class GetOrderDetailsResource(RMBaseModel):
     weight_in_grams: StrictInt = Field(alias='weightInGrams')
     package_size: StrictStr | None = Field(default=None, alias='packageSize')
     account_batch_number: StrictStr | None = Field(default=None, alias='accountBatchNumber')
-    currency_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(
-        default=None, alias='currencyCode'
-    )
+    currency_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(default=None, alias='currencyCode')
     shipping_details: GetShippingDetailsResult = Field(alias='shippingDetails')
     shipping_info: GetPostalDetailsResult = Field(alias='shippingInfo')
     billing_info: GetPostalDetailsResult = Field(alias='billingInfo')

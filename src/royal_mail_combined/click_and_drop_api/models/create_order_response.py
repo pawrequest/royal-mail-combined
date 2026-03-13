@@ -17,7 +17,7 @@ from pydantic import Field, StrictInt, StrictStr
 
 from ..models.create_order_label_error_response import CreateOrderLabelErrorResponse
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class CreateOrderResponse(RMBaseModel):

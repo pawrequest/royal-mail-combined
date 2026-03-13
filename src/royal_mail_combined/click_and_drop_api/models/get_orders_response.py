@@ -15,7 +15,7 @@ import re  # noqa: F401
 from pydantic import Field, StrictStr
 from ..models.get_order_info_resource import GetOrderInfoResource
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class GetOrdersResponse(RMBaseModel):

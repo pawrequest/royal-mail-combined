@@ -18,7 +18,7 @@ from typing import Annotated
 from .label_address import LabelAddress
 from .label_customs_info import LabelCustomsInfo
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class LabelInfo(RMBaseModel):

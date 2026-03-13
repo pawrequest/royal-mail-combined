@@ -11,21 +11,20 @@ def test_book_outbound(fxt_client, fxt_order):
     res = fxt_client.click_and_drop.book_shipment(fxt_order)
     dump_result_model(res)
     ident = str(res.created_orders[0].order_identifier)
-    fetched = fxt_client.click_and_drop.fetch_specific(order_identifiers=ident)
+    fetched = fxt_client.fetch_specific_orders(order_identifiers=ident)
     assert str(fetched[0].order_identifier) == ident
     ...
 
 
-def test_book_dropoff(fxt_return_req, fxt_client):
+def test_book_inbound(fxt_return_req, fxt_client):
     resp = fxt_client.book_inbound_shipment(fxt_return_req)
     if STORE_RESULTS:
         dump_result_model(resp)
-    assert isinstance(resp, ReturnsResponse)
-    ...
+    assert isinstance(resp, list) and all(isinstance(item, ReturnsResponse) for item in resp)
 
 
-def test_book_and_cancel_inbound(fxt_client, fxt_return_req):
-    res = fxt_client.book_inbound_with_collection(fxt_return_req, TEST_DATE, 2)
+def test_book_inbound_with_collection_cancel_collection(fxt_client, fxt_return_req):
+    res = fxt_client.book_inbound_shipment_with_collection(fxt_return_req, TEST_DATE, 2)
     dump_result_model(res)
     assert res.status == 'Order created successfully'
     collect_id = res.collection_order_id

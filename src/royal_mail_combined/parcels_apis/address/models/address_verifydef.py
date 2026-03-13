@@ -4,7 +4,7 @@ import re  # noqa: F401
 from pydantic import Field
 from typing import Annotated
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class AddressVerifyDef(RMBaseModel):

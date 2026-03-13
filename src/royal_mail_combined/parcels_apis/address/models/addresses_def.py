@@ -3,7 +3,7 @@ import re  # noqa: F401
 
 from .address_summary_def import AddressSummaryDef
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class AddressesDef(RMBaseModel):

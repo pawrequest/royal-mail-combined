@@ -17,7 +17,7 @@ from pydantic import Field
 from typing import Annotated
 
 
-from royal_mail_combined import RMBaseModel
+from royal_mail_combined.core import RMBaseModel
 
 
 class AddressRequest(RMBaseModel):
@@ -26,16 +26,10 @@ class AddressRequest(RMBaseModel):
     """
 
     full_name: Annotated[str, Field(strict=True, max_length=210)] | None = Field(default=None, alias='fullName')
-    company_name: Annotated[str, Field(strict=True, max_length=100)] | None = Field(
-        default=None, alias='companyName'
-    )
+    company_name: Annotated[str, Field(strict=True, max_length=100)] | None = Field(default=None, alias='companyName')
     address_line1: Annotated[str, Field(strict=True, max_length=100)] = Field(alias='addressLine1')
-    address_line2: Annotated[str, Field(strict=True, max_length=100)] | None = Field(
-        default=None, alias='addressLine2'
-    )
-    address_line3: Annotated[str, Field(strict=True, max_length=100)] | None = Field(
-        default=None, alias='addressLine3'
-    )
+    address_line2: Annotated[str, Field(strict=True, max_length=100)] | None = Field(default=None, alias='addressLine2')
+    address_line3: Annotated[str, Field(strict=True, max_length=100)] | None = Field(default=None, alias='addressLine3')
     city: Annotated[str, Field(strict=True, max_length=100)]
     county: Annotated[str, Field(strict=True, max_length=100)] | None = None
     postcode: Annotated[str, Field(strict=True, max_length=20)] | None = None
