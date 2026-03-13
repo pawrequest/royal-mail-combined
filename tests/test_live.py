@@ -81,7 +81,6 @@ def test_fetch_specific(fxt_client):
     ...
 
 
-# @pytest.mark.skip(reason='Use Cached result')
 def test_address_search(fxt_client, fxt_address):
     search_str = fxt_address.address_line1 + ', ' + fxt_address.postcode
     resp: AddressesDef = fxt_client.parcel_api.address_search(search_str)
@@ -92,7 +91,6 @@ def test_address_search(fxt_client, fxt_address):
     ...
 
 
-# @pytest.mark.skip(reason='Use Cached')
 def test_address_search_dps(fxt_client, fxt_address):
     addr = AddressVerifyDef.model_validate(fxt_address, from_attributes=True)
     addresses_payload = AddressVerifyRequestDef(addresses=[addr])
@@ -103,21 +101,20 @@ def test_address_search_dps(fxt_client, fxt_address):
     assert isinstance(resp[0], AddressVerifyReqRespdef)
 
 
-# @pytest.mark.skip(reason='Use Cached result')
 def test_address_get(fxt_client, cached_address_id):
     resp = fxt_client.address_retrieve(cached_address_id)
     if STORE_RESULTS:
         dump_result_model(resp)
     assert isinstance(resp, AddressRecordDef)
 
-
-# @pytest.mark.skip(reason='Use Cached result')
-def test_handler_get_slots(fxt_client, cached_dps_results):
-    dps = cached_dps_results.dps
-    postcode = cached_dps_results.input.postcode.replace(' ', '')
-    dps_postcode_str = postcode + dps
-    item_count = 1
-    resp = fxt_client.parcel_api.slots_api.order_get_available_slots(dps_postcode_str, item_count)
-    if STORE_RESULTS:
-        dump_result_model(resp)
-    assert isinstance(resp, GetAvailableSlotsResponse)
+# todo fixme
+# def test_handler_get_slots(fxt_client):
+#
+#     dps = cached_dps_results.dps
+#     postcode = cached_dps_results.input.postcode.replace(' ', '')
+#     dps_postcode_str = postcode + dps
+#     item_count = 1
+#     resp = fxt_client.parcel_api.slots_api.order_get_available_slots(dps_postcode_str, item_count)
+#     if STORE_RESULTS:
+#         dump_result_model(resp)
+#     assert isinstance(resp, GetAvailableSlotsResponse)

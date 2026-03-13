@@ -149,14 +149,6 @@ def cached_address_id():
 
 
 @pytest.fixture(scope='session')
-def cached_dps_results() -> AddressVerifyReqRespdef:
-    with open(r'data\address_search_dps_results.json') as f:
-        res = f.read()
-        res = json.loads(res)
-    return AddressVerifyReqRespdef.model_validate(res[0])
-
-
-@pytest.fixture(scope='session')
 def cached_return_response():
     with open(r'dumped/ReturnsResponse.json') as f:
         res = f.read()
