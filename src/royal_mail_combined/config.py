@@ -43,13 +43,6 @@ class RoyalMailSettingsGlobal(BaseSettings):
 
     data_dir: Path = Path.home() / 'royal_mail_data'
 
-    _cad_config = None
-    _address_config = None
-
-    # @field_serializer('client_id', 'client_secret', 'api_key', when_used='json')
-    # def dump_secret(self, v):
-    #     return v.get_secret_value()
-
     @classmethod
     @lru_cache
     def from_env(cls, env_name=RM_ENV_NAME) -> Self:
