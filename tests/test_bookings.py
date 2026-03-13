@@ -17,7 +17,7 @@ def test_book_outbound(fxt_client, fxt_order):
 
 
 def test_book_dropoff(fxt_return_req, fxt_client):
-    resp = fxt_client.book_return_shipment_order(fxt_return_req)
+    resp = fxt_client.book_inbound_shipment(fxt_return_req)
     if STORE_RESULTS:
         dump_result_model(resp)
     assert isinstance(resp, ReturnsResponse)
@@ -25,7 +25,7 @@ def test_book_dropoff(fxt_return_req, fxt_client):
 
 
 def test_book_and_cancel_inbound(fxt_client, fxt_return_req):
-    res = fxt_client.book_return_with_collection(fxt_return_req, TEST_DATE, 2)
+    res = fxt_client.book_inbound_with_collection(fxt_return_req, TEST_DATE, 2)
     dump_result_model(res)
     assert res.status == 'Order created successfully'
     collect_id = res.collection_order_id

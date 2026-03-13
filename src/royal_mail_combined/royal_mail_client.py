@@ -37,7 +37,7 @@ class RoyalMailClient:
         self.parcel_api = ParcelAPIClient(settings=settings)
 
     # ORDERS
-    def book_return_shipment_order(self, return_request: ReturnsRequest) -> ReturnsResponse:
+    def book_inbound_shipment(self, return_request: ReturnsRequest) -> ReturnsResponse:
         # todo move this to ParcelApi?
         res = self.http_client.do_post(
             url=RETURNS_ENDPOINT, data=return_request, headers=self.settings.authorised_headers_bearer()
@@ -45,7 +45,7 @@ class RoyalMailClient:
         res_model = ReturnsResponse.model_validate(res.json())
         return res_model
 
-    def book_return_with_collection(
+    def book_inbound_with_collection(
         self,
         return_request: ReturnsRequest,
         collection_date: date,
@@ -68,7 +68,7 @@ class RoyalMailClient:
 
         items = []
         for i in range(num_boxes):
-            booking_response = self.book_return_shipment_order(return_request)
+            booking_response = self.book_inbound_shipment(return_request)
             barcode_id = booking_response.shipment.tracking_number
             items.append(make_item(barcode_id, box_weight_kg, dims))
 
