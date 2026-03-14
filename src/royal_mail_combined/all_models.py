@@ -9,7 +9,6 @@ from royal_mail_combined.parcels_apis.common_models import *
 __all__ = [
     "RMBaseModel",
     # added
-    "RoyalMailServiceCodes",
     # click and drop
     "AddressRequest",
     "BillingDetailsRequest",

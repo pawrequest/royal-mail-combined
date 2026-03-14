@@ -23,14 +23,13 @@ from royal_mail_combined.all_models import (
     RecipientDetailsRequest,
     ReturnsRequest,
     ReturnsResponse,
-    RoyalMailServiceCodes,
     SenderDetailsPostDef,
     Service,
     Shipment,
     ShipmentPackageRequest,
 )
 from royal_mail_combined.config import RoyalMailSettingsGlobal
-from royal_mail_combined.core.consts_types import PackageFormat, SendNotifcationsTo
+from royal_mail_combined.core.consts_types import PackageFormat, RoyalMailServiceCodes, SendNotifcationsTo
 from royal_mail_combined.parcels_apis.address.models.address import AddressDefault
 from royal_mail_combined.royal_mail_client import RoyalMailClient
 

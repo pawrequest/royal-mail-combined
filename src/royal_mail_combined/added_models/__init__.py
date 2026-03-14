@@ -1,5 +1,3 @@
-from .services import RoyalMailServiceCodes
+from ..core.consts_types import RoyalMailServiceCodes
 
-__all__ = [
-    "RoyalMailServiceCodes",
-]
+__all__ = []

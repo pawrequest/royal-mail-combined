@@ -10,51 +10,50 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 import re  # noqa: F401
+from typing import Annotated, Self
 
 from pydantic import Field, StrictFloat, StrictInt, StrictStr, field_validator
-from typing import Annotated
+
+from royal_mail_combined.core import RMBaseModel
+from royal_mail_combined.core.consts_types import (
+    ItemStatus,
+    ReturnsServiceNames,
+    StrictStr5,
+    StrictStr21,
+    StrictStr40,
+    StrictStr50,
+    StrictStr64,
+)
+
 from .collection_item_type import CollectionItemType
 from .dimensions_post_def import DimensionsPostDef
 from .label_info import LabelInfo
 
-from royal_mail_combined.core import RMBaseModel
-
 
 class ItemsPostDef(RMBaseModel):
-    """
-    items detail definition
-    """
-
-    item_barcode_id: Annotated[str, Field(min_length=1, strict=True, max_length=21)]
+    item_barcode_id: StrictStr21
     weight_in_grams: Annotated[int, Field(strict=True, ge=0)]
-    item_service_name: Annotated[str, Field(min_length=1, strict=True, max_length=50)]
+    item_service_name: StrictStr50
     dimensions: DimensionsPostDef
-    item_reference: Annotated[str, Field(strict=True, max_length=40)] | None = None
-    item_status: StrictStr | None = Field(default=None, alias="itemStatus")
+    item_reference: StrictStr40 | None = None
+    item_status: ItemStatus | None = None
     item_price: StrictFloat | StrictInt | None = Field(
         default=None,
         description="Price paid for the doorstep collection for the item",
         alias="itemPrice",
     )
     item_type: CollectionItemType | None = None
-    item_product_code: Annotated[str, Field(strict=True, max_length=5)] | None = None
+    item_product_code: StrictStr5 | None = None
     label_info: LabelInfo | None = None
 
-    @field_validator("item_status")
-    def item_status_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in {
-            "AwaitingCollection",
-            "Collected",
-            "NotCollected",
-            "Processing",
-            "Attempted",
-        }:
-            raise ValueError(
-                "must be one of enum values ('AwaitingCollection', 'Collected', 'NotCollected', 'Processing', 'Attempted')"
-            )
-        return value
+    @classmethod
+    def tracked_24_return_standard(cls, barcode_id: str, box_weight_kg: int, dims: DimensionsPostDef) -> Self:
+        return cls(
+            item_barcode_id=barcode_id,
+            weight_in_grams=1000 * box_weight_kg,
+            item_service_name=ReturnsServiceNames.TRACKED_24,
+            item_type=CollectionItemType.STANDARD,
+            dimensions=dims,
+        )

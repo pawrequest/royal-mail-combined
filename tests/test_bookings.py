@@ -1,9 +1,10 @@
 import pytest
-
 from conftest import STORE_RESULTS, TEST_DATE, dump_result_model
+
 from royal_mail_combined.all_models import (
     ReturnsResponse,
 )
+from royal_mail_combined.core.consts_types import ResponseMessages
 
 
 def test_book_outbound(fxt_client, fxt_order):
@@ -26,12 +27,12 @@ def test_book_inbound(fxt_return_req, fxt_client):
 def test_book_inbound_with_collection_cancel_collection(fxt_client, fxt_return_req):
     res = fxt_client.book_inbound_shipment_with_collection(fxt_return_req, TEST_DATE, 2)
     dump_result_model(res)
-    assert res.status == "Order created successfully"
+    assert res.status == ResponseMessages.COLLECTION_CREATED
     collect_id = res.collection_order_id
 
     res = fxt_client.parcel_api.cancel_collection(collect_id)
     dump_result_model(res)
-    assert res.status == "Order cancelled successfully"
+    assert res.status == ResponseMessages.COLLECTION_CANCELLED
 
 
 BOOKEDIDS = []
@@ -41,5 +42,5 @@ BOOKEDIDS = []
 def test_cancel_collection(fxt_client):
     res = fxt_client.parcel_api.cancel_collection(BOOKEDIDS[1])
     dump_result_model(res)
-    assert res.status == "Order cancelled successfully"
+    assert res.status == ResponseMessages.COLLECTION_CANCELLED
     ...
