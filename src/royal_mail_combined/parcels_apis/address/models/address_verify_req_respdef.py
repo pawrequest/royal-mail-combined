@@ -3,7 +3,7 @@ from __future__ import annotations
 from pydantic import Field
 
 from royal_mail_combined.core import RMBaseModel
-from royal_mail_combined.core.consts_types import StrictStr2, StrictStr64
+from royal_mail_combined.core.consts_types import StrictStr2
 
 from .address_verifydef import AddressVerifyDef
 
