@@ -35,3 +35,4 @@ class PackageFormat(StrEnum):
 
 StrictStr64 = Annotated[str, StringConstraints(max_length=64, strict=True)]
 StrictStr10 = Annotated[str, StringConstraints(max_length=10, strict=True)]
+StrictStr2 = Annotated[str, StringConstraints(max_length=2, strict=True)]
