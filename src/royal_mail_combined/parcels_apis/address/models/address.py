@@ -15,7 +15,7 @@ class AddressDefault(RMBaseModel):
     post_town: StrictStr64 | None = None
     postcode: StrictStr10 | None = None
     dps: StrictStr10 | None = Field(default=None, alias="DPS", description="Delivery Point Suffix")
-    county: StrictStr64 | None = Field(default=None, alias="County")
+    county: StrictStr64 | None = Field(default=None, alias="County")  # Pascal
 
 
 class AddressBasic(AddressDefault):
@@ -42,3 +42,18 @@ class AddressFindRequest(RMBaseModel):
 class AddressVerified(RMBaseModel):
     input: AddressVerifable | None = Field(default=None, alias="Input")
     dps: StrictStr2 | None = Field(default=None, alias="DPS")
+
+
+class LabelAddress(RMBaseModel):
+    name: Annotated[str, Field(strict=True, max_length=50)] | None = None
+    company_name: Annotated[str, Field(strict=True, max_length=50)] | None = None
+
+    address_line1: StrictStr64
+    address_line2: Annotated[str, Field(strict=True, max_length=64)] | None = None
+    address_line3: Annotated[str, Field(strict=True, max_length=64)] | None = None
+    post_town: StrictStr64
+    county: Annotated[str, Field(strict=True, max_length=64)] | None = None  # camel
+    postcode: StrictStr10
+
+    dps: StrictStr2 = Field(default="9Z", alias="DPS")
+    country_code: Annotated[str, Field(strict=True, max_length=3)] | None = "GBR"

@@ -10,6 +10,8 @@ from pydantic import Field, StringConstraints
 StrictStr2 = Annotated[str, StringConstraints(max_length=2, strict=True)]
 StrictStr5 = Annotated[str, StringConstraints(max_length=5, strict=True)]
 StrictStr10 = Annotated[str, StringConstraints(max_length=10, strict=True)]
+StrictStr13 = Annotated[str, StringConstraints(max_length=13, strict=True)]
+StrictStr20 = Annotated[str, StringConstraints(max_length=20, strict=True)]
 StrictStr21 = Annotated[str, StringConstraints(max_length=21, strict=True)]
 StrictStr40 = Annotated[str, StringConstraints(max_length=40, strict=True)]
 StrictStr50 = Annotated[str, StringConstraints(max_length=50, strict=True)]
@@ -42,6 +44,13 @@ class SendNotifcationsTo(StrEnum):
     SENDER = "sender"
     RECIPIENT = "recipient"
     BILLING = "billing"
+
+
+class LabelPackageFormat(StrEnum):
+    LETTER = "letter"
+    LARGE_LETTER = "largeLetter"
+    SMALL_PARCEL = "smallParcel"
+    MEDIUM_PARCEL = "mediumParcel"
 
 
 class PackageFormat(StrEnum):

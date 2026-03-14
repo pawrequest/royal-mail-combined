@@ -14,7 +14,7 @@ Do not edit the class manually.
 
 # import models into model package
 from .account_details_def import AccountDetailsDef
-from ...address.models.address import AddressDefault, AddressBasic, AddressDps
+from ...address.models.address import AddressDefault, AddressBasic, AddressDps, LabelAddress
 from .collection import Collection
 from .collection_item_type import CollectionItemType
 from .collection_mandatory import CollectionMandatory
@@ -31,7 +31,6 @@ from .draft_collection_label_result import DraftCollectionLabelResult
 from .error_response import ErrorResponse
 from .items_def import ItemsDef
 from .items_post_def import ItemsPostDef
-from .label_address import LabelAddress
 from .label_customs_info import LabelCustomsInfo
 from .label_info import LabelInfo
 from .label_order_item import LabelOrderItem
@@ -59,7 +58,6 @@ __all__ = [
     "ErrorResponse",
     "ItemsDef",
     "ItemsPostDef",
-    "LabelAddress",
     "LabelCustomsInfo",
     "LabelInfo",
     "LabelOrderItem",

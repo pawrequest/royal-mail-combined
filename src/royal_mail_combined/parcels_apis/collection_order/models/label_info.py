@@ -10,15 +10,25 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
-import re  # noqa: F401
 
+import re  # noqa: F401
 from datetime import date
-from pydantic import Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Annotated
-from .label_address import LabelAddress
-from .label_customs_info import LabelCustomsInfo
+
+from pydantic import Field, StrictFloat, StrictInt, StrictStr, field_validator
 
 from royal_mail_combined.core import RMBaseModel
+from royal_mail_combined.core.consts_types import (
+    LabelPackageFormat,
+    StrictStr13,
+    StrictStr20,
+    StrictStr21,
+    StrictStr40,
+    StrictStr50,
+)
+
+from ...address.models.address import LabelAddress
+from .label_customs_info import LabelCustomsInfo
 
 
 class LabelInfo(RMBaseModel):
@@ -26,18 +36,18 @@ class LabelInfo(RMBaseModel):
     LabelInfo
     """
 
-    var_1_d_tracking_number: str | None = Field(strict=True, max_length=13, default=None, alias="1DTrackingNumber")
-    var_2_d_unique_identifier: str = Field(min_length=1, strict=True, max_length=21, alias="2DUniqueIdentifier")
+    var_1_d_tracking_number: StrictStr13 | None = Field(alias="1DTrackingNumber")
+    var_2_d_unique_identifier: StrictStr21 = Field(alias="2DUniqueIdentifier")
     post_by_date: date = Field(alias="postByDate")
-    rm_service: str = Field(alias="RMService", min_length=1, strict=True, max_length=50)
+    rm_service: StrictStr50 = Field(alias="RMService")
     price_paid: StrictFloat | StrictInt = Field(description="price paid for the postage", alias="pricePaid")
-    reference_number: Annotated[str, Field(strict=True, max_length=20)] | None = None
-    reference_text: Annotated[str, Field(strict=True, max_length=40)] | None = None
+    reference_number: StrictStr20 | None = None
+    reference_text: StrictStr40 | None = None
     weight_in_grams: Annotated[int, Field(strict=True, ge=0)]
-    item_format: StrictStr = Field(alias="itemFormat")
-    recipient_address: LabelAddress = Field(alias="recipientAddress")
-    sender_address: LabelAddress = Field(alias="senderAddress")
-    customs_info: LabelCustomsInfo | None = Field(default=None, alias="customsInfo")
+    item_format: LabelPackageFormat
+    recipient_address: LabelAddress
+    sender_address: LabelAddress
+    customs_info: LabelCustomsInfo | None = None
 
     @field_validator("item_format")
     def item_format_validate_enum(cls, value):

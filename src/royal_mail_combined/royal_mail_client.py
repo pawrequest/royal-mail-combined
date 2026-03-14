@@ -22,6 +22,8 @@ from royal_mail_combined.parcels_apis.collection_order.models import (
 
 
 class RMHttpClient(BaseHttpClient):
+    """Manually implemented Http calls"""
+
     def _book_inbound_shipment_single(self, return_request: ReturnsRequest) -> ReturnsResponse:
         res = self.do_post(
             url=RETURNS_ENDPOINT,
@@ -35,7 +37,7 @@ class RMHttpClient(BaseHttpClient):
         return [self._book_inbound_shipment_single(return_request) for _ in range(num_boxes)]
 
     def check_return_services(self) -> AvailableServicesResponse:
-        # WARNING ServiceNames returned from here are not correct for use with CollectionsOrderCreate endpoint - must hardcode values from support email
+        """WARNING ServiceNames returned from here are not correct for use with CollectionsOrderCreate endpoint - must hardcode values from ReturnsServiceNames Enum"""
         res = self.do_get(url=RETURNS_SERVICES_ENDPOINT, headers=self.settings.authorised_headers_bearer())
         res_model = AvailableServicesResponse.model_validate(res.json())
         return res_model

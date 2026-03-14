@@ -98,7 +98,6 @@ __all__ = [
     "ErrorResponseHttp",
     "ItemsDef",
     "ItemsPostDef",
-    "LabelAddress",
     "LabelCustomsInfo",
     "LabelInfo",
     "LabelOrderItem",
