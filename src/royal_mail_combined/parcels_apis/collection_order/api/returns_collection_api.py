@@ -20,8 +20,8 @@ class ReturnsCollectionApi:
     @validate_call
     def post_draft_collection_item(
         self,
-        x_rmg_date_time: X_RMG_DATETIME,
         label_info: Annotated[DraftCollectionLabelRequest, Field(description="Provide the label information")],
+        x_rmg_date_time: X_RMG_DATETIME,
         x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
         accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
         _request_timeout: None
