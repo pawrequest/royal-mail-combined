@@ -18,10 +18,10 @@ from typing import Annotated
 from pydantic import Field, StrictBool, StrictStr
 
 from royal_mail_combined.core import RMBaseModel
+from royal_mail_combined.core.consts_types import CollectionStatus
 
 from ...address.models.address import AddressDefault
 from .account_details_def import AccountDetailsDef
-from .collection_status import CollectionStatus
 from .items_def import ItemsDef
 from .safe_place_details_def import SafePlaceDetailsDef
 from .sender_details_def import SenderDetailsDef

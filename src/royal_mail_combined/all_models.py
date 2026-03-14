@@ -89,7 +89,6 @@ __all__ = [
     "CollectionOrderDeleteResponse",
     "CollectionOrderGetResponse",
     "CollectionOrderUpdateResponse",
-    "CollectionStatus",
     "CollectionStatusRequestDef",
     "DimensionsDef",
     "DimensionsPostDef",

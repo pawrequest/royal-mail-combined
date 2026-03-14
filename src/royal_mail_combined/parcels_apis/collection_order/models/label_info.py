@@ -4,7 +4,8 @@ import re  # noqa: F401
 from datetime import date
 from typing import Annotated
 
-from pydantic import Field, StrictFloat, StrictInt
+from annotated_types import MaxLen
+from pydantic import Field, StrictFloat, StrictInt, StrictStr
 
 from royal_mail_combined.core import RMBaseModel
 from royal_mail_combined.core.consts_types import (
@@ -33,3 +34,4 @@ class LabelInfo(RMBaseModel):
     recipient_address: LabelAddress
     sender_address: LabelAddress
     customs_info: LabelCustomsInfo | None = None
+    smth: Annotated[StrictStr, MaxLen(5)]

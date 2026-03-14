@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import date, datetime
-from enum import StrEnum
+from enum import Enum, StrEnum
 from typing import Annotated
 
 from pydantic import Field, StringConstraints
@@ -37,6 +37,17 @@ class ItemStatus(StrEnum):
     COLLECTED = "Collected"
     NOT_COLLECTED = "NotCollected"
     PROCESSING = "Processing"
+    ATTEMPTED = "Attempted"
+
+
+class CollectionStatus(str, Enum):
+    CREATED = "Created"
+    PENDING = "Pending"
+    COLLECTIONORDERPLACED = "CollectionOrderPlaced"
+    COLLECTED = "Collected"
+    CANCELLED = "Cancelled"
+    PROCESSING = "Processing"
+    NOTCOLLECTED = "NotCollected"
     ATTEMPTED = "Attempted"
 
 

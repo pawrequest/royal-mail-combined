@@ -8,6 +8,7 @@ from royal_mail_combined.converters import (
     match_collection_slot_date,
 )
 from royal_mail_combined.core.build_client import build_client
+from royal_mail_combined.core.consts_types import CollectionStatus
 from royal_mail_combined.core.endpoints import (
     ADDRESS_BASE,
     COLLECTION_HANDLER_NET,
@@ -21,7 +22,6 @@ from royal_mail_combined.parcels_apis.collection_handler.api import (
 )
 from royal_mail_combined.parcels_apis.collection_order.api import CollectionOrderApi
 from royal_mail_combined.parcels_apis.collection_order.models import (
-    CollectionStatus,
     CollectionStatusRequestDef,
 )
 

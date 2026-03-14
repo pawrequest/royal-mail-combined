@@ -22,7 +22,7 @@ from .collection_order_create_response import CollectionOrderCreateResponse
 from .collection_order_delete_response import CollectionOrderDeleteResponse
 from .collection_order_get_response import CollectionOrderGetResponse
 from .collection_order_update_response import CollectionOrderUpdateResponse
-from .collection_status import CollectionStatus
+from royal_mail_combined.core.consts_types import CollectionStatus
 from .collection_status_request_def import CollectionStatusRequestDef
 from .dimensions_def import DimensionsDef
 from .dimensions_post_def import DimensionsPostDef
@@ -49,7 +49,6 @@ __all__ = [
     "CollectionOrderDeleteResponse",
     "CollectionOrderGetResponse",
     "CollectionOrderUpdateResponse",
-    "CollectionStatus",
     "CollectionStatusRequestDef",
     "DimensionsDef",
     "DimensionsPostDef",
