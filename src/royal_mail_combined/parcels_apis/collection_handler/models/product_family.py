@@ -23,4 +23,4 @@ class ProductFamily(RMBaseModel):
     ProductFamily
     """
 
-    product_family: list[ProductFamilyDef] = Field(alias='productFamily')
+    product_family: list[ProductFamilyDef] = Field(alias="productFamily")

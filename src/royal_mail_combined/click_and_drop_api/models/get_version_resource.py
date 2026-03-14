@@ -28,4 +28,4 @@ class GetVersionResource(RMBaseModel):
     commit: StrictStr | None = None
     build: StrictStr | None = None
     release: StrictStr | None = None
-    release_date: datetime = Field(alias='releaseDate')
+    release_date: datetime = Field(alias="releaseDate")

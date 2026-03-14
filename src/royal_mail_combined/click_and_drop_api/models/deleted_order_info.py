@@ -22,6 +22,6 @@ class DeletedOrderInfo(RMBaseModel):
     DeletedOrderInfo
     """
 
-    order_identifier: StrictInt | None = Field(default=None, alias='orderIdentifier')
-    order_reference: StrictStr | None = Field(default=None, alias='orderReference')
-    order_info: StrictStr | None = Field(default=None, alias='orderInfo')
+    order_identifier: StrictInt | None = Field(default=None, alias="orderIdentifier")
+    order_reference: StrictStr | None = Field(default=None, alias="orderReference")
+    order_info: StrictStr | None = Field(default=None, alias="orderInfo")

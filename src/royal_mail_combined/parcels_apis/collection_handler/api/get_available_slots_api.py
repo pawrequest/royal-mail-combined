@@ -24,8 +24,8 @@ from royal_mail_combined.core.rest import RESTResponseType
 ACCEPT = Annotated[
     StrictStr,
     Field(
-        description='Content-Types that are acceptable for the response. Eg. application/json',
-        default='application/json',
+        description="Content-Types that are acceptable for the response. Eg. application/json",
+        default="application/json",
     ),
 ]
 
@@ -43,14 +43,14 @@ class GetAvailableSlotsApi:
     @validate_call
     def order_get_available_slots(
         self,
-        dps: Annotated[StrictStr, Field(description='delivery point suffix details.')],
-        item_count: Annotated[StrictInt, Field(description='item/items count.')],
+        dps: Annotated[StrictStr, Field(description="delivery point suffix details.")],
+        item_count: Annotated[StrictInt, Field(description="item/items count.")],
         x_rmg_date_time: X_RMG_DATETIME,
         accept: ACCEPT,
         x_rmg_idempotency_key: Annotated[
             Annotated[str, Field(min_length=0, strict=True, max_length=256)] | None,
             Field(
-                description='Identifier to help denote whether the request is idempotent Eg: ANON:www.w3.org:j6oAOxCWZh/CD723LGeXlf-01:34'
+                description="Identifier to help denote whether the request is idempotent Eg: ANON:www.w3.org:j6oAOxCWZh/CD723LGeXlf-01:34"
             ),
         ] = None,
         _request_timeout: None
@@ -110,13 +110,13 @@ class GetAvailableSlotsApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'GetAvailableSlotsResponse',
-            '400': 'Model400',
-            '401': 'Model401',
-            '404': 'Model404NotFound',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "200": "GetAvailableSlotsResponse",
+            "400": "Model400",
+            "401": "Model401",
+            "404": "Model404NotFound",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -128,14 +128,14 @@ class GetAvailableSlotsApi:
     @validate_call
     def order_get_available_slots_with_http_info(
         self,
-        dps: Annotated[StrictStr, Field(description='delivery point suffix details.')],
-        item_count: Annotated[StrictInt, Field(description='item/items count.')],
+        dps: Annotated[StrictStr, Field(description="delivery point suffix details.")],
+        item_count: Annotated[StrictInt, Field(description="item/items count.")],
         x_rmg_date_time: X_RMG_DATETIME,
         accept: ACCEPT,
         x_rmg_idempotency_key: Annotated[
             Annotated[str, Field(min_length=0, strict=True, max_length=256)] | None,
             Field(
-                description='Identifier to help denote whether the request is idempotent Eg: ANON:www.w3.org:j6oAOxCWZh/CD723LGeXlf-01:34'
+                description="Identifier to help denote whether the request is idempotent Eg: ANON:www.w3.org:j6oAOxCWZh/CD723LGeXlf-01:34"
             ),
         ] = None,
         _request_timeout: None
@@ -195,13 +195,13 @@ class GetAvailableSlotsApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'GetAvailableSlotsResponse',
-            '400': 'Model400',
-            '401': 'Model401',
-            '404': 'Model404NotFound',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "200": "GetAvailableSlotsResponse",
+            "400": "Model400",
+            "401": "Model401",
+            "404": "Model404NotFound",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -213,14 +213,14 @@ class GetAvailableSlotsApi:
     @validate_call
     def order_get_available_slots_without_preload_content(
         self,
-        dps: Annotated[StrictStr, Field(description='delivery point suffix details.')],
-        item_count: Annotated[StrictInt, Field(description='item/items count.')],
+        dps: Annotated[StrictStr, Field(description="delivery point suffix details.")],
+        item_count: Annotated[StrictInt, Field(description="item/items count.")],
         x_rmg_date_time: X_RMG_DATETIME,
         accept: ACCEPT,
         x_rmg_idempotency_key: Annotated[
             Annotated[str, Field(min_length=0, strict=True, max_length=256)] | None,
             Field(
-                description='Identifier to help denote whether the request is idempotent Eg: ANON:www.w3.org:j6oAOxCWZh/CD723LGeXlf-01:34'
+                description="Identifier to help denote whether the request is idempotent Eg: ANON:www.w3.org:j6oAOxCWZh/CD723LGeXlf-01:34"
             ),
         ] = None,
         _request_timeout: None
@@ -280,13 +280,13 @@ class GetAvailableSlotsApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'GetAvailableSlotsResponse',
-            '400': 'Model400',
-            '401': 'Model401',
-            '404': 'Model404NotFound',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "200": "GetAvailableSlotsResponse",
+            "400": "Model400",
+            "401": "Model401",
+            "404": "Model404NotFound",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -317,31 +317,31 @@ class GetAvailableSlotsApi:
         # process the path parameters
         # process the query parameters
         if dps is not None:
-            _query_params.append(('dps', dps))
+            _query_params.append(("dps", dps))
 
         if item_count is not None:
-            _query_params.append(('itemCount', item_count))
+            _query_params.append(("itemCount", item_count))
 
         # process the header parameters
         if x_rmg_date_time is not None:
-            _header_params['X-RMG-Date-Time'] = x_rmg_date_time
+            _header_params["X-RMG-Date-Time"] = x_rmg_date_time
         if accept is not None:
-            _header_params['Accept'] = accept
+            _header_params["Accept"] = accept
         if x_rmg_idempotency_key is not None:
-            _header_params['X-RMG-Idempotency-Key'] = x_rmg_idempotency_key
+            _header_params["X-RMG-Idempotency-Key"] = x_rmg_idempotency_key
         # process the form parameters
         # process the body parameter
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(['application/json'])
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: list[str] = ['Client-Secret', 'Client-Id', 'BearerAuth']
+        _auth_settings: list[str] = ["Client-Secret", "Client-Id", "BearerAuth"]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/slots',
+            method="GET",
+            resource_path="/slots",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

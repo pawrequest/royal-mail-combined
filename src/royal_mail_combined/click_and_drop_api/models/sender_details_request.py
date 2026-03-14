@@ -25,12 +25,6 @@ class SenderDetailsRequest(RMBaseModel):
     SenderDetailsRequest
     """
 
-    trading_name: Annotated[str, Field(strict=True, max_length=250)] | None = Field(
-        default=None, alias='tradingName'
-    )
-    phone_number: Annotated[str, Field(strict=True, max_length=25)] | None = Field(
-        default=None, alias='phoneNumber'
-    )
-    email_address: Annotated[str, Field(strict=True, max_length=254)] | None = Field(
-        default=None, alias='emailAddress'
-    )
+    trading_name: Annotated[str, Field(strict=True, max_length=250)] | None = Field(default=None, alias="tradingName")
+    phone_number: Annotated[str, Field(strict=True, max_length=25)] | None = Field(default=None, alias="phoneNumber")
+    email_address: Annotated[str, Field(strict=True, max_length=254)] | None = Field(default=None, alias="emailAddress")

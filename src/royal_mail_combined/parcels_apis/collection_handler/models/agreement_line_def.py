@@ -23,5 +23,5 @@ class AgreementLineDef(RMBaseModel):
     """
 
     is_contract_available_for_cc_product: StrictStr = Field(
-        description='Is Contract available for CC product', alias='isContractAvailableForCCProduct'
+        description="Is Contract available for CC product", alias="isContractAvailableForCCProduct"
     )

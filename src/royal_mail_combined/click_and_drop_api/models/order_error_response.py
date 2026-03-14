@@ -24,7 +24,7 @@ class OrderErrorResponse(RMBaseModel):
     OrderErrorResponse
     """
 
-    account_order_number: StrictInt | None = Field(default=None, alias='accountOrderNumber')
-    channel_order_reference: StrictStr | None = Field(default=None, alias='channelOrderReference')
+    account_order_number: StrictInt | None = Field(default=None, alias="accountOrderNumber")
+    channel_order_reference: StrictStr | None = Field(default=None, alias="channelOrderReference")
     code: StrictStr | None = None
     message: StrictStr | None = None

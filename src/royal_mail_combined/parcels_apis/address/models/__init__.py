@@ -19,11 +19,11 @@ from .addresses_def import AddressesDef
 
 
 __all__ = [
-    'AddressFindRequestDef',
-    'AddressRecordDef',
-    'AddressSummaryDef',
-    'AddressVerifyReqRespdef',
-    'AddressVerifyRequestDef',
-    'AddressVerifyDef',
-    'AddressesDef',
+    "AddressFindRequestDef",
+    "AddressRecordDef",
+    "AddressSummaryDef",
+    "AddressVerifyReqRespdef",
+    "AddressVerifyRequestDef",
+    "AddressVerifyDef",
+    "AddressesDef",
 ]

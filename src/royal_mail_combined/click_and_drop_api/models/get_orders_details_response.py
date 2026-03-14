@@ -27,7 +27,7 @@ class GetOrdersDetailsResponse(RMBaseModel):
     """
 
     orders: list[GetOrderDetailsResource] | None = None
-    continuation_token: StrictStr | None = Field(default=None, alias='continuationToken')
+    continuation_token: StrictStr | None = Field(default=None, alias="continuationToken")
 
     def order_idents(self) -> list[int | str]:
         return [_.order_identifier for _ in self.orders]

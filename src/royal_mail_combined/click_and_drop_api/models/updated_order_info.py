@@ -24,6 +24,6 @@ class UpdatedOrderInfo(RMBaseModel):
     UpdatedOrderInfo
     """
 
-    order_identifier: StrictInt | None = Field(default=None, alias='orderIdentifier')
-    order_reference: StrictStr | None = Field(default=None, alias='orderReference')
-    status: StrictStr | None = Field(default=None, description='Current status of the order')
+    order_identifier: StrictInt | None = Field(default=None, alias="orderIdentifier")
+    order_reference: StrictStr | None = Field(default=None, alias="orderReference")
+    status: StrictStr | None = Field(default=None, description="Current status of the order")

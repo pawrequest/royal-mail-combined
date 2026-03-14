@@ -23,4 +23,4 @@ class ValidateSubscriptionResponse(RMBaseModel):
     ValidateSubscriptionResponse
     """
 
-    product_family: list[ProductFamilyResponseDef] = Field(alias='productFamily')
+    product_family: list[ProductFamilyResponseDef] = Field(alias="productFamily")

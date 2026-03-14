@@ -24,7 +24,7 @@ class OrderErrorInfo(RMBaseModel):
     OrderErrorInfo
     """
 
-    order_identifier: StrictInt | None = Field(default=None, alias='orderIdentifier')
-    order_reference: StrictStr | None = Field(default=None, alias='orderReference')
+    order_identifier: StrictInt | None = Field(default=None, alias="orderIdentifier")
+    order_reference: StrictStr | None = Field(default=None, alias="orderReference")
     code: StrictStr | None = None
     message: StrictStr | None = None

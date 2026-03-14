@@ -40,14 +40,12 @@ class ProductFamilySubscriptionApi:
         x_rmg_date_time: Annotated[
             date,
             Field(
-                description='This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00 YYYY-MM-DDThh:mm:ss±hh:mm (To be used when there is an offset to GMT) YYYY-MM-DDThh:mm:ssZ  (To be used when value is in GMT)'
+                description="This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00 YYYY-MM-DDThh:mm:ss±hh:mm (To be used when there is an offset to GMT) YYYY-MM-DDThh:mm:ssZ  (To be used when value is in GMT)"
             ),
         ],
         accept: Annotated[
             StrictStr,
-            Field(
-                description='Content-Types that are acceptable for the response. Eg. application/json'
-            ),
+            Field(description="Content-Types that are acceptable for the response. Eg. application/json"),
         ],
         product_family: ProductFamily,
         _request_timeout: None
@@ -101,13 +99,13 @@ class ProductFamilySubscriptionApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'ValidateSubscriptionResponse',
-            '400': 'Model400',
-            '401': 'Model401',
-            '404': 'Model404',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "200": "ValidateSubscriptionResponse",
+            "400": "Model400",
+            "401": "Model401",
+            "404": "Model404",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -122,14 +120,12 @@ class ProductFamilySubscriptionApi:
         x_rmg_date_time: Annotated[
             date,
             Field(
-                description='This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00 YYYY-MM-DDThh:mm:ss±hh:mm (To be used when there is an offset to GMT) YYYY-MM-DDThh:mm:ssZ  (To be used when value is in GMT)'
+                description="This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00 YYYY-MM-DDThh:mm:ss±hh:mm (To be used when there is an offset to GMT) YYYY-MM-DDThh:mm:ssZ  (To be used when value is in GMT)"
             ),
         ],
         accept: Annotated[
             StrictStr,
-            Field(
-                description='Content-Types that are acceptable for the response. Eg. application/json'
-            ),
+            Field(description="Content-Types that are acceptable for the response. Eg. application/json"),
         ],
         product_family: ProductFamily,
         _request_timeout: None
@@ -183,13 +179,13 @@ class ProductFamilySubscriptionApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'ValidateSubscriptionResponse',
-            '400': 'Model400',
-            '401': 'Model401',
-            '404': 'Model404',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "200": "ValidateSubscriptionResponse",
+            "400": "Model400",
+            "401": "Model401",
+            "404": "Model404",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -204,14 +200,12 @@ class ProductFamilySubscriptionApi:
         x_rmg_date_time: Annotated[
             date,
             Field(
-                description='This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00 YYYY-MM-DDThh:mm:ss±hh:mm (To be used when there is an offset to GMT) YYYY-MM-DDThh:mm:ssZ  (To be used when value is in GMT)'
+                description="This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00 YYYY-MM-DDThh:mm:ss±hh:mm (To be used when there is an offset to GMT) YYYY-MM-DDThh:mm:ssZ  (To be used when value is in GMT)"
             ),
         ],
         accept: Annotated[
             StrictStr,
-            Field(
-                description='Content-Types that are acceptable for the response. Eg. application/json'
-            ),
+            Field(description="Content-Types that are acceptable for the response. Eg. application/json"),
         ],
         product_family: ProductFamily,
         _request_timeout: None
@@ -265,13 +259,13 @@ class ProductFamilySubscriptionApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'ValidateSubscriptionResponse',
-            '400': 'Model400',
-            '401': 'Model401',
-            '404': 'Model404',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "200": "ValidateSubscriptionResponse",
+            "400": "Model400",
+            "401": "Model401",
+            "404": "Model404",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -301,32 +295,32 @@ class ProductFamilySubscriptionApi:
         # process the query parameters
         # process the header parameters
         if x_rmg_date_time is not None:
-            _header_params['X-RMG-Date-Time'] = x_rmg_date_time
+            _header_params["X-RMG-Date-Time"] = x_rmg_date_time
         if accept is not None:
-            _header_params['Accept'] = accept
+            _header_params["Accept"] = accept
         # process the form parameters
         # process the body parameter
         if product_family is not None:
             _body_params = product_family
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(['application/json'])
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(["application/json"])
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
-            _default_content_type = self.api_client.select_header_content_type(['application/json'])
+            _default_content_type = self.api_client.select_header_content_type(["application/json"])
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
-        _auth_settings: list[str] = ['Client-Secret', 'Client-Id', 'BearerAuth']
+        _auth_settings: list[str] = ["Client-Secret", "Client-Id", "BearerAuth"]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/productfamily/subscription',
+            method="POST",
+            resource_path="/productfamily/subscription",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

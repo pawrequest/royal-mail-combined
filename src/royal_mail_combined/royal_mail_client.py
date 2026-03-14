@@ -24,7 +24,7 @@ def make_item(barcode_id: str, box_weight_kg: int, dims: DimensionsPostDef) -> I
     return ItemsPostDef(
         item_barcode_id=barcode_id,
         weight_in_grams=1000 * box_weight_kg,
-        item_service_name='Tracked Returns 24 (T24) Enhanced',
+        item_service_name="Tracked Returns 24 (T24) Enhanced",
         item_type=CollectionItemType.STANDARD,
         dimensions=dims,
     )
@@ -40,16 +40,12 @@ class RMHttpClient(BaseHttpClient):
         res_model = ReturnsResponse.model_validate(res.json())
         return res_model
 
-    def book_inbound_shipment(
-        self, return_request: ReturnsRequest, num_boxes: int = 1
-    ) -> list[ReturnsResponse]:
+    def book_inbound_shipment(self, return_request: ReturnsRequest, num_boxes: int = 1) -> list[ReturnsResponse]:
         return [self._book_inbound_shipment_single(return_request) for _ in range(num_boxes)]
 
     def check_return_services(self) -> AvailableServicesResponse:
         # WARNING ServiceNames returned from here are not correct for use with CollectionsOrderCreate endpoint - must hardcode values from support email
-        res = self.do_get(
-            url=RETURNS_SERVICES_ENDPOINT, headers=self.settings.authorised_headers_bearer()
-        )
+        res = self.do_get(url=RETURNS_SERVICES_ENDPOINT, headers=self.settings.authorised_headers_bearer())
         res_model = AvailableServicesResponse.model_validate(res.json())
         return res_model
 
@@ -86,14 +82,10 @@ class RoyalMailClient:
         box_weight_kg: int = 8,
     ) -> CollectionOrderCreateResponse:
         # gather shipment data
-        sender_address_verified = self.parcel_api.verify_return_address(
-            return_request.shipment.sender_address
-        )
+        sender_address_verified = self.parcel_api.verify_return_address(return_request.shipment.sender_address)
         dps = sender_address_verified.dps
-        postcode_and_dps = sender_address_verified.input.postcode.replace(' ', '') + dps
-        collection_address = AddressMandatoryDef(
-            **sender_address_verified.input.model_dump(), dps=dps
-        )
+        postcode_and_dps = sender_address_verified.input.postcode.replace(" ", "") + dps
+        collection_address = AddressMandatoryDef(**sender_address_verified.input.model_dump(), dps=dps)
 
         # book shipping
         booking_responses = self.book_inbound_shipment(return_request, num_boxes=num_boxes)
@@ -103,7 +95,7 @@ class RoyalMailClient:
             ItemsPostDef(
                 item_barcode_id=booking_response.shipment.tracking_number,
                 weight_in_grams=1000 * box_weight_kg,
-                item_service_name='Tracked Returns 24 (T24) Enhanced',
+                item_service_name="Tracked Returns 24 (T24) Enhanced",
                 item_type=CollectionItemType.STANDARD,
                 dimensions=box_dims,
             )

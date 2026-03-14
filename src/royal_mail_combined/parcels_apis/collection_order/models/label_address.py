@@ -31,5 +31,5 @@ class LabelAddress(RMBaseModel):
     post_town: Annotated[str, Field(min_length=1, strict=True, max_length=64)]
     county: Annotated[str, Field(strict=True, max_length=64)] | None = None
     postcode: Annotated[str, Field(min_length=1, strict=True, max_length=10)]
-    dps: Annotated[str, Field(strict=True, max_length=10)] | None = Field(default='9Z', alias='DPS')
-    country_code: Annotated[str, Field(strict=True, max_length=3)] | None = 'GBR'
+    dps: Annotated[str, Field(strict=True, max_length=10)] | None = Field(default="9Z", alias="DPS")
+    country_code: Annotated[str, Field(strict=True, max_length=3)] | None = "GBR"

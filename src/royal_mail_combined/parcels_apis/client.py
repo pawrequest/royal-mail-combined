@@ -44,9 +44,9 @@ class ParcelAPIClient:
         dps_request = AddressVerifyRequestDef(addresses=[address_verify])
         dps_responses = self.address_api.address_verify(dps_request)
         if len(dps_responses) == 0:
-            raise Exception('No address verify responses returned')
+            raise Exception("No address verify responses returned")
         if len(dps_responses) > 1:
-            raise Exception('Multiple address verify responses returned')
+            raise Exception("Multiple address verify responses returned")
         return dps_responses[0]
 
     def address_search(self, address_text: str):
@@ -54,25 +54,19 @@ class ParcelAPIClient:
         return self.address_api.address_find(address_find_request=req)
 
     def collection_subscription_check(self, barcode, family_name, account_number):
-        pf_ = ProductFamilyDef(
-            account_number=account_number, barcode=barcode, product_family_name=family_name
-        )
+        pf_ = ProductFamilyDef(account_number=account_number, barcode=barcode, product_family_name=family_name)
         pf = ProductFamily(product_family=[pf_])
         res = self.subs_api.order_validate_subscription(product_family=pf)
         return res
 
     def cancel_collection(self, collection_id: str):
         req = CollectionStatusRequestDef(status=CollectionStatus.CANCELLED)
-        return self.collection_orders_api.order_delete(
-            collection_id=collection_id, collection_status_request=req
-        )
+        return self.collection_orders_api.order_delete(collection_id=collection_id, collection_status_request=req)
 
     def get_token(self, collection_date: date, num_boxes: int, postcode_and_dps: str) -> str | None:
-        slots_response = self.slots_api.order_get_available_slots(
-            dps=postcode_and_dps, item_count=num_boxes
-        )
+        slots_response = self.slots_api.order_get_available_slots(dps=postcode_and_dps, item_count=num_boxes)
         my_slot = match_collection_slot_date(slots_response, collection_date)
         if my_slot is None:
-            raise Exception('No slot found for date')
+            raise Exception("No slot found for date")
         token = slots_response.task_slots.slot_details.token_id
         return token

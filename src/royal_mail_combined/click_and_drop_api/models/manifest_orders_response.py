@@ -24,7 +24,7 @@ class ManifestOrdersResponse(RMBaseModel):
     ManifestOrdersResponse
     """
 
-    manifest_number: StrictFloat | StrictInt = Field(alias='manifestNumber')
+    manifest_number: StrictFloat | StrictInt = Field(alias="manifestNumber")
     document_pdf: StrictStr | None = Field(
-        default=None, description='manifest in format base64 string', alias='documentPdf'
+        default=None, description="manifest in format base64 string", alias="documentPdf"
     )

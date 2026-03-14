@@ -41,12 +41,8 @@ class CollectionOrderApi:
         self,
         collection: Collection,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[
-            StrictStr | None, Field(description='Optional default english')
-        ] = None,
-        accept: Annotated[
-            StrictStr | None, Field(description='Pass though; used for markdown')
-        ] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
+        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -101,14 +97,14 @@ class CollectionOrderApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '201': 'CollectionOrderCreateResponse',
-            '400': 'Model400',
-            '401': 'Model401',
-            '403': 'Model403',
-            '404': 'Model404',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "201": "CollectionOrderCreateResponse",
+            "400": "Model400",
+            "401": "Model401",
+            "403": "Model403",
+            "404": "Model404",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -122,12 +118,8 @@ class CollectionOrderApi:
         self,
         collection: Collection,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[
-            StrictStr | None, Field(description='Optional default english')
-        ] = None,
-        accept: Annotated[
-            StrictStr | None, Field(description='Pass though; used for markdown')
-        ] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
+        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -182,14 +174,14 @@ class CollectionOrderApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '201': 'CollectionOrderCreateResponse',
-            '400': 'Model400',
-            '401': 'Model401',
-            '403': 'Model403',
-            '404': 'Model404',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "201": "CollectionOrderCreateResponse",
+            "400": "Model400",
+            "401": "Model401",
+            "403": "Model403",
+            "404": "Model404",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -203,12 +195,8 @@ class CollectionOrderApi:
         self,
         collection: Collection,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[
-            StrictStr | None, Field(description='Optional default english')
-        ] = None,
-        accept: Annotated[
-            StrictStr | None, Field(description='Pass though; used for markdown')
-        ] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
+        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -263,14 +251,14 @@ class CollectionOrderApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '201': 'CollectionOrderCreateResponse',
-            '400': 'Model400',
-            '401': 'Model401',
-            '403': 'Model403',
-            '404': 'Model404',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "201": "CollectionOrderCreateResponse",
+            "400": "Model400",
+            "401": "Model401",
+            "403": "Model403",
+            "404": "Model404",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -301,36 +289,36 @@ class CollectionOrderApi:
         # process the query parameters
         # process the header parameters
         if x_rmg_language is not None:
-            _header_params['X-RMG-Language'] = x_rmg_language
+            _header_params["X-RMG-Language"] = x_rmg_language
         if x_rmg_date_time is not None:
-            _header_params['X-RMG-Date-Time'] = x_rmg_date_time
+            _header_params["X-RMG-Date-Time"] = x_rmg_date_time
         if accept is not None:
-            _header_params['Accept'] = accept
+            _header_params["Accept"] = accept
         # process the form parameters
         # process the body parameter
         if collection is not None:
             _body_params = collection
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                ['application/json', 'prabhjot.prabhjot@capgemini.com']
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
+                ["application/json", "prabhjot.prabhjot@capgemini.com"]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
-            _default_content_type = self.api_client.select_header_content_type(['application/json'])
+            _default_content_type = self.api_client.select_header_content_type(["application/json"])
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
-        _auth_settings: list[str] = ['Client-Id', 'Client-Secret']
+        _auth_settings: list[str] = ["Client-Id", "Client-Secret"]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/collectionOrder',
+            method="POST",
+            resource_path="/collectionOrder",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -348,12 +336,8 @@ class CollectionOrderApi:
         self,
         collection: CollectionMandatory,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[
-            StrictStr | None, Field(description='Optional default english')
-        ] = None,
-        accept: Annotated[
-            StrictStr | None, Field(description='Pass though; used for markdown')
-        ] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
+        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -408,15 +392,15 @@ class CollectionOrderApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '201': 'CollectionOrderCreateResponse',
-            '200': 'CollectionOrderCreateResponse',  # added manually because RM swagger docs are wrong
-            '400': 'Model400',
-            '401': 'Model401',
-            '403': 'Model403',
-            '404': 'Model404',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "201": "CollectionOrderCreateResponse",
+            "200": "CollectionOrderCreateResponse",  # added manually because RM swagger docs are wrong
+            "400": "Model400",
+            "401": "Model401",
+            "403": "Model403",
+            "404": "Model404",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -430,12 +414,8 @@ class CollectionOrderApi:
         self,
         collection: CollectionMandatory,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[
-            StrictStr | None, Field(description='Optional default english')
-        ] = None,
-        accept: Annotated[
-            StrictStr | None, Field(description='Pass though; used for markdown')
-        ] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
+        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -490,14 +470,14 @@ class CollectionOrderApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '201': 'CollectionOrderCreateResponse',
-            '400': 'Model400',
-            '401': 'Model401',
-            '403': 'Model403',
-            '404': 'Model404',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "201": "CollectionOrderCreateResponse",
+            "400": "Model400",
+            "401": "Model401",
+            "403": "Model403",
+            "404": "Model404",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -511,12 +491,8 @@ class CollectionOrderApi:
         self,
         collection: CollectionMandatory,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[
-            StrictStr | None, Field(description='Optional default english')
-        ] = None,
-        accept: Annotated[
-            StrictStr | None, Field(description='Pass though; used for markdown')
-        ] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
+        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -571,14 +547,14 @@ class CollectionOrderApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '201': 'CollectionOrderCreateResponse',
-            '400': 'Model400',
-            '401': 'Model401',
-            '403': 'Model403',
-            '404': 'Model404',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "201": "CollectionOrderCreateResponse",
+            "400": "Model400",
+            "401": "Model401",
+            "403": "Model403",
+            "404": "Model404",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -586,15 +562,11 @@ class CollectionOrderApi:
     @validate_call
     def order_delete_with_http_info(
         self,
-        collection_id: Annotated[StrictStr, Field(description='Unique Collection identifier')],
+        collection_id: Annotated[StrictStr, Field(description="Unique Collection identifier")],
         collection_status_request: CollectionStatusRequestDef,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[
-            StrictStr | None, Field(description='Optional default english')
-        ] = None,
-        accept: Annotated[
-            StrictStr | None, Field(description='Pass though; used for markdown')
-        ] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
+        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -652,13 +624,13 @@ class CollectionOrderApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'CollectionOrderDeleteResponse',
-            '400': 'Model400',
-            '401': 'Model401',
-            '404': 'Model404',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "200": "CollectionOrderDeleteResponse",
+            "400": "Model400",
+            "401": "Model401",
+            "404": "Model404",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -670,15 +642,11 @@ class CollectionOrderApi:
     @validate_call
     def order_delete(
         self,
-        collection_id: Annotated[StrictStr, Field(description='Unique Collection identifier')],
+        collection_id: Annotated[StrictStr, Field(description="Unique Collection identifier")],
         collection_status_request: CollectionStatusRequestDef,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[
-            StrictStr | None, Field(description='Optional default english')
-        ] = None,
-        accept: Annotated[
-            StrictStr | None, Field(description='Pass though; used for markdown')
-        ] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
+        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -736,13 +704,13 @@ class CollectionOrderApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'CollectionOrderDeleteResponse',
-            '400': 'Model400',
-            '401': 'Model401',
-            '404': 'Model404',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "200": "CollectionOrderDeleteResponse",
+            "400": "Model400",
+            "401": "Model401",
+            "404": "Model404",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -777,36 +745,36 @@ class CollectionOrderApi:
         # process the query parameters
         # process the header parameters
         if x_rmg_language is not None:
-            _header_params['X-RMG-Language'] = x_rmg_language
+            _header_params["X-RMG-Language"] = x_rmg_language
         if x_rmg_date_time is not None:
-            _header_params['X-RMG-Date-Time'] = x_rmg_date_time
+            _header_params["X-RMG-Date-Time"] = x_rmg_date_time
         if accept is not None:
-            _header_params['Accept'] = accept
+            _header_params["Accept"] = accept
         # process the form parameters
         # process the body parameter
         if collection is not None:
             _body_params = collection
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                ['application/json', 'prabhjot.prabhjot@capgemini.com']
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
+                ["application/json", "prabhjot.prabhjot@capgemini.com"]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
-            _default_content_type = self.api_client.select_header_content_type(['application/json'])
+            _default_content_type = self.api_client.select_header_content_type(["application/json"])
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
-        _auth_settings: list[str] = ['Client-Id', 'Client-Secret']
+        _auth_settings: list[str] = ["Client-Id", "Client-Secret"]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/collectionOrder/create',
+            method="POST",
+            resource_path="/collectionOrder/create",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -822,15 +790,11 @@ class CollectionOrderApi:
     @validate_call
     def order_delete_without_preload_content(
         self,
-        collection_id: Annotated[StrictStr, Field(description='Unique Collection identifier')],
+        collection_id: Annotated[StrictStr, Field(description="Unique Collection identifier")],
         collection_status_request: CollectionStatusRequestDef,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[
-            StrictStr | None, Field(description='Optional default english')
-        ] = None,
-        accept: Annotated[
-            StrictStr | None, Field(description='Pass though; used for markdown')
-        ] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
+        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -888,13 +852,13 @@ class CollectionOrderApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'CollectionOrderDeleteResponse',
-            '400': 'Model400',
-            '401': 'Model401',
-            '404': 'Model404',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "200": "CollectionOrderDeleteResponse",
+            "400": "Model400",
+            "401": "Model401",
+            "404": "Model404",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -924,40 +888,40 @@ class CollectionOrderApi:
 
         # process the path parameters
         if collection_id is not None:
-            _path_params['collectionId'] = collection_id
+            _path_params["collectionId"] = collection_id
         # process the query parameters
         # process the header parameters
         if x_rmg_language is not None:
-            _header_params['X-RMG-Language'] = x_rmg_language
+            _header_params["X-RMG-Language"] = x_rmg_language
         if x_rmg_date_time is not None:
-            _header_params['X-RMG-Date-Time'] = x_rmg_date_time
+            _header_params["X-RMG-Date-Time"] = x_rmg_date_time
         if accept is not None:
-            _header_params['Accept'] = accept
+            _header_params["Accept"] = accept
         # process the form parameters
         # process the body parameter
         if collection_status_request is not None:
             _body_params = collection_status_request
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                ['application/json', 'prabhjot.prabhjot@capgemini.com']
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
+                ["application/json", "prabhjot.prabhjot@capgemini.com"]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
-            _default_content_type = self.api_client.select_header_content_type(['application/json'])
+            _default_content_type = self.api_client.select_header_content_type(["application/json"])
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
-        _auth_settings: list[str] = ['Client-Id', 'Client-Secret']
+        _auth_settings: list[str] = ["Client-Id", "Client-Secret"]
 
         return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/collectionOrder/{collectionId}/status',
+            method="PUT",
+            resource_path="/collectionOrder/{collectionId}/status",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -973,14 +937,10 @@ class CollectionOrderApi:
     @validate_call
     def order_get(
         self,
-        collection_id: Annotated[StrictStr, Field(description='Unique Collection identifier')],
+        collection_id: Annotated[StrictStr, Field(description="Unique Collection identifier")],
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[
-            StrictStr | None, Field(description='Optional default english')
-        ] = None,
-        accept: Annotated[
-            StrictStr | None, Field(description='Pass though; used for markdown')
-        ] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
+        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -1035,13 +995,13 @@ class CollectionOrderApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'CollectionOrderGetResponse',
-            '400': 'Model400',
-            '401': 'Model401',
-            '404': 'Model404',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "200": "CollectionOrderGetResponse",
+            "400": "Model400",
+            "401": "Model401",
+            "404": "Model404",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -1053,14 +1013,10 @@ class CollectionOrderApi:
     @validate_call
     def order_get_with_http_info(
         self,
-        collection_id: Annotated[StrictStr, Field(description='Unique Collection identifier')],
+        collection_id: Annotated[StrictStr, Field(description="Unique Collection identifier")],
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[
-            StrictStr | None, Field(description='Optional default english')
-        ] = None,
-        accept: Annotated[
-            StrictStr | None, Field(description='Pass though; used for markdown')
-        ] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
+        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -1115,13 +1071,13 @@ class CollectionOrderApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'CollectionOrderGetResponse',
-            '400': 'Model400',
-            '401': 'Model401',
-            '404': 'Model404',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "200": "CollectionOrderGetResponse",
+            "400": "Model400",
+            "401": "Model401",
+            "404": "Model404",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -1133,14 +1089,10 @@ class CollectionOrderApi:
     @validate_call
     def order_get_without_preload_content(
         self,
-        collection_id: Annotated[StrictStr, Field(description='Unique Collection identifier')],
+        collection_id: Annotated[StrictStr, Field(description="Unique Collection identifier")],
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[
-            StrictStr | None, Field(description='Optional default english')
-        ] = None,
-        accept: Annotated[
-            StrictStr | None, Field(description='Pass though; used for markdown')
-        ] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
+        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -1195,13 +1147,13 @@ class CollectionOrderApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'CollectionOrderGetResponse',
-            '400': 'Model400',
-            '401': 'Model401',
-            '404': 'Model404',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "200": "CollectionOrderGetResponse",
+            "400": "Model400",
+            "401": "Model401",
+            "404": "Model404",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -1230,30 +1182,30 @@ class CollectionOrderApi:
 
         # process the path parameters
         if collection_id is not None:
-            _path_params['collectionId'] = collection_id
+            _path_params["collectionId"] = collection_id
         # process the query parameters
         # process the header parameters
         if x_rmg_language is not None:
-            _header_params['X-RMG-Language'] = x_rmg_language
+            _header_params["X-RMG-Language"] = x_rmg_language
         if x_rmg_date_time is not None:
-            _header_params['X-RMG-Date-Time'] = x_rmg_date_time
+            _header_params["X-RMG-Date-Time"] = x_rmg_date_time
         if accept is not None:
-            _header_params['Accept'] = accept
+            _header_params["Accept"] = accept
         # process the form parameters
         # process the body parameter
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                ['application/json', 'prabhjot.prabhjot@capgemini.com']
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
+                ["application/json", "prabhjot.prabhjot@capgemini.com"]
             )
 
         # authentication setting
-        _auth_settings: list[str] = ['Client-Id', 'Client-Secret']
+        _auth_settings: list[str] = ["Client-Id", "Client-Secret"]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/collectionOrder/{collectionId}',
+            method="GET",
+            resource_path="/collectionOrder/{collectionId}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1269,15 +1221,11 @@ class CollectionOrderApi:
     @validate_call
     def order_update(
         self,
-        collection_id: Annotated[StrictStr, Field(description='Unique Collection identifier')],
+        collection_id: Annotated[StrictStr, Field(description="Unique Collection identifier")],
         collection: UpdateCollection,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[
-            StrictStr | None, Field(description='Optional default english')
-        ] = None,
-        accept: Annotated[
-            StrictStr | None, Field(description='Pass though; used for markdown')
-        ] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
+        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -1335,13 +1283,13 @@ class CollectionOrderApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'CollectionOrderUpdateResponse',
-            '400': 'Model400',
-            '401': 'Model401',
-            '404': 'Model404',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "200": "CollectionOrderUpdateResponse",
+            "400": "Model400",
+            "401": "Model401",
+            "404": "Model404",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -1353,15 +1301,11 @@ class CollectionOrderApi:
     @validate_call
     def order_update_with_http_info(
         self,
-        collection_id: Annotated[StrictStr, Field(description='Unique Collection identifier')],
+        collection_id: Annotated[StrictStr, Field(description="Unique Collection identifier")],
         collection: UpdateCollection,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[
-            StrictStr | None, Field(description='Optional default english')
-        ] = None,
-        accept: Annotated[
-            StrictStr | None, Field(description='Pass though; used for markdown')
-        ] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
+        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -1419,13 +1363,13 @@ class CollectionOrderApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'CollectionOrderUpdateResponse',
-            '400': 'Model400',
-            '401': 'Model401',
-            '404': 'Model404',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "200": "CollectionOrderUpdateResponse",
+            "400": "Model400",
+            "401": "Model401",
+            "404": "Model404",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -1437,15 +1381,11 @@ class CollectionOrderApi:
     @validate_call
     def order_update_without_preload_content(
         self,
-        collection_id: Annotated[StrictStr, Field(description='Unique Collection identifier')],
+        collection_id: Annotated[StrictStr, Field(description="Unique Collection identifier")],
         collection: UpdateCollection,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[
-            StrictStr | None, Field(description='Optional default english')
-        ] = None,
-        accept: Annotated[
-            StrictStr | None, Field(description='Pass though; used for markdown')
-        ] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
+        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -1503,13 +1443,13 @@ class CollectionOrderApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'CollectionOrderUpdateResponse',
-            '400': 'Model400',
-            '401': 'Model401',
-            '404': 'Model404',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "200": "CollectionOrderUpdateResponse",
+            "400": "Model400",
+            "401": "Model401",
+            "404": "Model404",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -1539,40 +1479,40 @@ class CollectionOrderApi:
 
         # process the path parameters
         if collection_id is not None:
-            _path_params['collectionId'] = collection_id
+            _path_params["collectionId"] = collection_id
         # process the query parameters
         # process the header parameters
         if x_rmg_language is not None:
-            _header_params['X-RMG-Language'] = x_rmg_language
+            _header_params["X-RMG-Language"] = x_rmg_language
         if x_rmg_date_time is not None:
-            _header_params['X-RMG-Date-Time'] = x_rmg_date_time
+            _header_params["X-RMG-Date-Time"] = x_rmg_date_time
         if accept is not None:
-            _header_params['Accept'] = accept
+            _header_params["Accept"] = accept
         # process the form parameters
         # process the body parameter
         if collection is not None:
             _body_params = collection
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                ['application/json', 'prabhjot.prabhjot@capgemini.com']
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(
+                ["application/json", "prabhjot.prabhjot@capgemini.com"]
             )
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
-            _default_content_type = self.api_client.select_header_content_type(['application/json'])
+            _default_content_type = self.api_client.select_header_content_type(["application/json"])
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
-        _auth_settings: list[str] = ['Client-Id', 'Client-Secret']
+        _auth_settings: list[str] = ["Client-Id", "Client-Secret"]
 
         return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/collectionOrder/{collectionId}',
+            method="PUT",
+            resource_path="/collectionOrder/{collectionId}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

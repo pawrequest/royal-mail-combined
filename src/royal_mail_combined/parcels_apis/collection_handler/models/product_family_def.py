@@ -22,10 +22,8 @@ class ProductFamilyDef(RMBaseModel):
     node of product family
     """
 
-    barcode: StrictStr | None = Field(default=None, description='Item BarCode Id')
+    barcode: StrictStr | None = Field(default=None, description="Item BarCode Id")
     product_family_name: StrictStr | None = Field(
-        default=None, description='Product Family Name', alias='productFamilyName'
+        default=None, description="Product Family Name", alias="productFamilyName"
     )
-    account_number: StrictStr | None = Field(
-        default=None, description='Account Number', alias='accountNumber'
-    )
+    account_number: StrictStr | None = Field(default=None, description="Account Number", alias="accountNumber")

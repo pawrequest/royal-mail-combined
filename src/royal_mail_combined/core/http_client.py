@@ -18,7 +18,7 @@ class BaseHttpClient:
     ) -> httpx.Response:
         headers = headers or self.settings.authorised_headers_client()
         if isinstance(data, BaseModel):
-            data = data.model_dump(mode='json', by_alias=True)
+            data = data.model_dump(mode="json", by_alias=True)
         res = httpx.post(url, headers=headers, json=data, timeout=30)
         raise_for_rm_status(res)
         return res
@@ -32,7 +32,7 @@ class BaseHttpClient:
     ) -> httpx.Response:
         headers = headers or self.settings.authorised_headers_client()
         if isinstance(params, BaseModel):
-            params = params.model_dump(mode='json', by_alias=True)
+            params = params.model_dump(mode="json", by_alias=True)
         res = httpx.get(url, headers=headers, params=params, timeout=30)
         raise_for_rm_status(res)
         return res
@@ -48,12 +48,10 @@ class BaseHttpClient:
         raise_for_rm_status(res)
         return res
 
-    def do_put(
-        self, *, url: str, data: dict | BaseModel | None = None, headers: dict | None = None
-    ) -> httpx.Response:
+    def do_put(self, *, url: str, data: dict | BaseModel | None = None, headers: dict | None = None) -> httpx.Response:
         headers = headers or self.settings.authorised_headers_client()
         if isinstance(data, BaseModel):
-            data = data.model_dump(mode='json', by_alias=True)
+            data = data.model_dump(mode="json", by_alias=True)
         res = httpx.put(url, headers=headers, json=data, timeout=30)
         raise_for_rm_status(res)
         return res

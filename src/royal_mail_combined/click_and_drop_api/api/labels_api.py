@@ -33,21 +33,19 @@ class LabelsApi:
         order_identifiers: Annotated[
             StrictStr,
             Field(
-                description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
+                description="One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100."
             ),
         ],
         document_type: Annotated[
             StrictStr,
             Field(
-                default='postageLabel',
+                default="postageLabel",
                 description='Document generation mode. When documentType is set to "postageLabel" the additional parameters below must be used. These additional parameters will be ignored when documentType is not set to "postageLabel"',
             ),
         ],
         include_returns_label: Annotated[
             StrictBool | None,
-            Field(
-                description="Include returns label. Required when documentType is set to 'postageLabel'"
-            ),
+            Field(description="Include returns label. Required when documentType is set to 'postageLabel'"),
         ] = False,
         include_cn: Annotated[
             StrictBool | None,
@@ -109,12 +107,12 @@ class LabelsApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'bytearray',
-            '400': 'List[OrderErrorResponse]',
-            '401': None,
-            '403': None,
-            '404': None,
-            '500': 'ErrorResponse',
+            "200": "bytearray",
+            "400": "List[OrderErrorResponse]",
+            "401": None,
+            "403": None,
+            "404": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -129,7 +127,7 @@ class LabelsApi:
         order_identifiers: Annotated[
             StrictStr,
             Field(
-                description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
+                description="One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100."
             ),
         ],
         document_type: Annotated[
@@ -140,9 +138,7 @@ class LabelsApi:
         ],
         include_returns_label: Annotated[
             StrictBool | None,
-            Field(
-                description="Include returns label. Required when documentType is set to 'postageLabel'"
-            ),
+            Field(description="Include returns label. Required when documentType is set to 'postageLabel'"),
         ] = None,
         include_cn: Annotated[
             StrictBool | None,
@@ -204,12 +200,12 @@ class LabelsApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'bytearray',
-            '400': 'List[OrderErrorResponse]',
-            '401': None,
-            '403': None,
-            '404': None,
-            '500': 'ErrorResponse',
+            "200": "bytearray",
+            "400": "List[OrderErrorResponse]",
+            "401": None,
+            "403": None,
+            "404": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -224,7 +220,7 @@ class LabelsApi:
         order_identifiers: Annotated[
             StrictStr,
             Field(
-                description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
+                description="One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100."
             ),
         ],
         document_type: Annotated[
@@ -235,9 +231,7 @@ class LabelsApi:
         ],
         include_returns_label: Annotated[
             StrictBool | None,
-            Field(
-                description="Include returns label. Required when documentType is set to 'postageLabel'"
-            ),
+            Field(description="Include returns label. Required when documentType is set to 'postageLabel'"),
         ] = None,
         include_cn: Annotated[
             StrictBool | None,
@@ -299,12 +293,12 @@ class LabelsApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'bytearray',
-            '400': 'List[OrderErrorResponse]',
-            '401': None,
-            '403': None,
-            '404': None,
-            '500': 'ErrorResponse',
+            "200": "bytearray",
+            "400": "List[OrderErrorResponse]",
+            "401": None,
+            "403": None,
+            "404": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -333,33 +327,31 @@ class LabelsApi:
 
         # process the path parameters
         if order_identifiers is not None:
-            _path_params['orderIdentifiers'] = order_identifiers
+            _path_params["orderIdentifiers"] = order_identifiers
         # process the query parameters
         if document_type is not None:
-            _query_params.append(('documentType', document_type))
+            _query_params.append(("documentType", document_type))
 
         if include_returns_label is not None:
-            _query_params.append(('includeReturnsLabel', include_returns_label))
+            _query_params.append(("includeReturnsLabel", include_returns_label))
 
         if include_cn is not None:
-            _query_params.append(('includeCN', include_cn))
+            _query_params.append(("includeCN", include_cn))
 
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(
-                ['application/pdf', 'application/json']
-            )
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(["application/pdf", "application/json"])
 
         # authentication setting
-        _auth_settings: list[str] = ['Bearer']
+        _auth_settings: list[str] = ["Bearer"]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/orders/{orderIdentifiers}/label',
+            method="GET",
+            resource_path="/orders/{orderIdentifiers}/label",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

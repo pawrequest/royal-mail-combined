@@ -24,8 +24,8 @@ class SenderDetailsDef(RMBaseModel):
     """
 
     sender_name: Annotated[str, Field(strict=True, max_length=100)] | None = Field(
-        default=None, description='Name of sender', alias='senderName'
+        default=None, description="Name of sender", alias="senderName"
     )
     sender_email: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
-        default=None, description='Email Address of sender', alias='senderEmail'
+        default=None, description="Email Address of sender", alias="senderEmail"
     )

@@ -25,7 +25,7 @@ class AccountDef(RMBaseModel):
     node of account
     """
 
-    account_number: StrictStr = Field(description='Account Number', alias='accountNumber')
+    account_number: StrictStr = Field(description="Account Number", alias="accountNumber")
     subscription: list[SubscriptionDef] | None = None
-    agreement_line: AgreementLineDef = Field(alias='agreementLine')
+    agreement_line: AgreementLineDef = Field(alias="agreementLine")
     contract: ContractCodeDef | None = None

@@ -22,5 +22,5 @@ class ContractSubscriptionDef(RMBaseModel):
     node of subscription data
     """
 
-    name: StrictStr = Field(description='node of subscription data')
-    value: StrictBool = Field(description='Return the subscription value')
+    name: StrictStr = Field(description="node of subscription data")
+    value: StrictBool = Field(description="Return the subscription value")

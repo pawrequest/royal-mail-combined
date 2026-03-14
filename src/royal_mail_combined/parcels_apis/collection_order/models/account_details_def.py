@@ -26,8 +26,8 @@ class AccountDetailsDef(RMBaseModel):
     """
 
     partner_id: Annotated[str, Field(strict=True, max_length=20)] | None = Field(
-        default=None, description='Partner Id', alias='partnerId'
+        default=None, description="Partner Id", alias="partnerId"
     )
     retailer_account_number: Annotated[str, Field(strict=True, max_length=10)] | None = Field(
-        default=None, description='Account number', alias='retailerAccountNumber'
+        default=None, description="Account number", alias="retailerAccountNumber"
     )

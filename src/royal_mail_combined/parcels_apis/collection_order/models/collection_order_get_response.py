@@ -31,28 +31,24 @@ class CollectionOrderGetResponse(RMBaseModel):
     """
 
     collection_order_id: StrictStr | None = Field(
-        default=None, description='Collection Order Id', alias='collectionOrderId'
+        default=None, description="Collection Order Id", alias="collectionOrderId"
     )
     timeslot_reservation_id: StrictStr | None = Field(
-        default=None, description='time slot reservation Id', alias='timeslotReservationId'
+        default=None, description="time slot reservation Id", alias="timeslotReservationId"
     )
-    sender_details: SenderDetailsDef | None = Field(default=None, alias='senderDetails')
-    account_details: AccountDetailsDef | None = Field(default=None, alias='accountDetails')
+    sender_details: SenderDetailsDef | None = Field(default=None, alias="senderDetails")
+    account_details: AccountDetailsDef | None = Field(default=None, alias="accountDetails")
     address: AddressDef | None = None
-    safe_place_details: SafePlaceDetailsDef | None = Field(default=None, alias='safePlaceDetails')
+    safe_place_details: SafePlaceDetailsDef | None = Field(default=None, alias="safePlaceDetails")
     animal_hazard_details: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
-        default=None, description='location animal hazard details', alias='animalHazardDetails'
+        default=None, description="location animal hazard details", alias="animalHazardDetails"
     )
-    collection_status: CollectionStatus | None = Field(default=None, alias='collectionStatus')
+    collection_status: CollectionStatus | None = Field(default=None, alias="collectionStatus")
     collection_date_time: datetime | None = Field(
-        default=None, description='Date of order collection', alias='collectionDateTime'
+        default=None, description="Date of order collection", alias="collectionDateTime"
     )
     items: list[ItemsDef] | None = None
-    created_on: datetime | None = Field(
-        default=None, description='Date of order creation', alias='createdOn'
-    )
-    last_modified_on: datetime | None = Field(
-        default=None, description='Date of last modified', alias='lastModifiedOn'
-    )
-    suppress_rm_notifications: StrictBool = Field(alias='suppressRmNotifications')
-    is_collection_window_visible: StrictBool = Field(alias='isCollectionWindowVisible')
+    created_on: datetime | None = Field(default=None, description="Date of order creation", alias="createdOn")
+    last_modified_on: datetime | None = Field(default=None, description="Date of last modified", alias="lastModifiedOn")
+    suppress_rm_notifications: StrictBool = Field(alias="suppressRmNotifications")
+    is_collection_window_visible: StrictBool = Field(alias="isCollectionWindowVisible")

@@ -42,17 +42,17 @@ class OrdersApi:
 
     def create_return_order_async_maybe(self, return_request: ReturnsRequest):
         response_data = self.api_client.call_api(
-            resource_path='/returns',
-            method='POST',
-            body=return_request.model_dump(mode='json', by_alias=True),
-            auth_settings=['BearerToken'],
+            resource_path="/returns",
+            method="POST",
+            body=return_request.model_dump(mode="json", by_alias=True),
+            auth_settings=["BearerToken"],
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'ReturnsResponse',
-            '400': 'ErrorResponse',
-            '401': None,
-            '500': 'ErrorResponse',
+            "200": "ReturnsResponse",
+            "400": "ErrorResponse",
+            "401": None,
+            "500": "ErrorResponse",
         }
         response_data.read()
         res = self.api_client.response_deserialize(
@@ -109,10 +109,10 @@ class OrdersApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'CreateOrdersResponse',
-            '400': 'ErrorResponse',
-            '401': None,
-            '500': 'ErrorResponse',
+            "200": "CreateOrdersResponse",
+            "400": "ErrorResponse",
+            "401": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -169,10 +169,10 @@ class OrdersApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'CreateOrdersResponse',
-            '400': 'ErrorResponse',
-            '401': None,
-            '500': 'ErrorResponse',
+            "200": "CreateOrdersResponse",
+            "400": "ErrorResponse",
+            "401": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -229,10 +229,10 @@ class OrdersApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'CreateOrdersResponse',
-            '400': 'ErrorResponse',
-            '401': None,
-            '500': 'ErrorResponse',
+            "200": "CreateOrdersResponse",
+            "400": "ErrorResponse",
+            "401": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -265,23 +265,23 @@ class OrdersApi:
             _body_params = create_orders_request
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(['application/json'])
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(["application/json"])
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
-            _default_content_type = self.api_client.select_header_content_type(['application/json'])
+            _default_content_type = self.api_client.select_header_content_type(["application/json"])
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
-        _auth_settings: list[str] = ['Bearer']
+        _auth_settings: list[str] = ["Bearer"]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/orders',
+            method="POST",
+            resource_path="/orders",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -300,7 +300,7 @@ class OrdersApi:
         order_identifiers: Annotated[
             StrictStr,
             Field(
-                description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
+                description="One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100."
             ),
         ],
         _request_timeout: None
@@ -348,12 +348,12 @@ class OrdersApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'DeleteOrdersResource',
-            '400': 'List[OrderErrorInfo]',
-            '401': None,
-            '403': None,
-            '404': None,
-            '500': 'ErrorResponse',
+            "200": "DeleteOrdersResource",
+            "400": "List[OrderErrorInfo]",
+            "401": None,
+            "403": None,
+            "404": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -368,7 +368,7 @@ class OrdersApi:
         order_identifiers: Annotated[
             StrictStr,
             Field(
-                description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
+                description="One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100."
             ),
         ],
         _request_timeout: None
@@ -416,12 +416,12 @@ class OrdersApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'DeleteOrdersResource',
-            '400': 'List[OrderErrorInfo]',
-            '401': None,
-            '403': None,
-            '404': None,
-            '500': 'ErrorResponse',
+            "200": "DeleteOrdersResource",
+            "400": "List[OrderErrorInfo]",
+            "401": None,
+            "403": None,
+            "404": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -436,7 +436,7 @@ class OrdersApi:
         order_identifiers: Annotated[
             StrictStr,
             Field(
-                description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
+                description="One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100."
             ),
         ],
         _request_timeout: None
@@ -484,12 +484,12 @@ class OrdersApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'DeleteOrdersResource',
-            '400': 'List[OrderErrorInfo]',
-            '401': None,
-            '403': None,
-            '404': None,
-            '500': 'ErrorResponse',
+            "200": "DeleteOrdersResource",
+            "400": "List[OrderErrorInfo]",
+            "401": None,
+            "403": None,
+            "404": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -515,22 +515,22 @@ class OrdersApi:
 
         # process the path parameters
         if order_identifiers is not None:
-            _path_params['orderIdentifiers'] = order_identifiers
+            _path_params["orderIdentifiers"] = order_identifiers
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(['application/json'])
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: list[str] = ['Bearer']
+        _auth_settings: list[str] = ["Bearer"]
 
         return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/orders/{orderIdentifiers}',
+            method="DELETE",
+            resource_path="/orders/{orderIdentifiers}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -548,16 +548,16 @@ class OrdersApi:
         self,
         page_size: Annotated[
             Annotated[int, Field(le=100, strict=True, ge=1)] | None,
-            Field(description='The number of items to return'),
+            Field(description="The number of items to return"),
         ] = None,
         start_date_time: Annotated[
-            datetime | None, Field(description='Date and time lower bound for items filtering')
+            datetime | None, Field(description="Date and time lower bound for items filtering")
         ] = None,
         end_date_time: Annotated[
-            datetime | None, Field(description='Date and time upper bound for items filtering')
+            datetime | None, Field(description="Date and time upper bound for items filtering")
         ] = None,
         continuation_token: Annotated[
-            StrictStr | None, Field(description='The token for retrieving the next page of items')
+            StrictStr | None, Field(description="The token for retrieving the next page of items")
         ] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
@@ -612,11 +612,11 @@ class OrdersApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'GetOrdersResponse',
-            '400': 'ErrorResponse',
-            '401': None,
-            '404': None,
-            '500': 'ErrorResponse',
+            "200": "GetOrdersResponse",
+            "400": "ErrorResponse",
+            "401": None,
+            "404": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -630,16 +630,16 @@ class OrdersApi:
         self,
         page_size: Annotated[
             Annotated[int, Field(le=100, strict=True, ge=1)] | None,
-            Field(description='The number of items to return'),
+            Field(description="The number of items to return"),
         ] = None,
         start_date_time: Annotated[
-            datetime | None, Field(description='Date and time lower bound for items filtering')
+            datetime | None, Field(description="Date and time lower bound for items filtering")
         ] = None,
         end_date_time: Annotated[
-            datetime | None, Field(description='Date and time upper bound for items filtering')
+            datetime | None, Field(description="Date and time upper bound for items filtering")
         ] = None,
         continuation_token: Annotated[
-            StrictStr | None, Field(description='The token for retrieving the next page of items')
+            StrictStr | None, Field(description="The token for retrieving the next page of items")
         ] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
@@ -694,11 +694,11 @@ class OrdersApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'GetOrdersResponse',
-            '400': 'ErrorResponse',
-            '401': None,
-            '404': None,
-            '500': 'ErrorResponse',
+            "200": "GetOrdersResponse",
+            "400": "ErrorResponse",
+            "401": None,
+            "404": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -712,16 +712,16 @@ class OrdersApi:
         self,
         page_size: Annotated[
             Annotated[int, Field(le=100, strict=True, ge=1)] | None,
-            Field(description='The number of items to return'),
+            Field(description="The number of items to return"),
         ] = None,
         start_date_time: Annotated[
-            datetime | None, Field(description='Date and time lower bound for items filtering')
+            datetime | None, Field(description="Date and time lower bound for items filtering")
         ] = None,
         end_date_time: Annotated[
-            datetime | None, Field(description='Date and time upper bound for items filtering')
+            datetime | None, Field(description="Date and time upper bound for items filtering")
         ] = None,
         continuation_token: Annotated[
-            StrictStr | None, Field(description='The token for retrieving the next page of items')
+            StrictStr | None, Field(description="The token for retrieving the next page of items")
         ] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
@@ -776,11 +776,11 @@ class OrdersApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'GetOrdersResponse',
-            '400': 'ErrorResponse',
-            '401': None,
-            '404': None,
-            '500': 'ErrorResponse',
+            "200": "GetOrdersResponse",
+            "400": "ErrorResponse",
+            "401": None,
+            "404": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -810,47 +810,47 @@ class OrdersApi:
         # process the path parameters
         # process the query parameters
         if page_size is not None:
-            _query_params.append(('pageSize', page_size))
+            _query_params.append(("pageSize", page_size))
 
         if start_date_time is not None:
             if isinstance(start_date_time, datetime):
                 _query_params.append(
                     (
-                        'startDateTime',
+                        "startDateTime",
                         start_date_time.strftime(self.api_client.configuration.datetime_format),
                     )
                 )
             else:
-                _query_params.append(('startDateTime', start_date_time))
+                _query_params.append(("startDateTime", start_date_time))
 
         if end_date_time is not None:
             if isinstance(end_date_time, datetime):
                 _query_params.append(
                     (
-                        'endDateTime',
+                        "endDateTime",
                         end_date_time.strftime(self.api_client.configuration.datetime_format),
                     )
                 )
             else:
-                _query_params.append(('endDateTime', end_date_time))
+                _query_params.append(("endDateTime", end_date_time))
 
         if continuation_token is not None:
-            _query_params.append(('continuationToken', continuation_token))
+            _query_params.append(("continuationToken", continuation_token))
 
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(['application/json'])
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: list[str] = ['Bearer']
+        _auth_settings: list[str] = ["Bearer"]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/orders',
+            method="GET",
+            resource_path="/orders",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -868,16 +868,16 @@ class OrdersApi:
         self,
         page_size: Annotated[
             Annotated[int, Field(le=100, strict=True, ge=1)] | None,
-            Field(description='The number of items to return'),
+            Field(description="The number of items to return"),
         ] = None,
         start_date_time: Annotated[
-            datetime | None, Field(description='Date and time lower bound for items filtering')
+            datetime | None, Field(description="Date and time lower bound for items filtering")
         ] = None,
         end_date_time: Annotated[
-            datetime | None, Field(description='Date and time upper bound for items filtering')
+            datetime | None, Field(description="Date and time upper bound for items filtering")
         ] = None,
         continuation_token: Annotated[
-            StrictStr | None, Field(description='The token for retrieving the next page of items')
+            StrictStr | None, Field(description="The token for retrieving the next page of items")
         ] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
@@ -933,12 +933,12 @@ class OrdersApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'GetOrdersDetailsResponse',
-            '400': 'ErrorResponse',
-            '401': None,
-            '403': None,
-            '404': None,
-            '500': 'ErrorResponse',
+            "200": "GetOrdersDetailsResponse",
+            "400": "ErrorResponse",
+            "401": None,
+            "403": None,
+            "404": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -952,16 +952,16 @@ class OrdersApi:
         self,
         page_size: Annotated[
             Annotated[int, Field(le=100, strict=True, ge=1)] | None,
-            Field(description='The number of items to return'),
+            Field(description="The number of items to return"),
         ] = None,
         start_date_time: Annotated[
-            datetime | None, Field(description='Date and time lower bound for items filtering')
+            datetime | None, Field(description="Date and time lower bound for items filtering")
         ] = None,
         end_date_time: Annotated[
-            datetime | None, Field(description='Date and time upper bound for items filtering')
+            datetime | None, Field(description="Date and time upper bound for items filtering")
         ] = None,
         continuation_token: Annotated[
-            StrictStr | None, Field(description='The token for retrieving the next page of items')
+            StrictStr | None, Field(description="The token for retrieving the next page of items")
         ] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
@@ -1017,12 +1017,12 @@ class OrdersApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'GetOrdersDetailsResponse',
-            '400': 'ErrorResponse',
-            '401': None,
-            '403': None,
-            '404': None,
-            '500': 'ErrorResponse',
+            "200": "GetOrdersDetailsResponse",
+            "400": "ErrorResponse",
+            "401": None,
+            "403": None,
+            "404": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -1036,16 +1036,16 @@ class OrdersApi:
         self,
         page_size: Annotated[
             Annotated[int, Field(le=100, strict=True, ge=1)] | None,
-            Field(description='The number of items to return'),
+            Field(description="The number of items to return"),
         ] = None,
         start_date_time: Annotated[
-            datetime | None, Field(description='Date and time lower bound for items filtering')
+            datetime | None, Field(description="Date and time lower bound for items filtering")
         ] = None,
         end_date_time: Annotated[
-            datetime | None, Field(description='Date and time upper bound for items filtering')
+            datetime | None, Field(description="Date and time upper bound for items filtering")
         ] = None,
         continuation_token: Annotated[
-            StrictStr | None, Field(description='The token for retrieving the next page of items')
+            StrictStr | None, Field(description="The token for retrieving the next page of items")
         ] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
@@ -1101,12 +1101,12 @@ class OrdersApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'GetOrdersDetailsResponse',
-            '400': 'ErrorResponse',
-            '401': None,
-            '403': None,
-            '404': None,
-            '500': 'ErrorResponse',
+            "200": "GetOrdersDetailsResponse",
+            "400": "ErrorResponse",
+            "401": None,
+            "403": None,
+            "404": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -1136,47 +1136,47 @@ class OrdersApi:
         # process the path parameters
         # process the query parameters
         if page_size is not None:
-            _query_params.append(('pageSize', page_size))
+            _query_params.append(("pageSize", page_size))
 
         if start_date_time is not None:
             if isinstance(start_date_time, datetime):
                 _query_params.append(
                     (
-                        'startDateTime',
+                        "startDateTime",
                         start_date_time.strftime(self.api_client.configuration.datetime_format),
                     )
                 )
             else:
-                _query_params.append(('startDateTime', start_date_time))
+                _query_params.append(("startDateTime", start_date_time))
 
         if end_date_time is not None:
             if isinstance(end_date_time, datetime):
                 _query_params.append(
                     (
-                        'endDateTime',
+                        "endDateTime",
                         end_date_time.strftime(self.api_client.configuration.datetime_format),
                     )
                 )
             else:
-                _query_params.append(('endDateTime', end_date_time))
+                _query_params.append(("endDateTime", end_date_time))
 
         if continuation_token is not None:
-            _query_params.append(('continuationToken', continuation_token))
+            _query_params.append(("continuationToken", continuation_token))
 
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(['application/json'])
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: list[str] = ['Bearer']
+        _auth_settings: list[str] = ["Bearer"]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/orders/full',
+            method="GET",
+            resource_path="/orders/full",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1195,7 +1195,7 @@ class OrdersApi:
         order_identifiers: Annotated[
             StrictStr,
             Field(
-                description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
+                description="One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100."
             ),
         ],
         _request_timeout: None
@@ -1242,11 +1242,11 @@ class OrdersApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'List[GetOrderInfoResource]',
-            '400': 'List[OrderErrorResponse]',
-            '401': None,
-            '404': None,
-            '500': 'ErrorResponse',
+            "200": "List[GetOrderInfoResource]",
+            "400": "List[OrderErrorResponse]",
+            "401": None,
+            "404": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -1261,7 +1261,7 @@ class OrdersApi:
         order_identifiers: Annotated[
             StrictStr,
             Field(
-                description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
+                description="One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100."
             ),
         ],
         _request_timeout: None
@@ -1308,11 +1308,11 @@ class OrdersApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'List[GetOrderInfoResource]',
-            '400': 'List[OrderErrorResponse]',
-            '401': None,
-            '404': None,
-            '500': 'ErrorResponse',
+            "200": "List[GetOrderInfoResource]",
+            "400": "List[OrderErrorResponse]",
+            "401": None,
+            "404": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -1327,7 +1327,7 @@ class OrdersApi:
         order_identifiers: Annotated[
             StrictStr,
             Field(
-                description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
+                description="One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100."
             ),
         ],
         _request_timeout: None
@@ -1374,11 +1374,11 @@ class OrdersApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'List[GetOrderInfoResource]',
-            '400': 'List[OrderErrorResponse]',
-            '401': None,
-            '404': None,
-            '500': 'ErrorResponse',
+            "200": "List[GetOrderInfoResource]",
+            "400": "List[OrderErrorResponse]",
+            "401": None,
+            "404": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -1404,22 +1404,22 @@ class OrdersApi:
 
         # process the path parameters
         if order_identifiers is not None:
-            _path_params['orderIdentifiers'] = order_identifiers
+            _path_params["orderIdentifiers"] = order_identifiers
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(['application/json'])
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: list[str] = ['Bearer']
+        _auth_settings: list[str] = ["Bearer"]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/orders/{orderIdentifiers}',
+            method="GET",
+            resource_path="/orders/{orderIdentifiers}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1438,7 +1438,7 @@ class OrdersApi:
         order_identifiers: Annotated[
             StrictStr,
             Field(
-                description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
+                description="One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100."
             ),
         ],
         _request_timeout: None
@@ -1486,12 +1486,12 @@ class OrdersApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'List[GetOrderDetailsResource]',
-            '400': 'List[OrderErrorResponse]',
-            '401': None,
-            '403': None,
-            '404': None,
-            '500': 'ErrorResponse',
+            "200": "List[GetOrderDetailsResource]",
+            "400": "List[OrderErrorResponse]",
+            "401": None,
+            "403": None,
+            "404": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -1506,7 +1506,7 @@ class OrdersApi:
         order_identifiers: Annotated[
             StrictStr,
             Field(
-                description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
+                description="One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100."
             ),
         ],
         _request_timeout: None
@@ -1554,12 +1554,12 @@ class OrdersApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'List[GetOrderDetailsResource]',
-            '400': 'List[OrderErrorResponse]',
-            '401': None,
-            '403': None,
-            '404': None,
-            '500': 'ErrorResponse',
+            "200": "List[GetOrderDetailsResource]",
+            "400": "List[OrderErrorResponse]",
+            "401": None,
+            "403": None,
+            "404": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -1574,7 +1574,7 @@ class OrdersApi:
         order_identifiers: Annotated[
             StrictStr,
             Field(
-                description='One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100.'
+                description="One or several Order Identifiers or Order References separated by semicolon. Order Identifiers are integer numbers. Order References are strings - each must be percent-encoded and surrounded by double quotation marks. The maximum number of identifiers is 100."
             ),
         ],
         _request_timeout: None
@@ -1622,12 +1622,12 @@ class OrdersApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'List[GetOrderDetailsResource]',
-            '400': 'List[OrderErrorResponse]',
-            '401': None,
-            '403': None,
-            '404': None,
-            '500': 'ErrorResponse',
+            "200": "List[GetOrderDetailsResource]",
+            "400": "List[OrderErrorResponse]",
+            "401": None,
+            "403": None,
+            "404": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -1653,22 +1653,22 @@ class OrdersApi:
 
         # process the path parameters
         if order_identifiers is not None:
-            _path_params['orderIdentifiers'] = order_identifiers
+            _path_params["orderIdentifiers"] = order_identifiers
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(['application/json'])
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: list[str] = ['Bearer']
+        _auth_settings: list[str] = ["Bearer"]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/orders/{orderIdentifiers}/full',
+            method="GET",
+            resource_path="/orders/{orderIdentifiers}/full",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -1734,11 +1734,11 @@ class OrdersApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'UpdateOrderStatusResponse',
-            '400': 'List[OrderUpdateError]',
-            '401': None,
-            '404': None,
-            '500': 'ErrorResponse',
+            "200": "UpdateOrderStatusResponse",
+            "400": "List[OrderUpdateError]",
+            "401": None,
+            "404": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -1800,11 +1800,11 @@ class OrdersApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'UpdateOrderStatusResponse',
-            '400': 'List[OrderUpdateError]',
-            '401': None,
-            '404': None,
-            '500': 'ErrorResponse',
+            "200": "UpdateOrderStatusResponse",
+            "400": "List[OrderUpdateError]",
+            "401": None,
+            "404": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -1866,11 +1866,11 @@ class OrdersApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'UpdateOrderStatusResponse',
-            '400': 'List[OrderUpdateError]',
-            '401': None,
-            '404': None,
-            '500': 'ErrorResponse',
+            "200": "UpdateOrderStatusResponse",
+            "400": "List[OrderUpdateError]",
+            "401": None,
+            "404": None,
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -1903,23 +1903,23 @@ class OrdersApi:
             _body_params = update_orders_status_request
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(['application/json'])
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(["application/json"])
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
-            _default_content_type = self.api_client.select_header_content_type(['application/json'])
+            _default_content_type = self.api_client.select_header_content_type(["application/json"])
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
-        _auth_settings: list[str] = ['Bearer']
+        _auth_settings: list[str] = ["Bearer"]
 
         return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/orders/status',
+            method="PUT",
+            resource_path="/orders/status",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

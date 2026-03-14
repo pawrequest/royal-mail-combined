@@ -9,5 +9,5 @@ from .address_verifydef import AddressVerifyDef
 
 
 class AddressVerifyReqRespdef(RMBaseModel):
-    input: AddressVerifyDef | None = Field(default=None, alias='Input')
-    dps: StrictStr2 | None = Field(default=None, alias='DPS')
+    input: AddressVerifyDef | None = Field(default=None, alias="Input")
+    dps: StrictStr2 | None = Field(default=None, alias="DPS")

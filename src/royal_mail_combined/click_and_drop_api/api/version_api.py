@@ -72,8 +72,8 @@ class VersionApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'GetVersionResource',
-            '500': 'ErrorResponse',
+            "200": "GetVersionResource",
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -126,8 +126,8 @@ class VersionApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'GetVersionResource',
-            '500': 'ErrorResponse',
+            "200": "GetVersionResource",
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -180,8 +180,8 @@ class VersionApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'GetVersionResource',
-            '500': 'ErrorResponse',
+            "200": "GetVersionResource",
+            "500": "ErrorResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -211,15 +211,15 @@ class VersionApi:
         # process the body parameter
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(['application/json'])
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(["application/json"])
 
         # authentication setting
         _auth_settings: list[str] = []
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/version',
+            method="GET",
+            resource_path="/version",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

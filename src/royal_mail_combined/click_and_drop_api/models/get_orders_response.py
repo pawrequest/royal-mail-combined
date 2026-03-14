@@ -24,4 +24,4 @@ class GetOrdersResponse(RMBaseModel):
     """
 
     orders: list[GetOrderInfoResource] | None = None
-    continuation_token: StrictStr | None = Field(default=None, alias='continuationToken')
+    continuation_token: StrictStr | None = Field(default=None, alias="continuationToken")

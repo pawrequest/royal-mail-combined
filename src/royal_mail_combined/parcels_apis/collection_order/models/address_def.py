@@ -14,5 +14,5 @@ class AddressDef(RMBaseModel):
     address_line3: StrictStr64 | None = None
     post_town: StrictStr64 | None = None
     postcode: StrictStr10 | None = None
-    dps: StrictStr10 | None = Field(alias='DPS', description='Delivery Point Suffix')
-    county: StrictStr64 | None = Field(alias='County')
+    dps: StrictStr10 | None = Field(alias="DPS", description="Delivery Point Suffix")
+    county: StrictStr64 | None = Field(alias="County")

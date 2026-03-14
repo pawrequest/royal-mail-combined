@@ -25,6 +25,6 @@ class CreateOrderErrorResponse(RMBaseModel):
     CreateOrderErrorResponse
     """
 
-    error_code: StrictInt | None = Field(default=None, alias='errorCode')
-    error_message: StrictStr | None = Field(default=None, alias='errorMessage')
+    error_code: StrictInt | None = Field(default=None, alias="errorCode")
+    error_message: StrictStr | None = Field(default=None, alias="errorMessage")
     fields: list[OrderFieldResponse] | None = None

@@ -9,8 +9,8 @@ def build_client(settings: RoyalMailSettingsGlobal, host: str):
     client = ApiClient(configuration=config)
     headers = {
         # 'X-RMG-Date-Time': datetime.now().isoformat(timespec='seconds'),
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        "Content-Type": "application/json",
+        "Accept": "application/json",
     }
     client.default_headers.update(headers)
     return client

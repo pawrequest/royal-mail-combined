@@ -22,5 +22,5 @@ class CollectionOrderUpdateResponse(RMBaseModel):
     Response for Update collection order
     """
 
-    collection_order_id: StrictStr = Field(alias='collectionOrderId')
-    status: StrictStr = Field(alias='Status')
+    collection_order_id: StrictStr = Field(alias="collectionOrderId")
+    status: StrictStr = Field(alias="Status")

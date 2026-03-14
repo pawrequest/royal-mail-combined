@@ -25,11 +25,11 @@ class EstimatedWindowDef(RMBaseModel):
     """
 
     start_time: StrictStr | None = Field(
-        default=None, description='the start of the estimated delivery window', alias='startTime'
+        default=None, description="the start of the estimated delivery window", alias="startTime"
     )
     end_time: StrictStr | None = Field(
-        default=None, description='the end of the estimated delivery window', alias='endTime'
+        default=None, description="the end of the estimated delivery window", alias="endTime"
     )
     edw_visibility: StrictFloat | StrictInt | None = Field(
-        default=None, description='EDW Visibility', alias='EDWVisibility'
+        default=None, description="EDW Visibility", alias="EDWVisibility"
     )

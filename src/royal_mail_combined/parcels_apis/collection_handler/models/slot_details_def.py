@@ -22,18 +22,16 @@ class SlotDetailsDef(RMBaseModel):
     Node of the details data
     """
 
-    dps: StrictStr | None = Field(default=None, description='Delivery point suffix')
+    dps: StrictStr | None = Field(default=None, description="Delivery point suffix")
     delivery_office_id: float | int | None = Field(
         default=None,
-        description='Functional location id of Delivery office',
-        alias='deliveryOfficeId',
+        description="Functional location id of Delivery office",
+        alias="deliveryOfficeId",
     )
-    item_count: StrictFloat | StrictInt | None = Field(
-        default=None, description='count of Item.', alias='itemCount'
-    )
-    token_id: StrictStr | None = Field(default=None, description='Toekn Id.', alias='tokenId')
+    item_count: StrictFloat | StrictInt | None = Field(default=None, description="count of Item.", alias="itemCount")
+    token_id: StrictStr | None = Field(default=None, description="Toekn Id.", alias="tokenId")
     token_id_expiry_time: StrictStr | None = Field(
         default=None,
-        description='Token id expiry time, within which it should be used to create task. This will be populated with the date time in ISO 8601 subset format.',
-        alias='tokenIdExpiryTime',
+        description="Token id expiry time, within which it should be used to create task. This will be populated with the date time in ISO 8601 subset format.",
+        alias="tokenIdExpiryTime",
     )

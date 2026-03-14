@@ -24,9 +24,7 @@ class ProductFamilyResponseDef(RMBaseModel):
     node of product family
     """
 
-    product_family_name: StrictStr = Field(
-        description='Product Family Name', alias='productFamilyName'
-    )
-    status: StrictStr = Field(description='Response Status')
+    product_family_name: StrictStr = Field(description="Product Family Name", alias="productFamilyName")
+    status: StrictStr = Field(description="Response Status")
     subscription: list[SubscriptionDef] | None = None
     account: AccountDef | None = None

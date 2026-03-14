@@ -30,22 +30,22 @@ def rtn_address_to_addr_verify(address: AddressReturns) -> AddressVerifyDef:
 
 def address_angonstic_to_verify_def(addr) -> AddressVerifyDef:
     data = addr.model_dump()
-    if not data.get('postTown'):
-        if data.get('city'):
-            data['post_town'] = data['city']
+    if not data.get("postTown"):
+        if data.get("city"):
+            data["post_town"] = data["city"]
     return AddressVerifyDef(
-        address_line1=data.get('address_line1'),
-        address_line2=data.get('address_line2'),
-        address_line3=data.get('address_line3'),
-        post_town=data.get('post_town'),
-        county=data.get('county'),
-        postcode=data.get('postcode'),
+        address_line1=data.get("address_line1"),
+        address_line2=data.get("address_line2"),
+        address_line3=data.get("address_line3"),
+        post_town=data.get("post_town"),
+        county=data.get("county"),
+        postcode=data.get("postcode"),
     )
 
 
 def dps_postcode(verify_resp: AddressVerifyReqRespdef) -> str:
     """Get DPS + postcode string from an address verify response."""
-    return verify_resp.input.postcode.replace(' ', '') + verify_resp.dps
+    return verify_resp.input.postcode.replace(" ", "") + verify_resp.dps
 
 
 def addr_non_mandatory_from_addr(cached_address_verify: AddressVerifyDef) -> AddressNonMandatoryDef:
@@ -62,11 +62,11 @@ def created_orders_idents(created_order_response: CreateOrdersResponse) -> list[
 
 
 def created_orders_idents_str(created_order_response: CreateOrdersResponse) -> str:
-    return ','.join(str(_) for _ in created_orders_idents(created_order_response))
+    return ",".join(str(_) for _ in created_orders_idents(created_order_response))
 
 
 def tracking_link(tracking_number: str) -> str:
-    tlink = rf'https://www.royalmail.com/track-your-item#/tracking-results/{tracking_number}'
+    tlink = rf"https://www.royalmail.com/track-your-item#/tracking-results/{tracking_number}"
     return tlink
 
 
@@ -84,7 +84,7 @@ def order_identifier_to_string(id_or_ref: int | str) -> str:
         return str(id_or_ref)
     elif isinstance(id_or_ref, str):
         return f'"{quote(id_or_ref)}"'
-    raise TypeError(f'Expected int or str, got {id_or_ref}.')
+    raise TypeError(f"Expected int or str, got {id_or_ref}.")
 
 
 def order_identifiers_to_string(
@@ -93,7 +93,7 @@ def order_identifiers_to_string(
     """Encode order ids and references."""
     if not isinstance(order_identifiers, list):
         order_identifiers = [order_identifiers]
-    return ';'.join(map(order_identifier_to_string, order_identifiers))
+    return ";".join(map(order_identifier_to_string, order_identifiers))
 
 
 def match_collection_slot_date(slots: GetAvailableSlotsResponse, d: date) -> SlotDateDef | None:

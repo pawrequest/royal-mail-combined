@@ -21,11 +21,11 @@ class CollectionStatus(str, Enum):
     """
     allowed enum values
     """
-    CREATED = 'Created'
-    PENDING = 'Pending'
-    COLLECTIONORDERPLACED = 'CollectionOrderPlaced'
-    COLLECTED = 'Collected'
-    CANCELLED = 'Cancelled'
-    PROCESSING = 'Processing'
-    NOTCOLLECTED = 'NotCollected'
-    ATTEMPTED = 'Attempted'
+    CREATED = "Created"
+    PENDING = "Pending"
+    COLLECTIONORDERPLACED = "CollectionOrderPlaced"
+    COLLECTED = "Collected"
+    CANCELLED = "Cancelled"
+    PROCESSING = "Processing"
+    NOTCOLLECTED = "NotCollected"
+    ATTEMPTED = "Attempted"

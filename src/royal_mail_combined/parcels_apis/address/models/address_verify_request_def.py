@@ -11,6 +11,4 @@ from .address_verifydef import AddressVerifyDef
 
 
 class AddressVerifyRequestDef(RMBaseModel):
-    addresses: list[AddressVerifyDef] | None = Field(
-        default=None, alias='Addresses', min_length=1, max_length=100
-    )
+    addresses: list[AddressVerifyDef] | None = Field(default=None, alias="Addresses", min_length=1, max_length=100)

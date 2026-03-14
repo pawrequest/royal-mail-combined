@@ -12,26 +12,22 @@ class SlotDetailsDef(RMBaseModel):
     dps: str | None = None
     delivery_office_id: int | None = Field(
         default=None,
-        description='Functional location id of Delivery office',
-        alias='deliveryOfficeId',
+        description="Functional location id of Delivery office",
+        alias="deliveryOfficeId",
     )
-    item_count: StrictFloat | StrictInt | None = Field(
-        default=None, description='count of Item.', alias='itemCount'
-    )
-    token_id: StrictStr | None = Field(default=None, description='Token Id.', alias='tokenId')
+    item_count: StrictFloat | StrictInt | None = Field(default=None, description="count of Item.", alias="itemCount")
+    token_id: StrictStr | None = Field(default=None, description="Token Id.", alias="tokenId")
     token_id_expiry_time: StrictStr | None = Field(
         default=None,
-        description='Token id expiry time, within which it should be used to create task. This will be populated with the date time in ISO 8601 subset format.',
-        alias='tokenIdExpiryTime',
+        description="Token id expiry time, within which it should be used to create task. This will be populated with the date time in ISO 8601 subset format.",
+        alias="tokenIdExpiryTime",
     )
 
 
 class EstimatedWindowDef(RMBaseModel):
     start_time: StrictStr | None = None
     end_time: StrictStr | None = None
-    edw_visibility: OptionalStrictNumber = Field(
-        default=None, description='EDW Visibility', alias='EDWVisibility'
-    )
+    edw_visibility: OptionalStrictNumber = Field(default=None, description="EDW Visibility", alias="EDWVisibility")
 
 
 class SlotDateDef(RMBaseModel):
@@ -45,7 +41,7 @@ class TaskSlotsDef(RMBaseModel):
 
 
 class GetAvailableSlotsResponse(RMBaseModel):
-    task_slots: TaskSlotsDef | None = Field(default=None, alias='taskSlots')
+    task_slots: TaskSlotsDef | None = Field(default=None, alias="taskSlots")
 
     def match_date(self, d: date) -> SlotDateDef | None:
         datewise = self.task_slots.datewise_slots or ()

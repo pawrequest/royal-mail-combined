@@ -22,5 +22,5 @@ class CollectionOrderDeleteResponse(RMBaseModel):
     Response for Delete collection order
     """
 
-    collection_order_id: StrictStr = Field(alias='collectionOrderId')
-    status: StrictStr = Field(alias='Status')
+    collection_order_id: StrictStr = Field(alias="collectionOrderId")
+    status: StrictStr = Field(alias="Status")

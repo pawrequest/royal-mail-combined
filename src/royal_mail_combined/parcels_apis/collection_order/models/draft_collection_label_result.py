@@ -22,4 +22,4 @@ class DraftCollectionLabelResult(RMBaseModel):
     DraftCollectionLabelResult
     """
 
-    draft_id: StrictStr | None = Field(default=None, alias='draftId')
+    draft_id: StrictStr | None = Field(default=None, alias="draftId")

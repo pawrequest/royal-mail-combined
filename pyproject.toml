@@ -39,3 +39,5 @@ build-backend = "uv_build"
 #royal-mail-delivery-office-finder = { path = "../royal-mail-delivery-office-finder", editable = true }
 #royal-mail-order = { path = "../royal-mail-order", editable = true }
 
+[tool.ruff]
+line-length = 120

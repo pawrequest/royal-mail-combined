@@ -31,28 +31,28 @@ class ItemsPostDef(RMBaseModel):
     item_service_name: Annotated[str, Field(min_length=1, strict=True, max_length=50)]
     dimensions: DimensionsPostDef
     item_reference: Annotated[str, Field(strict=True, max_length=40)] | None = None
-    item_status: StrictStr | None = Field(default=None, alias='itemStatus')
+    item_status: StrictStr | None = Field(default=None, alias="itemStatus")
     item_price: StrictFloat | StrictInt | None = Field(
         default=None,
-        description='Price paid for the doorstep collection for the item',
-        alias='itemPrice',
+        description="Price paid for the doorstep collection for the item",
+        alias="itemPrice",
     )
     item_type: CollectionItemType | None = None
     item_product_code: Annotated[str, Field(strict=True, max_length=5)] | None = None
     label_info: LabelInfo | None = None
 
-    @field_validator('item_status')
+    @field_validator("item_status")
     def item_status_validate_enum(cls, value):
         """Validates the enum"""
         if value is None:
             return value
 
         if value not in {
-            'AwaitingCollection',
-            'Collected',
-            'NotCollected',
-            'Processing',
-            'Attempted',
+            "AwaitingCollection",
+            "Collected",
+            "NotCollected",
+            "Processing",
+            "Attempted",
         }:
             raise ValueError(
                 "must be one of enum values ('AwaitingCollection', 'Collected', 'NotCollected', 'Processing', 'Attempted')"

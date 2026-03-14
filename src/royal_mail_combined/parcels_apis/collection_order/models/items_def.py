@@ -27,22 +27,20 @@ class ItemsDef(RMBaseModel):
     """
 
     item_barcode_id: Annotated[str, Field(strict=True, max_length=21)] | None = Field(
-        default=None, description='Item BarCode Id', alias='itemBarcodeId'
+        default=None, description="Item BarCode Id", alias="itemBarcodeId"
     )
     item_reference: Annotated[str, Field(strict=True, max_length=40)] | None = Field(
-        default=None, alias='itemReference'
+        default=None, alias="itemReference"
     )
-    weight_in_grams: StrictInt = Field(
-        description='Weight of a parcel in grams', alias='weightInGrams'
-    )
+    weight_in_grams: StrictInt = Field(description="Weight of a parcel in grams", alias="weightInGrams")
     item_service_name: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
-        default=None, description='Item Service Name', alias='itemServiceName'
+        default=None, description="Item Service Name", alias="itemServiceName"
     )
-    item_status: StrictStr | None = Field(default=None, alias='itemStatus')
+    item_status: StrictStr | None = Field(default=None, alias="itemStatus")
     dimensions: DimensionsDef
-    item_price: StrictFloat | StrictInt | None = Field(default=None, alias='itemPrice')
-    item_type: CollectionItemType | None = Field(default=None, alias='itemType')
+    item_price: StrictFloat | StrictInt | None = Field(default=None, alias="itemPrice")
+    item_type: CollectionItemType | None = Field(default=None, alias="itemType")
     item_product_code: Annotated[str, Field(strict=True, max_length=5)] | None = Field(
-        default=None, alias='itemProductCode'
+        default=None, alias="itemProductCode"
     )
-    label_info: LabelInfo | None = Field(default=None, alias='labelInfo')
+    label_info: LabelInfo | None = Field(default=None, alias="labelInfo")

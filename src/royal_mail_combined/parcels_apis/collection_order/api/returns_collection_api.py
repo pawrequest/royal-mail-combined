@@ -40,18 +40,12 @@ class ReturnsCollectionApi:
         x_rmg_date_time: Annotated[
             date,
             Field(
-                description='This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00'
+                description="This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00"
             ),
         ],
-        label_info: Annotated[
-            DraftCollectionLabelRequest, Field(description='Provide the label information')
-        ],
-        x_rmg_language: Annotated[
-            StrictStr | None, Field(description='Optional default english')
-        ] = None,
-        accept: Annotated[
-            StrictStr | None, Field(description='Pass though; used for markdown')
-        ] = None,
+        label_info: Annotated[DraftCollectionLabelRequest, Field(description="Provide the label information")],
+        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
+        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -105,13 +99,13 @@ class ReturnsCollectionApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'DraftCollectionLabelResult',
-            '400': 'Model400',
-            '401': 'Model401',
-            '404': 'Model404',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "200": "DraftCollectionLabelResult",
+            "400": "Model400",
+            "401": "Model401",
+            "404": "Model404",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -126,18 +120,12 @@ class ReturnsCollectionApi:
         x_rmg_date_time: Annotated[
             date,
             Field(
-                description='This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00'
+                description="This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00"
             ),
         ],
-        label_info: Annotated[
-            DraftCollectionLabelRequest, Field(description='Provide the label information')
-        ],
-        x_rmg_language: Annotated[
-            StrictStr | None, Field(description='Optional default english')
-        ] = None,
-        accept: Annotated[
-            StrictStr | None, Field(description='Pass though; used for markdown')
-        ] = None,
+        label_info: Annotated[DraftCollectionLabelRequest, Field(description="Provide the label information")],
+        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
+        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -191,13 +179,13 @@ class ReturnsCollectionApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'DraftCollectionLabelResult',
-            '400': 'Model400',
-            '401': 'Model401',
-            '404': 'Model404',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "200": "DraftCollectionLabelResult",
+            "400": "Model400",
+            "401": "Model401",
+            "404": "Model404",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -212,18 +200,12 @@ class ReturnsCollectionApi:
         x_rmg_date_time: Annotated[
             date,
             Field(
-                description='This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00'
+                description="This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00"
             ),
         ],
-        label_info: Annotated[
-            DraftCollectionLabelRequest, Field(description='Provide the label information')
-        ],
-        x_rmg_language: Annotated[
-            StrictStr | None, Field(description='Optional default english')
-        ] = None,
-        accept: Annotated[
-            StrictStr | None, Field(description='Pass though; used for markdown')
-        ] = None,
+        label_info: Annotated[DraftCollectionLabelRequest, Field(description="Provide the label information")],
+        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
+        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -277,13 +259,13 @@ class ReturnsCollectionApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'DraftCollectionLabelResult',
-            '400': 'Model400',
-            '401': 'Model401',
-            '404': 'Model404',
-            '405': 'Model405',
-            '500': 'Model500',
-            '503': 'Model503',
+            "200": "DraftCollectionLabelResult",
+            "400": "Model400",
+            "401": "Model401",
+            "404": "Model404",
+            "405": "Model405",
+            "500": "Model500",
+            "503": "Model503",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -314,34 +296,34 @@ class ReturnsCollectionApi:
         # process the query parameters
         # process the header parameters
         if x_rmg_language is not None:
-            _header_params['X-RMG-Language'] = x_rmg_language
+            _header_params["X-RMG-Language"] = x_rmg_language
         if x_rmg_date_time is not None:
-            _header_params['X-RMG-Date-Time'] = x_rmg_date_time
+            _header_params["X-RMG-Date-Time"] = x_rmg_date_time
         if accept is not None:
-            _header_params['Accept'] = accept
+            _header_params["Accept"] = accept
         # process the form parameters
         # process the body parameter
         if label_info is not None:
             _body_params = label_info
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(['application/json'])
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(["application/json"])
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params['Content-Type'] = _content_type
+            _header_params["Content-Type"] = _content_type
         else:
-            _default_content_type = self.api_client.select_header_content_type(['application/json'])
+            _default_content_type = self.api_client.select_header_content_type(["application/json"])
             if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
+                _header_params["Content-Type"] = _default_content_type
 
         # authentication setting
-        _auth_settings: list[str] = ['Client-Id', 'Client-Secret']
+        _auth_settings: list[str] = ["Client-Id", "Client-Secret"]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/collectionOrder/draftLabel',
+            method="POST",
+            resource_path="/collectionOrder/draftLabel",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

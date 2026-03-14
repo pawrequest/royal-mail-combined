@@ -30,16 +30,14 @@ class UpdateCollection(RMBaseModel):
     create Order
     """
 
-    timeslot_reservation_id: (
-        Annotated[str, Field(min_length=1, strict=True, max_length=64)] | None
-    ) = Field(default=None, description='time slot reservation Id', alias='timeslotReservationId')
-    sender_details: SenderDetailsDef | None = Field(default=None, alias='senderDetails')
+    timeslot_reservation_id: Annotated[str, Field(min_length=1, strict=True, max_length=64)] | None = Field(
+        default=None, description="time slot reservation Id", alias="timeslotReservationId"
+    )
+    sender_details: SenderDetailsDef | None = Field(default=None, alias="senderDetails")
     address: AddressMandatoryDef | None = None
-    safe_place_details: SafePlaceDetailsDef | None = Field(default=None, alias='safePlaceDetails')
+    safe_place_details: SafePlaceDetailsDef | None = Field(default=None, alias="safePlaceDetails")
     animal_hazard_details: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
-        default=None, description='location animal hazard details', alias='animalHazardDetails'
+        default=None, description="location animal hazard details", alias="animalHazardDetails"
     )
-    collection_date: date = Field(description='Date of order collection', alias='collectionDate')
-    suppress_rm_notifications: StrictBool | None = Field(
-        default=None, alias='suppressRmNotifications'
-    )
+    collection_date: date = Field(description="Date of order collection", alias="collectionDate")
+    suppress_rm_notifications: StrictBool | None = Field(default=None, alias="suppressRmNotifications")

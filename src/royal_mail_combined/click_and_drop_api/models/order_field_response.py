@@ -24,5 +24,5 @@ class OrderFieldResponse(RMBaseModel):
     OrderFieldResponse
     """
 
-    field_name: StrictStr | None = Field(default=None, alias='fieldName')
+    field_name: StrictStr | None = Field(default=None, alias="fieldName")
     value: StrictStr | None = None

@@ -24,5 +24,5 @@ class TaskSlotsDef(RMBaseModel):
     Node of slots data
     """
 
-    slot_details: SlotDetailsDef | None = Field(default=None, alias='slotDetails')
-    datewise_slots: list[SlotDateDef] | None = Field(default=None, alias='datewiseSlots')
+    slot_details: SlotDetailsDef | None = Field(default=None, alias="slotDetails")
+    datewise_slots: list[SlotDateDef] | None = Field(default=None, alias="datewiseSlots")

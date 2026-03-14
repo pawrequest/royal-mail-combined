@@ -44,10 +44,10 @@ class RMError:
 
 class RMStatusError2(httpx.HTTPStatusError):
     http_code: int | None = None
-    http_message: str = ''
-    more_information: str = ''
+    http_message: str = ""
+    more_information: str = ""
     errors: list[RMError] = None
-    a_msg: str = ''
+    a_msg: str = ""
 
     def __init__(self, http_error: httpx.HTTPStatusError):
         request = http_error.request
@@ -59,16 +59,16 @@ class RMStatusError2(httpx.HTTPStatusError):
             self.errors = []
             return
 
-        self.http_code = err_json.get('httpCode', response.status_code)
-        self.http_message = err_json.get('httpMessage', '')
-        self.more_information = err_json.get('moreInformation', '')
-        self.a_msg = err_json.get('message', '')
-        errors_json = err_json.get('errors', [])
+        self.http_code = err_json.get("httpCode", response.status_code)
+        self.http_message = err_json.get("httpMessage", "")
+        self.more_information = err_json.get("moreInformation", "")
+        self.a_msg = err_json.get("message", "")
+        errors_json = err_json.get("errors", [])
         self.errors = [RMError(**_) for _ in errors_json]
 
         infos = [self.http_code, self.http_message, self.more_information, self.a_msg]
-        infos_str = ' | '.join([str(i) for i in infos if i])
-        msg = f'RoyalMail Http Status error for {request.url}: {infos_str}'
+        infos_str = " | ".join([str(i) for i in infos if i])
+        msg = f"RoyalMail Http Status error for {request.url}: {infos_str}"
         super().__init__(msg, request=request, response=response)
         ...
 
@@ -82,9 +82,9 @@ def raise_for_rm_status(response: Response):
 
         if response.request.content:
             request_content = json.loads(response.request.content.decode())
-            failed_req = '\n Failed Request: ' + pprint.pformat(request_content, indent=4)
+            failed_req = "\n Failed Request: " + pprint.pformat(request_content, indent=4)
         else:
-            failed_req = ''
+            failed_req = ""
 
         msg = str(rm_error) + failed_req
         logger.error(msg)

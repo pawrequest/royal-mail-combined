@@ -39,15 +39,15 @@ class ApiClient:
 
     PRIMITIVE_TYPES = (float, bool, bytes, str, int)
     NATIVE_TYPES_MAPPING = {
-        'int': int,
-        'long': int,  # TODO remove as only py3 is supported?
-        'float': float,
-        'str': str,
-        'bool': bool,
-        'date': datetime.date,
-        'datetime': datetime.datetime,
-        'decimal': decimal.Decimal,
-        'object': object,
+        "int": int,
+        "long": int,  # TODO remove as only py3 is supported?
+        "float": float,
+        "str": str,
+        "bool": bool,
+        "date": datetime.date,
+        "datetime": datetime.datetime,
+        "decimal": decimal.Decimal,
+        "object": object,
     }
     _pool = None
 
@@ -71,7 +71,7 @@ class ApiClient:
 
         self.cookie = cookie
         # Set default User-Agent.
-        self.user_agent = 'AmShip/0.0.1'
+        self.user_agent = "AmShip/0.0.1"
         self.client_side_validation = configuration.client_side_validation
 
     def __enter__(self):
@@ -83,11 +83,11 @@ class ApiClient:
     @property
     def user_agent(self):
         """User agent for this API client"""
-        return self.default_headers['User-Agent']
+        return self.default_headers["User-Agent"]
 
     @user_agent.setter
     def user_agent(self, value):
-        self.default_headers['User-Agent'] = value
+        self.default_headers["User-Agent"] = value
 
     def set_default_header(self, header_name, header_value):
         self.default_headers[header_name] = header_value
@@ -135,7 +135,7 @@ class ApiClient:
         header_params = header_params or {}
         header_params.update(self.default_headers)
         if self.cookie:
-            header_params['Cookie'] = self.cookie
+            header_params["Cookie"] = self.cookie
         if header_params:
             header_params = self.sanitize_for_serialization(header_params)
             header_params = dict(self.parameters_to_tuples(header_params, collection_formats))
@@ -149,9 +149,7 @@ class ApiClient:
                 # resource_path = resource_path.replace(
                 #     '{%s}' % k, quote(str(v), safe=config.safe_chars_for_path_param)
                 # )
-                resource_path = resource_path.replace(
-                    f'{{{k}}}', quote(str(v), safe=config.safe_chars_for_path_param)
-                )
+                resource_path = resource_path.replace(f"{{{k}}}", quote(str(v), safe=config.safe_chars_for_path_param))
 
         # post parameters
         if post_params or files:
@@ -187,7 +185,7 @@ class ApiClient:
         if query_params:
             query_params = self.sanitize_for_serialization(query_params)
             url_query = self.parameters_to_url_query(query_params, collection_formats)
-            url += '?' + url_query
+            url += "?" + url_query
 
         return method, url, header_params, body, post_params
 
@@ -236,32 +234,28 @@ class ApiClient:
         :return: ApiResponse
         """
 
-        msg = 'RESTResponse.read() must be called before passing it to response_deserialize()'
+        msg = "RESTResponse.read() must be called before passing it to response_deserialize()"
         assert response_data.data is not None, msg
 
         response_type = response_types_map.get(str(response_data.status), None)
-        if (
-            not response_type
-            and isinstance(response_data.status, int)
-            and 100 <= response_data.status <= 599
-        ):
+        if not response_type and isinstance(response_data.status, int) and 100 <= response_data.status <= 599:
             # if not found, look for '1XX', '2XX', etc.
-            response_type = response_types_map.get(str(response_data.status)[0] + 'XX', None)
+            response_type = response_types_map.get(str(response_data.status)[0] + "XX", None)
 
         # deserialize response data
         response_text = None
         return_data = None
         try:
-            if response_type == 'bytearray':
+            if response_type == "bytearray":
                 return_data = response_data.data
-            elif response_type == 'file':
+            elif response_type == "file":
                 return_data = self.__deserialize_file(response_data)
             elif response_type is not None:
                 match = None
-                content_type = response_data.getheader('content-type')
+                content_type = response_data.getheader("content-type")
                 if content_type is not None:
-                    match = re.search(r'charset=([a-zA-Z\-\d]+)[\s;]?', content_type)
-                encoding = match.group(1) if match else 'utf-8'
+                    match = re.search(r"charset=([a-zA-Z\-\d]+)[\s;]?", content_type)
+                encoding = match.group(1) if match else "utf-8"
                 response_text = response_data.data.decode(encoding)
                 return_data = self.deserialize(response_text, response_type, content_type)
             return ApiResponse(
@@ -311,7 +305,7 @@ class ApiClient:
         elif isinstance(obj, decimal.Decimal):
             return str(obj)
         elif isinstance(obj, BaseModel):
-            obj_dict = obj.model_dump(mode='json', by_alias=True, exclude_none=True)
+            obj_dict = obj.model_dump(mode="json", by_alias=True, exclude_none=True)
         elif isinstance(obj, dict):
             obj_dict = obj
         else:
@@ -343,17 +337,15 @@ class ApiClient:
                 data = json.loads(response_text)
             except ValueError:
                 data = response_text
-        elif re.match(
-            r'^application/(json|[\w!#$&.+-^_]+\+json)\s*(;|$)', content_type, re.IGNORECASE
-        ):
-            if response_text == '':
-                data = ''
+        elif re.match(r"^application/(json|[\w!#$&.+-^_]+\+json)\s*(;|$)", content_type, re.IGNORECASE):
+            if response_text == "":
+                data = ""
             else:
                 data = json.loads(response_text)
-        elif re.match(r'^text\/[a-z.+-]+\s*(;|$)', content_type, re.IGNORECASE):
+        elif re.match(r"^text\/[a-z.+-]+\s*(;|$)", content_type, re.IGNORECASE):
             data = response_text
         else:
-            raise ApiException(status=0, reason=f'Unsupported content type: {content_type}')
+            raise ApiException(status=0, reason=f"Unsupported content type: {content_type}")
 
         return self.__deserialize(data, response_type)
 
@@ -369,15 +361,15 @@ class ApiClient:
             return None
 
         if isinstance(klass, str):
-            if klass.startswith('List['):
-                m = re.match(r'List\[(.*)]', klass)
-                assert m is not None, 'Malformed List type definition'
+            if klass.startswith("List["):
+                m = re.match(r"List\[(.*)]", klass)
+                assert m is not None, "Malformed List type definition"
                 sub_kls = m.group(1)
                 return [self.__deserialize(sub_data, sub_kls) for sub_data in data]
 
-            if klass.startswith('Dict['):
-                m = re.match(r'Dict\[([^,]*), (.*)]', klass)
-                assert m is not None, 'Malformed Dict type definition'
+            if klass.startswith("Dict["):
+                m = re.match(r"Dict\[([^,]*), (.*)]", klass)
+                assert m is not None, "Malformed Dict type definition"
                 sub_kls = m.group(2)
                 return {k: self.__deserialize(v, sub_kls) for k, v in data.items()}
 
@@ -415,17 +407,17 @@ class ApiClient:
         for k, v in params.items() if isinstance(params, dict) else params:
             if k in collection_formats:
                 collection_format = collection_formats[k]
-                if collection_format == 'multi':
+                if collection_format == "multi":
                     new_params.extend((k, value) for value in v)
                 else:
-                    if collection_format == 'ssv':
-                        delimiter = ' '
-                    elif collection_format == 'tsv':
-                        delimiter = '\t'
-                    elif collection_format == 'pipes':
-                        delimiter = '|'
+                    if collection_format == "ssv":
+                        delimiter = " "
+                    elif collection_format == "tsv":
+                        delimiter = "\t"
+                    elif collection_format == "pipes":
+                        delimiter = "|"
                     else:  # csv is the default
-                        delimiter = ','
+                        delimiter = ","
                     new_params.append((k, delimiter.join(str(value) for value in v)))
             else:
                 new_params.append((k, v))
@@ -451,22 +443,22 @@ class ApiClient:
 
             if k in collection_formats:
                 collection_format = collection_formats[k]
-                if collection_format == 'multi':
+                if collection_format == "multi":
                     new_params.extend((k, quote(str(value))) for value in v)
                 else:
-                    if collection_format == 'ssv':
-                        delimiter = ' '
-                    elif collection_format == 'tsv':
-                        delimiter = '\t'
-                    elif collection_format == 'pipes':
-                        delimiter = '|'
+                    if collection_format == "ssv":
+                        delimiter = " "
+                    elif collection_format == "tsv":
+                        delimiter = "\t"
+                    elif collection_format == "pipes":
+                        delimiter = "|"
                     else:  # csv is the default
-                        delimiter = ','
+                        delimiter = ","
                     new_params.append((k, delimiter.join(quote(str(value)) for value in v)))
             else:
                 new_params.append((k, quote(str(v))))
 
-        return '&'.join(['='.join(map(str, item)) for item in new_params])
+        return "&".join(["=".join(map(str, item)) for item in new_params])
 
     def files_parameters(
         self,
@@ -480,7 +472,7 @@ class ApiClient:
         params = []
         for k, v in files.items():
             if isinstance(v, str):
-                with open(v, 'rb') as f:
+                with open(v, "rb") as f:
                     filename = os.path.basename(f.name)
                     filedata = f.read()
             elif isinstance(v, bytes):
@@ -493,8 +485,8 @@ class ApiClient:
                     params.extend(self.files_parameters({k: file_param}))
                 continue
             else:
-                raise ValueError('Unsupported file value')
-            mimetype = mimetypes.guess_type(filename)[0] or 'application/octet-stream'
+                raise ValueError("Unsupported file value")
+            mimetype = mimetypes.guess_type(filename)[0] or "application/octet-stream"
             params.append(tuple([k, tuple([filename, filedata, mimetype])]))
         return params
 
@@ -508,7 +500,7 @@ class ApiClient:
             return None
 
         for accept in accepts:
-            if re.search('json', accept, re.IGNORECASE):
+            if re.search("json", accept, re.IGNORECASE):
                 return accept
 
         return accepts[0]
@@ -523,7 +515,7 @@ class ApiClient:
             return None
 
         for content_type in content_types:
-            if re.search('json', content_type, re.IGNORECASE):
+            if re.search("json", content_type, re.IGNORECASE):
                 return content_type
 
         return content_types[0]
@@ -552,13 +544,9 @@ class ApiClient:
             for auth in auth_settings:
                 auth_setting = self.configuration.auth_settings().get(auth)
                 if auth_setting:
-                    self._apply_auth_params(
-                        headers, queries, resource_path, method, body, auth_setting
-                    )
+                    self._apply_auth_params(headers, queries, resource_path, method, body, auth_setting)
 
-    def _apply_auth_params(
-        self, headers, queries, resource_path, method, body, auth_setting
-    ) -> None:
+    def _apply_auth_params(self, headers, queries, resource_path, method, body, auth_setting) -> None:
         """Updates the request parameters based on a single auth_setting
 
         :param headers: Header parameters dict to be updated.
@@ -569,15 +557,15 @@ class ApiClient:
         The object type is the return value of sanitize_for_serialization().
         :param auth_setting: auth settings for the endpoint
         """
-        if auth_setting['in'] == 'cookie':
-            headers['Cookie'] = auth_setting['value']
-        elif auth_setting['in'] == 'header':
-            if auth_setting['type'] != 'http-signature':
-                headers[auth_setting['key']] = auth_setting['value']
-        elif auth_setting['in'] == 'query':
-            queries.append((auth_setting['key'], auth_setting['value']))
+        if auth_setting["in"] == "cookie":
+            headers["Cookie"] = auth_setting["value"]
+        elif auth_setting["in"] == "header":
+            if auth_setting["type"] != "http-signature":
+                headers[auth_setting["key"]] = auth_setting["value"]
+        elif auth_setting["in"] == "query":
+            queries.append((auth_setting["key"], auth_setting["value"]))
         else:
-            raise ApiValueError('Authentication token must be in `query` or `header`')
+            raise ApiValueError("Authentication token must be in `query` or `header`")
 
     def __deserialize_file(self, response):
         """Deserializes body to file
@@ -595,14 +583,14 @@ class ApiClient:
         os.close(fd)
         os.remove(path)
 
-        content_disposition = response.getheader('Content-Disposition')
+        content_disposition = response.getheader("Content-Disposition")
         if content_disposition:
             m = re.search(r'filename=[\'"]?([^\'"\s]+)[\'"]?', content_disposition)
             assert m is not None, "Unexpected 'content-disposition' header value"
             filename = m.group(1)
             path = os.path.join(os.path.dirname(path), filename)
 
-        with open(path, 'wb') as f:
+        with open(path, "wb") as f:
             f.write(response.data)
 
         return path
@@ -640,7 +628,7 @@ class ApiClient:
         except ImportError:
             return string
         except ValueError:
-            raise ApiException(status=0, reason=f'Failed to parse `{string}` as date object')
+            raise ApiException(status=0, reason=f"Failed to parse `{string}` as date object")
 
     def __deserialize_datetime(self, string):
         """Deserializes string to datetime.
@@ -655,7 +643,7 @@ class ApiClient:
         except ImportError:
             return string
         except ValueError:
-            raise ApiException(status=0, reason=f'Failed to parse `{string}` as datetime object')
+            raise ApiException(status=0, reason=f"Failed to parse `{string}` as datetime object")
 
     def __deserialize_enum(self, data, klass):
         """Deserializes primitive type to enum.
@@ -667,7 +655,7 @@ class ApiClient:
         try:
             return klass(data)
         except ValueError:
-            raise ApiException(status=0, reason=f'Failed to parse `{data}` as `{klass}`')
+            raise ApiException(status=0, reason=f"Failed to parse `{data}` as `{klass}`")
 
     def __deserialize_model(self, data, klass: type[BaseModel]):
         """Deserializes list or dict to model.

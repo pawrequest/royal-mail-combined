@@ -24,5 +24,5 @@ class UpdateOrderStatusResponse(RMBaseModel):
     UpdateOrderStatusResponse
     """
 
-    updated_orders: list[UpdatedOrderInfo] | None = Field(default=None, alias='updatedOrders')
+    updated_orders: list[UpdatedOrderInfo] | None = Field(default=None, alias="updatedOrders")
     errors: list[OrderUpdateError] | None = None

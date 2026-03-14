@@ -24,16 +24,16 @@ class ErrorResponse(RMBaseModel):
     """
 
     http_code: StrictStr = Field(
-        description='HTTP error code.  Please note that this will only be populated in the event of an error condition.',
-        alias='httpCode',
+        description="HTTP error code.  Please note that this will only be populated in the event of an error condition.",
+        alias="httpCode",
     )
     http_message: StrictStr = Field(
-        description='HTTP error code description. Please note that this will only be populated in the event of an error condition.',
-        alias='httpMessage',
+        description="HTTP error code description. Please note that this will only be populated in the event of an error condition.",
+        alias="httpMessage",
     )
     more_information: StrictStr | None = Field(
         default=None,
-        description='Information relating to the error condition.',
-        alias='moreInformation',
+        description="Information relating to the error condition.",
+        alias="moreInformation",
     )
     errors: list[ErrorsDef] | None = None

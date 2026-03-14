@@ -24,43 +24,31 @@ class LabelCustomsInfo(RMBaseModel):
     LabelCustomsInfo
     """
 
-    currency_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(
-        default=None, alias='currencyCode'
-    )
-    total_cost: StrictFloat | StrictInt | None = Field(default=None, alias='totalCost')
-    shipment_subtotal: StrictFloat | StrictInt | None = Field(
-        default=None, alias='shipmentSubtotal'
-    )
-    shipping_cost_charged: StrictFloat | StrictInt | None = Field(
-        default=None, alias='shippingCostCharged'
-    )
-    customs_duty_cost: StrictFloat | StrictInt | None = Field(default=None, alias='customsDutyCost')
-    ioss_number: Annotated[str, Field(strict=True, max_length=20)] | None = Field(
-        default=None, alias='IOSSNumber'
-    )
-    air_number: Annotated[str, Field(strict=True, max_length=20)] | None = Field(
-        default=None, alias='AIRNumber'
-    )
-    customs_declaration_category: StrictStr | None = Field(
-        default=None, alias='customsDeclarationCategory'
-    )
+    currency_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(default=None, alias="currencyCode")
+    total_cost: StrictFloat | StrictInt | None = Field(default=None, alias="totalCost")
+    shipment_subtotal: StrictFloat | StrictInt | None = Field(default=None, alias="shipmentSubtotal")
+    shipping_cost_charged: StrictFloat | StrictInt | None = Field(default=None, alias="shippingCostCharged")
+    customs_duty_cost: StrictFloat | StrictInt | None = Field(default=None, alias="customsDutyCost")
+    ioss_number: Annotated[str, Field(strict=True, max_length=20)] | None = Field(default=None, alias="IOSSNumber")
+    air_number: Annotated[str, Field(strict=True, max_length=20)] | None = Field(default=None, alias="AIRNumber")
+    customs_declaration_category: StrictStr | None = Field(default=None, alias="customsDeclarationCategory")
     contents: list[LabelOrderItem] | None = None
 
-    @field_validator('customs_declaration_category')
+    @field_validator("customs_declaration_category")
     def customs_declaration_category_validate_enum(cls, value):
         """Validates the enum"""
         if value is None:
             return value
 
         if value not in {
-            'none',
-            'gift',
-            'commercialSample',
-            'documents',
-            'other',
-            'returnedGoods',
-            'saleOfGoods',
-            'mixedContent',
+            "none",
+            "gift",
+            "commercialSample",
+            "documents",
+            "other",
+            "returnedGoods",
+            "saleOfGoods",
+            "mixedContent",
         }:
             raise ValueError(
                 "must be one of enum values ('none', 'gift', 'commercialSample', 'documents', 'other', 'returnedGoods', 'saleOfGoods', 'mixedContent')"

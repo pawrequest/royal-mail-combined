@@ -26,7 +26,7 @@ class DeleteOrdersResource(RMBaseModel):
     DeleteOrdersResource
     """
 
-    deleted_orders: list[DeletedOrderInfo] | None = Field(default=None, alias='deletedOrders')
+    deleted_orders: list[DeletedOrderInfo] | None = Field(default=None, alias="deletedOrders")
     errors: list[OrderErrorInfo] | None = None
 
     def order_idents(self) -> list[int | str]:

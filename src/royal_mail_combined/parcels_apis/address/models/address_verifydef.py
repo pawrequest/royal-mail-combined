@@ -11,5 +11,5 @@ class AddressVerifyDef(RMBaseModel):
     address_line2: StrictStr64 | None = None
     address_line3: StrictStr64 | None = None
     post_town: StrictStr64
-    county: StrictStr64 | None = Field(default=None, alias='County')
+    county: StrictStr64 | None = Field(default=None, alias="County")
     postcode: StrictStr10

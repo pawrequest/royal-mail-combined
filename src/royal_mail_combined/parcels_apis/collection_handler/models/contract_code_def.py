@@ -23,7 +23,5 @@ class ContractCodeDef(RMBaseModel):
     Contract details
     """
 
-    contract_code: StrictStr | None = Field(
-        default=None, description='Contract code', alias='contractCode'
-    )
+    contract_code: StrictStr | None = Field(default=None, description="Contract code", alias="contractCode")
     subscription: list[ContractSubscriptionDef] | None = None

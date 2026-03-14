@@ -5,10 +5,10 @@ from royal_mail_combined.core.configuration import Configuration
 from royal_mail_combined.core.rest import RESTResponseType
 
 __all__ = [
-    'RMBaseModel',
-    'Configuration',
-    'ApiClient',
-    'RequestSerialized',
-    'ApiResponse',
-    'RESTResponseType',
+    "RMBaseModel",
+    "Configuration",
+    "ApiClient",
+    "RequestSerialized",
+    "ApiResponse",
+    "RESTResponseType",
 ]

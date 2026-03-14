@@ -26,20 +26,20 @@ def test_book_inbound(fxt_return_req, fxt_client):
 def test_book_inbound_with_collection_cancel_collection(fxt_client, fxt_return_req):
     res = fxt_client.book_inbound_shipment_with_collection(fxt_return_req, TEST_DATE, 2)
     dump_result_model(res)
-    assert res.status == 'Order created successfully'
+    assert res.status == "Order created successfully"
     collect_id = res.collection_order_id
 
     res = fxt_client.parcel_api.cancel_collection(collect_id)
     dump_result_model(res)
-    assert res.status == 'Order cancelled successfully'
+    assert res.status == "Order cancelled successfully"
 
 
 BOOKEDIDS = []
 
 
-@pytest.mark.skip(reason='Need real collection ids to test cancellation')
+@pytest.mark.skip(reason="Need real collection ids to test cancellation")
 def test_cancel_collection(fxt_client):
     res = fxt_client.parcel_api.cancel_collection(BOOKEDIDS[1])
     dump_result_model(res)
-    assert res.status == 'Order cancelled successfully'
+    assert res.status == "Order cancelled successfully"
     ...

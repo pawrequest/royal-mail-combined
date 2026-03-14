@@ -34,9 +34,7 @@ class ManifestsApi:
         self,
         manifest_identifier: Annotated[
             StrictInt,
-            Field(
-                description='The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call'
-            ),
+            Field(description="The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call"),
         ],
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
@@ -83,12 +81,12 @@ class ManifestsApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'ManifestDetailsResponse',
-            '400': 'ManifestErrorsResponse',
-            '401': None,
-            '403': None,
-            '404': None,
-            '500': 'ManifestErrorsResponse',
+            "200": "ManifestDetailsResponse",
+            "400": "ManifestErrorsResponse",
+            "401": None,
+            "403": None,
+            "404": None,
+            "500": "ManifestErrorsResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -102,9 +100,7 @@ class ManifestsApi:
         self,
         manifest_identifier: Annotated[
             StrictInt,
-            Field(
-                description='The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call'
-            ),
+            Field(description="The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call"),
         ],
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
@@ -151,12 +147,12 @@ class ManifestsApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'ManifestDetailsResponse',
-            '400': 'ManifestErrorsResponse',
-            '401': None,
-            '403': None,
-            '404': None,
-            '500': 'ManifestErrorsResponse',
+            "200": "ManifestDetailsResponse",
+            "400": "ManifestErrorsResponse",
+            "401": None,
+            "403": None,
+            "404": None,
+            "500": "ManifestErrorsResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -170,9 +166,7 @@ class ManifestsApi:
         self,
         manifest_identifier: Annotated[
             StrictInt,
-            Field(
-                description='The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call'
-            ),
+            Field(description="The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call"),
         ],
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
@@ -219,12 +213,12 @@ class ManifestsApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'ManifestDetailsResponse',
-            '400': 'ManifestErrorsResponse',
-            '401': None,
-            '403': None,
-            '404': None,
-            '500': 'ManifestErrorsResponse',
+            "200": "ManifestDetailsResponse",
+            "400": "ManifestErrorsResponse",
+            "401": None,
+            "403": None,
+            "404": None,
+            "500": "ManifestErrorsResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -250,22 +244,22 @@ class ManifestsApi:
 
         # process the path parameters
         if manifest_identifier is not None:
-            _path_params['manifestIdentifier'] = manifest_identifier
+            _path_params["manifestIdentifier"] = manifest_identifier
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(['application/json'])
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: list[str] = ['Bearer']
+        _auth_settings: list[str] = ["Bearer"]
 
         return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/manifests/{manifestIdentifier}',
+            method="GET",
+            resource_path="/manifests/{manifestIdentifier}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -323,13 +317,13 @@ class ManifestsApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '201': 'ManifestOrdersResponse',
-            '202': 'ManifestOrdersResponse',
-            '400': 'ManifestErrorsResponse',
-            '401': None,
-            '403': None,
-            '404': None,
-            '500': 'ManifestErrorsResponse',
+            "201": "ManifestOrdersResponse",
+            "202": "ManifestOrdersResponse",
+            "400": "ManifestErrorsResponse",
+            "401": None,
+            "403": None,
+            "404": None,
+            "500": "ManifestErrorsResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -383,13 +377,13 @@ class ManifestsApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '201': 'ManifestOrdersResponse',
-            '202': 'ManifestOrdersResponse',
-            '400': 'ManifestErrorsResponse',
-            '401': None,
-            '403': None,
-            '404': None,
-            '500': 'ManifestErrorsResponse',
+            "201": "ManifestOrdersResponse",
+            "202": "ManifestOrdersResponse",
+            "400": "ManifestErrorsResponse",
+            "401": None,
+            "403": None,
+            "404": None,
+            "500": "ManifestErrorsResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -443,13 +437,13 @@ class ManifestsApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '201': 'ManifestOrdersResponse',
-            '202': 'ManifestOrdersResponse',
-            '400': 'ManifestErrorsResponse',
-            '401': None,
-            '403': None,
-            '404': None,
-            '500': 'ManifestErrorsResponse',
+            "201": "ManifestOrdersResponse",
+            "202": "ManifestOrdersResponse",
+            "400": "ManifestErrorsResponse",
+            "401": None,
+            "403": None,
+            "404": None,
+            "500": "ManifestErrorsResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -479,15 +473,15 @@ class ManifestsApi:
         # process the body parameter
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(['application/json'])
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: list[str] = ['Bearer']
+        _auth_settings: list[str] = ["Bearer"]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/manifests',
+            method="POST",
+            resource_path="/manifests",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -505,9 +499,7 @@ class ManifestsApi:
         self,
         manifest_identifier: Annotated[
             StrictInt,
-            Field(
-                description='The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call'
-            ),
+            Field(description="The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call"),
         ],
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
@@ -554,13 +546,13 @@ class ManifestsApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '201': 'ManifestOrdersResponse',
-            '202': 'ManifestOrdersResponse',
-            '400': 'ManifestErrorsResponse',
-            '401': None,
-            '403': None,
-            '404': None,
-            '500': 'ManifestErrorsResponse',
+            "201": "ManifestOrdersResponse",
+            "202": "ManifestOrdersResponse",
+            "400": "ManifestErrorsResponse",
+            "401": None,
+            "403": None,
+            "404": None,
+            "500": "ManifestErrorsResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -574,9 +566,7 @@ class ManifestsApi:
         self,
         manifest_identifier: Annotated[
             StrictInt,
-            Field(
-                description='The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call'
-            ),
+            Field(description="The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call"),
         ],
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
@@ -623,13 +613,13 @@ class ManifestsApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '201': 'ManifestOrdersResponse',
-            '202': 'ManifestOrdersResponse',
-            '400': 'ManifestErrorsResponse',
-            '401': None,
-            '403': None,
-            '404': None,
-            '500': 'ManifestErrorsResponse',
+            "201": "ManifestOrdersResponse",
+            "202": "ManifestOrdersResponse",
+            "400": "ManifestErrorsResponse",
+            "401": None,
+            "403": None,
+            "404": None,
+            "500": "ManifestErrorsResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -643,9 +633,7 @@ class ManifestsApi:
         self,
         manifest_identifier: Annotated[
             StrictInt,
-            Field(
-                description='The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call'
-            ),
+            Field(description="The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call"),
         ],
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
@@ -692,13 +680,13 @@ class ManifestsApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '201': 'ManifestOrdersResponse',
-            '202': 'ManifestOrdersResponse',
-            '400': 'ManifestErrorsResponse',
-            '401': None,
-            '403': None,
-            '404': None,
-            '500': 'ManifestErrorsResponse',
+            "201": "ManifestOrdersResponse",
+            "202": "ManifestOrdersResponse",
+            "400": "ManifestErrorsResponse",
+            "401": None,
+            "403": None,
+            "404": None,
+            "500": "ManifestErrorsResponse",
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -724,22 +712,22 @@ class ManifestsApi:
 
         # process the path parameters
         if manifest_identifier is not None:
-            _path_params['manifestIdentifier'] = manifest_identifier
+            _path_params["manifestIdentifier"] = manifest_identifier
         # process the query parameters
         # process the header parameters
         # process the form parameters
         # process the body parameter
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(['application/json'])
+        if "Accept" not in _header_params:
+            _header_params["Accept"] = self.api_client.select_header_accept(["application/json"])
 
         # authentication setting
-        _auth_settings: list[str] = ['Bearer']
+        _auth_settings: list[str] = ["Bearer"]
 
         return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/manifests/retry/{manifestIdentifier}',
+            method="POST",
+            resource_path="/manifests/retry/{manifestIdentifier}",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

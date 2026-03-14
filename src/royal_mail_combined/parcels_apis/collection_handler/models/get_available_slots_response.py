@@ -23,4 +23,4 @@ class GetAvailableSlotsResponse(RMBaseModel):
     GetAvailableSlotsResponse
     """
 
-    task_slots: TaskSlotsDef | None = Field(default=None, alias='taskSlots')
+    task_slots: TaskSlotsDef | None = Field(default=None, alias="taskSlots")

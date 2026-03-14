@@ -18,6 +18,6 @@ class CollectionItemType(str, Enum):
     CollectionItemType
     """
 
-    STANDARD = 'Standard'
-    NOLABEL = 'NoLabel'
-    NOPACKAGE = 'NoPackage'
+    STANDARD = "Standard"
+    NOLABEL = "NoLabel"
+    NOPACKAGE = "NoPackage"

@@ -27,7 +27,7 @@ class CreateOrdersResponse(RMBaseModel):
     CreateOrdersResponse
     """
 
-    success_count: StrictInt | None = Field(default=None, alias='successCount')
-    errors_count: StrictInt | None = Field(default=None, alias='errorsCount')
-    created_orders: list[CreateOrderResponse] | None = Field(default=None, alias='createdOrders')
-    failed_orders: list[FailedOrderResponse] | None = Field(default=None, alias='failedOrders')
+    success_count: StrictInt | None = Field(default=None, alias="successCount")
+    errors_count: StrictInt | None = Field(default=None, alias="errorsCount")
+    created_orders: list[CreateOrderResponse] | None = Field(default=None, alias="createdOrders")
+    failed_orders: list[FailedOrderResponse] | None = Field(default=None, alias="failedOrders")

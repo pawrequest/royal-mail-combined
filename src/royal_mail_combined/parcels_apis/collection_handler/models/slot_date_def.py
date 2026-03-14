@@ -24,5 +24,5 @@ class SlotDateDef(RMBaseModel):
     SlotDateDef
     """
 
-    slot_date: date | None = Field(default=None, description='Node of slot dates', alias='slotDate')
-    estimated_window: EstimatedWindowDef | None = Field(default=None, alias='estimatedWindow')
+    slot_date: date | None = Field(default=None, description="Node of slot dates", alias="slotDate")
+    estimated_window: EstimatedWindowDef | None = Field(default=None, alias="estimatedWindow")
