@@ -7,13 +7,11 @@ from royal_mail_combined.all_models import (
 )
 from royal_mail_combined.click_and_drop_api.client import ClickAndDropClient
 from royal_mail_combined.config import RoyalMailSettingsGlobal
-from royal_mail_combined.core.consts_types import ReturnsServiceNames
 from royal_mail_combined.core.endpoints import RETURNS_ENDPOINT, RETURNS_SERVICES_ENDPOINT
 from royal_mail_combined.core.http_client import BaseHttpClient
 from royal_mail_combined.parcels_apis.address.models.address import AddressDps
 from royal_mail_combined.parcels_apis.client import ParcelAPIClient
 from royal_mail_combined.parcels_apis.collection_order.models import (
-    CollectionItemType,
     CollectionMandatory,
     CollectionOrderCreateResponse,
     DimensionsPostDef,

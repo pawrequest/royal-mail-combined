@@ -14,7 +14,7 @@ from __future__ import annotations
 import re  # noqa: F401
 from typing import Annotated, Self
 
-from pydantic import Field, StrictFloat, StrictInt, StrictStr, field_validator
+from pydantic import Field, StrictFloat, StrictInt
 
 from royal_mail_combined.core import RMBaseModel
 from royal_mail_combined.core.consts_types import (
@@ -24,7 +24,6 @@ from royal_mail_combined.core.consts_types import (
     StrictStr21,
     StrictStr40,
     StrictStr50,
-    StrictStr64,
 )
 
 from .collection_item_type import CollectionItemType
