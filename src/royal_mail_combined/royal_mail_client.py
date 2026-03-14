@@ -85,7 +85,8 @@ class RoyalMailClient:
         sender_address_verified = self.parcel_api.verify_return_address(return_request.shipment.sender_address)
         dps = sender_address_verified.dps
         postcode_and_dps = sender_address_verified.input.postcode.replace(" ", "") + dps
-        collection_address = AddressDps(**sender_address_verified.input.model_dump(), dps=dps)
+        collection_address = AddressDps(**sender_address_verified.input.model_dump(exclude_none=True), dps=dps)
+        # collection_address = AddressDps(**sender_address_verified.input.model_dump(), dps=dps)
 
         # book shipping
         booking_responses = self.book_inbound_shipment(return_request, num_boxes=num_boxes)
