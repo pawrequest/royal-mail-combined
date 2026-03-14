@@ -37,7 +37,7 @@ from royal_mail_combined.royal_mail_client import RoyalMailClient
 REFERENCE = "TEST RETURN123456"
 STORE_RESULTS = True
 
-TEST_DATE = date.today() + timedelta(days=2)
+TEST_DATE = date.today() + timedelta(days=5)
 if TEST_DATE.weekday() in (5, 6):
     TEST_DATE += timedelta(days=7 - TEST_DATE.weekday())
 
