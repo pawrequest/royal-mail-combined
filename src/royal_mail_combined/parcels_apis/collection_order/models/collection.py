@@ -29,9 +29,9 @@ class Collection(RMBaseModel):
     create Order
     """
 
-    timeslot_reservation_id: Annotated[str, Field(min_length=0, strict=True, max_length=64)] | None = Field(
-        default=None, description='time slot reservation Id', alias='timeslotReservationId'
-    )
+    timeslot_reservation_id: (
+        Annotated[str, Field(min_length=0, strict=True, max_length=64)] | None
+    ) = Field(default=None, description='time slot reservation Id', alias='timeslotReservationId')
     sender_details: SenderDetailsPostDef = Field(alias='senderDetails')
     collection_date: date = Field(description='Date of order collection', alias='collectionDate')
     account_details: AccountDetailsDef = Field(alias='accountDetails')
@@ -42,4 +42,6 @@ class Collection(RMBaseModel):
     animal_hazard_details: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
         default=None, description='Details of unrestrained pets', alias='animalHazardDetails'
     )
-    suppress_rm_notifications: StrictBool | None = Field(default=None, alias='suppressRmNotifications')
+    suppress_rm_notifications: StrictBool | None = Field(
+        default=None, alias='suppressRmNotifications'
+    )

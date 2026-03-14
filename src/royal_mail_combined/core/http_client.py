@@ -48,7 +48,9 @@ class BaseHttpClient:
         raise_for_rm_status(res)
         return res
 
-    def do_put(self, *, url: str, data: dict | BaseModel | None = None, headers: dict | None = None) -> httpx.Response:
+    def do_put(
+        self, *, url: str, data: dict | BaseModel | None = None, headers: dict | None = None
+    ) -> httpx.Response:
         headers = headers or self.settings.authorised_headers_client()
         if isinstance(data, BaseModel):
             data = data.model_dump(mode='json', by_alias=True)

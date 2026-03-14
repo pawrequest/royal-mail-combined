@@ -14,7 +14,6 @@ from royal_mail_combined.all_models import (
     AddressDef,
     AddressRequest,
     AddressReturns,
-    AddressVerifyReqRespdef,
     AvailableServicesResponse,
     BillingDetailsRequest,
     CreateOrderRequest,
@@ -77,7 +76,9 @@ def print_object(obj):
     if isinstance(obj, BaseModel):
         obj = obj.model_dump(mode='json', by_alias=True)
     if isinstance(obj, list):
-        obj = [o.model_dump(mode='json', by_alias=True) if isinstance(o, BaseModel) else o for o in obj]
+        obj = [
+            o.model_dump(mode='json', by_alias=True) if isinstance(o, BaseModel) else o for o in obj
+        ]
     print(pformat(obj, indent=4, width=120))
 
 
@@ -95,7 +96,9 @@ def fxt_client(fxt_settings) -> Generator[RoyalMailClient, Any]:
         if o not in orders_before.orders:
             print('Deleting Test Order')
             res = client.cancel_outbound_shipment(order_identifiers=str(o.order_identifier))
-            assert o.order_identifier in res.order_idents(), 'WARNING, FAILED TO DELETE TEST ORDERS!!'
+            assert o.order_identifier in res.order_idents(), (
+                'WARNING, FAILED TO DELETE TEST ORDERS!!'
+            )
             print('Deleted Test Orders')
 
 
@@ -234,7 +237,9 @@ def fxt_postage_details() -> PostageDetailsRequest:
 
 
 @pytest.fixture(scope='session')
-def fxt_order(fxt_recip_details, fxt_packages, fxt_billing, fxt_postage_details) -> CreateOrderRequest:
+def fxt_order(
+    fxt_recip_details, fxt_packages, fxt_billing, fxt_postage_details
+) -> CreateOrderRequest:
     return CreateOrderRequest(
         recipient=fxt_recip_details.model_dump(),
         order_date=datetime.now(),

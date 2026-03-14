@@ -26,11 +26,17 @@ class LabelInfo(RMBaseModel):
     LabelInfo
     """
 
-    var_1_d_tracking_number: str | None = Field(strict=True, max_length=13, default=None, alias='1DTrackingNumber')
-    var_2_d_unique_identifier: str = Field(min_length=1, strict=True, max_length=21, alias='2DUniqueIdentifier')
+    var_1_d_tracking_number: str | None = Field(
+        strict=True, max_length=13, default=None, alias='1DTrackingNumber'
+    )
+    var_2_d_unique_identifier: str = Field(
+        min_length=1, strict=True, max_length=21, alias='2DUniqueIdentifier'
+    )
     post_by_date: date = Field(alias='postByDate')
     rm_service: str = Field(alias='RMService', min_length=1, strict=True, max_length=50)
-    price_paid: StrictFloat | StrictInt = Field(description='price paid for the postage', alias='pricePaid')
+    price_paid: StrictFloat | StrictInt = Field(
+        description='price paid for the postage', alias='pricePaid'
+    )
     reference_number: Annotated[str, Field(strict=True, max_length=20)] | None = None
     reference_text: Annotated[str, Field(strict=True, max_length=40)] | None = None
     weight_in_grams: Annotated[int, Field(strict=True, ge=0)]
@@ -43,5 +49,7 @@ class LabelInfo(RMBaseModel):
     def item_format_validate_enum(cls, value):
         """Validates the enum"""
         if value not in {'Letter', 'LargeLetter', 'SmallParcel', 'MediumParcel'}:
-            raise ValueError("must be one of enum values ('Letter', 'LargeLetter', 'SmallParcel', 'MediumParcel')")
+            raise ValueError(
+                "must be one of enum values ('Letter', 'LargeLetter', 'SmallParcel', 'MediumParcel')"
+            )
         return value

@@ -15,7 +15,9 @@ class SlotDetailsDef(RMBaseModel):
         description='Functional location id of Delivery office',
         alias='deliveryOfficeId',
     )
-    item_count: StrictFloat | StrictInt | None = Field(default=None, description='count of Item.', alias='itemCount')
+    item_count: StrictFloat | StrictInt | None = Field(
+        default=None, description='count of Item.', alias='itemCount'
+    )
     token_id: StrictStr | None = Field(default=None, description='Token Id.', alias='tokenId')
     token_id_expiry_time: StrictStr | None = Field(
         default=None,
@@ -27,7 +29,9 @@ class SlotDetailsDef(RMBaseModel):
 class EstimatedWindowDef(RMBaseModel):
     start_time: StrictStr | None = None
     end_time: StrictStr | None = None
-    edw_visibility: OptionalStrictNumber = Field(default=None, description='EDW Visibility', alias='EDWVisibility')
+    edw_visibility: OptionalStrictNumber = Field(
+        default=None, description='EDW Visibility', alias='EDWVisibility'
+    )
 
 
 class SlotDateDef(RMBaseModel):

@@ -36,7 +36,9 @@ class ProductItemRequest(RMBaseModel):
         Annotated[float, Field(multiple_of=0.01, le=999999, strict=True, ge=0)]
         | Annotated[int, Field(le=999999, strict=True, ge=0)]
         | None
-    ) = Field(default=None, description='The price of a single unit excluding tax', alias='unitValue')
+    ) = Field(
+        default=None, description='The price of a single unit excluding tax', alias='unitValue'
+    )
     unit_weight_in_grams: Annotated[int, Field(le=999999, strict=True, ge=0)] | None = Field(
         default=None, alias='unitWeightInGrams'
     )
@@ -46,11 +48,15 @@ class ProductItemRequest(RMBaseModel):
     extended_customs_description: Annotated[str, Field(strict=True, max_length=300)] | None = Field(
         default=None, alias='extendedCustomsDescription'
     )
-    customs_code: Annotated[str, Field(strict=True, max_length=10)] | None = Field(default=None, alias='customsCode')
+    customs_code: Annotated[str, Field(strict=True, max_length=10)] | None = Field(
+        default=None, alias='customsCode'
+    )
     origin_country_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(
         default=None, alias='originCountryCode'
     )
-    customs_declaration_category: StrictStr | None = Field(default=None, alias='customsDeclarationCategory')
+    customs_declaration_category: StrictStr | None = Field(
+        default=None, alias='customsDeclarationCategory'
+    )
     requires_export_licence: StrictBool | None = Field(default=None, alias='requiresExportLicence')
     stock_location: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
         default=None, alias='stockLocation'

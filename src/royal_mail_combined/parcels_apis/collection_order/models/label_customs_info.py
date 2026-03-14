@@ -24,14 +24,26 @@ class LabelCustomsInfo(RMBaseModel):
     LabelCustomsInfo
     """
 
-    currency_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(default=None, alias='currencyCode')
+    currency_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(
+        default=None, alias='currencyCode'
+    )
     total_cost: StrictFloat | StrictInt | None = Field(default=None, alias='totalCost')
-    shipment_subtotal: StrictFloat | StrictInt | None = Field(default=None, alias='shipmentSubtotal')
-    shipping_cost_charged: StrictFloat | StrictInt | None = Field(default=None, alias='shippingCostCharged')
+    shipment_subtotal: StrictFloat | StrictInt | None = Field(
+        default=None, alias='shipmentSubtotal'
+    )
+    shipping_cost_charged: StrictFloat | StrictInt | None = Field(
+        default=None, alias='shippingCostCharged'
+    )
     customs_duty_cost: StrictFloat | StrictInt | None = Field(default=None, alias='customsDutyCost')
-    ioss_number: Annotated[str, Field(strict=True, max_length=20)] | None = Field(default=None, alias='IOSSNumber')
-    air_number: Annotated[str, Field(strict=True, max_length=20)] | None = Field(default=None, alias='AIRNumber')
-    customs_declaration_category: StrictStr | None = Field(default=None, alias='customsDeclarationCategory')
+    ioss_number: Annotated[str, Field(strict=True, max_length=20)] | None = Field(
+        default=None, alias='IOSSNumber'
+    )
+    air_number: Annotated[str, Field(strict=True, max_length=20)] | None = Field(
+        default=None, alias='AIRNumber'
+    )
+    customs_declaration_category: StrictStr | None = Field(
+        default=None, alias='customsDeclarationCategory'
+    )
     contents: list[LabelOrderItem] | None = None
 
     @field_validator('customs_declaration_category')

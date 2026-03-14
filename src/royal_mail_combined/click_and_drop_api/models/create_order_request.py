@@ -59,7 +59,9 @@ class CreateOrderRequest(RMBaseModel):
     shipping_cost_charged: (
         Annotated[float, Field(multiple_of=0.01, le=999999, strict=True, ge=0)]
         | Annotated[int, Field(le=999999, strict=True, ge=0)]
-    ) = Field(description='The shipping costs you charged to your customer', alias='shippingCostCharged')
+    ) = Field(
+        description='The shipping costs you charged to your customer', alias='shippingCostCharged'
+    )
     other_costs: (
         Annotated[float, Field(multiple_of=0.01, le=999999, strict=True, ge=0)]
         | Annotated[int, Field(le=999999, strict=True, ge=0)]
@@ -78,7 +80,9 @@ class CreateOrderRequest(RMBaseModel):
         Annotated[float, Field(multiple_of=0.01, le=999999, strict=True, ge=0)]
         | Annotated[int, Field(le=999999, strict=True, ge=0)]
     ) = Field(description='The sum of order subtotal, tax and retail shipping costs')
-    currency_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(default=None, alias='currencyCode')
+    currency_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(
+        default=None, alias='currencyCode'
+    )
     postage_details: PostageDetailsRequest | None = Field(default=None, alias='postageDetails')
     tags: list[TagRequest] | None = None
     label: LabelGenerationRequest | None = None
@@ -95,10 +99,16 @@ class CreateOrderRequest(RMBaseModel):
     dangerous_goods_un_code: Annotated[str, Field(strict=True, max_length=4)] | None = Field(
         default=None, description='UN Code of the dangerous goods', alias='dangerousGoodsUnCode'
     )
-    dangerous_goods_description: Annotated[float, Field(strict=True)] | Annotated[int, Field(strict=True)] | None = (
-        Field(default=None, description='Description of the dangerous goods', alias='dangerousGoodsDescription')
+    dangerous_goods_description: (
+        Annotated[float, Field(strict=True)] | Annotated[int, Field(strict=True)] | None
+    ) = Field(
+        default=None,
+        description='Description of the dangerous goods',
+        alias='dangerousGoodsDescription',
     )
     dangerous_goods_quantity: StrictFloat | StrictInt | None = Field(
-        default=None, description='Quantity or volume of the dangerous goods', alias='dangerousGoodsQuantity'
+        default=None,
+        description='Quantity or volume of the dangerous goods',
+        alias='dangerousGoodsQuantity',
     )
     importer: Importer | None = None

@@ -24,7 +24,9 @@ class LabelOrderItem(RMBaseModel):
     """
 
     description: Annotated[str, Field(strict=True, max_length=50)] | None = None
-    customs_code: Annotated[str, Field(strict=True, max_length=12)] | None = Field(default=None, alias='customsCode')
+    customs_code: Annotated[str, Field(strict=True, max_length=12)] | None = Field(
+        default=None, alias='customsCode'
+    )
     quantity: StrictInt | None = None
     unit_value: StrictFloat | StrictInt | None = Field(default=None, alias='unitValue')
     unit_weight_in_grams: StrictInt | None = Field(default=None, alias='unitWeightInGrams')

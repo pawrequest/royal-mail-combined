@@ -36,7 +36,9 @@ class AddressNonMandatoryDef(RMBaseModel):
     address_line1: Annotated[str, StringConstraints(min_length=1, strict=True, max_length=64)]
     address_line2: Annotated[str | None, StringConstraints(strict=True, max_length=64)] = None
     address_line3: Annotated[str | None, StringConstraints(strict=True, max_length=64)] = None
-    post_town: Annotated[str | None, StringConstraints(min_length=0, strict=True, max_length=64)] = None
+    post_town: Annotated[
+        str | None, StringConstraints(min_length=0, strict=True, max_length=64)
+    ] = None
     postcode: Annotated[str, StringConstraints(min_length=1, strict=True, max_length=10)]
     dps: Annotated[str | None, StringConstraints(min_length=0, strict=True, max_length=10)] = None
     county: Annotated[str | None, StringConstraints(strict=True, max_length=64)] = None
@@ -72,7 +74,9 @@ class ItemsPostDef(RMBaseModel):
     items detail definition
     """
 
-    item_barcode_id: Annotated[str | None, StringConstraints(min_length=1, strict=True, max_length=21)] = None
+    item_barcode_id: Annotated[
+        str | None, StringConstraints(min_length=1, strict=True, max_length=21)
+    ] = None
     item_reference: Annotated[str | None, StringConstraints(strict=True, max_length=40)] = None
     weight_in_grams: NonNegativeInt
     item_service_name: Annotated[str, StringConstraints(min_length=1, strict=True, max_length=50)]
@@ -85,9 +89,9 @@ class ItemsPostDef(RMBaseModel):
 
 
 class Collection(RMBaseModel):
-    timeslot_reservation_id: Annotated[str | None, StringConstraints(min_length=0, strict=True, max_length=64)] = Field(
-        default=None, description='time slot reservation Id', alias='timeslotReservationId'
-    )
+    timeslot_reservation_id: Annotated[
+        str | None, StringConstraints(min_length=0, strict=True, max_length=64)
+    ] = Field(default=None, description='time slot reservation Id', alias='timeslotReservationId')
     sender_details: SenderDetailsPostDef = Field(alias='senderDetails')
     account_details: AccountDetailsDef = Field(alias='accountDetails')
     address: AddressNonMandatoryDef

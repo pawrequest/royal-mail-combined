@@ -43,9 +43,15 @@ class ReturnsCollectionApi:
                 description='This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00'
             ),
         ],
-        label_info: Annotated[DraftCollectionLabelRequest, Field(description='Provide the label information')],
-        x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
-        accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
+        label_info: Annotated[
+            DraftCollectionLabelRequest, Field(description='Provide the label information')
+        ],
+        x_rmg_language: Annotated[
+            StrictStr | None, Field(description='Optional default english')
+        ] = None,
+        accept: Annotated[
+            StrictStr | None, Field(description='Pass though; used for markdown')
+        ] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -123,9 +129,15 @@ class ReturnsCollectionApi:
                 description='This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00'
             ),
         ],
-        label_info: Annotated[DraftCollectionLabelRequest, Field(description='Provide the label information')],
-        x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
-        accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
+        label_info: Annotated[
+            DraftCollectionLabelRequest, Field(description='Provide the label information')
+        ],
+        x_rmg_language: Annotated[
+            StrictStr | None, Field(description='Optional default english')
+        ] = None,
+        accept: Annotated[
+            StrictStr | None, Field(description='Pass though; used for markdown')
+        ] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -203,9 +215,15 @@ class ReturnsCollectionApi:
                 description='This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00'
             ),
         ],
-        label_info: Annotated[DraftCollectionLabelRequest, Field(description='Provide the label information')],
-        x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
-        accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
+        label_info: Annotated[
+            DraftCollectionLabelRequest, Field(description='Provide the label information')
+        ],
+        x_rmg_language: Annotated[
+            StrictStr | None, Field(description='Optional default english')
+        ] = None,
+        accept: Annotated[
+            StrictStr | None, Field(description='Pass though; used for markdown')
+        ] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,

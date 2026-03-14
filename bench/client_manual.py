@@ -72,7 +72,9 @@ class RoyalMailClient(RMBaseClient):
         return res_model
 
     def order_create_return(self, return_request: ReturnsRequest | dict):
-        res = self.do_post(url=RETURNS_ENDPOINT, data=return_request, headers=self.settings.headers_bearer())
+        res = self.do_post(
+            url=RETURNS_ENDPOINT, data=return_request, headers=self.settings.headers_bearer()
+        )
         res_model = ReturnsResponse.model_validate(res.json())
         return res_model
 
@@ -88,7 +90,9 @@ class RoyalMailClient(RMBaseClient):
         res_model = [AddressSummaryDef.model_validate(_) for _ in res.json()['addresses']]
         return res_model
 
-    def address_search_dps(self, address_search: AddressVerifyRequestDef | dict) -> list[AddressVerifyReqRespdef]:
+    def address_search_dps(
+        self, address_search: AddressVerifyRequestDef | dict
+    ) -> list[AddressVerifyReqRespdef]:
         res = self.do_post(url=f'{ADDRESS_BASE}/address/dps', data=address_search)
         res_model = [AddressVerifyReqRespdef.model_validate(_) for _ in res.json()]
         return res_model
@@ -120,9 +124,15 @@ class RoyalMailClient(RMBaseClient):
 
     def collection_subscription_check(self, barcode, family_name, account_number):
         params = {
-            'productFamily': {'barcode': barcode, 'productFamilyName': family_name, 'accountNumber': account_number}
+            'productFamily': {
+                'barcode': barcode,
+                'productFamilyName': family_name,
+                'accountNumber': account_number,
+            }
         }
-        res = self.do_post(url=(COLLECTION_HANDLER_NET + r'/productfamily/subscription'), data=params)
+        res = self.do_post(
+            url=(COLLECTION_HANDLER_NET + r'/productfamily/subscription'), data=params
+        )
         return res
 
     # DELIVERY OFFICE

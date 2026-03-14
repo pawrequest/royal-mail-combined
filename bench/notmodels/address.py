@@ -10,7 +10,9 @@ class AddressDef(RMBaseModel):
     addressLine2: str = ''
     addressLine3: str = ''
     postTown: str
-    county: str = Field(None, alias='County')  # API spec has capital C here despite camelCase convention elsewhere
+    county: str = Field(
+        None, alias='County'
+    )  # API spec has capital C here despite camelCase convention elsewhere
     postcode: str
 
 

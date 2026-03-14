@@ -26,8 +26,12 @@ class DraftCollectionLabelRequest(RMBaseModel):
     DraftCollectionLabelRequest
     """
 
-    var_1_d_tracking_number: str = Field(min_length=1, strict=True, max_length=13, alias='1DTrackingNumber')
-    var_2_d_unique_identifier: str = Field(min_length=1, strict=True, max_length=21, alias='2DUniqueIdentifier')
+    var_1_d_tracking_number: str = Field(
+        min_length=1, strict=True, max_length=13, alias='1DTrackingNumber'
+    )
+    var_2_d_unique_identifier: str = Field(
+        min_length=1, strict=True, max_length=21, alias='2DUniqueIdentifier'
+    )
     post_by_date: date | None = None
     rm_service: str | None = Field(default=None, alias='RMService', strict=True, max_length=50)
     price_paid: StrictFloat | StrictInt | None = Field(default=None, alias='pricePaid')

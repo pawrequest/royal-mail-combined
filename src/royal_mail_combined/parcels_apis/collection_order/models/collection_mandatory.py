@@ -37,4 +37,6 @@ class CollectionMandatory(RMBaseModel):
     animal_hazard_details: Annotated[str, Field(strict=True, max_length=50)] | None = None
     collection_date: date
     items: list[ItemsPostDef]
-    suppress_rm_notifications: StrictBool | None = Field(default=None, alias='suppressRmNotifications')
+    suppress_rm_notifications: StrictBool | None = Field(
+        default=None, alias='suppressRmNotifications'
+    )

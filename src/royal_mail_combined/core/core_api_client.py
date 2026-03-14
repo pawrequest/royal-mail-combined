@@ -52,7 +52,12 @@ class ApiClient:
     _pool = None
 
     def __init__(
-        self, configuration: Configuration, header_name=None, header_value=None, cookie=None, default_headers=None
+        self,
+        configuration: Configuration,
+        header_name=None,
+        header_value=None,
+        cookie=None,
+        default_headers=None,
     ) -> None:
         default_headers = default_headers or {}
         for k, v in default_headers.items():
@@ -144,7 +149,9 @@ class ApiClient:
                 # resource_path = resource_path.replace(
                 #     '{%s}' % k, quote(str(v), safe=config.safe_chars_for_path_param)
                 # )
-                resource_path = resource_path.replace(f'{{{k}}}', quote(str(v), safe=config.safe_chars_for_path_param))
+                resource_path = resource_path.replace(
+                    f'{{{k}}}', quote(str(v), safe=config.safe_chars_for_path_param)
+                )
 
         # post parameters
         if post_params or files:
@@ -233,7 +240,11 @@ class ApiClient:
         assert response_data.data is not None, msg
 
         response_type = response_types_map.get(str(response_data.status), None)
-        if not response_type and isinstance(response_data.status, int) and 100 <= response_data.status <= 599:
+        if (
+            not response_type
+            and isinstance(response_data.status, int)
+            and 100 <= response_data.status <= 599
+        ):
             # if not found, look for '1XX', '2XX', etc.
             response_type = response_types_map.get(str(response_data.status)[0] + 'XX', None)
 
@@ -332,7 +343,9 @@ class ApiClient:
                 data = json.loads(response_text)
             except ValueError:
                 data = response_text
-        elif re.match(r'^application/(json|[\w!#$&.+-^_]+\+json)\s*(;|$)', content_type, re.IGNORECASE):
+        elif re.match(
+            r'^application/(json|[\w!#$&.+-^_]+\+json)\s*(;|$)', content_type, re.IGNORECASE
+        ):
             if response_text == '':
                 data = ''
             else:
@@ -539,9 +552,13 @@ class ApiClient:
             for auth in auth_settings:
                 auth_setting = self.configuration.auth_settings().get(auth)
                 if auth_setting:
-                    self._apply_auth_params(headers, queries, resource_path, method, body, auth_setting)
+                    self._apply_auth_params(
+                        headers, queries, resource_path, method, body, auth_setting
+                    )
 
-    def _apply_auth_params(self, headers, queries, resource_path, method, body, auth_setting) -> None:
+    def _apply_auth_params(
+        self, headers, queries, resource_path, method, body, auth_setting
+    ) -> None:
         """Updates the request parameters based on a single auth_setting
 
         :param headers: Header parameters dict to be updated.

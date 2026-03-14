@@ -33,7 +33,9 @@ class ItemsPostDef(RMBaseModel):
     item_reference: Annotated[str, Field(strict=True, max_length=40)] | None = None
     item_status: StrictStr | None = Field(default=None, alias='itemStatus')
     item_price: StrictFloat | StrictInt | None = Field(
-        default=None, description='Price paid for the doorstep collection for the item', alias='itemPrice'
+        default=None,
+        description='Price paid for the doorstep collection for the item',
+        alias='itemPrice',
     )
     item_type: CollectionItemType | None = None
     item_product_code: Annotated[str, Field(strict=True, max_length=5)] | None = None
@@ -45,7 +47,13 @@ class ItemsPostDef(RMBaseModel):
         if value is None:
             return value
 
-        if value not in {'AwaitingCollection', 'Collected', 'NotCollected', 'Processing', 'Attempted'}:
+        if value not in {
+            'AwaitingCollection',
+            'Collected',
+            'NotCollected',
+            'Processing',
+            'Attempted',
+        }:
             raise ValueError(
                 "must be one of enum values ('AwaitingCollection', 'Collected', 'NotCollected', 'Processing', 'Attempted')"
             )

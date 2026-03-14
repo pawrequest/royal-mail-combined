@@ -25,7 +25,9 @@ class AddressSummaryDef(RMBaseModel):
 
     # address_id: Optional[Annotated[str, Field(strict=True, max_length=30)]] = Field(default=None, description="Unique identifier for address record retrieval", alias="addressId")
     address_id: Annotated[str, Field(strict=True)] | None = Field(
-        default=None, description='Unique identifier for address record retrieval', alias='addressId'
+        default=None,
+        description='Unique identifier for address record retrieval',
+        alias='addressId',
     )
     type: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
         default=None, description='Type of the response entity'

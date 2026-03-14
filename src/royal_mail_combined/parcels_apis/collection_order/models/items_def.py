@@ -32,7 +32,9 @@ class ItemsDef(RMBaseModel):
     item_reference: Annotated[str, Field(strict=True, max_length=40)] | None = Field(
         default=None, alias='itemReference'
     )
-    weight_in_grams: StrictInt = Field(description='Weight of a parcel in grams', alias='weightInGrams')
+    weight_in_grams: StrictInt = Field(
+        description='Weight of a parcel in grams', alias='weightInGrams'
+    )
     item_service_name: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
         default=None, description='Item Service Name', alias='itemServiceName'
     )

@@ -1,7 +1,16 @@
 from datetime import datetime
 from typing import Annotated
 
-from pydantic import StringConstraints, Field, StrictInt, conint, confloat, StrictStr, StrictBool, StrictFloat
+from pydantic import (
+    StringConstraints,
+    Field,
+    StrictInt,
+    conint,
+    confloat,
+    StrictStr,
+    StrictBool,
+    StrictFloat,
+)
 
 from royal_mail_combined import RMBaseModel
 from royal_mail_combined.models.consts_types import SendNotifcationsTo
@@ -77,22 +86,38 @@ class ProductItemRequest(RMBaseModel):
         description='The presence or not of field <b>SKU</b> and other fields in the request body will determine which of the following behaviours occur:- <br>1) A minimum of <b>SKU</b>, <b>unitValue</b>, <b>unitWeightInGrams</b> and <b>quantity</b> provided - In addition to the provided product fields being used for the order creation, an existing account Product with matching SKU will be overwritten with all provided product parameters. If no existing account Product with matching SKU can be found then a new product will be created with the provided SKU and product parameters.<br>2) <b>SKU</b>, <b>quantity</b> provided and <b>no other fields</b> provided - An account Product with the provided SKU will be used for the order if it exists.<br>3) <b>SKU not provided</b> and a minimum of <b>unitValue</b>, <b>unitWeightInGrams</b> and <b>quantity</b> provided - All provided product fields will be used for the order creation.<br>4) All other scenarios will result in a validation error.',
         alias='SKU',
     )
-    quantity: conint(le=999999, strict=True, ge=1) = Field(description='The number of units in a given line')
+    quantity: conint(le=999999, strict=True, ge=1) = Field(
+        description='The number of units in a given line'
+    )
     unit_value: (
-        confloat(multiple_of=0.01, le=999999, strict=True, ge=0) | conint(le=999999, strict=True, ge=0) | None
+        confloat(multiple_of=0.01, le=999999, strict=True, ge=0)
+        | conint(le=999999, strict=True, ge=0)
+        | None
     ) = Field(default=None, description='The price of a single unit excluding tax')
-    unit_weight_in_grams: Annotated[int, Field(le=999999, strict=True, ge=0)] | None = Field(default=None)
-    customs_description: Annotated[str, Field(strict=True, max_length=50)] | None = Field(default=None)
-    extended_customs_description: Annotated[str, Field(strict=True, max_length=300)] | None = Field(default=None)
+    unit_weight_in_grams: Annotated[int, Field(le=999999, strict=True, ge=0)] | None = Field(
+        default=None
+    )
+    customs_description: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
+        default=None
+    )
+    extended_customs_description: Annotated[str, Field(strict=True, max_length=300)] | None = Field(
+        default=None
+    )
     customs_code: Annotated[str, Field(strict=True, max_length=10)] | None = Field(default=None)
-    origin_country_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(default=None)
+    origin_country_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(
+        default=None
+    )
     customs_declaration_category: StrictStr | None = Field(default=None)
     requires_export_licence: StrictBool | None = Field(default=None)
     stock_location: Annotated[str, Field(strict=True, max_length=50)] | None = Field(default=None)
     use_origin_preference: StrictBool | None = None
-    supplementary_units: Annotated[str, Field(strict=True, max_length=17)] | None = Field(default=None)
+    supplementary_units: Annotated[str, Field(strict=True, max_length=17)] | None = Field(
+        default=None
+    )
     license_number: Annotated[str, Field(strict=True, max_length=41)] | None = Field(default=None)
-    certificate_number: Annotated[str, Field(strict=True, max_length=41)] | None = Field(default=None)
+    certificate_number: Annotated[str, Field(strict=True, max_length=41)] | None = Field(
+        default=None
+    )
 
 
 class ShipmentPackageRequest(RMBaseModel):
@@ -137,7 +162,9 @@ class PostageDetailsRequest(RMBaseModel):
     consequential_loss: Annotated[int, Field(le=10000, strict=True, ge=0)] | None = None
     receive_email_notification: StrictBool | None = None
     receive_sms_notification: StrictBool | None = None
-    guaranteed_saturday_delivery: StrictBool | None = Field(default=None, description='This field has been deprecated')
+    guaranteed_saturday_delivery: StrictBool | None = Field(
+        default=None, description='This field has been deprecated'
+    )
     request_signature_upon_delivery: StrictBool | None = None
     is_local_collect: StrictBool | None = None
     safe_place: Annotated[str, Field(strict=True, max_length=90)] | None = None
@@ -171,10 +198,16 @@ class LabelGenerationRequest(RMBaseModel):
 class CreateOrderRequest(RMBaseModel):
     recipient: RecipientDetailsRequest
     order_date: datetime
-    subtotal: confloat(multiple_of=0.01, le=999999, strict=True, ge=0) | conint(le=999999, strict=True, ge=0) | None = (
-        None
-    )
-    total: confloat(multiple_of=0.01, le=999999, strict=True, ge=0) | conint(le=999999, strict=True, ge=0) | None = None
+    subtotal: (
+        confloat(multiple_of=0.01, le=999999, strict=True, ge=0)
+        | conint(le=999999, strict=True, ge=0)
+        | None
+    ) = None
+    total: (
+        confloat(multiple_of=0.01, le=999999, strict=True, ge=0)
+        | conint(le=999999, strict=True, ge=0)
+        | None
+    ) = None
     packages: list[ShipmentPackageRequest] | None = None
     billing: BillingDetailsRequest | None = None
 
@@ -192,7 +225,9 @@ class CreateOrderRequest(RMBaseModel):
         Annotated[float, Field(multiple_of=0.01, le=999999, strict=True, ge=0)]
         | Annotated[int, Field(le=999999, strict=True, ge=0)]
         | None
-    ) = Field(default=None, description='The shipping costs you charged to your customer')  # todo is this optional?
+    ) = Field(
+        default=None, description='The shipping costs you charged to your customer'
+    )  # todo is this optional?
     other_costs: (
         Annotated[float, Field(multiple_of=0.01, le=999999, strict=True, ge=0)]
         | Annotated[int, Field(le=999999, strict=True, ge=0)]
@@ -202,7 +237,10 @@ class CreateOrderRequest(RMBaseModel):
         Annotated[float, Field(multiple_of=0.01, le=99999.99, strict=True, ge=0)]
         | Annotated[int, Field(le=99999, strict=True, ge=0)]
         | None
-    ) = Field(default=None, description='Customs Duty Costs is only supported in DDP (Delivery Duty Paid) services')
+    ) = Field(
+        default=None,
+        description='Customs Duty Costs is only supported in DDP (Delivery Duty Paid) services',
+    )
     currency_code: Annotated[str, Field(strict=True, max_length=3)] | None = None
     tags: list[TagRequest] | None = None
     label: LabelGenerationRequest | None = None
@@ -212,14 +250,15 @@ class CreateOrderRequest(RMBaseModel):
         | None
     ) = Field(default=None, description='The total tax charged for the order')
     contains_dangerous_goods: StrictBool | None = Field(
-        default=None, description='Indicates that the package contents contain a dangerous goods item'
+        default=None,
+        description='Indicates that the package contents contain a dangerous goods item',
     )
     dangerous_goods_un_code: Annotated[str, Field(strict=True, max_length=4)] | None = Field(
         default=None, description='UN Code of the dangerous goods'
     )
-    dangerous_goods_description: Annotated[float, Field(strict=True)] | Annotated[int, Field(strict=True)] | None = (
-        Field(default=None, description='Description of the dangerous goods')
-    )
+    dangerous_goods_description: (
+        Annotated[float, Field(strict=True)] | Annotated[int, Field(strict=True)] | None
+    ) = Field(default=None, description='Description of the dangerous goods')
     dangerous_goods_quantity: StrictFloat | StrictInt | None = Field(
         default=None, description='Quantity or volume of the dangerous goods'
     )

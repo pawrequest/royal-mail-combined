@@ -27,5 +27,9 @@ class BillingDetailsRequest(RMBaseModel):
     """
 
     address: AddressRequest | None = None
-    phone_number: Annotated[str, Field(strict=True, max_length=25)] | None = Field(default=None, alias='phoneNumber')
-    email_address: Annotated[str, Field(strict=True, max_length=254)] | None = Field(default=None, alias='emailAddress')
+    phone_number: Annotated[str, Field(strict=True, max_length=25)] | None = Field(
+        default=None, alias='phoneNumber'
+    )
+    email_address: Annotated[str, Field(strict=True, max_length=254)] | None = Field(
+        default=None, alias='emailAddress'
+    )

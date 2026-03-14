@@ -24,6 +24,6 @@ class AddressVerifyRequestDef(RMBaseModel):
     AddressVerifyRequestDef
     """
 
-    addresses: Annotated[list[AddressVerifyDef], Field(min_length=1, max_length=100)] | None = Field(
-        default=None, alias='Addresses'
+    addresses: Annotated[list[AddressVerifyDef], Field(min_length=1, max_length=100)] | None = (
+        Field(default=None, alias='Addresses')
     )

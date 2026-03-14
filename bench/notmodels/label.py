@@ -35,7 +35,9 @@ class LabelAddress(RMBaseModel):
     post_town: Annotated[str, StringConstraints(min_length=1, strict=True, max_length=64)]
     county: Annotated[str | None, StringConstraints(strict=True, max_length=64)] = None
     postcode: Annotated[str, StringConstraints(min_length=1, strict=True, max_length=10)]
-    dps: Annotated[str | None, StringConstraints(strict=True, max_length=10)] = Field(default='9Z', alias='DPS')
+    dps: Annotated[str | None, StringConstraints(strict=True, max_length=10)] = Field(
+        default='9Z', alias='DPS'
+    )
     country_code: Annotated[str, StringConstraints(strict=True, max_length=3)] = 'GBR'
 
 
@@ -49,8 +51,12 @@ class LabelCustomsInfo(RMBaseModel):
     shipment_subtotal: OptionalStrictNumber = None
     shipping_cost_charged: OptionalStrictNumber = Field(default=None, alias='shippingCostCharged')
     customs_duty_cost: OptionalStrictNumber = None
-    ioss_number: Annotated[str, StringConstraints(strict=True, max_length=20)] = Field(default=None, alias='IOSSNumber')
-    air_number: Annotated[str, StringConstraints(strict=True, max_length=20)] = Field(default=None, alias='AIRNumber')
+    ioss_number: Annotated[str, StringConstraints(strict=True, max_length=20)] = Field(
+        default=None, alias='IOSSNumber'
+    )
+    air_number: Annotated[str, StringConstraints(strict=True, max_length=20)] = Field(
+        default=None, alias='AIRNumber'
+    )
     customs_declaration_category: StrictStr | None = None
     contents: list[LabelOrderItem] = Field(default_factory=list)
 
@@ -60,14 +66,16 @@ class LabelInfo(RMBaseModel):
     LabelInfo
     """
 
-    var_1_d_tracking_number: Annotated[str | None, StringConstraints(strict=True, max_length=13)] = Field(
-        default=None, alias='1DTrackingNumber'
-    )
-    var_2_d_unique_identifier: Annotated[str, StringConstraints(min_length=1, strict=True, max_length=21)] = Field(
-        alias='2DUniqueIdentifier'
-    )
+    var_1_d_tracking_number: Annotated[
+        str | None, StringConstraints(strict=True, max_length=13)
+    ] = Field(default=None, alias='1DTrackingNumber')
+    var_2_d_unique_identifier: Annotated[
+        str, StringConstraints(min_length=1, strict=True, max_length=21)
+    ] = Field(alias='2DUniqueIdentifier')
     post_by_date: date
-    rm_service: Annotated[str, StringConstraints(min_length=1, strict=True, max_length=50)] = Field(alias='RMService')
+    rm_service: Annotated[str, StringConstraints(min_length=1, strict=True, max_length=50)] = Field(
+        alias='RMService'
+    )
     price_paid: StrictFloat | StrictInt
     reference_number: Annotated[str | None, StringConstraints(strict=True, max_length=20)] = None
     reference_text: Annotated[str | None, StringConstraints(strict=True, max_length=40)]

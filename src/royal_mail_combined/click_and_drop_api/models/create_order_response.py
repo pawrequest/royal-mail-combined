@@ -34,5 +34,7 @@ class CreateOrderResponse(RMBaseModel):
     shipped_on: datetime | None = Field(default=None, alias='shippedOn')
     tracking_number: StrictStr | None = Field(default=None, alias='trackingNumber')
     label: StrictStr | None = Field(default=None, description='label in format base64 string')
-    label_errors: list[CreateOrderLabelErrorResponse] | None = Field(default=None, alias='labelErrors')
+    label_errors: list[CreateOrderLabelErrorResponse] | None = Field(
+        default=None, alias='labelErrors'
+    )
     generated_documents: list[StrictStr] | None = Field(default=None, alias='generatedDocuments')

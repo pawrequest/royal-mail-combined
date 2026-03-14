@@ -22,9 +22,14 @@ class ErrorsDef(RMBaseModel):
     Array containing error information.
     """
 
-    code: StrictStr | None = Field(default=None, description='Code associated with the error condition')
-    description: StrictStr | None = Field(default=None, description='Description of the error condition')
+    code: StrictStr | None = Field(
+        default=None, description='Code associated with the error condition'
+    )
+    description: StrictStr | None = Field(
+        default=None, description='Description of the error condition'
+    )
     cause: StrictStr | None = Field(default=None, description='Cause of the error (if known)')
     resolution: StrictStr | None = Field(
-        default=None, description='Description of the resolution and action required to correct the error'
+        default=None,
+        description='Description of the resolution and action required to correct the error',
     )

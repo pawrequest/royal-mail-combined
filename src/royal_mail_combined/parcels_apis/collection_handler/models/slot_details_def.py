@@ -24,9 +24,13 @@ class SlotDetailsDef(RMBaseModel):
 
     dps: StrictStr | None = Field(default=None, description='Delivery point suffix')
     delivery_office_id: float | int | None = Field(
-        default=None, description='Functional location id of Delivery office', alias='deliveryOfficeId'
+        default=None,
+        description='Functional location id of Delivery office',
+        alias='deliveryOfficeId',
     )
-    item_count: StrictFloat | StrictInt | None = Field(default=None, description='count of Item.', alias='itemCount')
+    item_count: StrictFloat | StrictInt | None = Field(
+        default=None, description='count of Item.', alias='itemCount'
+    )
     token_id: StrictStr | None = Field(default=None, description='Toekn Id.', alias='tokenId')
     token_id_expiry_time: StrictStr | None = Field(
         default=None,

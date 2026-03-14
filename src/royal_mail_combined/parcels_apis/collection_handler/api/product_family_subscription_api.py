@@ -44,7 +44,10 @@ class ProductFamilySubscriptionApi:
             ),
         ],
         accept: Annotated[
-            StrictStr, Field(description='Content-Types that are acceptable for the response. Eg. application/json')
+            StrictStr,
+            Field(
+                description='Content-Types that are acceptable for the response. Eg. application/json'
+            ),
         ],
         product_family: ProductFamily,
         _request_timeout: None
@@ -123,7 +126,10 @@ class ProductFamilySubscriptionApi:
             ),
         ],
         accept: Annotated[
-            StrictStr, Field(description='Content-Types that are acceptable for the response. Eg. application/json')
+            StrictStr,
+            Field(
+                description='Content-Types that are acceptable for the response. Eg. application/json'
+            ),
         ],
         product_family: ProductFamily,
         _request_timeout: None
@@ -202,7 +208,10 @@ class ProductFamilySubscriptionApi:
             ),
         ],
         accept: Annotated[
-            StrictStr, Field(description='Content-Types that are acceptable for the response. Eg. application/json')
+            StrictStr,
+            Field(
+                description='Content-Types that are acceptable for the response. Eg. application/json'
+            ),
         ],
         product_family: ProductFamily,
         _request_timeout: None

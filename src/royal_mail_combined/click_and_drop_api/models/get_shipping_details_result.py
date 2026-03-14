@@ -29,9 +29,19 @@ class GetShippingDetailsResult(RMBaseModel):
     service_code: StrictStr | None = Field(default=None, alias='serviceCode')
     shipping_service: StrictStr | None = Field(default=None, alias='shippingService')
     shipping_carrier: StrictStr | None = Field(default=None, alias='shippingCarrier')
-    receive_email_notification: StrictBool | None = Field(default=None, alias='receiveEmailNotification')
-    receive_sms_notification: StrictBool | None = Field(default=None, alias='receiveSmsNotification')
-    guaranteed_saturday_delivery: StrictBool | None = Field(default=None, alias='guaranteedSaturdayDelivery')
-    request_signature_upon_delivery: StrictBool | None = Field(default=None, alias='requestSignatureUponDelivery')
+    receive_email_notification: StrictBool | None = Field(
+        default=None, alias='receiveEmailNotification'
+    )
+    receive_sms_notification: StrictBool | None = Field(
+        default=None, alias='receiveSmsNotification'
+    )
+    guaranteed_saturday_delivery: StrictBool | None = Field(
+        default=None, alias='guaranteedSaturdayDelivery'
+    )
+    request_signature_upon_delivery: StrictBool | None = Field(
+        default=None, alias='requestSignatureUponDelivery'
+    )
     is_local_collect: StrictBool | None = Field(default=None, alias='isLocalCollect')
-    shipping_update_success_date: datetime | None = Field(default=None, alias='shippingUpdateSuccessDate')
+    shipping_update_success_date: datetime | None = Field(
+        default=None, alias='shippingUpdateSuccessDate'
+    )

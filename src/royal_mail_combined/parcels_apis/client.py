@@ -2,11 +2,17 @@ from datetime import date
 
 from royal_mail_combined.all_models import AddressFindRequestDef, ProductFamily, ProductFamilyDef
 from royal_mail_combined.click_and_drop_api.models import AddressReturns
-from royal_mail_combined.converters import address_angonstic_to_verify_def, match_collection_slot_date
+from royal_mail_combined.converters import (
+    address_angonstic_to_verify_def,
+    match_collection_slot_date,
+)
 from royal_mail_combined.parcels_apis.address.api import AddressApi
 from royal_mail_combined.parcels_apis.address.models import AddressVerifyRequestDef
 from royal_mail_combined.parcels_apis.collection_order.api import CollectionOrderApi
-from royal_mail_combined.parcels_apis.collection_handler.api import GetAvailableSlotsApi, ProductFamilySubscriptionApi
+from royal_mail_combined.parcels_apis.collection_handler.api import (
+    GetAvailableSlotsApi,
+    ProductFamilySubscriptionApi,
+)
 from royal_mail_combined.core.build_client import build_client
 from royal_mail_combined.config import RoyalMailSettingsGlobal
 from royal_mail_combined.core.endpoints import (
@@ -14,7 +20,10 @@ from royal_mail_combined.core.endpoints import (
     COLLECTION_HANDLER_NET,
     ORDERS_NET,
 )
-from royal_mail_combined.parcels_apis.collection_order.models import CollectionStatus, CollectionStatusRequestDef
+from royal_mail_combined.parcels_apis.collection_order.models import (
+    CollectionStatus,
+    CollectionStatusRequestDef,
+)
 
 
 class ParcelAPIClient:
@@ -45,17 +54,23 @@ class ParcelAPIClient:
         return self.address_api.address_find(address_find_request=req)
 
     def collection_subscription_check(self, barcode, family_name, account_number):
-        pf_ = ProductFamilyDef(account_number=account_number, barcode=barcode, product_family_name=family_name)
+        pf_ = ProductFamilyDef(
+            account_number=account_number, barcode=barcode, product_family_name=family_name
+        )
         pf = ProductFamily(product_family=[pf_])
         res = self.subs_api.order_validate_subscription(product_family=pf)
         return res
 
     def cancel_collection(self, collection_id: str):
         req = CollectionStatusRequestDef(status=CollectionStatus.CANCELLED)
-        return self.collection_orders_api.order_delete(collection_id=collection_id, collection_status_request=req)
+        return self.collection_orders_api.order_delete(
+            collection_id=collection_id, collection_status_request=req
+        )
 
     def get_token(self, collection_date: date, num_boxes: int, postcode_and_dps: str) -> str | None:
-        slots_response = self.slots_api.order_get_available_slots(dps=postcode_and_dps, item_count=num_boxes)
+        slots_response = self.slots_api.order_get_available_slots(
+            dps=postcode_and_dps, item_count=num_boxes
+        )
         my_slot = match_collection_slot_date(slots_response, collection_date)
         if my_slot is None:
             raise Exception('No slot found for date')

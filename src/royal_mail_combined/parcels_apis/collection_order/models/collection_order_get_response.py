@@ -48,7 +48,11 @@ class CollectionOrderGetResponse(RMBaseModel):
         default=None, description='Date of order collection', alias='collectionDateTime'
     )
     items: list[ItemsDef] | None = None
-    created_on: datetime | None = Field(default=None, description='Date of order creation', alias='createdOn')
-    last_modified_on: datetime | None = Field(default=None, description='Date of last modified', alias='lastModifiedOn')
+    created_on: datetime | None = Field(
+        default=None, description='Date of order creation', alias='createdOn'
+    )
+    last_modified_on: datetime | None = Field(
+        default=None, description='Date of last modified', alias='lastModifiedOn'
+    )
     suppress_rm_notifications: StrictBool = Field(alias='suppressRmNotifications')
     is_collection_window_visible: StrictBool = Field(alias='isCollectionWindowVisible')

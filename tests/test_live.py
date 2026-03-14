@@ -9,7 +9,6 @@ from royal_mail_combined.all_models import (
     GetVersionResource,
 )
 from royal_mail_combined.click_and_drop_api.models import GetOrderInfoResource
-from royal_mail_combined.parcels_apis.collection_handler.models import GetAvailableSlotsResponse
 
 
 def test_version(fxt_client):
@@ -106,6 +105,7 @@ def test_address_get(fxt_client, cached_address_id):
     if STORE_RESULTS:
         dump_result_model(resp)
     assert isinstance(resp, AddressRecordDef)
+
 
 # todo fixme
 # def test_handler_get_slots(fxt_client):

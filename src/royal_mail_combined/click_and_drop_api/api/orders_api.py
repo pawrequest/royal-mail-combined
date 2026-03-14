@@ -815,7 +815,10 @@ class OrdersApi:
         if start_date_time is not None:
             if isinstance(start_date_time, datetime):
                 _query_params.append(
-                    ('startDateTime', start_date_time.strftime(self.api_client.configuration.datetime_format))
+                    (
+                        'startDateTime',
+                        start_date_time.strftime(self.api_client.configuration.datetime_format),
+                    )
                 )
             else:
                 _query_params.append(('startDateTime', start_date_time))
@@ -823,7 +826,10 @@ class OrdersApi:
         if end_date_time is not None:
             if isinstance(end_date_time, datetime):
                 _query_params.append(
-                    ('endDateTime', end_date_time.strftime(self.api_client.configuration.datetime_format))
+                    (
+                        'endDateTime',
+                        end_date_time.strftime(self.api_client.configuration.datetime_format),
+                    )
                 )
             else:
                 _query_params.append(('endDateTime', end_date_time))
@@ -1135,7 +1141,10 @@ class OrdersApi:
         if start_date_time is not None:
             if isinstance(start_date_time, datetime):
                 _query_params.append(
-                    ('startDateTime', start_date_time.strftime(self.api_client.configuration.datetime_format))
+                    (
+                        'startDateTime',
+                        start_date_time.strftime(self.api_client.configuration.datetime_format),
+                    )
                 )
             else:
                 _query_params.append(('startDateTime', start_date_time))
@@ -1143,7 +1152,10 @@ class OrdersApi:
         if end_date_time is not None:
             if isinstance(end_date_time, datetime):
                 _query_params.append(
-                    ('endDateTime', end_date_time.strftime(self.api_client.configuration.datetime_format))
+                    (
+                        'endDateTime',
+                        end_date_time.strftime(self.api_client.configuration.datetime_format),
+                    )
                 )
             else:
                 _query_params.append(('endDateTime', end_date_time))

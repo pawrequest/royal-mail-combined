@@ -36,6 +36,8 @@ class ErrorResponseHttp(RMBaseModel):
         alias='httpMessage',
     )
     more_information: StrictStr | None = Field(
-        default=None, description='Information relating to the error condition.', alias='moreInformation'
+        default=None,
+        description='Information relating to the error condition.',
+        alias='moreInformation',
     )
     errors: list[ErrorsDef] | None = None

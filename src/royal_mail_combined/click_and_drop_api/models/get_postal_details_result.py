@@ -35,6 +35,8 @@ class GetPostalDetailsResult(RMBaseModel):
     city: StrictStr | None = None
     county: StrictStr | None = None
     postcode: StrictStr | None = None
-    country_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(default=None, alias='countryCode')
+    country_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(
+        default=None, alias='countryCode'
+    )
     phone_number: StrictStr | None = Field(default=None, alias='phoneNumber')
     email_address: StrictStr | None = Field(default=None, alias='emailAddress')

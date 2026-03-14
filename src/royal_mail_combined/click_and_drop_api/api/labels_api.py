@@ -45,7 +45,9 @@ class LabelsApi:
         ],
         include_returns_label: Annotated[
             StrictBool | None,
-            Field(description="Include returns label. Required when documentType is set to 'postageLabel'"),
+            Field(
+                description="Include returns label. Required when documentType is set to 'postageLabel'"
+            ),
         ] = False,
         include_cn: Annotated[
             StrictBool | None,
@@ -138,7 +140,9 @@ class LabelsApi:
         ],
         include_returns_label: Annotated[
             StrictBool | None,
-            Field(description="Include returns label. Required when documentType is set to 'postageLabel'"),
+            Field(
+                description="Include returns label. Required when documentType is set to 'postageLabel'"
+            ),
         ] = None,
         include_cn: Annotated[
             StrictBool | None,
@@ -231,7 +235,9 @@ class LabelsApi:
         ],
         include_returns_label: Annotated[
             StrictBool | None,
-            Field(description="Include returns label. Required when documentType is set to 'postageLabel'"),
+            Field(
+                description="Include returns label. Required when documentType is set to 'postageLabel'"
+            ),
         ] = None,
         include_cn: Annotated[
             StrictBool | None,
@@ -344,7 +350,9 @@ class LabelsApi:
 
         # set the HTTP header `Accept`
         if 'Accept' not in _header_params:
-            _header_params['Accept'] = self.api_client.select_header_accept(['application/pdf', 'application/json'])
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                ['application/pdf', 'application/json']
+            )
 
         # authentication setting
         _auth_settings: list[str] = ['Bearer']

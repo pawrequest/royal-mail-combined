@@ -15,7 +15,9 @@ class AddressRecordDef(RMBaseModel):
     """
 
     address_id: Annotated[str, Field(strict=True, max_length=256)] | None = Field(
-        default=None, description='Unique identifier for address record retrieval', alias='addressId'
+        default=None,
+        description='Unique identifier for address record retrieval',
+        alias='addressId',
     )
     domestic_id: Annotated[str, Field(strict=True, max_length=256)] | None = Field(
         default=None, description='Domestic ID', alias='DomesticId'
@@ -101,9 +103,9 @@ class AddressRecordDef(RMBaseModel):
     country_iso3: Annotated[str, Field(max_length=3)] | None = Field(
         default=None, description='3 digit Country Iso code', alias='CountryIso3'
     )
-    country_iso_number: Annotated[str, BeforeValidator(lambda v: str(v)), Field(max_length=10)] | None = Field(
-        default=None, description='Country Iso Number', alias='CountryIsoNumber'
-    )
+    country_iso_number: (
+        Annotated[str, BeforeValidator(lambda v: str(v)), Field(max_length=10)] | None
+    ) = Field(default=None, description='Country Iso Number', alias='CountryIsoNumber')
     sorting_number1: Annotated[str, Field(strict=True, max_length=30)] | None = Field(
         default=None, description='Sorting Number 1', alias='SortingNumber1'
     )

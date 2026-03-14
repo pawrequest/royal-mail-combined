@@ -27,29 +27,45 @@ class PostageDetailsRequest(RMBaseModel):
     """
 
     send_notifications_to: StrictStr | None = Field(default=None, alias='sendNotificationsTo')
-    service_code: Annotated[str, Field(strict=True, max_length=10)] | None = Field(default=None, alias='serviceCode')
-    carrier_name: Annotated[str, Field(strict=True, max_length=50)] | None = Field(default=None, alias='carrierName')
+    service_code: Annotated[str, Field(strict=True, max_length=10)] | None = Field(
+        default=None, alias='serviceCode'
+    )
+    carrier_name: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
+        default=None, alias='carrierName'
+    )
     service_register_code: Annotated[str, Field(strict=True, max_length=2)] | None = Field(
         default=None, alias='serviceRegisterCode'
     )
     consequential_loss: Annotated[int, Field(le=10000, strict=True, ge=0)] | None = Field(
         default=None, alias='consequentialLoss'
     )
-    receive_email_notification: StrictBool | None = Field(default=None, alias='receiveEmailNotification')
-    receive_sms_notification: StrictBool | None = Field(default=None, alias='receiveSmsNotification')
-    guaranteed_saturday_delivery: StrictBool | None = Field(
-        default=None, description='This field has been deprecated', alias='guaranteedSaturdayDelivery'
+    receive_email_notification: StrictBool | None = Field(
+        default=None, alias='receiveEmailNotification'
     )
-    request_signature_upon_delivery: StrictBool | None = Field(default=None, alias='requestSignatureUponDelivery')
+    receive_sms_notification: StrictBool | None = Field(
+        default=None, alias='receiveSmsNotification'
+    )
+    guaranteed_saturday_delivery: StrictBool | None = Field(
+        default=None,
+        description='This field has been deprecated',
+        alias='guaranteedSaturdayDelivery',
+    )
+    request_signature_upon_delivery: StrictBool | None = Field(
+        default=None, alias='requestSignatureUponDelivery'
+    )
     is_local_collect: StrictBool | None = Field(default=None, alias='isLocalCollect')
-    safe_place: Annotated[str, Field(strict=True, max_length=90)] | None = Field(default=None, alias='safePlace')
+    safe_place: Annotated[str, Field(strict=True, max_length=90)] | None = Field(
+        default=None, alias='safePlace'
+    )
     department: Annotated[str, Field(strict=True, max_length=150)] | None = None
     air_number: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
         default=None,
         description='For B2B orders shipping from Great Britain to Northern Ireland, this field can be used to provide the Recipient UKIMs number.',
         alias='AIRNumber',
     )
-    ioss_number: Annotated[str, Field(strict=True, max_length=50)] | None = Field(default=None, alias='IOSSNumber')
+    ioss_number: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
+        default=None, alias='IOSSNumber'
+    )
     requires_export_license: StrictBool | None = Field(default=None, alias='requiresExportLicense')
     commercial_invoice_number: Annotated[str, Field(strict=True, max_length=35)] | None = Field(
         default=None, alias='commercialInvoiceNumber'

@@ -40,8 +40,12 @@ class AddressApi:
         self,
         address_find_request: AddressFindRequestDef,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
-        accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
+        x_rmg_language: Annotated[
+            StrictStr | None, Field(description='Optional default english')
+        ] = None,
+        accept: Annotated[
+            StrictStr | None, Field(description='Pass though; used for markdown')
+        ] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -116,8 +120,12 @@ class AddressApi:
         self,
         address_find_request: AddressFindRequestDef,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
-        accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
+        x_rmg_language: Annotated[
+            StrictStr | None, Field(description='Optional default english')
+        ] = None,
+        accept: Annotated[
+            StrictStr | None, Field(description='Pass though; used for markdown')
+        ] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -192,8 +200,12 @@ class AddressApi:
         self,
         address_find_request: AddressFindRequestDef,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
-        accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
+        x_rmg_language: Annotated[
+            StrictStr | None, Field(description='Optional default english')
+        ] = None,
+        accept: Annotated[
+            StrictStr | None, Field(description='Pass though; used for markdown')
+        ] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -328,10 +340,16 @@ class AddressApi:
     @validate_call
     def address_retrieve(
         self,
-        address_id: Annotated[StrictStr, Field(description='Unique identifier for address record retrieval')],
+        address_id: Annotated[
+            StrictStr, Field(description='Unique identifier for address record retrieval')
+        ],
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
-        accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
+        x_rmg_language: Annotated[
+            StrictStr | None, Field(description='Optional default english')
+        ] = None,
+        accept: Annotated[
+            StrictStr | None, Field(description='Pass though; used for markdown')
+        ] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -404,10 +422,16 @@ class AddressApi:
     @validate_call
     def address_retrieve_with_http_info(
         self,
-        address_id: Annotated[StrictStr, Field(description='Unique identifier for address record retrieval')],
+        address_id: Annotated[
+            StrictStr, Field(description='Unique identifier for address record retrieval')
+        ],
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
-        accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
+        x_rmg_language: Annotated[
+            StrictStr | None, Field(description='Optional default english')
+        ] = None,
+        accept: Annotated[
+            StrictStr | None, Field(description='Pass though; used for markdown')
+        ] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -480,10 +504,16 @@ class AddressApi:
     @validate_call
     def address_retrieve_without_preload_content(
         self,
-        address_id: Annotated[StrictStr, Field(description='Unique identifier for address record retrieval')],
+        address_id: Annotated[
+            StrictStr, Field(description='Unique identifier for address record retrieval')
+        ],
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
-        accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
+        x_rmg_language: Annotated[
+            StrictStr | None, Field(description='Optional default english')
+        ] = None,
+        accept: Annotated[
+            StrictStr | None, Field(description='Pass though; used for markdown')
+        ] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -612,8 +642,12 @@ class AddressApi:
         self,
         address_find_request: AddressVerifyRequestDef,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
-        accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
+        x_rmg_language: Annotated[
+            StrictStr | None, Field(description='Optional default english')
+        ] = None,
+        accept: Annotated[
+            StrictStr | None, Field(description='Pass though; used for markdown')
+        ] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -688,8 +722,12 @@ class AddressApi:
         self,
         address_find_request: AddressVerifyRequestDef,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
-        accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
+        x_rmg_language: Annotated[
+            StrictStr | None, Field(description='Optional default english')
+        ] = None,
+        accept: Annotated[
+            StrictStr | None, Field(description='Pass though; used for markdown')
+        ] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -764,8 +802,12 @@ class AddressApi:
         self,
         address_find_request: AddressVerifyRequestDef,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
-        accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
+        x_rmg_language: Annotated[
+            StrictStr | None, Field(description='Optional default english')
+        ] = None,
+        accept: Annotated[
+            StrictStr | None, Field(description='Pass though; used for markdown')
+        ] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,

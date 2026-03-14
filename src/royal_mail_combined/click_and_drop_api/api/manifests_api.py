@@ -34,7 +34,9 @@ class ManifestsApi:
         self,
         manifest_identifier: Annotated[
             StrictInt,
-            Field(description='The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call'),
+            Field(
+                description='The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call'
+            ),
         ],
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
@@ -100,7 +102,9 @@ class ManifestsApi:
         self,
         manifest_identifier: Annotated[
             StrictInt,
-            Field(description='The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call'),
+            Field(
+                description='The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call'
+            ),
         ],
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
@@ -166,7 +170,9 @@ class ManifestsApi:
         self,
         manifest_identifier: Annotated[
             StrictInt,
-            Field(description='The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call'),
+            Field(
+                description='The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call'
+            ),
         ],
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
@@ -310,7 +316,10 @@ class ManifestsApi:
         """
 
         _param = self._manifest_eligible_async_serialize(
-            _request_auth=_request_auth, _content_type=_content_type, _headers=_headers, _host_index=_host_index
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index,
         )
 
         _response_types_map: dict[str, str | None] = {
@@ -367,7 +376,10 @@ class ManifestsApi:
         """
 
         _param = self._manifest_eligible_async_serialize(
-            _request_auth=_request_auth, _content_type=_content_type, _headers=_headers, _host_index=_host_index
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index,
         )
 
         _response_types_map: dict[str, str | None] = {
@@ -424,7 +436,10 @@ class ManifestsApi:
         """
 
         _param = self._manifest_eligible_async_serialize(
-            _request_auth=_request_auth, _content_type=_content_type, _headers=_headers, _host_index=_host_index
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index,
         )
 
         _response_types_map: dict[str, str | None] = {
@@ -490,7 +505,9 @@ class ManifestsApi:
         self,
         manifest_identifier: Annotated[
             StrictInt,
-            Field(description='The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call'),
+            Field(
+                description='The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call'
+            ),
         ],
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
@@ -557,7 +574,9 @@ class ManifestsApi:
         self,
         manifest_identifier: Annotated[
             StrictInt,
-            Field(description='The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call'),
+            Field(
+                description='The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call'
+            ),
         ],
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
@@ -624,7 +643,9 @@ class ManifestsApi:
         self,
         manifest_identifier: Annotated[
             StrictInt,
-            Field(description='The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call'),
+            Field(
+                description='The manifest number returned from the initial ‘Manifest eligible orders’ endpoint call'
+            ),
         ],
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]

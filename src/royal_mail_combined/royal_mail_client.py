@@ -1,6 +1,10 @@
 from datetime import date
 
-from royal_mail_combined.all_models import AvailableServicesResponse, ReturnsRequest, ReturnsResponse
+from royal_mail_combined.all_models import (
+    AvailableServicesResponse,
+    ReturnsRequest,
+    ReturnsResponse,
+)
 from royal_mail_combined.click_and_drop_api.client import ClickAndDropClient
 from royal_mail_combined.config import RoyalMailSettingsGlobal
 from royal_mail_combined.core.endpoints import RETURNS_ENDPOINT, RETURNS_SERVICES_ENDPOINT
@@ -28,16 +32,24 @@ def make_item(barcode_id: str, box_weight_kg: int, dims: DimensionsPostDef) -> I
 
 class RMHttpClient(BaseHttpClient):
     def _book_inbound_shipment_single(self, return_request: ReturnsRequest) -> ReturnsResponse:
-        res = self.do_post(url=RETURNS_ENDPOINT, data=return_request, headers=self.settings.authorised_headers_bearer())
+        res = self.do_post(
+            url=RETURNS_ENDPOINT,
+            data=return_request,
+            headers=self.settings.authorised_headers_bearer(),
+        )
         res_model = ReturnsResponse.model_validate(res.json())
         return res_model
 
-    def book_inbound_shipment(self, return_request: ReturnsRequest, num_boxes: int = 1) -> list[ReturnsResponse]:
+    def book_inbound_shipment(
+        self, return_request: ReturnsRequest, num_boxes: int = 1
+    ) -> list[ReturnsResponse]:
         return [self._book_inbound_shipment_single(return_request) for _ in range(num_boxes)]
 
     def check_return_services(self) -> AvailableServicesResponse:
         # WARNING ServiceNames returned from here are not correct for use with CollectionsOrderCreate endpoint - must hardcode values from support email
-        res = self.do_get(url=RETURNS_SERVICES_ENDPOINT, headers=self.settings.authorised_headers_bearer())
+        res = self.do_get(
+            url=RETURNS_SERVICES_ENDPOINT, headers=self.settings.authorised_headers_bearer()
+        )
         res_model = AvailableServicesResponse.model_validate(res.json())
         return res_model
 
@@ -74,10 +86,14 @@ class RoyalMailClient:
         box_weight_kg: int = 8,
     ) -> CollectionOrderCreateResponse:
         # gather shipment data
-        sender_address_verified = self.parcel_api.verify_return_address(return_request.shipment.sender_address)
+        sender_address_verified = self.parcel_api.verify_return_address(
+            return_request.shipment.sender_address
+        )
         dps = sender_address_verified.dps
         postcode_and_dps = sender_address_verified.input.postcode.replace(' ', '') + dps
-        collection_address = AddressMandatoryDef(**sender_address_verified.input.model_dump(), dps=dps)
+        collection_address = AddressMandatoryDef(
+            **sender_address_verified.input.model_dump(), dps=dps
+        )
 
         # book shipping
         booking_responses = self.book_inbound_shipment(return_request, num_boxes=num_boxes)
