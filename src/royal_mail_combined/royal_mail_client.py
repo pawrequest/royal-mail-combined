@@ -9,9 +9,9 @@ from royal_mail_combined.click_and_drop_api.client import ClickAndDropClient
 from royal_mail_combined.config import RoyalMailSettingsGlobal
 from royal_mail_combined.core.endpoints import RETURNS_ENDPOINT, RETURNS_SERVICES_ENDPOINT
 from royal_mail_combined.core.http_client import BaseHttpClient
+from royal_mail_combined.parcels_apis.address.models.address import AddressDps
 from royal_mail_combined.parcels_apis.client import ParcelAPIClient
 from royal_mail_combined.parcels_apis.collection_order.models import (
-    AddressMandatoryDef,
     CollectionItemType,
     CollectionMandatory,
     CollectionOrderCreateResponse,
@@ -85,7 +85,7 @@ class RoyalMailClient:
         sender_address_verified = self.parcel_api.verify_return_address(return_request.shipment.sender_address)
         dps = sender_address_verified.dps
         postcode_and_dps = sender_address_verified.input.postcode.replace(" ", "") + dps
-        collection_address = AddressMandatoryDef(**sender_address_verified.input.model_dump(), dps=dps)
+        collection_address = AddressDps(**sender_address_verified.input.model_dump(), dps=dps)
 
         # book shipping
         booking_responses = self.book_inbound_shipment(return_request, num_boxes=num_boxes)

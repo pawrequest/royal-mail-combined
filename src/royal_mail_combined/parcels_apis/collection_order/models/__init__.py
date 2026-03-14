@@ -14,9 +14,7 @@ Do not edit the class manually.
 
 # import models into model package
 from .account_details_def import AccountDetailsDef
-from .address_def import AddressDef
-from .address_mandatory_def import AddressMandatoryDef
-from .address_non_mandatory_def import AddressNonMandatoryDef
+from ...address.models.address import AddressDefault, AddressBasic, AddressDps
 from .collection import Collection
 from .collection_item_type import CollectionItemType
 from .collection_mandatory import CollectionMandatory
@@ -45,9 +43,6 @@ from .update_collection import UpdateCollection
 
 __all__ = [
     "AccountDetailsDef",
-    "AddressDef",
-    "AddressMandatoryDef",
-    "AddressNonMandatoryDef",
     "Collection",
     "CollectionItemType",
     "CollectionMandatory",

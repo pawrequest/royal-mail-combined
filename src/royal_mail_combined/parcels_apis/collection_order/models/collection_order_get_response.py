@@ -10,19 +10,21 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
-import re  # noqa: F401
 
+import re  # noqa: F401
 from datetime import datetime
-from pydantic import Field, StrictBool, StrictStr
 from typing import Annotated
+
+from pydantic import Field, StrictBool, StrictStr
+
+from royal_mail_combined.core import RMBaseModel
+
+from ...address.models.address import AddressDefault
 from .account_details_def import AccountDetailsDef
-from .address_def import AddressDef
 from .collection_status import CollectionStatus
 from .items_def import ItemsDef
 from .safe_place_details_def import SafePlaceDetailsDef
 from .sender_details_def import SenderDetailsDef
-
-from royal_mail_combined.core import RMBaseModel
 
 
 class CollectionOrderGetResponse(RMBaseModel):
@@ -38,7 +40,7 @@ class CollectionOrderGetResponse(RMBaseModel):
     )
     sender_details: SenderDetailsDef | None = Field(default=None, alias="senderDetails")
     account_details: AccountDetailsDef | None = Field(default=None, alias="accountDetails")
-    address: AddressDef | None = None
+    address: AddressDefault | None = None
     safe_place_details: SafePlaceDetailsDef | None = Field(default=None, alias="safePlaceDetails")
     animal_hazard_details: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
         default=None, description="location animal hazard details", alias="animalHazardDetails"

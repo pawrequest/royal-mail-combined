@@ -2,21 +2,23 @@ from datetime import date
 from urllib.parse import quote
 
 from royal_mail_combined.all_models import (
+    AddressReturns,
+    AddressVerifable,
     CreateOrderRequest,
     CreateOrdersResponse,
-    LabelGenerationRequest,
     GetAvailableSlotsResponse,
+    LabelGenerationRequest,
     SlotDateDef,
-    AddressMandatoryDef,
-    AddressNonMandatoryDef,
-    AddressVerifyDef,
-    AddressVerifyReqRespdef,
-    AddressReturns,
+)
+from royal_mail_combined.parcels_apis.address.models import AddressVerified
+from royal_mail_combined.parcels_apis.address.models.address import (
+    AddressBasic,
+    AddressDps,
 )
 
 
-def rtn_address_to_addr_verify(address: AddressReturns) -> AddressVerifyDef:
-    return AddressVerifyDef.model_validate(
+def rtn_address_to_addr_verify(address: AddressReturns) -> AddressVerifable:
+    return AddressVerifable.model_validate(
         dict(
             address_line1=address.address_line1,
             address_line2=address.address_line2,
@@ -28,12 +30,12 @@ def rtn_address_to_addr_verify(address: AddressReturns) -> AddressVerifyDef:
     )
 
 
-def address_angonstic_to_verify_def(addr) -> AddressVerifyDef:
+def address_angonstic_to_verify_def(addr) -> AddressVerifable:
     data = addr.model_dump()
     if not data.get("postTown"):
         if data.get("city"):
             data["post_town"] = data["city"]
-    return AddressVerifyDef(
+    return AddressVerifable(
         address_line1=data.get("address_line1"),
         address_line2=data.get("address_line2"),
         address_line3=data.get("address_line3"),
@@ -43,17 +45,17 @@ def address_angonstic_to_verify_def(addr) -> AddressVerifyDef:
     )
 
 
-def dps_postcode(verify_resp: AddressVerifyReqRespdef) -> str:
+def dps_postcode(verify_resp: AddressVerified) -> str:
     """Get DPS + postcode string from an address verify response."""
     return verify_resp.input.postcode.replace(" ", "") + verify_resp.dps
 
 
-def addr_non_mandatory_from_addr(cached_address_verify: AddressVerifyDef) -> AddressNonMandatoryDef:
-    return AddressNonMandatoryDef.model_validate(cached_address_verify, from_attributes=True)
+def addr_non_mandatory_from_addr(cached_address_verify: AddressVerifable) -> AddressBasic:
+    return AddressBasic.model_validate(cached_address_verify, from_attributes=True)
 
 
-def addr_mandatory_f_addr_and_dps(addr: AddressVerifyDef, dps: str):
-    addr_mand = AddressMandatoryDef(**addr.model_dump(), dps=dps)
+def addr_mandatory_f_addr_and_dps(addr: AddressVerifable, dps: str):
+    addr_mand = AddressDps(**addr.model_dump(), dps=dps)
     return addr_mand
 
 

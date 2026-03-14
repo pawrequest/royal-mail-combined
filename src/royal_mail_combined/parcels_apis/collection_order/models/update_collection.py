@@ -13,16 +13,15 @@ from __future__ import annotations
 
 import re  # noqa: F401
 from datetime import date
-
 from typing import Annotated
+
 from pydantic import Field, StrictBool
 
-from .address_mandatory_def import AddressMandatoryDef
+from royal_mail_combined.core import RMBaseModel
+
+from ...address.models.address import AddressDps
 from .safe_place_details_def import SafePlaceDetailsDef
 from .sender_details_def import SenderDetailsDef
-
-
-from royal_mail_combined.core import RMBaseModel
 
 
 class UpdateCollection(RMBaseModel):
@@ -34,7 +33,7 @@ class UpdateCollection(RMBaseModel):
         default=None, description="time slot reservation Id", alias="timeslotReservationId"
     )
     sender_details: SenderDetailsDef | None = Field(default=None, alias="senderDetails")
-    address: AddressMandatoryDef | None = None
+    address: AddressDps | None = None
     safe_place_details: SafePlaceDetailsDef | None = Field(default=None, alias="safePlaceDetails")
     animal_hazard_details: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
         default=None, description="location animal hazard details", alias="animalHazardDetails"

@@ -1,6 +1,6 @@
-from royal_mail_combined.core.rm_basemodel import RMBaseModel
 from royal_mail_combined.added_models import *
 from royal_mail_combined.click_and_drop_api.models import *
+from royal_mail_combined.core.rm_basemodel import RMBaseModel
 from royal_mail_combined.parcels_apis.address.models import *
 from royal_mail_combined.parcels_apis.collection_handler.models import *
 from royal_mail_combined.parcels_apis.collection_order.models import *
@@ -63,13 +63,9 @@ __all__ = [
     "AvailableReturnService",
     "AvailableServicesResponse",
     # address
-    "AddressFindRequestDef",
     "AddressRecordDef",
     "AddressSummaryDef",
-    "AddressVerifyReqRespdef",
-    "AddressVerifyRequestDef",
-    "AddressVerifyDef",
-    "AddressesDef",
+    "AddressVerifable",
     # collection handler
     "AccountDef",
     "AgreementLineDef",
@@ -87,9 +83,6 @@ __all__ = [
     "ValidateSubscriptionResponse",
     # collection order
     "AccountDetailsDef",
-    "AddressDef",
-    "AddressMandatoryDef",
-    "AddressNonMandatoryDef",
     "Collection",
     "CollectionItemType",
     "CollectionMandatory",

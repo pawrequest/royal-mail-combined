@@ -1,38 +1,38 @@
 import json
+from collections.abc import Generator
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from pprint import pformat, pprint
 from typing import Any
-from collections.abc import Generator
 
 import pytest
 from pydantic import BaseModel
 
 from royal_mail_combined.all_models import (
-    RoyalMailServiceCodes,
     AccountDetailsDef,
-    AddressDef,
     AddressRequest,
     AddressReturns,
+    AddressVerifable,
     AvailableServicesResponse,
     BillingDetailsRequest,
     CreateOrderRequest,
     CustomerReference,
+    GetAvailableSlotsResponse,
     GetOrdersResponse,
     PostageDetailsRequest,
     RecipientDetailsRequest,
     ReturnsRequest,
     ReturnsResponse,
+    RoyalMailServiceCodes,
     SenderDetailsPostDef,
     Service,
     Shipment,
     ShipmentPackageRequest,
-    AddressVerifyDef,
-    GetAvailableSlotsResponse,
 )
-from royal_mail_combined.royal_mail_client import RoyalMailClient
 from royal_mail_combined.config import RoyalMailSettingsGlobal
 from royal_mail_combined.core.consts_types import PackageFormat, SendNotifcationsTo
+from royal_mail_combined.parcels_apis.address.models.address import AddressDefault
+from royal_mail_combined.royal_mail_client import RoyalMailClient
 
 REFERENCE = "TEST RETURN123456"
 STORE_RESULTS = True
@@ -99,8 +99,8 @@ def fxt_client(fxt_settings) -> Generator[RoyalMailClient, Any]:
 
 
 @pytest.fixture(scope="session")
-def fxt_address() -> AddressDef:
-    return AddressDef(
+def fxt_address() -> AddressDefault:
+    return AddressDefault(
         addressLine1="Flat 43, Berberis House",
         addressLine2="Highfield Road",
         postTown="Feltham",
@@ -110,13 +110,13 @@ def fxt_address() -> AddressDef:
 
 
 @pytest.fixture(scope="session")
-def fxt_address_verify(fxt_address) -> AddressVerifyDef:
-    return AddressVerifyDef.model_validate(fxt_address, from_attributes=True)
+def fxt_address_verify(fxt_address) -> AddressVerifable:
+    return AddressVerifable.model_validate(fxt_address, from_attributes=True)
 
 
 @pytest.fixture(scope="session")
 def cached_return_address():
-    return AddressDef(
+    return AddressDefault(
         addressLine1="70 Kingsgate Road",
         postTown="Kilburn",
         County="London",

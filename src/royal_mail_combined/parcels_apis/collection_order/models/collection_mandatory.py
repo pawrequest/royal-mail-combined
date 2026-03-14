@@ -10,18 +10,20 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
-import re  # noqa: F401
 
+import re  # noqa: F401
 from datetime import date
-from pydantic import Field, StrictBool
 from typing import Annotated
+
+from pydantic import Field, StrictBool
+
+from royal_mail_combined.core import RMBaseModel
+
+from ...address.models.address import AddressDps
 from .account_details_def import AccountDetailsDef
-from .address_mandatory_def import AddressMandatoryDef
 from .items_post_def import ItemsPostDef
 from .safe_place_details_def import SafePlaceDetailsDef
 from .sender_details_post_def import SenderDetailsPostDef
-
-from royal_mail_combined.core import RMBaseModel
 
 
 class CollectionMandatory(RMBaseModel):
@@ -32,7 +34,7 @@ class CollectionMandatory(RMBaseModel):
     timeslot_reservation_id: Annotated[str, Field(min_length=0, strict=True, max_length=64)]
     sender_details: SenderDetailsPostDef = Field(alias="senderDetails")
     account_details: AccountDetailsDef = Field(alias="accountDetails")
-    address: AddressMandatoryDef
+    address: AddressDps
     safe_place_details: SafePlaceDetailsDef | None = None
     animal_hazard_details: Annotated[str, Field(strict=True, max_length=50)] | None = None
     collection_date: date

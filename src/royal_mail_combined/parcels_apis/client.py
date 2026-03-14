@@ -1,25 +1,25 @@
 from datetime import date
 
-from royal_mail_combined.all_models import AddressFindRequestDef, ProductFamily, ProductFamilyDef
+from royal_mail_combined.all_models import ProductFamily, ProductFamilyDef
 from royal_mail_combined.click_and_drop_api.models import AddressReturns
+from royal_mail_combined.config import RoyalMailSettingsGlobal
 from royal_mail_combined.converters import (
     address_angonstic_to_verify_def,
     match_collection_slot_date,
 )
-from royal_mail_combined.parcels_apis.address.api import AddressApi
-from royal_mail_combined.parcels_apis.address.models import AddressVerifyRequestDef
-from royal_mail_combined.parcels_apis.collection_order.api import CollectionOrderApi
-from royal_mail_combined.parcels_apis.collection_handler.api import (
-    GetAvailableSlotsApi,
-    ProductFamilySubscriptionApi,
-)
 from royal_mail_combined.core.build_client import build_client
-from royal_mail_combined.config import RoyalMailSettingsGlobal
 from royal_mail_combined.core.endpoints import (
     ADDRESS_BASE,
     COLLECTION_HANDLER_NET,
     ORDERS_NET,
 )
+from royal_mail_combined.parcels_apis.address.api import AddressApi
+from royal_mail_combined.parcels_apis.address.models import AddressFindRequest, AddressVerifiableList
+from royal_mail_combined.parcels_apis.collection_handler.api import (
+    GetAvailableSlotsApi,
+    ProductFamilySubscriptionApi,
+)
+from royal_mail_combined.parcels_apis.collection_order.api import CollectionOrderApi
 from royal_mail_combined.parcels_apis.collection_order.models import (
     CollectionStatus,
     CollectionStatusRequestDef,
@@ -41,7 +41,7 @@ class ParcelAPIClient:
 
     def verify_return_address(self, address: AddressReturns):
         address_verify = address_angonstic_to_verify_def(address)
-        dps_request = AddressVerifyRequestDef(addresses=[address_verify])
+        dps_request = AddressVerifiableList(addresses=[address_verify])
         dps_responses = self.address_api.address_verify(dps_request)
         if len(dps_responses) == 0:
             raise Exception("No address verify responses returned")
@@ -50,7 +50,7 @@ class ParcelAPIClient:
         return dps_responses[0]
 
     def address_search(self, address_text: str):
-        req = AddressFindRequestDef(address_text=address_text)
+        req = AddressFindRequest(address_text=address_text)
         return self.address_api.address_find(address_find_request=req)
 
     def collection_subscription_check(self, barcode, family_name, account_number):

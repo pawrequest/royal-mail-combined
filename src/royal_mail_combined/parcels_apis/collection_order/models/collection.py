@@ -10,18 +10,20 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
-import re  # noqa: F401
 
+import re  # noqa: F401
 from datetime import date
-from pydantic import Field, StrictBool
 from typing import Annotated
+
+from pydantic import Field, StrictBool
+
+from royal_mail_combined.core import RMBaseModel
+
+from ...address.models.address import AddressBasic
 from .account_details_def import AccountDetailsDef
-from .address_non_mandatory_def import AddressNonMandatoryDef
 from .items_post_def import ItemsPostDef
 from .safe_place_details_def import SafePlaceDetailsDef
 from .sender_details_post_def import SenderDetailsPostDef
-
-from royal_mail_combined.core import RMBaseModel
 
 
 class Collection(RMBaseModel):
@@ -35,7 +37,7 @@ class Collection(RMBaseModel):
     sender_details: SenderDetailsPostDef = Field(alias="senderDetails")
     collection_date: date = Field(description="Date of order collection", alias="collectionDate")
     account_details: AccountDetailsDef = Field(alias="accountDetails")
-    address: AddressNonMandatoryDef
+    address: AddressBasic
     items: list[ItemsPostDef]
 
     safe_place_details: SafePlaceDetailsDef | None = Field(default=None, alias="safePlaceDetails")

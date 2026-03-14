@@ -1,14 +1,17 @@
 from conftest import STORE_RESULTS, dump_result_model, print_object
+
 from royal_mail_combined.all_models import (
     AddressRecordDef,
-    AddressVerifyDef,
-    AddressVerifyReqRespdef,
-    AddressVerifyRequestDef,
-    AddressesDef,
+    AddressVerifable,
     GetOrdersResponse,
     GetVersionResource,
 )
 from royal_mail_combined.click_and_drop_api.models import GetOrderInfoResource
+from royal_mail_combined.parcels_apis.address.models import (
+    AddressesDef,
+    AddressVerifiableList,
+    AddressVerified,
+)
 
 
 def test_version(fxt_client):
@@ -91,13 +94,13 @@ def test_address_search(fxt_client, fxt_address):
 
 
 def test_address_search_dps(fxt_client, fxt_address):
-    addr = AddressVerifyDef.model_validate(fxt_address, from_attributes=True)
-    addresses_payload = AddressVerifyRequestDef(addresses=[addr])
-    resp: list[AddressVerifyReqRespdef] = fxt_client.address_verify(addresses_payload)
+    addr = AddressVerifable.model_validate(fxt_address, from_attributes=True)
+    addresses_payload = AddressVerifiableList(addresses=[addr])
+    resp: list[AddressVerified] = fxt_client.address_verify(addresses_payload)
     if STORE_RESULTS:
         dump_result_model(resp)
     assert isinstance(resp, list)
-    assert isinstance(resp[0], AddressVerifyReqRespdef)
+    assert isinstance(resp[0], AddressVerified)
 
 
 def test_address_get(fxt_client, cached_address_id):
