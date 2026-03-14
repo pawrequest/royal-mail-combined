@@ -4,7 +4,7 @@ from datetime import date, datetime
 from enum import StrEnum
 from typing import Annotated
 
-from pydantic import Field
+from pydantic import Field, StringConstraints
 
 
 class SendNotifcationsTo(StrEnum):
@@ -31,3 +31,7 @@ class PackageFormat(StrEnum):
     LARGE_LETTER = 'largeLetter'
     DOCUMENTS = 'documents'
     UNDEFINED = 'undefined'
+
+
+StrictStr64 = Annotated[str, StringConstraints(max_length=64, strict=True)]
+StrictStr10 = Annotated[str, StringConstraints(max_length=10, strict=True)]
