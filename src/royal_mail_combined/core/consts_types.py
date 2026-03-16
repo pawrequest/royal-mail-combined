@@ -8,6 +8,7 @@ from pydantic import Field, StringConstraints
 
 # Types
 StrictStr2 = Annotated[str, StringConstraints(max_length=2, strict=True)]
+StrictStr3 = Annotated[str, StringConstraints(max_length=3, strict=True)]
 StrictStr5 = Annotated[str, StringConstraints(max_length=5, strict=True)]
 StrictStr10 = Annotated[str, StringConstraints(max_length=10, strict=True)]
 StrictStr13 = Annotated[str, StringConstraints(max_length=13, strict=True)]
@@ -16,6 +17,8 @@ StrictStr21 = Annotated[str, StringConstraints(max_length=21, strict=True)]
 StrictStr40 = Annotated[str, StringConstraints(max_length=40, strict=True)]
 StrictStr50 = Annotated[str, StringConstraints(max_length=50, strict=True)]
 StrictStr64 = Annotated[str, StringConstraints(max_length=64, strict=True)]
+StrictStr100 = Annotated[str, StringConstraints(max_length=100, strict=True)]
+StrictStr210 = Annotated[str, StringConstraints(max_length=210, strict=True)]
 
 
 def strict_str_factory(max_length: int) -> type:

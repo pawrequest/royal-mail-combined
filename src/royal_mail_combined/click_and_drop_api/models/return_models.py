@@ -1,8 +1,8 @@
-from pydantic import Field
+from pydantic import Field, model_validator
 
 from royal_mail_combined.core.consts_types import RoyalMailServiceCodes
 from royal_mail_combined.core.rm_basemodel import RMBaseModel
-from royal_mail_combined.parcels_apis.collection_order.models import SenderDetailsPostDef
+from royal_mail_combined.parcels_apis.collection_order.models import CollectionOrderCreateResponse, SenderDetailsPostDef
 
 
 class Service(RMBaseModel):
@@ -37,15 +37,22 @@ class AddressReturns(RMBaseModel):
         return SenderDetailsPostDef(sender_name=self.full_name, sender_email=self.email)
 
 
-class Shipment(RMBaseModel):
+class ReturnShipment(RMBaseModel):
     recipient_address: AddressReturns = Field(alias="shippingAddress")
     sender_address: AddressReturns = Field(alias="returnAddress")
     customer_reference: CustomerReference | None = None
 
+    @model_validator(mode="after")
+    def validate_customer_reference(self):
+        if not self.customer_reference:
+            ref = self.sender_address.company_name or self.sender_address.full_name
+            self.customer_reference = CustomerReference(reference=ref)
+        return self
+
 
 class ReturnsRequest(RMBaseModel):
     service: Service
-    shipment: Shipment
+    shipment: ReturnShipment
 
 
 class ReturnsResponseShipment(RMBaseModel):
@@ -74,3 +81,8 @@ class AvailableServicesResponse(RMBaseModel):
             if service.service_code == code:
                 return service
         return None
+
+
+class ReturnResponseContainer(RMBaseModel):
+    created_orders: list[ReturnsResponse]
+    collection_response: CollectionOrderCreateResponse | None = None

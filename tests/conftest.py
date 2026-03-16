@@ -25,7 +25,7 @@ from royal_mail_combined.all_models import (
     ReturnsResponse,
     SenderDetailsPostDef,
     Service,
-    Shipment,
+    ReturnShipment,
     ShipmentPackageRequest,
 )
 from royal_mail_combined.config import RoyalMailSettingsGlobal
@@ -36,7 +36,7 @@ from royal_mail_combined.royal_mail_client import RoyalMailClient
 REFERENCE = "TEST RETURN123456"
 STORE_RESULTS = True
 
-TEST_DATE = date.today() + timedelta(days=5)
+TEST_DATE = date.today() + timedelta(days=4)
 if TEST_DATE.weekday() in (5, 6):
     TEST_DATE += timedelta(days=7 - TEST_DATE.weekday())
 
@@ -280,7 +280,7 @@ def fxt_return_req():
     service = Service(service_code=RoyalMailServiceCodes.TRACKED_24_RTN)
     return ReturnsRequest(
         service=service,
-        shipment=Shipment(
+        shipment=ReturnShipment(
             recipient_address=recip_address,
             sender_address=sender_address,
             customer_reference=cust_ref,

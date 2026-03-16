@@ -6,6 +6,7 @@ from royal_mail_combined.all_models import (
     ReturnsResponse,
 )
 from royal_mail_combined.click_and_drop_api.client import ClickAndDropClient
+from royal_mail_combined.click_and_drop_api.models.return_models import ReturnResponseContainer
 from royal_mail_combined.config import RoyalMailSettingsGlobal
 from royal_mail_combined.core.endpoints import RETURNS_ENDPOINT, RETURNS_SERVICES_ENDPOINT
 from royal_mail_combined.core.http_client import BaseHttpClient
@@ -13,7 +14,6 @@ from royal_mail_combined.parcels_apis.address.models.address import AddressDps
 from royal_mail_combined.parcels_apis.client import ParcelAPIClient
 from royal_mail_combined.parcels_apis.collection_order.models import (
     CollectionMandatory,
-    CollectionOrderCreateResponse,
     DimensionsPostDef,
     ItemsPostDef,
 )
@@ -31,8 +31,10 @@ class RMHttpClient(BaseHttpClient):
         res_model = ReturnsResponse.model_validate(res.json())
         return res_model
 
-    def book_inbound_shipment(self, return_request: ReturnsRequest, num_boxes: int = 1) -> list[ReturnsResponse]:
-        return [self._book_inbound_shipment_single(return_request) for _ in range(num_boxes)]
+    def book_inbound_shipment(self, return_request: ReturnsRequest, num_boxes: int = 1) -> ReturnResponseContainer:
+        return ReturnResponseContainer(
+            created_orders=[self._book_inbound_shipment_single(return_request) for _ in range(num_boxes)]
+        )
 
     def check_return_services(self) -> AvailableServicesResponse:
         """WARNING ServiceNames returned from here are not correct for use with CollectionsOrderCreate endpoint - must hardcode values from ReturnsServiceNames Enum"""
@@ -58,6 +60,7 @@ class RoyalMailClient:
         self.address_search = self.parcel_api.address_search
         self.address_retrieve = self.parcel_api.address_api.address_retrieve
         self.address_verify = self.parcel_api.address_api.address_verify
+        self.get_label_data = self.click_and_drop.labels_api.get_orders_label_async
 
         # Delete
         self.cancel_outbound_shipment = self.click_and_drop.orders_api.delete_orders_async
@@ -71,7 +74,7 @@ class RoyalMailClient:
         num_boxes: int,
         box_dims: DimensionsPostDef = DimensionsPostDef.large(),
         box_weight_kg: int = 8,
-    ) -> CollectionOrderCreateResponse:
+    ) -> ReturnResponseContainer:
         # gather shipment data
         sender_address_verified = self.parcel_api.verify_return_address(return_request.shipment.sender_address)
         dps = sender_address_verified.dps
@@ -79,12 +82,12 @@ class RoyalMailClient:
         collection_address = AddressDps(**sender_address_verified.input.model_dump(exclude_none=True), dps=dps)
 
         # book shipping
-        booking_responses = self.book_inbound_shipment(return_request, num_boxes=num_boxes)
+        booking_response_container = self.book_inbound_shipment(return_request, num_boxes=num_boxes)
 
         # gather collection data
         items = [
             ItemsPostDef.tracked_24_return_standard(booking_response.shipment.tracking_number, box_weight_kg, box_dims)
-            for booking_response in booking_responses
+            for booking_response in booking_response_container.created_orders
         ]
 
         # book collection
@@ -97,5 +100,7 @@ class RoyalMailClient:
             collection_date=collection_date,
             items=items,
         )
+        collection_resp = self.parcel_api.collection_orders_api.order_create_mandatory(collection=collection)
 
-        return self.parcel_api.collection_orders_api.order_create_mandatory(collection=collection)
+        booking_response_container.collection_response = collection_resp
+        return booking_response_container

@@ -53,7 +53,7 @@ __all__ = [
     "Service",
     "CustomerReference",
     "AddressReturns",
-    "Shipment",
+    "ReturnShipment",
     "ReturnsRequest",
     "ReturnsResponse",
     "ReturnsResponseShipment",

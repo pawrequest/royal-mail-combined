@@ -26,6 +26,7 @@ from ..models.tag_request import TagRequest
 
 
 from royal_mail_combined.core import RMBaseModel
+from ...core.consts_types import StrictStr40
 
 
 class CreateOrderRequest(RMBaseModel):
@@ -33,23 +34,15 @@ class CreateOrderRequest(RMBaseModel):
     CreateOrderRequest
     """
 
-    order_reference: Annotated[str, Field(strict=True, max_length=40)] | None = Field(
-        default=None, alias="orderReference"
-    )
-    is_recipient_a_business: StrictBool | None = Field(
-        default=None,
-        description="Indicates if the recipient is a business or not. Mandatory for Business senders on orders shipping from Great Britain to Northern Ireland, which require additional information for B2B shipments. (Business senders are OBA accounts and OLP accounts declaring themselves as a Business sender).",
-        alias="isRecipientABusiness",
-    )
+    order_reference: StrictStr40 | None = None
+    is_recipient_a_business: StrictBool | None = None
     recipient: RecipientDetailsRequest
     sender: SenderDetailsRequest | None = None
     billing: BillingDetailsRequest | None = None
     packages: list[ShipmentPackageRequest] | None = None
     order_date: datetime = Field(alias="orderDate")
-    planned_despatch_date: datetime | None = Field(default=None, alias="plannedDespatchDate")
-    special_instructions: Annotated[str, Field(strict=True, max_length=500)] | None = Field(
-        default=None, alias="specialInstructions"
-    )
+    planned_despatch_date: datetime | None = None
+    special_instructions: Annotated[str, Field(strict=True, max_length=500)] | None = None
     subtotal: (
         Annotated[float, Field(multiple_of=0.01, le=999999, strict=True, ge=0)]
         | Annotated[int, Field(le=999999, strict=True, ge=0)]
