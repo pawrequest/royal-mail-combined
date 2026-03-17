@@ -72,20 +72,6 @@ class CreateOrderRequest(RMBaseModel):
     )
     importer: Importer | None = None
 
-    # @model_validator(mode="after")
-    # def validate_service_packages(self):
-    #     if (
-    #         self.postage_details.service_code
-    #         and self.postage_details.service_code
-    #         in [
-    #             RoyalMailServiceCodes.TRACKED_24,
-    #             RoyalMailServiceCodes.TRACKED_24_RTN,
-    #         ]
-    #         and len(self.packages) > 1
-    #     ):
-    #         raise ValueError("Tracked 24 allows only one package")
-    #     return self
-
     def add_label_request(self):
         if not self.label:
             self.label = LabelGenerationRequest(include_label_in_response=True)

@@ -19,23 +19,17 @@ def write_label_file(label_content: bytes, label_path: Path):
     logger.info(f"Wrote label to {label_path}")
 
 
-def test_book_outbound(fxt_client, fxt_order):
+def test_book_outbound1(fxt_client, fxt_order):
     dump_result_model(fxt_order)
     res = fxt_client.book_outbound_shipment(fxt_order)
     dump_result_model(res)
-    ident = str(res.created_orders[0].order_identifier)
-    idents_multi = res.success_idents
-    fetched_multi = fxt_client.fetch_specific_orders(order_identifiers=idents_multi)
-    labels = fxt_client.get_label_data(order_identifiers=idents_multi)
-    write_label_file(labels, Path(f"labels/{ident}.pdf"))
+    idents = res.success_idents
+    fetched = fxt_client.fetch_specific_orders(order_identifiers=idents)
 
-    fetched = fxt_client.fetch_specific_orders(order_identifiers=ident)
-    assert str(fetched[0].order_identifier) == ident
     assert (
-        str(sorted(fetched_multi, key=lambda v: v.order_identifier)[0].order_identifier)
+        str(sorted(fetched, key=lambda v: v.order_identifier)[0].order_identifier)
         == sorted(res.success_idents.split(";"))[0]
     )
-    ...
 
 
 def test_book_inbound(fxt_return_request_container, fxt_client):

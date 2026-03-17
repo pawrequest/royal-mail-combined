@@ -1,19 +1,17 @@
 from __future__ import annotations
 
-from typing import Self
-
 from pydantic import model_validator
 
 from royal_mail_combined.core import RMBaseModel
-from ..models.create_order_request import CreateOrderRequest
-from ...core.consts_types import RoyalMailServiceCodes
+from royal_mail_combined.click_and_drop_api.models.create_order_request import CreateOrderRequest
+from royal_mail_combined.core.consts_types import RoyalMailServiceCodes
 
 
 class CreateOrdersRequest(RMBaseModel):
     items: list[CreateOrderRequest]
 
     @model_validator(mode="after")
-    def fix_request(self):
+    def one_package_per_order(self):
         fixed_orders = []
         for order in self.items:
             if (
@@ -24,10 +22,11 @@ class CreateOrdersRequest(RMBaseModel):
                 ]
                 and len(order.packages) > 1
             ):
-                for i, package in enumerate(order.packages):
+                for i, package in enumerate(order.packages, start=1):
                     fixed_orders.append(
                         order.model_copy(
-                            deep=True, update={"packages": [package], "order_reference": f'{order.order_reference}{i:03}'}
+                            deep=True,
+                            update={"packages": [package], "order_reference": f"{order.order_reference}-{i:03}"},
                         )
                     )
             else:

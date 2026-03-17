@@ -39,7 +39,7 @@ REFERENCE = "TEST RETURN123456"
 STORE_RESULTS = True
 TEST_SERVICES = [
     RoyalMailServiceCodes.TRACKED_24,
-    # RoyalMailServiceCodes.EXPRESS_24,
+    RoyalMailServiceCodes.EXPRESS_24,
 ]
 
 TEST_DATE = date.today() + timedelta(days=4)
@@ -215,7 +215,7 @@ def fxt_billing(fxt_address_req_sender):
     )
 
 
-@pytest.fixture(scope="session", params=[2])
+@pytest.fixture(scope="session", params=[1, 2])
 def fxt_packages(request):
     return [
         ShipmentPackageRequest(
@@ -229,26 +229,10 @@ def fxt_packages(request):
 @pytest.fixture(scope="session", params=TEST_SERVICES)
 def fxt_postage_details(request) -> PostageDetailsRequest:
     return PostageDetailsRequest(
-        send_notifications_to=SendNotifcationsTo.RECIPIENT,
         service_code=request.param,
+        send_notifications_to=SendNotifcationsTo.RECIPIENT,
         receive_email_notification=True,
         receive_sms_notification=True,
-        # is_local_collect=True,
-    )
-
-
-@pytest.fixture(scope="session")
-def fxt_order_one_package(fxt_recip_details, fxt_packages, fxt_billing, fxt_postage_details) -> CreateOrderRequest:
-    return CreateOrderRequest(
-        recipient=fxt_recip_details.model_dump(),
-        order_date=datetime.now(),
-        subtotal=0,
-        shipping_cost_charged=0,
-        total=0,
-        packages=[fxt_packages[0]],  # just one package
-        billing=fxt_billing,  # should be unnecessary with webportal settings
-        postage_details=fxt_postage_details,
-        # planned_despatch_date=TEST_DATE,
     )
 
 
@@ -257,14 +241,14 @@ def fxt_order(fxt_recip_details, fxt_packages, fxt_billing, fxt_postage_details)
     return CreateOrderRequest(
         order_reference=REFERENCE,
         recipient=fxt_recip_details,
-        # recipient=fxt_recip_details.model_dump(),
         order_date=datetime.now(),
-        subtotal=0,
-        shipping_cost_charged=0,
-        total=0,
         packages=fxt_packages,
         billing=fxt_billing,  # should be unnecessary with webportal settings
         postage_details=fxt_postage_details,
+        # recipient=fxt_recip_details.model_dump(),
+        # subtotal=0,
+        # shipping_cost_charged=0,
+        # total=0,
         # planned_despatch_date=TEST_DATE,
     )
 
