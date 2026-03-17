@@ -5,8 +5,8 @@ from royal_mail_combined.click_and_drop_api.models import AddressReturns
 from royal_mail_combined.config import RoyalMailSettingsGlobal
 from royal_mail_combined.converters import (
     address_angonstic_to_verify_def,
-    match_collection_slot_date,
 )
+from royal_mail_combined.converters_no_import import match_collection_slot_date
 from royal_mail_combined.core.build_client import build_client
 from royal_mail_combined.core.consts_types import CollectionStatus
 from royal_mail_combined.core.endpoints import (

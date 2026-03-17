@@ -20,5 +20,3 @@ class RMBaseModel(BaseModel):
     )
 
 
-def order_idents_str(order_idents: list[str | int]) -> str:
-    return ";".join([str(_) for _ in order_idents])

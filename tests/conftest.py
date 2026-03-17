@@ -28,13 +28,19 @@ from royal_mail_combined.all_models import (
     ReturnShipment,
     ShipmentPackageRequest,
 )
+from royal_mail_combined.click_and_drop_api.models.return_models import ReturnRequestContainer
 from royal_mail_combined.config import RoyalMailSettingsGlobal
 from royal_mail_combined.core.consts_types import PackageFormat, RoyalMailServiceCodes, SendNotifcationsTo
+
 from royal_mail_combined.parcels_apis.address.models.address import AddressDefault
 from royal_mail_combined.royal_mail_client import RoyalMailClient
 
 REFERENCE = "TEST RETURN123456"
 STORE_RESULTS = True
+TEST_SERVICES = [
+    RoyalMailServiceCodes.TRACKED_24,
+    # RoyalMailServiceCodes.EXPRESS_24,
+]
 
 TEST_DATE = date.today() + timedelta(days=4)
 if TEST_DATE.weekday() in (5, 6):
@@ -209,22 +215,22 @@ def fxt_billing(fxt_address_req_sender):
     )
 
 
-@pytest.fixture(scope="session")
-def fxt_packages():
+@pytest.fixture(scope="session", params=[2])
+def fxt_packages(request):
     return [
         ShipmentPackageRequest(
             weight_in_grams=10000,
             package_format_identifier=PackageFormat.PARCEL,
         )
-        for _ in range(2)
+        for _ in range(request.param)
     ]
 
 
-@pytest.fixture(scope="session")
-def fxt_postage_details() -> PostageDetailsRequest:
+@pytest.fixture(scope="session", params=TEST_SERVICES)
+def fxt_postage_details(request) -> PostageDetailsRequest:
     return PostageDetailsRequest(
         send_notifications_to=SendNotifcationsTo.RECIPIENT,
-        service_code=RoyalMailServiceCodes.EXPRESS_24,
+        service_code=request.param,
         receive_email_notification=True,
         receive_sms_notification=True,
         # is_local_collect=True,
@@ -232,9 +238,26 @@ def fxt_postage_details() -> PostageDetailsRequest:
 
 
 @pytest.fixture(scope="session")
-def fxt_order(fxt_recip_details, fxt_packages, fxt_billing, fxt_postage_details) -> CreateOrderRequest:
+def fxt_order_one_package(fxt_recip_details, fxt_packages, fxt_billing, fxt_postage_details) -> CreateOrderRequest:
     return CreateOrderRequest(
         recipient=fxt_recip_details.model_dump(),
+        order_date=datetime.now(),
+        subtotal=0,
+        shipping_cost_charged=0,
+        total=0,
+        packages=[fxt_packages[0]],  # just one package
+        billing=fxt_billing,  # should be unnecessary with webportal settings
+        postage_details=fxt_postage_details,
+        # planned_despatch_date=TEST_DATE,
+    )
+
+
+@pytest.fixture(scope="session")
+def fxt_order(fxt_recip_details, fxt_packages, fxt_billing, fxt_postage_details) -> CreateOrderRequest:
+    return CreateOrderRequest(
+        order_reference=REFERENCE,
+        recipient=fxt_recip_details,
+        # recipient=fxt_recip_details.model_dump(),
         order_date=datetime.now(),
         subtotal=0,
         shipping_cost_charged=0,
@@ -286,3 +309,8 @@ def fxt_return_req():
             customer_reference=cust_ref,
         ),
     )
+
+
+@pytest.fixture(scope="session", params=[1, 2])
+def fxt_return_request_container(request, fxt_return_req) -> ReturnRequestContainer:
+    return ReturnRequestContainer(return_requests=[fxt_return_req for _ in range(request.param)])

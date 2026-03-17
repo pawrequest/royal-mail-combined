@@ -71,6 +71,21 @@ def log_fmt_local_terminal(record: loguru.Record) -> str:
     return f"{lvltext} {category_txt} | {msg_txt} | {file_txt}\n"
 
 
+def log_fmt_local_terminal(record: loguru.Record) -> str:
+    file_txt = f"{record['file'].path}:{record['line']}"
+
+    category = record["extra"].get("category", "General")
+    category_txt = f"{category.title():<9}"
+
+    color = CAT_COLOR_DICT.get(category.lower(), "white")
+    category_txt = f"| {coloured(category_txt, color)}" if category_txt != "General" else ""
+    lvltext = f"<lvl>{record['level']: <7}</lvl>"
+    msg_txt = f"<lvl>{record['message']}</lvl>"
+    msg_txt = msg_txt.replace("{", "{{").replace("}", "}}")
+    # msg_txt = f'{record['message']}'
+    return f"{lvltext} {category_txt} | {msg_txt} | {file_txt}\n"
+
+
 def coloured(msg: str, colour: str) -> str:
     """
     Colour a message

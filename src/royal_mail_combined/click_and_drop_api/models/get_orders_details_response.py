@@ -15,7 +15,7 @@ import re  # noqa: F401
 
 from pydantic import Field, StrictStr
 
-from royal_mail_combined.core.rm_basemodel import order_idents_str
+from ...converters_no_import import order_idents_str
 from ..models.get_order_details_resource import GetOrderDetailsResource
 
 from royal_mail_combined.core import RMBaseModel

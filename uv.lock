@@ -43,6 +43,15 @@ wheels = [
 ]
 
 [[package]]
+name = "context-menu"
+version = "1.4.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/ad/be/276959c4ece0e906ecee0387745dbae7989e09b27c41051046751c4b7775/context_menu-1.4.1.tar.gz", hash = "sha256:47d49c46a9638ab46090787019cdba5e8285862f1487da702a70ffdd82280f6b", size = 22479, upload-time = "2024-04-12T19:36:32.045Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7d/a4/f928745222809d97b40282cc09b9408e06f42df379aebd10912cec80c3a0/context_menu-1.4.1-py3-none-any.whl", hash = "sha256:478a1b104b105260ea3deb53c1473b277fe11af4ac6cbcfd9d64abfb6cc94daa", size = 17893, upload-time = "2024-04-12T19:36:30.612Z" },
+]
+
+[[package]]
 name = "h11"
 version = "0.16.0"
 source = { registry = "https://pypi.org/simple" }
@@ -117,6 +126,19 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/a1/d4/1fc4078c65507b51b96ca8f8c3ba19e6a61c8253c72794544580a7b6c24d/packaging-25.0.tar.gz", hash = "sha256:d443872c98d677bf60f6a1f2f8c1cb748e8fe762d2bf9d3148b5599295b0fc4f", size = 165727, upload-time = "2025-04-19T11:48:59.673Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/20/12/38679034af332785aac8774540895e234f4d07f7545804097de4b666afd8/packaging-25.0-py3-none-any.whl", hash = "sha256:29572ef2b1f17581046b3a2227d5c611fb25ec70ca1ba8554b24b0e69331a484", size = 66469, upload-time = "2025-04-19T11:48:57.875Z" },
+]
+
+[[package]]
+name = "pawdf"
+version = "0.1.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "context-menu" },
+    { name = "pypdf" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/c8/d9/127f6081e2c46133e8ec70ebff72d08ab35d68d0a2cd0fde3fcc5c4ef059/pawdf-0.1.2.tar.gz", hash = "sha256:865a9838326085a66f2f7e3d75ab74bbecea9ff7606cb345a9318526a4c47aa8", size = 2742, upload-time = "2026-02-12T15:02:25.282Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/72/45/7ba15bf748c6e0cdedcbd28e419eba727357edebcbac5a43dab3ed993c83/pawdf-0.1.2-py3-none-any.whl", hash = "sha256:b7998f635eac268d477a3a93156593d3993dfd3379dc4b4d2f3d704084449eb5", size = 5474, upload-time = "2026-02-12T15:02:24.505Z" },
 ]
 
 [[package]]
@@ -220,6 +242,15 @@ wheels = [
 ]
 
 [[package]]
+name = "pypdf"
+version = "6.9.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/f9/fb/dc2e8cb006e80b0020ed20d8649106fe4274e82d8e756ad3e24ade19c0df/pypdf-6.9.1.tar.gz", hash = "sha256:ae052407d33d34de0c86c5c729be6d51010bf36e03035a8f23ab449bca52377d", size = 5311551, upload-time = "2026-03-17T10:46:07.876Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f9/f4/75543fa802b86e72f87e9395440fe1a89a6d149887e3e55745715c3352ac/pypdf-6.9.1-py3-none-any.whl", hash = "sha256:f35a6a022348fae47e092a908339a8f3dc993510c026bb39a96718fc7185e89f", size = 333661, upload-time = "2026-03-17T10:46:06.286Z" },
+]
+
+[[package]]
 name = "pytest"
 version = "9.0.1"
 source = { registry = "https://pypi.org/simple" }
@@ -263,6 +294,7 @@ source = { editable = "." }
 dependencies = [
     { name = "httpx" },
     { name = "loguru" },
+    { name = "pawdf" },
     { name = "pydantic" },
     { name = "pydantic-settings" },
     { name = "python-dateutil" },
@@ -280,6 +312,7 @@ dev = [
 requires-dist = [
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "loguru", specifier = ">=0.7.3" },
+    { name = "pawdf", specifier = ">=0.1.2" },
     { name = "pydantic", specifier = ">=2.12.5" },
     { name = "pydantic-settings", specifier = ">=2.13.1" },
     { name = "python-dateutil", specifier = ">=2.9.0.post0" },

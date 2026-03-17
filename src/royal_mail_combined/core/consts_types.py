@@ -4,7 +4,9 @@ from datetime import date, datetime
 from enum import Enum, StrEnum
 from typing import Annotated
 
-from pydantic import Field, StringConstraints
+from annotated_types import Ge, Le, MultipleOf
+from pydantic import Field, StrictFloat, StrictInt, StringConstraints
+
 
 # Types
 StrictStr2 = Annotated[str, StringConstraints(max_length=2, strict=True)]
@@ -14,15 +16,18 @@ StrictStr10 = Annotated[str, StringConstraints(max_length=10, strict=True)]
 StrictStr13 = Annotated[str, StringConstraints(max_length=13, strict=True)]
 StrictStr20 = Annotated[str, StringConstraints(max_length=20, strict=True)]
 StrictStr21 = Annotated[str, StringConstraints(max_length=21, strict=True)]
+StrictStr35 = Annotated[str, StringConstraints(max_length=35, strict=True)]
 StrictStr40 = Annotated[str, StringConstraints(max_length=40, strict=True)]
 StrictStr50 = Annotated[str, StringConstraints(max_length=50, strict=True)]
 StrictStr64 = Annotated[str, StringConstraints(max_length=64, strict=True)]
+StrictStr90 = Annotated[str, StringConstraints(max_length=90, strict=True)]
 StrictStr100 = Annotated[str, StringConstraints(max_length=100, strict=True)]
+StrictStr150 = Annotated[str, StringConstraints(max_length=150, strict=True)]
 StrictStr210 = Annotated[str, StringConstraints(max_length=210, strict=True)]
 
-
-def strict_str_factory(max_length: int) -> type:
-    return Annotated[str, StringConstraints(max_length=max_length, strict=True)]
+StrictNonNegativeDecimalFloat = Annotated[StrictFloat, Ge(0), Le(999999), MultipleOf(0.01)]
+StrictNonNegativeInt = Annotated[StrictInt, Ge(0), Le(999999)]
+StrictNonNegativeNumber = StrictNonNegativeDecimalFloat | StrictNonNegativeInt
 
 
 X_RMG_DATETIME = Annotated[

@@ -21,10 +21,6 @@ from royal_mail_combined.core import RMBaseModel
 
 
 class CreateOrderResponse(RMBaseModel):
-    """
-    CreateOrderResponse
-    """
-
     order_identifier: StrictInt = Field(alias="orderIdentifier")
     order_reference: StrictStr | None = Field(default=None, alias="orderReference")
     created_on: datetime = Field(alias="createdOn")

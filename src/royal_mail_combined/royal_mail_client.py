@@ -6,7 +6,7 @@ from royal_mail_combined.all_models import (
     ReturnsResponse,
 )
 from royal_mail_combined.click_and_drop_api.client import ClickAndDropClient
-from royal_mail_combined.click_and_drop_api.models.return_models import ReturnResponseContainer
+from royal_mail_combined.click_and_drop_api.models.return_models import ReturnRequestContainer, ReturnResponseContainer
 from royal_mail_combined.config import RoyalMailSettingsGlobal
 from royal_mail_combined.core.endpoints import RETURNS_ENDPOINT, RETURNS_SERVICES_ENDPOINT
 from royal_mail_combined.core.http_client import BaseHttpClient
@@ -31,9 +31,16 @@ class RMHttpClient(BaseHttpClient):
         res_model = ReturnsResponse.model_validate(res.json())
         return res_model
 
-    def book_inbound_shipment(self, return_request: ReturnsRequest, num_boxes: int = 1) -> ReturnResponseContainer:
+    def book_inbound_shipment_no_conrtainer(
+        self, return_request: ReturnsRequest, num_boxes: int = 1
+    ) -> ReturnResponseContainer:
         return ReturnResponseContainer(
             created_orders=[self._book_inbound_shipment_single(return_request) for _ in range(num_boxes)]
+        )
+
+    def book_inbound_shipment(self, return_request_container: ReturnRequestContainer) -> ReturnResponseContainer:
+        return ReturnResponseContainer(
+            created_orders=[self._book_inbound_shipment_single(_) for _ in return_request_container.return_requests]
         )
 
     def check_return_services(self) -> AvailableServicesResponse:
@@ -69,20 +76,21 @@ class RoyalMailClient:
 
     def book_inbound_shipment_with_collection(
         self,
-        return_request: ReturnsRequest,
+        return_request_container: ReturnRequestContainer,
         collection_date: date,
-        num_boxes: int,
         box_dims: DimensionsPostDef = DimensionsPostDef.large(),
         box_weight_kg: int = 8,
     ) -> ReturnResponseContainer:
         # gather shipment data
-        sender_address_verified = self.parcel_api.verify_return_address(return_request.shipment.sender_address)
+        sender_address_verified = self.parcel_api.verify_return_address(
+            return_request_container.return_requests[0].shipment.sender_address
+        )
         dps = sender_address_verified.dps
         postcode_and_dps = sender_address_verified.input.postcode.replace(" ", "") + dps
         collection_address = AddressDps(**sender_address_verified.input.model_dump(exclude_none=True), dps=dps)
 
         # book shipping
-        booking_response_container = self.book_inbound_shipment(return_request, num_boxes=num_boxes)
+        booking_response_container = self.book_inbound_shipment(return_request_container)
 
         # gather collection data
         items = [
@@ -91,10 +99,10 @@ class RoyalMailClient:
         ]
 
         # book collection
-        token = self.parcel_api.get_token(collection_date, num_boxes, postcode_and_dps)
+        token = self.parcel_api.get_token(collection_date, len(items), postcode_and_dps)
         collection = CollectionMandatory(
             timeslot_reservation_id=token,
-            sender_details=return_request.shipment.sender_address.details,
+            sender_details=return_request_container.return_requests[0].shipment.sender_address.details,
             account_details=self.settings.account_details,
             address=collection_address,
             collection_date=collection_date,
@@ -104,3 +112,42 @@ class RoyalMailClient:
 
         booking_response_container.collection_response = collection_resp
         return booking_response_container
+
+    # def book_inbound_shipment_with_collection_no_container(
+    #     self,
+    #     return_request: ReturnsRequest,
+    #     collection_date: date,
+    #     num_boxes: int,
+    #     box_dims: DimensionsPostDef = DimensionsPostDef.large(),
+    #     box_weight_kg: int = 8,
+    # ) -> ReturnResponseContainer:
+    #     # gather shipment data
+    #     sender_address_verified = self.parcel_api.verify_return_address(return_request.shipment.sender_address)
+    #     dps = sender_address_verified.dps
+    #     postcode_and_dps = sender_address_verified.input.postcode.replace(" ", "") + dps
+    #     collection_address = AddressDps(**sender_address_verified.input.model_dump(exclude_none=True), dps=dps)
+    #
+    #     # book shipping
+    #     return_request_container = ReturnRequestContainer(return_requests=[return_request for _ in range(num_boxes)])
+    #     booking_response_container = self.book_inbound_shipment(return_request_container, num_boxes=num_boxes)
+    #
+    #     # gather collection data
+    #     items = [
+    #         ItemsPostDef.tracked_24_return_standard(booking_response.shipment.tracking_number, box_weight_kg, box_dims)
+    #         for booking_response in booking_response_container.created_orders
+    #     ]
+    #
+    #     # book collection
+    #     token = self.parcel_api.get_token(collection_date, num_boxes, postcode_and_dps)
+    #     collection = CollectionMandatory(
+    #         timeslot_reservation_id=token,
+    #         sender_details=return_request.shipment.sender_address.details,
+    #         account_details=self.settings.account_details,
+    #         address=collection_address,
+    #         collection_date=collection_date,
+    #         items=items,
+    #     )
+    #     collection_resp = self.parcel_api.collection_orders_api.order_create_mandatory(collection=collection)
+    #
+    #     booking_response_container.collection_response = collection_resp
+    #     return booking_response_container

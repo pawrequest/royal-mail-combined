@@ -1,19 +1,16 @@
-from datetime import date
-from urllib.parse import quote
+from __future__ import annotations
 
-from royal_mail_combined.all_models import (
-    AddressReturns,
-    AddressVerifable,
-    CreateOrderRequest,
-    CreateOrdersResponse,
-    GetAvailableSlotsResponse,
-    LabelGenerationRequest,
-    SlotDateDef,
-)
-from royal_mail_combined.parcels_apis.address.models import AddressVerified
+from royal_mail_combined.click_and_drop_api.models import AddressReturns
+# from royal_mail_combined.all_models import (
+#     AddressReturns,
+#     AddressVerifable,
+#     CreateOrdersResponse,
+#     GetAvailableSlotsResponse,
+#     SlotDateDef,
+# )
 from royal_mail_combined.parcels_apis.address.models.address import (
     AddressBasic,
-    AddressDps,
+    AddressDps, AddressVerifable,
 )
 
 
@@ -28,6 +25,15 @@ def rtn_address_to_addr_verify(address: AddressReturns) -> AddressVerifable:
             postcode=address.postcode,
         )
     )
+
+
+def addr_non_mandatory_from_addr(cached_address_verify: AddressVerifable) -> AddressBasic:
+    return AddressBasic.model_validate(cached_address_verify, from_attributes=True)
+
+
+def addr_mandatory_f_addr_and_dps(addr: AddressVerifable, dps: str):
+    addr_mand = AddressDps(**addr.model_dump(), dps=dps)
+    return addr_mand
 
 
 def address_angonstic_to_verify_def(addr) -> AddressVerifable:
@@ -45,59 +51,5 @@ def address_angonstic_to_verify_def(addr) -> AddressVerifable:
     )
 
 
-def dps_postcode(verify_resp: AddressVerified) -> str:
-    """Get DPS + postcode string from an address verify response."""
-    return verify_resp.input.postcode.replace(" ", "") + verify_resp.dps
 
 
-def addr_non_mandatory_from_addr(cached_address_verify: AddressVerifable) -> AddressBasic:
-    return AddressBasic.model_validate(cached_address_verify, from_attributes=True)
-
-
-def addr_mandatory_f_addr_and_dps(addr: AddressVerifable, dps: str):
-    addr_mand = AddressDps(**addr.model_dump(), dps=dps)
-    return addr_mand
-
-
-def created_orders_idents(created_order_response: CreateOrdersResponse) -> list[int]:
-    return [_.order_identifier for _ in created_order_response.created_orders]
-
-
-def created_orders_idents_str(created_order_response: CreateOrdersResponse) -> str:
-    return ",".join(str(_) for _ in created_orders_idents(created_order_response))
-
-
-def tracking_link(tracking_number: str) -> str:
-    tlink = rf"https://www.royalmail.com/track-your-item#/tracking-results/{tracking_number}"
-    return tlink
-
-
-def add_label_gen_request(*orders: CreateOrderRequest):
-    orders = list(orders)
-    for order in orders:
-        if not order.label:
-            order.label = LabelGenerationRequest(include_label_in_response=True)
-        if not order.label.include_label_in_response:
-            order.label.include_label_in_response = True
-
-
-def order_identifier_to_string(id_or_ref: int | str) -> str:
-    if isinstance(id_or_ref, int):
-        return str(id_or_ref)
-    elif isinstance(id_or_ref, str):
-        return f'"{quote(id_or_ref)}"'
-    raise TypeError(f"Expected int or str, got {id_or_ref}.")
-
-
-def order_identifiers_to_string(
-    order_identifiers: list[str | int] | str | int,
-) -> str:
-    """Encode order ids and references."""
-    if not isinstance(order_identifiers, list):
-        order_identifiers = [order_identifiers]
-    return ";".join(map(order_identifier_to_string, order_identifiers))
-
-
-def match_collection_slot_date(slots: GetAvailableSlotsResponse, d: date) -> SlotDateDef | None:
-    datewise = slots.task_slots.datewise_slots or ()
-    return next((_ for _ in datewise if _.slot_date == d), None)

@@ -83,6 +83,10 @@ class AvailableServicesResponse(RMBaseModel):
         return None
 
 
+class ReturnRequestContainer(RMBaseModel):
+    return_requests: list[ReturnsRequest]
+
+
 class ReturnResponseContainer(RMBaseModel):
     created_orders: list[ReturnsResponse]
     collection_response: CollectionOrderCreateResponse | None = None
