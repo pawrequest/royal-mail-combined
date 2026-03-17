@@ -12,10 +12,9 @@ Do not edit the class manually.
 from __future__ import annotations
 
 import re  # noqa: F401
-
-from pydantic import Field, StrictStr
 from typing import Annotated
 
+from pydantic import Field, StrictStr
 
 from royal_mail_combined.core import RMBaseModel
 
@@ -26,15 +25,15 @@ class GetPostalDetailsResult(RMBaseModel):
     """
 
     title: StrictStr | None = None
-    first_name: StrictStr | None = Field(default=None, alias="firstName")
-    last_name: StrictStr | None = Field(default=None, alias="lastName")
-    company_name: StrictStr | None = Field(default=None, alias="companyName")
-    address_line1: StrictStr | None = Field(default=None, alias="addressLine1")
-    address_line2: StrictStr | None = Field(default=None, alias="addressLine2")
-    address_line3: StrictStr | None = Field(default=None, alias="addressLine3")
+    first_name: StrictStr | None = Field(default=None, alias='firstName')
+    last_name: StrictStr | None = Field(default=None, alias='lastName')
+    company_name: StrictStr | None = Field(default=None, alias='companyName')
+    address_line1: StrictStr | None = Field(default=None, alias='addressLine1')
+    address_line2: StrictStr | None = Field(default=None, alias='addressLine2')
+    address_line3: StrictStr | None = Field(default=None, alias='addressLine3')
     city: StrictStr | None = None
     county: StrictStr | None = None
     postcode: StrictStr | None = None
-    country_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(default=None, alias="countryCode")
-    phone_number: StrictStr | None = Field(default=None, alias="phoneNumber")
-    email_address: StrictStr | None = Field(default=None, alias="emailAddress")
+    country_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(default=None, alias='countryCode')
+    phone_number: StrictStr | None = Field(default=None, alias='phoneNumber')
+    email_address: StrictStr | None = Field(default=None, alias='emailAddress')

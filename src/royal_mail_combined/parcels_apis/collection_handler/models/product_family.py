@@ -10,12 +10,14 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 import re  # noqa: F401
 
 from pydantic import Field
-from ..models.product_family_def import ProductFamilyDef
 
 from royal_mail_combined.core import RMBaseModel
+
+from ..models.product_family_def import ProductFamilyDef
 
 
 class ProductFamily(RMBaseModel):
@@ -23,4 +25,4 @@ class ProductFamily(RMBaseModel):
     ProductFamily
     """
 
-    product_family: list[ProductFamilyDef] = Field(alias="productFamily")
+    product_family: list[ProductFamilyDef] = Field(alias='productFamily')

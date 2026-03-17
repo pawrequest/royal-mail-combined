@@ -15,7 +15,6 @@ import re  # noqa: F401
 
 from pydantic import Field, StrictFloat, StrictInt, StrictStr
 
-
 from royal_mail_combined.core import RMBaseModel
 
 
@@ -24,13 +23,13 @@ class GetOrderLineResult(RMBaseModel):
     GetOrderLineResult
     """
 
-    sku: StrictStr | None = Field(default=None, alias="SKU")
+    sku: StrictStr | None = Field(default=None, alias='SKU')
     name: StrictStr | None = None
-    quantity: StrictInt = Field(description="The number of units in a given line")
+    quantity: StrictInt = Field(description='The number of units in a given line')
     unit_value: StrictFloat | StrictInt | None = Field(
-        default=None, description="The price of a single unit excluding tax", alias="unitValue"
+        default=None, description='The price of a single unit excluding tax', alias='unitValue'
     )
     line_total: StrictFloat | StrictInt | None = Field(
-        default=None, description="The sum of the line items including tax", alias="lineTotal"
+        default=None, description='The sum of the line items including tax', alias='lineTotal'
     )
-    customs_code: StrictStr | None = Field(default=None, alias="customsCode")
+    customs_code: StrictStr | None = Field(default=None, alias='customsCode')

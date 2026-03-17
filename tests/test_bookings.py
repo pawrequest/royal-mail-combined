@@ -1,22 +1,21 @@
 from pathlib import Path
 
 import pytest
-from loguru import logger
-
 from conftest import STORE_RESULTS, TEST_DATE, dump_result_model
+from loguru import logger
+from pawdf.array_pdf.array_p import on_a4
 
 from royal_mail_combined.click_and_drop_api.models.return_models import ReturnResponseContainer
 from royal_mail_combined.core.consts_types import ResponseMessages
-from pawdf.array_pdf.array_p import on_a4
 
 
 def write_label_file(label_content: bytes, label_path: Path):
-    unsize = label_path.parent / "original_size" / label_path.name
+    unsize = label_path.parent / 'original_size' / label_path.name
     unsize.parent.mkdir(parents=True, exist_ok=True)
     unsize.write_bytes(label_content)
-    logger.info(f"Resizing {unsize} to A4 at {label_path}")
+    logger.info(f'Resizing {unsize} to A4 at {label_path}')
     on_a4(input_file=unsize, output_file=label_path)
-    logger.info(f"Wrote label to {label_path}")
+    logger.info(f'Wrote label to {label_path}')
 
 
 def test_book_outbound1(fxt_client, fxt_order):
@@ -28,7 +27,7 @@ def test_book_outbound1(fxt_client, fxt_order):
 
     assert (
         str(sorted(fetched, key=lambda v: v.order_identifier)[0].order_identifier)
-        == sorted(res.success_idents.split(";"))[0]
+        == sorted(res.success_idents.split(';'))[0]
     )
 
 
@@ -53,7 +52,7 @@ def test_book_inbound_with_collection_cancel_collection(fxt_client, fxt_return_r
 BOOKEDIDS = []
 
 
-@pytest.mark.skip(reason="Need real collection ids to test cancellation")
+@pytest.mark.skip(reason='Need real collection ids to test cancellation')
 def test_cancel_collection(fxt_client):
     res = fxt_client.parcel_api.cancel_collection(BOOKEDIDS[1])
     dump_result_model(res)

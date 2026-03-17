@@ -10,12 +10,14 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 import re  # noqa: F401
 
 from pydantic import Field, StrictStr
-from ..models.contract_subscription_def import ContractSubscriptionDef
 
 from royal_mail_combined.core import RMBaseModel
+
+from ..models.contract_subscription_def import ContractSubscriptionDef
 
 
 class ContractCodeDef(RMBaseModel):
@@ -23,5 +25,5 @@ class ContractCodeDef(RMBaseModel):
     Contract details
     """
 
-    contract_code: StrictStr | None = Field(default=None, description="Contract code", alias="contractCode")
+    contract_code: StrictStr | None = Field(default=None, description='Contract code', alias='contractCode')
     subscription: list[ContractSubscriptionDef] | None = None

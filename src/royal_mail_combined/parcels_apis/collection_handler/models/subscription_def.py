@@ -10,6 +10,7 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 import re  # noqa: F401
 
 from pydantic import Field, StrictBool, StrictStr
@@ -22,5 +23,5 @@ class SubscriptionDef(RMBaseModel):
     node of subscription data
     """
 
-    name: StrictStr = Field(description="node of subscription data")
-    value: StrictBool = Field(description="Return the subscription value")
+    name: StrictStr = Field(description='node of subscription data')
+    value: StrictBool = Field(description='Return the subscription value')

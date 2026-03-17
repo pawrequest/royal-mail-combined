@@ -44,9 +44,9 @@ class ParcelAPIClient:
         dps_request = AddressVerifiableList(addresses=[address_verify])
         dps_responses = self.address_api.address_verify(dps_request)
         if len(dps_responses) == 0:
-            raise Exception("No address verify responses returned")
+            raise Exception('No address verify responses returned')
         if len(dps_responses) > 1:
-            raise Exception("Multiple address verify responses returned")
+            raise Exception('Multiple address verify responses returned')
         return dps_responses[0]
 
     def address_search(self, address_text: str):
@@ -67,6 +67,6 @@ class ParcelAPIClient:
         slots_response = self.slots_api.order_get_available_slots(dps=postcode_and_dps, item_count=num_boxes)
         my_slot = match_collection_slot_date(slots_response, collection_date)
         if my_slot is None:
-            raise Exception("No slot found for date")
+            raise Exception('No slot found for date')
         token = slots_response.task_slots.slot_details.token_id
         return token

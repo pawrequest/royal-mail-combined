@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from datetime import date
 from enum import StrEnum
-
-from pydantic import Field, NonNegativeInt, StrictFloat, StrictInt, StrictStr, StringConstraints
 from typing import Annotated
 
-from royal_mail_combined import RMBaseModel
+from pydantic import Field, NonNegativeInt, StrictFloat, StrictInt, StrictStr, StringConstraints
 from royal_mail_combined.apis.parcels_apis.collection_order import LabelInfo
+
+from royal_mail_combined import RMBaseModel
 
 
 class SenderDetailsPostDef(RMBaseModel):
@@ -62,9 +62,9 @@ class DimensionsPostDef(RMBaseModel):
 
 
 class CollectionItemType(StrEnum):
-    STANDARD = "Standard"
-    NOLABEL = "NoLabel"
-    NOPACKAGE = "NoPackage"
+    STANDARD = 'Standard'
+    NOLABEL = 'NoLabel'
+    NOPACKAGE = 'NoPackage'
 
 
 class ItemsPostDef(RMBaseModel):
@@ -76,7 +76,7 @@ class ItemsPostDef(RMBaseModel):
     item_reference: Annotated[str | None, StringConstraints(strict=True, max_length=40)] = None
     weight_in_grams: NonNegativeInt
     item_service_name: Annotated[str, StringConstraints(min_length=1, strict=True, max_length=50)]
-    item_status: StrictStr = "AwaitingCollection"
+    item_status: StrictStr = 'AwaitingCollection'
     dimensions: DimensionsPostDef
     item_price: StrictFloat | StrictInt | None = None
     item_type: CollectionItemType | None = None
@@ -86,10 +86,10 @@ class ItemsPostDef(RMBaseModel):
 
 class Collection(RMBaseModel):
     timeslot_reservation_id: Annotated[str | None, StringConstraints(min_length=0, strict=True, max_length=64)] = Field(
-        default=None, description="time slot reservation Id", alias="timeslotReservationId"
+        default=None, description='time slot reservation Id', alias='timeslotReservationId'
     )
-    sender_details: SenderDetailsPostDef = Field(alias="senderDetails")
-    account_details: AccountDetailsDef = Field(alias="accountDetails")
+    sender_details: SenderDetailsPostDef = Field(alias='senderDetails')
+    account_details: AccountDetailsDef = Field(alias='accountDetails')
     address: AddressNonMandatoryDef
     collection_date: date
     items: list[ItemsPostDef]

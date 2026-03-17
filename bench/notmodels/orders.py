@@ -47,4 +47,4 @@ class DeleteOrdersResource(RMBaseModel):
 
     @property
     def idents_str(self) -> str:
-        return ",".join(str(_) for _ in self.idents)
+        return ','.join(str(_) for _ in self.idents)

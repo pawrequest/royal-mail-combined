@@ -27,21 +27,21 @@ class AddressSummaryDef(RMBaseModel):
     # address_id: Optional[Annotated[str, Field(strict=True, max_length=30)]] = Field(default=None, description="Unique identifier for address record retrieval", alias="addressId")
     address_id: Annotated[str, Field(strict=True)] | None = Field(
         default=None,
-        description="Unique identifier for address record retrieval",
-        alias="addressId",
+        description='Unique identifier for address record retrieval',
+        alias='addressId',
     )
     type: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
-        default=None, description="Type of the response entity"
+        default=None, description='Type of the response entity'
     )
     address_summary1: Annotated[str, Field(strict=True, max_length=200)] | None = Field(
-        default=None, description="Address Line 3", alias="addressSummary1"
+        default=None, description='Address Line 3', alias='addressSummary1'
     )
     address_summary2: Annotated[str, Field(strict=True, max_length=200)] | None = Field(
-        default=None, description="PostTown", alias="addressSummary2"
+        default=None, description='PostTown', alias='addressSummary2'
     )
     highlight: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
         default=None,
-        description="A list of number ranges identifying the matched characters in the Text and Description",
+        description='A list of number ranges identifying the matched characters in the Text and Description',
     )
 
 

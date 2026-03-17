@@ -86,7 +86,7 @@ class RoyalMailClient:
             return_request_container.return_requests[0].shipment.sender_address
         )
         dps = sender_address_verified.dps
-        postcode_and_dps = sender_address_verified.input.postcode.replace(" ", "") + dps
+        postcode_and_dps = sender_address_verified.input.postcode.replace(' ', '') + dps
         collection_address = AddressDps(**sender_address_verified.input.model_dump(exclude_none=True), dps=dps)
 
         # book shipping

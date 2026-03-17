@@ -15,7 +15,6 @@ import re  # noqa: F401
 
 from pydantic import Field, StrictFloat, StrictInt, StrictStr
 
-
 from royal_mail_combined.core import RMBaseModel
 
 
@@ -24,7 +23,7 @@ class ManifestOrdersResponse(RMBaseModel):
     ManifestOrdersResponse
     """
 
-    manifest_number: StrictFloat | StrictInt = Field(alias="manifestNumber")
+    manifest_number: StrictFloat | StrictInt = Field(alias='manifestNumber')
     document_pdf: StrictStr | None = Field(
-        default=None, description="manifest in format base64 string", alias="documentPdf"
+        default=None, description='manifest in format base64 string', alias='documentPdf'
     )

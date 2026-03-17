@@ -17,16 +17,16 @@ import ssl
 import urllib3
 from pydantic import BaseModel
 
-from royal_mail_combined.core.exceptions import ApiValueError, ApiException
+from royal_mail_combined.core.exceptions import ApiException, ApiValueError
 
-SUPPORTED_SOCKS_PROXIES = {"socks5", "socks5h", "socks4", "socks4a"}
+SUPPORTED_SOCKS_PROXIES = {'socks5', 'socks5h', 'socks4', 'socks4a'}
 RESTResponseType = urllib3.HTTPResponse
 
 
 def is_socks_proxy_url(url):
     if url is None:
         return False
-    split_section = url.split("://")
+    split_section = url.split('://')
     if len(split_section) < 2:
         return False
     else:
@@ -68,26 +68,26 @@ class RESTClientObject:
             cert_reqs = ssl.CERT_NONE
 
         pool_args = {
-            "cert_reqs": cert_reqs,
-            "ca_certs": configuration.ssl_ca_cert,
-            "cert_file": configuration.cert_file,
-            "key_file": configuration.key_file,
-            "ca_cert_data": configuration.ca_cert_data,
+            'cert_reqs': cert_reqs,
+            'ca_certs': configuration.ssl_ca_cert,
+            'cert_file': configuration.cert_file,
+            'key_file': configuration.key_file,
+            'ca_cert_data': configuration.ca_cert_data,
         }
         if configuration.assert_hostname is not None:
-            pool_args["assert_hostname"] = configuration.assert_hostname
+            pool_args['assert_hostname'] = configuration.assert_hostname
 
         if configuration.retries is not None:
-            pool_args["retries"] = configuration.retries
+            pool_args['retries'] = configuration.retries
 
         if configuration.tls_server_name:
-            pool_args["server_hostname"] = configuration.tls_server_name
+            pool_args['server_hostname'] = configuration.tls_server_name
 
         if configuration.socket_options is not None:
-            pool_args["socket_options"] = configuration.socket_options
+            pool_args['socket_options'] = configuration.socket_options
 
         if configuration.connection_pool_maxsize is not None:
-            pool_args["maxsize"] = configuration.connection_pool_maxsize
+            pool_args['maxsize'] = configuration.connection_pool_maxsize
 
         # https pool manager
         self.pool_manager: urllib3.PoolManager
@@ -96,12 +96,12 @@ class RESTClientObject:
             if is_socks_proxy_url(configuration.proxy):
                 from urllib3.contrib.socks import SOCKSProxyManager
 
-                pool_args["proxy_url"] = configuration.proxy
-                pool_args["headers"] = configuration.proxy_headers
+                pool_args['proxy_url'] = configuration.proxy
+                pool_args['headers'] = configuration.proxy_headers
                 self.pool_manager = SOCKSProxyManager(**pool_args)
             else:
-                pool_args["proxy_url"] = configuration.proxy
-                pool_args["proxy_headers"] = configuration.proxy_headers
+                pool_args['proxy_url'] = configuration.proxy
+                pool_args['proxy_headers'] = configuration.proxy_headers
                 self.pool_manager = urllib3.ProxyManager(**pool_args)
         else:
             self.pool_manager = urllib3.PoolManager(**pool_args)
@@ -122,10 +122,10 @@ class RESTClientObject:
                                  (connection, read) timeouts.
         """
         method = method.upper()
-        assert method in ["GET", "HEAD", "DELETE", "POST", "PUT", "PATCH", "OPTIONS"]
+        assert method in ['GET', 'HEAD', 'DELETE', 'POST', 'PUT', 'PATCH', 'OPTIONS']
 
         if post_params and body:
-            raise ApiValueError("body parameter cannot be used with post_params parameter.")
+            raise ApiValueError('body parameter cannot be used with post_params parameter.')
 
         post_params = post_params or {}
         headers = headers or {}
@@ -139,14 +139,14 @@ class RESTClientObject:
 
         try:
             # For `POST`, `PUT`, `PATCH`, `OPTIONS`, `DELETE`
-            if method in ["POST", "PUT", "PATCH", "OPTIONS", "DELETE"]:
+            if method in ['POST', 'PUT', 'PATCH', 'OPTIONS', 'DELETE']:
                 # no content type provided or payload is json
-                content_type = headers.get("Content-Type")
-                if not content_type or re.search("json", content_type, re.IGNORECASE):
+                content_type = headers.get('Content-Type')
+                if not content_type or re.search('json', content_type, re.IGNORECASE):
                     request_body = None
                     if body is not None:
                         if isinstance(body, BaseModel):
-                            body = body.model_dump(by_alias=True, mode="json")
+                            body = body.model_dump(by_alias=True, mode='json')
 
                         request_body = json.dumps(body)
                     r = self.pool_manager.request(
@@ -157,7 +157,7 @@ class RESTClientObject:
                         headers=headers,
                         preload_content=False,
                     )
-                elif content_type == "application/x-www-form-urlencoded":
+                elif content_type == 'application/x-www-form-urlencoded':
                     r = self.pool_manager.request(
                         method,
                         url,
@@ -167,11 +167,11 @@ class RESTClientObject:
                         headers=headers,
                         preload_content=False,
                     )
-                elif content_type == "multipart/form-data":
+                elif content_type == 'multipart/form-data':
                     # must del headers['Content-Type'], or the correct
                     # Content-Type which generated by urllib3 will be
                     # overwritten.
-                    del headers["Content-Type"]
+                    del headers['Content-Type']
                     # Ensures that dict objects are serialized
                     post_params = [(a, json.dumps(b)) if isinstance(b, dict) else (a, b) for a, b in post_params]
                     r = self.pool_manager.request(
@@ -195,8 +195,8 @@ class RESTClientObject:
                         headers=headers,
                         preload_content=False,
                     )
-                elif headers["Content-Type"].startswith("text/") and isinstance(body, bool):
-                    request_body = "true" if body else "false"
+                elif headers['Content-Type'].startswith('text/') and isinstance(body, bool):
+                    request_body = 'true' if body else 'false'
                     r = self.pool_manager.request(
                         method,
                         url,
@@ -217,7 +217,7 @@ class RESTClientObject:
                     method, url, fields={}, timeout=timeout, headers=headers, preload_content=False
                 )
         except urllib3.exceptions.SSLError as e:
-            msg = "\n".join([type(e).__name__, str(e)])
+            msg = '\n'.join([type(e).__name__, str(e)])
             raise ApiException(status=0, reason=msg)
 
         return RESTResponse(r)

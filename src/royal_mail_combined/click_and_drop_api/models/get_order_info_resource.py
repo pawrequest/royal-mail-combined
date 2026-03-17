@@ -16,7 +16,6 @@ from datetime import datetime
 
 from pydantic import Field, StrictInt, StrictStr
 
-
 from royal_mail_combined.core import RMBaseModel
 
 
@@ -25,11 +24,11 @@ class GetOrderInfoResource(RMBaseModel):
     GetOrderInfoResource
     """
 
-    order_identifier: StrictInt = Field(alias="orderIdentifier")
-    order_reference: StrictStr | None = Field(default=None, alias="orderReference")
-    created_on: datetime = Field(alias="createdOn")
-    order_date: datetime | None = Field(default=None, alias="orderDate")
-    printed_on: datetime | None = Field(default=None, alias="printedOn")
-    manifested_on: datetime | None = Field(default=None, alias="manifestedOn")
-    shipped_on: datetime | None = Field(default=None, alias="shippedOn")
-    tracking_number: StrictStr | None = Field(default=None, alias="trackingNumber")
+    order_identifier: StrictInt = Field(alias='orderIdentifier')
+    order_reference: StrictStr | None = Field(default=None, alias='orderReference')
+    created_on: datetime = Field(alias='createdOn')
+    order_date: datetime | None = Field(default=None, alias='orderDate')
+    printed_on: datetime | None = Field(default=None, alias='printedOn')
+    manifested_on: datetime | None = Field(default=None, alias='manifestedOn')
+    shipped_on: datetime | None = Field(default=None, alias='shippedOn')
+    tracking_number: StrictStr | None = Field(default=None, alias='trackingNumber')

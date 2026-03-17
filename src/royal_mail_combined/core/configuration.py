@@ -1,97 +1,96 @@
 import copy
 import http.client as httplib
 import logging
-from logging import FileHandler
 import multiprocessing
 import sys
-from typing import Any, ClassVar, Literal, TypedDict
-from typing import NotRequired, Self
+from logging import FileHandler
+from typing import Any, ClassVar, Literal, NotRequired, Self, TypedDict
 
 import urllib3
 
 JSON_SCHEMA_VALIDATION_KEYWORDS = {
-    "multipleOf",
-    "maximum",
-    "exclusiveMaximum",
-    "minimum",
-    "exclusiveMinimum",
-    "maxLength",
-    "minLength",
-    "pattern",
-    "maxItems",
-    "minItems",
+    'multipleOf',
+    'maximum',
+    'exclusiveMaximum',
+    'minimum',
+    'exclusiveMinimum',
+    'maxLength',
+    'minLength',
+    'pattern',
+    'maxItems',
+    'minItems',
 }
 
 ServerVariablesT = dict[str, str]
 
 GenericAuthSetting = TypedDict(
-    "GenericAuthSetting",
+    'GenericAuthSetting',
     {
-        "type": str,
-        "in": str,
-        "key": str,
-        "value": str,
+        'type': str,
+        'in': str,
+        'key': str,
+        'value': str,
     },
 )
 
 OAuth2AuthSetting = TypedDict(
-    "OAuth2AuthSetting",
+    'OAuth2AuthSetting',
     {
-        "type": Literal["oauth2"],
-        "in": Literal["header"],
-        "key": Literal["Authorization"],
-        "value": str,
+        'type': Literal['oauth2'],
+        'in': Literal['header'],
+        'key': Literal['Authorization'],
+        'value': str,
     },
 )
 
 APIKeyAuthSetting = TypedDict(
-    "APIKeyAuthSetting",
+    'APIKeyAuthSetting',
     {
-        "type": Literal["api_key"],
-        "in": str,
-        "key": str,
-        "value": str | None,
+        'type': Literal['api_key'],
+        'in': str,
+        'key': str,
+        'value': str | None,
     },
 )
 
 BasicAuthSetting = TypedDict(
-    "BasicAuthSetting",
+    'BasicAuthSetting',
     {
-        "type": Literal["basic"],
-        "in": Literal["header"],
-        "key": Literal["Authorization"],
-        "value": str | None,
+        'type': Literal['basic'],
+        'in': Literal['header'],
+        'key': Literal['Authorization'],
+        'value': str | None,
     },
 )
 
 BearerFormatAuthSetting = TypedDict(
-    "BearerFormatAuthSetting",
+    'BearerFormatAuthSetting',
     {
-        "type": Literal["bearer"],
-        "in": Literal["header"],
-        "format": Literal["JWT"],
-        "key": Literal["Authorization"],
-        "value": str,
+        'type': Literal['bearer'],
+        'in': Literal['header'],
+        'format': Literal['JWT'],
+        'key': Literal['Authorization'],
+        'value': str,
     },
 )
 
 BearerAuthSetting = TypedDict(
-    "BearerAuthSetting",
+    'BearerAuthSetting',
     {
-        "type": Literal["bearer"],
-        "in": Literal["header"],
-        "key": Literal["Authorization"],
-        "value": str,
+        'type': Literal['bearer'],
+        'in': Literal['header'],
+        'key': Literal['Authorization'],
+        'value': str,
     },
 )
 
 HTTPSignatureAuthSetting = TypedDict(
-    "HTTPSignatureAuthSetting",
+    'HTTPSignatureAuthSetting',
     {
-        "type": Literal["http-signature"],
-        "in": Literal["header"],
-        "key": Literal["Authorization"],
-        "value": None,
+        'type': Literal['http-signature'],
+        'in': Literal['header'],
+        'key': Literal['Authorization'],
+        'value': None,
     },
 )
 
@@ -99,12 +98,12 @@ HTTPSignatureAuthSetting = TypedDict(
 #     Bearer: APIKeyAuthSetting
 
 AuthSettings = TypedDict(
-    "AuthSettings",
+    'AuthSettings',
     {
-        "BearerAuth": OAuth2AuthSetting,
-        "Bearer": BearerAuthSetting,
-        "Client-Id": APIKeyAuthSetting,
-        "Client-Secret": APIKeyAuthSetting,
+        'BearerAuth': OAuth2AuthSetting,
+        'Bearer': BearerAuthSetting,
+        'Client-Id': APIKeyAuthSetting,
+        'Client-Secret': APIKeyAuthSetting,
     },
     total=False,
 )
@@ -199,7 +198,7 @@ class Configuration:
         debug: bool | None = None,
     ) -> None:
         """Constructor"""
-        self._base_path = "/api/v1" if host is None else host
+        self._base_path = '/api/v1' if host is None else host
         """Default Base url
         """
         self.server_index = 0 if server_index is None and host is None else server_index
@@ -242,9 +241,9 @@ class Configuration:
         self.logger = {}
         """Logging Settings
         """
-        self.logger["package_logger"] = logging.getLogger("royal-mail-click-and-drop")
-        self.logger["urllib3_logger"] = logging.getLogger("urllib3")
-        self.logger_format = "%(asctime)s %(levelname)s %(message)s"
+        self.logger['package_logger'] = logging.getLogger('royal-mail-click-and-drop')
+        self.logger['urllib3_logger'] = logging.getLogger('urllib3')
+        self.logger_format = '%(asctime)s %(levelname)s %(message)s'
         """Log format
         """
         self.logger_stream_handler = None
@@ -303,7 +302,7 @@ class Configuration:
         self.proxy_headers = None
         """Proxy headers
         """
-        self.safe_chars_for_path_param = ""
+        self.safe_chars_for_path_param = ''
         """Safe chars for path_param
         """
         self.retries = retries
@@ -316,11 +315,11 @@ class Configuration:
         """Options to pass down to the underlying urllib3 socket
         """
 
-        self.datetime_format = "%Y-%m-%dT%H:%M:%S.%f%z"
+        self.datetime_format = '%Y-%m-%dT%H:%M:%S.%f%z'
         """datetime format
         """
 
-        self.date_format = "%Y-%m-%d"
+        self.date_format = '%Y-%m-%d'
         """date format
         """
 
@@ -329,7 +328,7 @@ class Configuration:
         result = cls.__new__(cls)
         memo[id(self)] = result
         for k, v in self.__dict__.items():
-            if k not in ("logger", "logger_file_handler"):
+            if k not in ('logger', 'logger_file_handler'):
                 setattr(result, k, copy.deepcopy(v, memo))
         # shallow copy of loggers
         result.logger = copy.copy(self.logger)
@@ -455,7 +454,7 @@ class Configuration:
             prefix = self.api_key_prefix.get(identifier)
             if prefix:
                 # return '%s %s' % (prefix, key)
-                return f"{prefix} {key}"
+                return f'{prefix} {key}'
             else:
                 return key
 
@@ -466,13 +465,13 @@ class Configuration:
 
         :return: The token for basic HTTP authentication.
         """
-        username = ""
+        username = ''
         if self.username is not None:
             username = self.username
-        password = ""
+        password = ''
         if self.password is not None:
             password = self.password
-        return urllib3.util.make_headers(basic_auth=username + ":" + password).get("authorization")
+        return urllib3.util.make_headers(basic_auth=username + ':' + password).get('authorization')
 
     def auth_settings(self) -> AuthSettings:
         """Gets Auth Settings dict for api client.
@@ -481,35 +480,35 @@ class Configuration:
         """
         auth: AuthSettings = {}
         if self.access_token is not None:
-            auth["BearerAuth"] = {
-                "type": "oauth2",
-                "in": "header",
-                "key": "Authorization",
-                "value": "Bearer " + self.access_token,
+            auth['BearerAuth'] = {
+                'type': 'oauth2',
+                'in': 'header',
+                'key': 'Authorization',
+                'value': 'Bearer ' + self.access_token,
             }
-        if "Bearer" in self.api_key:
-            auth["Bearer"] = {
-                "type": "oauth2",
-                "in": "header",
-                "key": "Authorization",
-                "value": "Bearer " + self.get_api_key_with_prefix("Bearer"),
+        if 'Bearer' in self.api_key:
+            auth['Bearer'] = {
+                'type': 'oauth2',
+                'in': 'header',
+                'key': 'Authorization',
+                'value': 'Bearer ' + self.get_api_key_with_prefix('Bearer'),
             }
-        if "Client-Id" in self.api_key:
-            auth["Client-Id"] = {
-                "type": "api_key",
-                "in": "header",
-                "key": "X-IBM-Client-Id",
-                "value": self.get_api_key_with_prefix(
-                    "Client-Id",
+        if 'Client-Id' in self.api_key:
+            auth['Client-Id'] = {
+                'type': 'api_key',
+                'in': 'header',
+                'key': 'X-IBM-Client-Id',
+                'value': self.get_api_key_with_prefix(
+                    'Client-Id',
                 ),
             }
-        if "Client-Secret" in self.api_key:
-            auth["Client-Secret"] = {
-                "type": "api_key",
-                "in": "header",
-                "key": "X-IBM-Client-Secret",
-                "value": self.get_api_key_with_prefix(
-                    "Client-Secret",
+        if 'Client-Secret' in self.api_key:
+            auth['Client-Secret'] = {
+                'type': 'api_key',
+                'in': 'header',
+                'key': 'X-IBM-Client-Secret',
+                'value': self.get_api_key_with_prefix(
+                    'Client-Secret',
                 ),
             }
         return auth
@@ -520,13 +519,13 @@ class Configuration:
         :return: The Auth Settings information dict.
         """
         auth: AuthSettings = {}
-        if "Bearer" in self.api_key:
-            auth["Bearer"] = {
-                "type": "api_key",
-                "in": "header",
-                "key": "Authorization",
-                "value": self.get_api_key_with_prefix(
-                    "Bearer",
+        if 'Bearer' in self.api_key:
+            auth['Bearer'] = {
+                'type': 'api_key',
+                'in': 'header',
+                'key': 'Authorization',
+                'value': self.get_api_key_with_prefix(
+                    'Bearer',
                 ),
             }
         return auth
@@ -537,11 +536,11 @@ class Configuration:
         :return: The report for debugging.
         """
         return (
-            "Python SDK Debug Report:\n"
-            f"OS: {sys.platform}\n"
-            f"Python Version: {sys.version}\n"
-            "Version of the API: 1.0.0\n"
-            "SDK Package Version: 1.0.0"
+            'Python SDK Debug Report:\n'
+            f'OS: {sys.platform}\n'
+            f'Python Version: {sys.version}\n'
+            'Version of the API: 1.0.0\n'
+            'SDK Package Version: 1.0.0'
         )
 
     def get_host_settings(self) -> list[HostSetting]:
@@ -551,8 +550,8 @@ class Configuration:
         """
         return [
             {
-                "url": "/api/v1",
-                "description": "No description provided",
+                'url': '/api/v1',
+                'description': 'No description provided',
             }
         ]
 
@@ -578,22 +577,22 @@ class Configuration:
             server = servers[index]
         except IndexError:
             raise ValueError(
-                f"Invalid index {index} when selecting the host settings. Must be less than {len(servers)}"
+                f'Invalid index {index} when selecting the host settings. Must be less than {len(servers)}'
             )
 
-        url = server["url"]
+        url = server['url']
 
         # go through variables and replace placeholders
-        for variable_name, variable in server.get("variables", {}).items():
-            used_value = variables.get(variable_name, variable["default_value"])
+        for variable_name, variable in server.get('variables', {}).items():
+            used_value = variables.get(variable_name, variable['default_value'])
 
-            if "enum_values" in variable and used_value not in variable["enum_values"]:
+            if 'enum_values' in variable and used_value not in variable['enum_values']:
                 raise ValueError(
-                    f"The variable `{variable_name}` in the host URL has invalid value "
-                    f"{variables[variable_name]}. Must be {variable['enum_values']}."
+                    f'The variable `{variable_name}` in the host URL has invalid value '
+                    f'{variables[variable_name]}. Must be {variable["enum_values"]}.'
                 )
 
-            url = url.replace("{" + variable_name + "}", used_value)
+            url = url.replace('{' + variable_name + '}', used_value)
             #
             # if 'enum_values' in variable \
             #         and used_value not in variable['enum_values']:

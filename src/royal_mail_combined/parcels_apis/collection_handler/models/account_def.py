@@ -10,14 +10,16 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 import re  # noqa: F401
 
 from pydantic import Field, StrictStr
+
+from royal_mail_combined.core import RMBaseModel
+
 from .agreement_line_def import AgreementLineDef
 from .contract_code_def import ContractCodeDef
 from .subscription_def import SubscriptionDef
-
-from royal_mail_combined.core import RMBaseModel
 
 
 class AccountDef(RMBaseModel):
@@ -25,7 +27,7 @@ class AccountDef(RMBaseModel):
     node of account
     """
 
-    account_number: StrictStr = Field(description="Account Number", alias="accountNumber")
+    account_number: StrictStr = Field(description='Account Number', alias='accountNumber')
     subscription: list[SubscriptionDef] | None = None
-    agreement_line: AgreementLineDef = Field(alias="agreementLine")
+    agreement_line: AgreementLineDef = Field(alias='agreementLine')
     contract: ContractCodeDef | None = None

@@ -11,29 +11,29 @@ from pydantic_settings import BaseSettings
 
 from royal_mail_combined.parcels_apis.collection_order.models import AccountDetailsDef
 
-RM_ENV_NAME = "ROYAL_MAIL_ENV"
+RM_ENV_NAME = 'ROYAL_MAIL_ENV'
 
 
 def encode_b64_str(s: str) -> str:
-    return base64.b64encode(s.encode("utf8")).decode("utf8")
+    return base64.b64encode(s.encode('utf8')).decode('utf8')
 
 
 def get_env(env_name: str = RM_ENV_NAME) -> Path:
     env = os.getenv(env_name)
     if not env:
-        raise ValueError(f"{env_name} not set")
+        raise ValueError(f'{env_name} not set')
     env_path = Path(env)
     if not env_path.exists():
-        raise ValueError(f"{env_path} not a valid path")
-    logger.debug(f"Loading environment from {env_path}")
+        raise ValueError(f'{env_path} not a valid path')
+    logger.debug(f'Loading environment from {env_path}')
     return env_path
 
 
 def base_headers() -> dict:
     return {
-        "X-RMG-Date-Time": datetime.now().isoformat(timespec="seconds"),
-        "Content-Type": "application/json",
-        "Accept": "application/json",
+        'X-RMG-Date-Time': datetime.now().isoformat(timespec='seconds'),
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
     }
 
 
@@ -43,7 +43,7 @@ class RoyalMailSettingsGlobal(BaseSettings):
     api_key: SecretStr  # but 'click and drop' uses bearer only so need to support both
     account_number: str
 
-    data_dir: Path = Path.home() / "royal_mail_data"
+    data_dir: Path = Path.home() / 'royal_mail_data'
 
     @classmethod
     @lru_cache
@@ -56,22 +56,22 @@ class RoyalMailSettingsGlobal(BaseSettings):
 
     def authorised_headers_client(self) -> dict:
         heads = {
-            "X-IBM-Client-Id": self.client_id.get_secret_value(),
-            "X-IBM-Client-Secret": self.client_secret.get_secret_value(),
+            'X-IBM-Client-Id': self.client_id.get_secret_value(),
+            'X-IBM-Client-Secret': self.client_secret.get_secret_value(),
         }
         heads.update(base_headers())
         return heads
 
     def authorised_headers_bearer(self) -> dict:
-        heads = {"Authorization": f"Bearer {self.api_key.get_secret_value()}"}
+        heads = {'Authorization': f'Bearer {self.api_key.get_secret_value()}'}
         heads.update(base_headers())
         return heads
 
     def creds_dict(self):
         return {
-            "Bearer": self.api_key.get_secret_value(),
-            "Client-Id": self.client_id.get_secret_value(),
-            "Client-Secret": self.client_secret.get_secret_value(),
+            'Bearer': self.api_key.get_secret_value(),
+            'Client-Id': self.client_id.get_secret_value(),
+            'Client-Secret': self.client_secret.get_secret_value(),
         }
 
     @property

@@ -15,9 +15,9 @@ import re  # noqa: F401
 
 from pydantic import Field
 
-from royal_mail_combined.converters_no_import import order_idents_str
 from royal_mail_combined.click_and_drop_api.models.deleted_order_info import DeletedOrderInfo
 from royal_mail_combined.click_and_drop_api.models.order_error_info import OrderErrorInfo
+from royal_mail_combined.converters_no_import import order_idents_str
 from royal_mail_combined.core import RMBaseModel
 
 
@@ -26,7 +26,7 @@ class DeleteOrdersResource(RMBaseModel):
     DeleteOrdersResource
     """
 
-    deleted_orders: list[DeletedOrderInfo] | None = Field(default=None, alias="deletedOrders")
+    deleted_orders: list[DeletedOrderInfo] | None = Field(default=None, alias='deletedOrders')
     errors: list[OrderErrorInfo] | None = None
 
     def order_idents(self) -> list[int | str]:

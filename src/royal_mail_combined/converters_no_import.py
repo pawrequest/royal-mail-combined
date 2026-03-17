@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 def dps_postcode(verify_resp: AddressVerified) -> str:
     """Get DPS + postcode string from an address verify response."""
-    return verify_resp.input.postcode.replace(" ", "") + verify_resp.dps
+    return verify_resp.input.postcode.replace(' ', '') + verify_resp.dps
 
 
 def created_orders_idents(created_order_response: CreateOrdersResponse) -> list[int]:
@@ -20,11 +20,11 @@ def created_orders_idents(created_order_response: CreateOrdersResponse) -> list[
 
 
 def created_orders_idents_str(created_order_response: CreateOrdersResponse) -> str:
-    return ",".join(str(_) for _ in created_orders_idents(created_order_response))
+    return ','.join(str(_) for _ in created_orders_idents(created_order_response))
 
 
 def tracking_link(tracking_number: str) -> str:
-    tlink = rf"https://www.royalmail.com/track-your-item#/tracking-results/{tracking_number}"
+    tlink = rf'https://www.royalmail.com/track-your-item#/tracking-results/{tracking_number}'
     return tlink
 
 
@@ -33,7 +33,7 @@ def order_identifier_to_string(id_or_ref: int | str) -> str:
         return str(id_or_ref)
     elif isinstance(id_or_ref, str):
         return f'"{quote(id_or_ref)}"'
-    raise TypeError(f"Expected int or str, got {id_or_ref}.")
+    raise TypeError(f'Expected int or str, got {id_or_ref}.')
 
 
 def order_identifiers_to_string(
@@ -42,7 +42,7 @@ def order_identifiers_to_string(
     """Encode order ids and references."""
     if not isinstance(order_identifiers, list):
         order_identifiers = [order_identifiers]
-    return ";".join(map(order_identifier_to_string, order_identifiers))
+    return ';'.join(map(order_identifier_to_string, order_identifiers))
 
 
 def match_collection_slot_date(slots: GetAvailableSlotsResponse, d: date) -> SlotDateDef | None:
@@ -51,4 +51,4 @@ def match_collection_slot_date(slots: GetAvailableSlotsResponse, d: date) -> Slo
 
 
 def order_idents_str(order_idents: list[str | int]) -> str:
-    return ";".join([str(_) for _ in order_idents])
+    return ';'.join([str(_) for _ in order_idents])

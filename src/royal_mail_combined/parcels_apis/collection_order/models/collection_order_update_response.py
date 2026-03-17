@@ -10,6 +10,7 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 import re  # noqa: F401
 
 from pydantic import Field, StrictStr
@@ -22,5 +23,5 @@ class CollectionOrderUpdateResponse(RMBaseModel):
     Response for Update collection order
     """
 
-    collection_order_id: StrictStr = Field(alias="collectionOrderId")
-    status: StrictStr = Field(alias="Status")
+    collection_order_id: StrictStr = Field(alias='collectionOrderId')
+    status: StrictStr = Field(alias='Status')

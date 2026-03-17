@@ -10,12 +10,14 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 import re  # noqa: F401
 
 from pydantic import Field
-from ..models.task_slots_def import TaskSlotsDef
 
 from royal_mail_combined.core import RMBaseModel
+
+from ..models.task_slots_def import TaskSlotsDef
 
 
 class GetAvailableSlotsResponse(RMBaseModel):
@@ -23,4 +25,4 @@ class GetAvailableSlotsResponse(RMBaseModel):
     GetAvailableSlotsResponse
     """
 
-    task_slots: TaskSlotsDef | None = Field(default=None, alias="taskSlots")
+    task_slots: TaskSlotsDef | None = Field(default=None, alias='taskSlots')

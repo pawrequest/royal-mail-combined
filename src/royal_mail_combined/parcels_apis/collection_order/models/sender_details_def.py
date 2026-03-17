@@ -10,10 +10,11 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 import re  # noqa: F401
+from typing import Annotated
 
 from pydantic import Field
-from typing import Annotated
 
 from royal_mail_combined.core import RMBaseModel
 
@@ -24,8 +25,8 @@ class SenderDetailsDef(RMBaseModel):
     """
 
     sender_name: Annotated[str, Field(strict=True, max_length=100)] | None = Field(
-        default=None, description="Name of sender", alias="senderName"
+        default=None, description='Name of sender', alias='senderName'
     )
     sender_email: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
-        default=None, description="Email Address of sender", alias="senderEmail"
+        default=None, description='Email Address of sender', alias='senderEmail'
     )

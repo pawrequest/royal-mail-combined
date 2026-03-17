@@ -14,11 +14,11 @@ from .address_record_def import AddressRecordDef
 from .address_summary_def import AddressesDef, AddressSummaryDef
 
 __all__ = [
-    "AddressFindRequest",
-    "AddressRecordDef",
-    "AddressSummaryDef",
-    "AddressVerified",
-    "AddressVerifiableList",
-    "AddressVerifable",
-    "AddressesDef",
+    'AddressFindRequest',
+    'AddressRecordDef',
+    'AddressSummaryDef',
+    'AddressVerified',
+    'AddressVerifiableList',
+    'AddressVerifable',
+    'AddressesDef',
 ]

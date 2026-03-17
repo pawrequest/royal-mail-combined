@@ -10,13 +10,15 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 import re  # noqa: F401
 
 from pydantic import Field, StrictStr
-from ..models.account_def import AccountDef
-from ..models.subscription_def import SubscriptionDef
 
 from royal_mail_combined.core import RMBaseModel
+
+from ..models.account_def import AccountDef
+from ..models.subscription_def import SubscriptionDef
 
 
 class ProductFamilyResponseDef(RMBaseModel):
@@ -24,7 +26,7 @@ class ProductFamilyResponseDef(RMBaseModel):
     node of product family
     """
 
-    product_family_name: StrictStr = Field(description="Product Family Name", alias="productFamilyName")
-    status: StrictStr = Field(description="Response Status")
+    product_family_name: StrictStr = Field(description='Product Family Name', alias='productFamilyName')
+    status: StrictStr = Field(description='Response Status')
     subscription: list[SubscriptionDef] | None = None
     account: AccountDef | None = None

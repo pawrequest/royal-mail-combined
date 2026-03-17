@@ -10,10 +10,11 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 import re  # noqa: F401
+from typing import Annotated
 
 from pydantic import Field
-from typing import Annotated
 
 from royal_mail_combined.core import RMBaseModel
 
@@ -24,8 +25,8 @@ class SafePlaceDetailsDef(RMBaseModel):
     """
 
     location_text: Annotated[str, Field(strict=True, max_length=50)] | None = Field(
-        default=None, description="Location Text", alias="locationText"
+        default=None, description='Location Text', alias='locationText'
     )
     location_code: Annotated[str, Field(strict=True, max_length=10)] | None = Field(
-        default=None, description="Location Code", alias="locationCode"
+        default=None, description='Location Code', alias='locationCode'
     )

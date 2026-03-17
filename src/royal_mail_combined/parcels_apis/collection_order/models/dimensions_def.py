@@ -10,6 +10,7 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 import re  # noqa: F401
 
 from pydantic import Field, StrictFloat, StrictInt
@@ -22,6 +23,6 @@ class DimensionsDef(RMBaseModel):
     DimensionsDef
     """
 
-    height: StrictFloat | StrictInt | None = Field(default=None, description="height of item")
-    width: StrictFloat | StrictInt | None = Field(default=None, description="width of item")
-    depth: StrictFloat | StrictInt | None = Field(default=None, description="depth of item")
+    height: StrictFloat | StrictInt | None = Field(default=None, description='height of item')
+    width: StrictFloat | StrictInt | None = Field(default=None, description='width of item')
+    depth: StrictFloat | StrictInt | None = Field(default=None, description='depth of item')

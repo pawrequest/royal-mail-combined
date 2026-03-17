@@ -16,7 +16,6 @@ from datetime import datetime
 
 from pydantic import Field, StrictStr
 
-
 from royal_mail_combined.core import RMBaseModel
 
 
@@ -28,4 +27,4 @@ class GetVersionResource(RMBaseModel):
     commit: StrictStr | None = None
     build: StrictStr | None = None
     release: StrictStr | None = None
-    release_date: datetime = Field(alias="releaseDate")
+    release_date: datetime = Field(alias='releaseDate')

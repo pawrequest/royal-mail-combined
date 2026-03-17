@@ -10,25 +10,26 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 import re  # noqa: F401
-
 from datetime import datetime
-from pydantic import Field, StrictInt, StrictStr
 
-from ..models.create_order_label_error_response import CreateOrderLabelErrorResponse
+from pydantic import Field, StrictInt, StrictStr
 
 from royal_mail_combined.core import RMBaseModel
 
+from ..models.create_order_label_error_response import CreateOrderLabelErrorResponse
+
 
 class CreateOrderResponse(RMBaseModel):
-    order_identifier: StrictInt = Field(alias="orderIdentifier")
-    order_reference: StrictStr | None = Field(default=None, alias="orderReference")
-    created_on: datetime = Field(alias="createdOn")
-    order_date: datetime | None = Field(default=None, alias="orderDate")
-    printed_on: datetime | None = Field(default=None, alias="printedOn")
-    manifested_on: datetime | None = Field(default=None, alias="manifestedOn")
-    shipped_on: datetime | None = Field(default=None, alias="shippedOn")
-    tracking_number: StrictStr | None = Field(default=None, alias="trackingNumber")
-    label: StrictStr | None = Field(default=None, description="label in format base64 string")
-    label_errors: list[CreateOrderLabelErrorResponse] | None = Field(default=None, alias="labelErrors")
-    generated_documents: list[StrictStr] | None = Field(default=None, alias="generatedDocuments")
+    order_identifier: StrictInt = Field(alias='orderIdentifier')
+    order_reference: StrictStr | None = Field(default=None, alias='orderReference')
+    created_on: datetime = Field(alias='createdOn')
+    order_date: datetime | None = Field(default=None, alias='orderDate')
+    printed_on: datetime | None = Field(default=None, alias='printedOn')
+    manifested_on: datetime | None = Field(default=None, alias='manifestedOn')
+    shipped_on: datetime | None = Field(default=None, alias='shippedOn')
+    tracking_number: StrictStr | None = Field(default=None, alias='trackingNumber')
+    label: StrictStr | None = Field(default=None, description='label in format base64 string')
+    label_errors: list[CreateOrderLabelErrorResponse] | None = Field(default=None, alias='labelErrors')
+    generated_documents: list[StrictStr] | None = Field(default=None, alias='generatedDocuments')

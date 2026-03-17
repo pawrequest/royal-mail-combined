@@ -40,8 +40,8 @@ class ItemsPostDef(RMBaseModel):
     item_status: ItemStatus | None = None
     item_price: StrictFloat | StrictInt | None = Field(
         default=None,
-        description="Price paid for the doorstep collection for the item",
-        alias="itemPrice",
+        description='Price paid for the doorstep collection for the item',
+        alias='itemPrice',
     )
     item_type: CollectionItemType | None = None
     item_product_code: StrictStr5 | None = None

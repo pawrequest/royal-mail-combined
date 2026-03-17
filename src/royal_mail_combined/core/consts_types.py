@@ -7,7 +7,6 @@ from typing import Annotated
 from annotated_types import Ge, Le, MultipleOf
 from pydantic import Field, StrictFloat, StrictInt, StringConstraints
 
-
 # Types
 StrictStr2 = Annotated[str, StringConstraints(max_length=2, strict=True)]
 StrictStr3 = Annotated[str, StringConstraints(max_length=3, strict=True)]
@@ -33,69 +32,69 @@ StrictNonNegativeNumber = StrictNonNegativeDecimalFloat | StrictNonNegativeInt
 X_RMG_DATETIME = Annotated[
     date,
     Field(
-        description="This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00",
-        default_factory=lambda: datetime.now().isoformat(timespec="seconds"),
+        description='This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00',
+        default_factory=lambda: datetime.now().isoformat(timespec='seconds'),
     ),
 ]
 
 
 # Enums
 class ItemStatus(StrEnum):
-    AWAITING_COLLECTION = "AwaitingCollection"
-    COLLECTED = "Collected"
-    NOT_COLLECTED = "NotCollected"
-    PROCESSING = "Processing"
-    ATTEMPTED = "Attempted"
+    AWAITING_COLLECTION = 'AwaitingCollection'
+    COLLECTED = 'Collected'
+    NOT_COLLECTED = 'NotCollected'
+    PROCESSING = 'Processing'
+    ATTEMPTED = 'Attempted'
 
 
 class CollectionStatus(str, Enum):
-    CREATED = "Created"
-    PENDING = "Pending"
-    COLLECTIONORDERPLACED = "CollectionOrderPlaced"
-    COLLECTED = "Collected"
-    CANCELLED = "Cancelled"
-    PROCESSING = "Processing"
-    NOTCOLLECTED = "NotCollected"
-    ATTEMPTED = "Attempted"
+    CREATED = 'Created'
+    PENDING = 'Pending'
+    COLLECTIONORDERPLACED = 'CollectionOrderPlaced'
+    COLLECTED = 'Collected'
+    CANCELLED = 'Cancelled'
+    PROCESSING = 'Processing'
+    NOTCOLLECTED = 'NotCollected'
+    ATTEMPTED = 'Attempted'
 
 
 class SendNotifcationsTo(StrEnum):
-    SENDER = "sender"
-    RECIPIENT = "recipient"
-    BILLING = "billing"
+    SENDER = 'sender'
+    RECIPIENT = 'recipient'
+    BILLING = 'billing'
 
 
 class LabelPackageFormat(StrEnum):
-    LETTER = "letter"
-    LARGE_LETTER = "largeLetter"
-    SMALL_PARCEL = "smallParcel"
-    MEDIUM_PARCEL = "mediumParcel"
+    LETTER = 'letter'
+    LARGE_LETTER = 'largeLetter'
+    SMALL_PARCEL = 'smallParcel'
+    MEDIUM_PARCEL = 'mediumParcel'
 
 
 class PackageFormat(StrEnum):
-    SMALL_PARCEL = "smallParcel"
-    MEDIUM_PARCEL = "mediumParcel"
-    PARCEL = "parcel"
-    LETTER = "letter"
-    LARGE_LETTER = "largeLetter"
-    DOCUMENTS = "documents"
-    UNDEFINED = "undefined"
+    SMALL_PARCEL = 'smallParcel'
+    MEDIUM_PARCEL = 'mediumParcel'
+    PARCEL = 'parcel'
+    LETTER = 'letter'
+    LARGE_LETTER = 'largeLetter'
+    DOCUMENTS = 'documents'
+    UNDEFINED = 'undefined'
 
 
 class ResponseMessages(StrEnum):
-    COLLECTION_CREATED = "Order created successfully"
-    COLLECTION_CANCELLED = "Order cancelled successfully"
+    COLLECTION_CREATED = 'Order created successfully'
+    COLLECTION_CANCELLED = 'Order cancelled successfully'
 
 
 class RoyalMailServiceCodes(StrEnum):
-    TRACKED_24 = "TPN24"  # no signature.
-    TRACKED_24_RTN = "TSN"  # no signature.
-    EXPRESS_24 = "NDA"
-    EXPRESS_24_RTN = "RT0"
+    TRACKED_24 = 'TPN24'  # no signature.
+    TRACKED_24_RTN = 'TSN'  # no signature.
+    EXPRESS_24 = 'NDA'
+    EXPRESS_24_RTN = 'RT0'
 
 
 class ReturnsServiceNames(StrEnum):
-    TRACKED_24 = "Tracked Returns 24 (T24) Enhanced"
+    TRACKED_24 = 'Tracked Returns 24 (T24) Enhanced'
 
 
 # class RoyalMailServiceCodeClickDrop(StrEnum):

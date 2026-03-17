@@ -9,4 +9,4 @@ from royal_mail_combined.core import RMBaseModel
 
 class CollectionOrderCreateResponse(RMBaseModel):
     collection_order_id: StrictStr
-    status: StrictStr = Field(alias="Status")
+    status: StrictStr = Field(alias='Status')

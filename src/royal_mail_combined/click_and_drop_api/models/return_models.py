@@ -25,12 +25,12 @@ class AddressReturns(RMBaseModel):
     county: str | None = None
     postcode: str
     country: str
-    country_iso_code: str = "GBR"
+    country_iso_code: str = 'GBR'
     email: str
 
     @property
     def full_name(self):
-        return f"{self.first_name} {self.last_name}"
+        return f'{self.first_name} {self.last_name}'
 
     @property
     def details(self) -> SenderDetailsPostDef:
@@ -38,11 +38,11 @@ class AddressReturns(RMBaseModel):
 
 
 class ReturnShipment(RMBaseModel):
-    recipient_address: AddressReturns = Field(alias="shippingAddress")
-    sender_address: AddressReturns = Field(alias="returnAddress")
+    recipient_address: AddressReturns = Field(alias='shippingAddress')
+    sender_address: AddressReturns = Field(alias='returnAddress')
     customer_reference: CustomerReference | None = None
 
-    @model_validator(mode="after")
+    @model_validator(mode='after')
     def validate_customer_reference(self):
         if not self.customer_reference:
             ref = self.sender_address.company_name or self.sender_address.full_name

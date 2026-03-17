@@ -10,6 +10,7 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 import re  # noqa: F401
 
 from pydantic import Field, StrictFloat, StrictInt
@@ -22,9 +23,9 @@ class DimensionsPostDef(RMBaseModel):
     DimensionsPostDef
     """
 
-    height: StrictFloat | StrictInt = Field(description="height or length of item")
-    width: StrictFloat | StrictInt = Field(description="width of item")
-    depth: StrictFloat | StrictInt = Field(description="depth of item")
+    height: StrictFloat | StrictInt = Field(description='height or length of item')
+    width: StrictFloat | StrictInt = Field(description='width of item')
+    depth: StrictFloat | StrictInt = Field(description='depth of item')
 
     @classmethod
     def small(cls):

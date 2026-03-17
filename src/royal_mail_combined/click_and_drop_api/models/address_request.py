@@ -2,9 +2,8 @@ from __future__ import annotations
 
 import re  # noqa: F401
 
-
 from royal_mail_combined.core import RMBaseModel
-from royal_mail_combined.core.consts_types import StrictStr100, StrictStr20, StrictStr210, StrictStr3
+from royal_mail_combined.core.consts_types import StrictStr3, StrictStr20, StrictStr100, StrictStr210
 
 
 class AddressRequest(RMBaseModel):
@@ -16,4 +15,4 @@ class AddressRequest(RMBaseModel):
     city: StrictStr100
     county: StrictStr100 | None = None
     postcode: StrictStr20 | None = None
-    country_code: StrictStr3 = "GB"
+    country_code: StrictStr3 = 'GB'

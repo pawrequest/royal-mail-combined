@@ -10,9 +10,10 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
-import re  # noqa: F401
 
+import re  # noqa: F401
 from datetime import datetime
+
 from pydantic import Field, StrictBool, StrictFloat, StrictInt, StrictStr
 
 from royal_mail_combined.core import RMBaseModel
@@ -23,15 +24,15 @@ class GetShippingDetailsResult(RMBaseModel):
     GetShippingDetailsResult
     """
 
-    shipping_cost: StrictFloat | StrictInt = Field(alias="shippingCost")
-    tracking_number: StrictStr | None = Field(default=None, alias="trackingNumber")
-    shipping_tracking_status: StrictStr | None = Field(default=None, alias="shippingTrackingStatus")
-    service_code: StrictStr | None = Field(default=None, alias="serviceCode")
-    shipping_service: StrictStr | None = Field(default=None, alias="shippingService")
-    shipping_carrier: StrictStr | None = Field(default=None, alias="shippingCarrier")
-    receive_email_notification: StrictBool | None = Field(default=None, alias="receiveEmailNotification")
-    receive_sms_notification: StrictBool | None = Field(default=None, alias="receiveSmsNotification")
-    guaranteed_saturday_delivery: StrictBool | None = Field(default=None, alias="guaranteedSaturdayDelivery")
-    request_signature_upon_delivery: StrictBool | None = Field(default=None, alias="requestSignatureUponDelivery")
-    is_local_collect: StrictBool | None = Field(default=None, alias="isLocalCollect")
-    shipping_update_success_date: datetime | None = Field(default=None, alias="shippingUpdateSuccessDate")
+    shipping_cost: StrictFloat | StrictInt = Field(alias='shippingCost')
+    tracking_number: StrictStr | None = Field(default=None, alias='trackingNumber')
+    shipping_tracking_status: StrictStr | None = Field(default=None, alias='shippingTrackingStatus')
+    service_code: StrictStr | None = Field(default=None, alias='serviceCode')
+    shipping_service: StrictStr | None = Field(default=None, alias='shippingService')
+    shipping_carrier: StrictStr | None = Field(default=None, alias='shippingCarrier')
+    receive_email_notification: StrictBool | None = Field(default=None, alias='receiveEmailNotification')
+    receive_sms_notification: StrictBool | None = Field(default=None, alias='receiveSmsNotification')
+    guaranteed_saturday_delivery: StrictBool | None = Field(default=None, alias='guaranteedSaturdayDelivery')
+    request_signature_upon_delivery: StrictBool | None = Field(default=None, alias='requestSignatureUponDelivery')
+    is_local_collect: StrictBool | None = Field(default=None, alias='isLocalCollect')
+    shipping_update_success_date: datetime | None = Field(default=None, alias='shippingUpdateSuccessDate')

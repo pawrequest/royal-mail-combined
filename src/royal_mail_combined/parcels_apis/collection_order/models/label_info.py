@@ -22,11 +22,11 @@ from .label_customs_info import LabelCustomsInfo
 
 
 class LabelInfo(RMBaseModel):
-    var_1_d_tracking_number: StrictStr13 | None = Field(alias="1DTrackingNumber")
-    var_2_d_unique_identifier: StrictStr21 = Field(alias="2DUniqueIdentifier")
-    post_by_date: date = Field(alias="postByDate")
-    rm_service: StrictStr50 = Field(alias="RMService")
-    price_paid: StrictFloat | StrictInt = Field(description="price paid for the postage", alias="pricePaid")
+    var_1_d_tracking_number: StrictStr13 | None = Field(alias='1DTrackingNumber')
+    var_2_d_unique_identifier: StrictStr21 = Field(alias='2DUniqueIdentifier')
+    post_by_date: date = Field(alias='postByDate')
+    rm_service: StrictStr50 = Field(alias='RMService')
+    price_paid: StrictFloat | StrictInt = Field(description='price paid for the postage', alias='pricePaid')
     reference_number: StrictStr20 | None = None
     reference_text: StrictStr40 | None = None
     weight_in_grams: Annotated[int, Field(strict=True, ge=0)]

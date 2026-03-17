@@ -10,6 +10,7 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 import re  # noqa: F401
 
 from pydantic import Field, StrictStr
@@ -23,5 +24,5 @@ class AgreementLineDef(RMBaseModel):
     """
 
     is_contract_available_for_cc_product: StrictStr = Field(
-        description="Is Contract available for CC product", alias="isContractAvailableForCCProduct"
+        description='Is Contract available for CC product', alias='isContractAvailableForCCProduct'
     )

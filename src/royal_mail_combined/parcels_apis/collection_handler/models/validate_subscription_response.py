@@ -10,12 +10,14 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 import re  # noqa: F401
 
 from pydantic import Field
-from ..models.product_family_response_def import ProductFamilyResponseDef
 
 from royal_mail_combined.core import RMBaseModel
+
+from ..models.product_family_response_def import ProductFamilyResponseDef
 
 
 class ValidateSubscriptionResponse(RMBaseModel):
@@ -23,4 +25,4 @@ class ValidateSubscriptionResponse(RMBaseModel):
     ValidateSubscriptionResponse
     """
 
-    product_family: list[ProductFamilyResponseDef] = Field(alias="productFamily")
+    product_family: list[ProductFamilyResponseDef] = Field(alias='productFamily')

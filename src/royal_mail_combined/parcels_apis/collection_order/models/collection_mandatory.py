@@ -32,11 +32,11 @@ class CollectionMandatory(RMBaseModel):
     """
 
     timeslot_reservation_id: Annotated[str, Field(min_length=0, strict=True, max_length=64)]
-    sender_details: SenderDetailsPostDef = Field(alias="senderDetails")
-    account_details: AccountDetailsDef = Field(alias="accountDetails")
+    sender_details: SenderDetailsPostDef = Field(alias='senderDetails')
+    account_details: AccountDetailsDef = Field(alias='accountDetails')
     address: AddressDps
     safe_place_details: SafePlaceDetailsDef | None = None
     animal_hazard_details: Annotated[str, Field(strict=True, max_length=50)] | None = None
     collection_date: date
     items: list[ItemsPostDef]
-    suppress_rm_notifications: StrictBool | None = Field(default=None, alias="suppressRmNotifications")
+    suppress_rm_notifications: StrictBool | None = Field(default=None, alias='suppressRmNotifications')

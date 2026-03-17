@@ -10,6 +10,7 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 from enum import Enum
 
 
@@ -18,6 +19,6 @@ class CollectionItemType(str, Enum):
     CollectionItemType
     """
 
-    STANDARD = "Standard"
-    NOLABEL = "NoLabel"
-    NOPACKAGE = "NoPackage"
+    STANDARD = 'Standard'
+    NOLABEL = 'NoLabel'
+    NOPACKAGE = 'NoPackage'

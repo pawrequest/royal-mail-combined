@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from royal_mail_combined.click_and_drop_api.models import AddressReturns
+
 # from royal_mail_combined.all_models import (
 #     AddressReturns,
 #     AddressVerifable,
@@ -10,7 +11,8 @@ from royal_mail_combined.click_and_drop_api.models import AddressReturns
 # )
 from royal_mail_combined.parcels_apis.address.models.address import (
     AddressBasic,
-    AddressDps, AddressVerifable,
+    AddressDps,
+    AddressVerifable,
 )
 
 
@@ -38,18 +40,14 @@ def addr_mandatory_f_addr_and_dps(addr: AddressVerifable, dps: str):
 
 def address_angonstic_to_verify_def(addr) -> AddressVerifable:
     data = addr.model_dump()
-    if not data.get("postTown"):
-        if data.get("city"):
-            data["post_town"] = data["city"]
+    if not data.get('postTown'):
+        if data.get('city'):
+            data['post_town'] = data['city']
     return AddressVerifable(
-        address_line1=data.get("address_line1"),
-        address_line2=data.get("address_line2"),
-        address_line3=data.get("address_line3"),
-        post_town=data.get("post_town"),
-        county=data.get("county"),
-        postcode=data.get("postcode"),
+        address_line1=data.get('address_line1'),
+        address_line2=data.get('address_line2'),
+        address_line3=data.get('address_line3'),
+        post_town=data.get('post_town'),
+        county=data.get('county'),
+        postcode=data.get('postcode'),
     )
-
-
-
-

@@ -10,13 +10,15 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
-import re  # noqa: F401
 
+import re  # noqa: F401
 from datetime import date
+
 from pydantic import Field
-from ..models.estimated_window_def import EstimatedWindowDef
 
 from royal_mail_combined.core import RMBaseModel
+
+from ..models.estimated_window_def import EstimatedWindowDef
 
 
 class SlotDateDef(RMBaseModel):
@@ -24,5 +26,5 @@ class SlotDateDef(RMBaseModel):
     SlotDateDef
     """
 
-    slot_date: date | None = Field(default=None, description="Node of slot dates", alias="slotDate")
-    estimated_window: EstimatedWindowDef | None = Field(default=None, alias="estimatedWindow")
+    slot_date: date | None = Field(default=None, description='Node of slot dates', alias='slotDate')
+    estimated_window: EstimatedWindowDef | None = Field(default=None, alias='estimatedWindow')

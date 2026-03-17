@@ -15,7 +15,6 @@ import re  # noqa: F401
 
 from pydantic import Field, StrictInt, StrictStr
 
-
 from royal_mail_combined.core import RMBaseModel
 
 
@@ -24,7 +23,7 @@ class OrderErrorInfo(RMBaseModel):
     OrderErrorInfo
     """
 
-    order_identifier: StrictInt | None = Field(default=None, alias="orderIdentifier")
-    order_reference: StrictStr | None = Field(default=None, alias="orderReference")
+    order_identifier: StrictInt | None = Field(default=None, alias='orderIdentifier')
+    order_reference: StrictStr | None = Field(default=None, alias='orderReference')
     code: StrictStr | None = None
     message: StrictStr | None = None

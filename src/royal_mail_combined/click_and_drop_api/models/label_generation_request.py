@@ -15,7 +15,6 @@ import re  # noqa: F401
 
 from pydantic import Field, StrictBool
 
-
 from royal_mail_combined.core import RMBaseModel
 
 
@@ -24,6 +23,6 @@ class LabelGenerationRequest(RMBaseModel):
     <b>Reserved for OBA customers only</b>
     """
 
-    include_label_in_response: StrictBool = Field(alias="includeLabelInResponse")
-    include_cn: StrictBool | None = Field(default=None, alias="includeCN")
-    include_returns_label: StrictBool | None = Field(default=None, alias="includeReturnsLabel")
+    include_label_in_response: StrictBool = Field(alias='includeLabelInResponse')
+    include_cn: StrictBool | None = Field(default=None, alias='includeCN')
+    include_returns_label: StrictBool | None = Field(default=None, alias='includeReturnsLabel')

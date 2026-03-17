@@ -10,12 +10,14 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 import re  # noqa: F401
 
 from pydantic import Field, StrictStr
-from ..models.get_order_info_resource import GetOrderInfoResource
 
 from royal_mail_combined.core import RMBaseModel
+
+from ..models.get_order_info_resource import GetOrderInfoResource
 
 
 class GetOrdersResponse(RMBaseModel):
@@ -24,4 +26,4 @@ class GetOrdersResponse(RMBaseModel):
     """
 
     orders: list[GetOrderInfoResource] | None = None
-    continuation_token: StrictStr | None = Field(default=None, alias="continuationToken")
+    continuation_token: StrictStr | None = Field(default=None, alias='continuationToken')

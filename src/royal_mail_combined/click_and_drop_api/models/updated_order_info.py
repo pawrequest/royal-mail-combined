@@ -15,7 +15,6 @@ import re  # noqa: F401
 
 from pydantic import Field, StrictInt, StrictStr
 
-
 from royal_mail_combined.core import RMBaseModel
 
 
@@ -24,6 +23,6 @@ class UpdatedOrderInfo(RMBaseModel):
     UpdatedOrderInfo
     """
 
-    order_identifier: StrictInt | None = Field(default=None, alias="orderIdentifier")
-    order_reference: StrictStr | None = Field(default=None, alias="orderReference")
-    status: StrictStr | None = Field(default=None, description="Current status of the order")
+    order_identifier: StrictInt | None = Field(default=None, alias='orderIdentifier')
+    order_reference: StrictStr | None = Field(default=None, alias='orderReference')
+    status: StrictStr | None = Field(default=None, description='Current status of the order')

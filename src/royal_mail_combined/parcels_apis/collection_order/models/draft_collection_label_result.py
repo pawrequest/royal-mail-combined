@@ -10,6 +10,7 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 import re  # noqa: F401
 
 from pydantic import Field, StrictStr
@@ -22,4 +23,4 @@ class DraftCollectionLabelResult(RMBaseModel):
     DraftCollectionLabelResult
     """
 
-    draft_id: StrictStr | None = Field(default=None, alias="draftId")
+    draft_id: StrictStr | None = Field(default=None, alias='draftId')

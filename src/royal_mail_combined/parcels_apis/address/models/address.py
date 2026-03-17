@@ -14,8 +14,8 @@ class AddressDefault(RMBaseModel):
     address_line3: StrictStr64 | None = None
     post_town: StrictStr64 | None = None
     postcode: StrictStr10 | None = None
-    dps: StrictStr10 | None = Field(default=None, alias="DPS", description="Delivery Point Suffix")
-    county: StrictStr64 | None = Field(default=None, alias="County")  # Pascal
+    dps: StrictStr10 | None = Field(default=None, alias='DPS', description='Delivery Point Suffix')
+    county: StrictStr64 | None = Field(default=None, alias='County')  # Pascal
 
 
 class AddressBasic(AddressDefault):
@@ -28,11 +28,11 @@ class AddressVerifable(AddressBasic):
 
 
 class AddressDps(AddressVerifable):
-    dps: StrictStr10 = Field(description="Delivery Point Suffix", alias="DPS")
+    dps: StrictStr10 = Field(description='Delivery Point Suffix', alias='DPS')
 
 
 class AddressVerifiableList(RMBaseModel):
-    addresses: list[AddressVerifable] | None = Field(default=None, alias="Addresses", min_length=1, max_length=100)
+    addresses: list[AddressVerifable] | None = Field(default=None, alias='Addresses', min_length=1, max_length=100)
 
 
 class AddressFindRequest(RMBaseModel):
@@ -40,8 +40,8 @@ class AddressFindRequest(RMBaseModel):
 
 
 class AddressVerified(RMBaseModel):
-    input: AddressVerifable | None = Field(default=None, alias="Input")
-    dps: StrictStr2 | None = Field(default=None, alias="DPS")
+    input: AddressVerifable | None = Field(default=None, alias='Input')
+    dps: StrictStr2 | None = Field(default=None, alias='DPS')
 
 
 class LabelAddress(RMBaseModel):
@@ -55,5 +55,5 @@ class LabelAddress(RMBaseModel):
     county: Annotated[str, Field(strict=True, max_length=64)] | None = None  # camel
     postcode: StrictStr10
 
-    dps: StrictStr2 = Field(default="9Z", alias="DPS")
-    country_code: Annotated[str, Field(strict=True, max_length=3)] | None = "GBR"
+    dps: StrictStr2 = Field(default='9Z', alias='DPS')
+    country_code: Annotated[str, Field(strict=True, max_length=3)] | None = 'GBR'

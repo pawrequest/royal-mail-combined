@@ -10,10 +10,10 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 import re  # noqa: F401
 
 from pydantic import Field, StrictStr, field_validator
-
 
 from royal_mail_combined.core import RMBaseModel
 
@@ -23,12 +23,12 @@ class CollectionStatusRequestDef(RMBaseModel):
     CollectionStatusRequestDef
     """
 
-    status: StrictStr = Field(description="status of the collection which is required")
+    status: StrictStr = Field(description='status of the collection which is required')
 
-    @field_validator("status")
+    @field_validator('status')
     def status_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in {"Created", "CollectionOrderPlaced", "Collected", "Cancelled", "Attempted"}:
+        if value not in {'Created', 'CollectionOrderPlaced', 'Collected', 'Cancelled', 'Attempted'}:
             raise ValueError(
                 "must be one of enum values ('Created', 'CollectionOrderPlaced', 'Collected', 'Cancelled', 'Attempted')"
             )

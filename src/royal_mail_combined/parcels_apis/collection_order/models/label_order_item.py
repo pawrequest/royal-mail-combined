@@ -10,10 +10,11 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 import re  # noqa: F401
+from typing import Annotated
 
 from pydantic import Field, StrictFloat, StrictInt
-from typing import Annotated
 
 from royal_mail_combined.core import RMBaseModel
 
@@ -24,10 +25,10 @@ class LabelOrderItem(RMBaseModel):
     """
 
     description: Annotated[str, Field(strict=True, max_length=50)] | None = None
-    customs_code: Annotated[str, Field(strict=True, max_length=12)] | None = Field(default=None, alias="customsCode")
+    customs_code: Annotated[str, Field(strict=True, max_length=12)] | None = Field(default=None, alias='customsCode')
     quantity: StrictInt | None = None
-    unit_value: StrictFloat | StrictInt | None = Field(default=None, alias="unitValue")
-    unit_weight_in_grams: StrictInt | None = Field(default=None, alias="unitWeightInGrams")
+    unit_value: StrictFloat | StrictInt | None = Field(default=None, alias='unitValue')
+    unit_weight_in_grams: StrictInt | None = Field(default=None, alias='unitWeightInGrams')
     origin_country_code: Annotated[str, Field(strict=True, max_length=3)] | None = Field(
-        default=None, alias="originCountryCode"
+        default=None, alias='originCountryCode'
     )

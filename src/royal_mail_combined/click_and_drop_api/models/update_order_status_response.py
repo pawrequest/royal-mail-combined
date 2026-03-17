@@ -10,13 +10,15 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 import re  # noqa: F401
 
 from pydantic import Field
-from ..models.order_update_error import OrderUpdateError
-from ..models.updated_order_info import UpdatedOrderInfo
 
 from royal_mail_combined.core import RMBaseModel
+
+from ..models.order_update_error import OrderUpdateError
+from ..models.updated_order_info import UpdatedOrderInfo
 
 
 class UpdateOrderStatusResponse(RMBaseModel):
@@ -24,5 +26,5 @@ class UpdateOrderStatusResponse(RMBaseModel):
     UpdateOrderStatusResponse
     """
 
-    updated_orders: list[UpdatedOrderInfo] | None = Field(default=None, alias="updatedOrders")
+    updated_orders: list[UpdatedOrderInfo] | None = Field(default=None, alias='updatedOrders')
     errors: list[OrderUpdateError] | None = None

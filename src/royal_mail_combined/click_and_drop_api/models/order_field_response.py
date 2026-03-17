@@ -15,7 +15,6 @@ import re  # noqa: F401
 
 from pydantic import Field, StrictStr
 
-
 from royal_mail_combined.core import RMBaseModel
 
 
@@ -24,5 +23,5 @@ class OrderFieldResponse(RMBaseModel):
     OrderFieldResponse
     """
 
-    field_name: StrictStr | None = Field(default=None, alias="fieldName")
+    field_name: StrictStr | None = Field(default=None, alias='fieldName')
     value: StrictStr | None = None

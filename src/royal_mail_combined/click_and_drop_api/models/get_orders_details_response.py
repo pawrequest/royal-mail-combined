@@ -15,10 +15,10 @@ import re  # noqa: F401
 
 from pydantic import Field, StrictStr
 
+from royal_mail_combined.core import RMBaseModel
+
 from ...converters_no_import import order_idents_str
 from ..models.get_order_details_resource import GetOrderDetailsResource
-
-from royal_mail_combined.core import RMBaseModel
 
 
 class GetOrdersDetailsResponse(RMBaseModel):
@@ -27,7 +27,7 @@ class GetOrdersDetailsResponse(RMBaseModel):
     """
 
     orders: list[GetOrderDetailsResource] | None = None
-    continuation_token: StrictStr | None = Field(default=None, alias="continuationToken")
+    continuation_token: StrictStr | None = Field(default=None, alias='continuationToken')
 
     def order_idents(self) -> list[int | str]:
         return [_.order_identifier for _ in self.orders]

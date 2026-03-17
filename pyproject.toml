@@ -8,20 +8,16 @@ authors = [
 ]
 requires-python = ">=3.13"
 dependencies = [
+    "pawdf>=0.1.2", # array multiple labels on a4
     "httpx>=0.28.1",
     "python-dotenv>=1.2.1",
     "pydantic>=2.12.5",
     "loguru>=0.7.3",
     "pydantic-settings>=2.13.1",
-    #    "royal-mail-address",
-    #    "royal-mail-click-and-drop",
-    #    "royal-mail-collection-order-handler",
-    #    "royal-mail-delivery-office-finder",
-    #    "royal-mail-order",
     "python-dateutil>=2.9.0.post0",
     "urllib3>=2.6.3",
-    "ruff>=0.15.5",
-    "pawdf>=0.1.2",
+    "ruff>=0.15.6",
+    "prek>=0.3.6",
 ]
 [dependency-groups]
 dev = [
@@ -33,12 +29,12 @@ dev = [
 requires = ["uv_build>=0.8.22,<0.9.0"]
 build-backend = "uv_build"
 
-#[tool.uv.sources]
-#royal-mail-address = { path = "../royal-mail-address", editable = true }
-#royal-mail-click-and-drop = { path = "../royal-mail-click-and-drop", editable = true }
-#royal-mail-collection-order-handler = { path = "../royal-mail-collection-order-handler ", editable = true }
-#royal-mail-delivery-office-finder = { path = "../royal-mail-delivery-office-finder", editable = true }
-#royal-mail-order = { path = "../royal-mail-order", editable = true }
-
 [tool.ruff]
 line-length = 120
+target-version = "py313"
+
+[tool.ruff.format]
+quote-style = "single"
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+fixable = ["ALL"]

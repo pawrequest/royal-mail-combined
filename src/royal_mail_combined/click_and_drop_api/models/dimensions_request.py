@@ -10,6 +10,7 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 import re  # noqa: F401
 
 from pydantic import Field, StrictInt
@@ -22,6 +23,6 @@ class DimensionsRequest(RMBaseModel):
     It is not mandatory to include the dimensions field. If the dimensions field is included then the inner fields heightInMms, widthInMms and depthInMms must be specified with non-zero values.
     """
 
-    height_in_mms: StrictInt = Field(alias="heightInMms")
-    width_in_mms: StrictInt = Field(alias="widthInMms")
-    depth_in_mms: StrictInt = Field(alias="depthInMms")
+    height_in_mms: StrictInt = Field(alias='heightInMms')
+    width_in_mms: StrictInt = Field(alias='widthInMms')
+    depth_in_mms: StrictInt = Field(alias='depthInMms')

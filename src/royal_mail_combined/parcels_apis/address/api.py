@@ -39,8 +39,8 @@ class AddressApi:
         self,
         address_find_request: AddressFindRequest,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
-        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
+        accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -95,13 +95,13 @@ class AddressApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            "200": "AddressesDef",
-            "400": "Model400",
-            "401": "Model401",
-            "404": "Model404",
-            "405": "Model405",
-            "500": "Model500",
-            "503": "Model503",
+            '200': 'AddressesDef',
+            '400': 'Model400',
+            '401': 'Model401',
+            '404': 'Model404',
+            '405': 'Model405',
+            '500': 'Model500',
+            '503': 'Model503',
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -115,8 +115,8 @@ class AddressApi:
         self,
         address_find_request: AddressFindRequest,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
-        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
+        accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -171,13 +171,13 @@ class AddressApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            "200": "AddressesDef",
-            "400": "Model400",
-            "401": "Model401",
-            "404": "Model404",
-            "405": "Model405",
-            "500": "Model500",
-            "503": "Model503",
+            '200': 'AddressesDef',
+            '400': 'Model400',
+            '401': 'Model401',
+            '404': 'Model404',
+            '405': 'Model405',
+            '500': 'Model500',
+            '503': 'Model503',
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -191,8 +191,8 @@ class AddressApi:
         self,
         address_find_request: AddressFindRequest,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
-        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
+        accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -247,13 +247,13 @@ class AddressApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            "200": "AddressesDef",
-            "400": "Model400",
-            "401": "Model401",
-            "404": "Model404",
-            "405": "Model405",
-            "500": "Model500",
-            "503": "Model503",
+            '200': 'AddressesDef',
+            '400': 'Model400',
+            '401': 'Model401',
+            '404': 'Model404',
+            '405': 'Model405',
+            '500': 'Model500',
+            '503': 'Model503',
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -284,34 +284,34 @@ class AddressApi:
         # process the query parameters
         # process the header parameters
         if x_rmg_language is not None:
-            _header_params["X-RMG-Language"] = x_rmg_language
+            _header_params['X-RMG-Language'] = x_rmg_language
         if x_rmg_date_time is not None:
-            _header_params["X-RMG-Date-Time"] = x_rmg_date_time
+            _header_params['X-RMG-Date-Time'] = x_rmg_date_time
         if accept is not None:
-            _header_params["Accept"] = accept
+            _header_params['Accept'] = accept
         # process the form parameters
         # process the body parameter
         if address_find_request is not None:
             _body_params = address_find_request
 
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(["application/json"])
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(['application/json'])
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params["Content-Type"] = _content_type
+            _header_params['Content-Type'] = _content_type
         else:
-            _default_content_type = self.api_client.select_header_content_type(["application/json"])
+            _default_content_type = self.api_client.select_header_content_type(['application/json'])
             if _default_content_type is not None:
-                _header_params["Content-Type"] = _default_content_type
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
-        _auth_settings: list[str] = ["Client-Id", "Client-Secret"]
+        _auth_settings: list[str] = ['Client-Id', 'Client-Secret']
 
         return self.api_client.param_serialize(
-            method="POST",
-            resource_path="/address",
+            method='POST',
+            resource_path='/address',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -327,10 +327,10 @@ class AddressApi:
     @validate_call
     def address_retrieve(
         self,
-        address_id: Annotated[StrictStr, Field(description="Unique identifier for address record retrieval")],
+        address_id: Annotated[StrictStr, Field(description='Unique identifier for address record retrieval')],
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
-        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
+        accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -385,13 +385,13 @@ class AddressApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            "200": "AddressRecordDef",
-            "400": "Model400",
-            "401": "Model401",
-            "404": "Model404",
-            "405": "Model405",
-            "500": "Model500",
-            "503": "Model503",
+            '200': 'AddressRecordDef',
+            '400': 'Model400',
+            '401': 'Model401',
+            '404': 'Model404',
+            '405': 'Model405',
+            '500': 'Model500',
+            '503': 'Model503',
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -403,10 +403,10 @@ class AddressApi:
     @validate_call
     def address_retrieve_with_http_info(
         self,
-        address_id: Annotated[StrictStr, Field(description="Unique identifier for address record retrieval")],
+        address_id: Annotated[StrictStr, Field(description='Unique identifier for address record retrieval')],
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
-        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
+        accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -461,13 +461,13 @@ class AddressApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            "200": "AddressRecordDef",
-            "400": "Model400",
-            "401": "Model401",
-            "404": "Model404",
-            "405": "Model405",
-            "500": "Model500",
-            "503": "Model503",
+            '200': 'AddressRecordDef',
+            '400': 'Model400',
+            '401': 'Model401',
+            '404': 'Model404',
+            '405': 'Model405',
+            '500': 'Model500',
+            '503': 'Model503',
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -479,10 +479,10 @@ class AddressApi:
     @validate_call
     def address_retrieve_without_preload_content(
         self,
-        address_id: Annotated[StrictStr, Field(description="Unique identifier for address record retrieval")],
+        address_id: Annotated[StrictStr, Field(description='Unique identifier for address record retrieval')],
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
-        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
+        accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -537,13 +537,13 @@ class AddressApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            "200": "AddressRecordDef",
-            "400": "Model400",
-            "401": "Model401",
-            "404": "Model404",
-            "405": "Model405",
-            "500": "Model500",
-            "503": "Model503",
+            '200': 'AddressRecordDef',
+            '400': 'Model400',
+            '401': 'Model401',
+            '404': 'Model404',
+            '405': 'Model405',
+            '500': 'Model500',
+            '503': 'Model503',
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -572,28 +572,28 @@ class AddressApi:
 
         # process the path parameters
         if address_id is not None:
-            _path_params["addressId"] = address_id
+            _path_params['addressId'] = address_id
         # process the query parameters
         # process the header parameters
         if x_rmg_language is not None:
-            _header_params["X-RMG-Language"] = x_rmg_language
+            _header_params['X-RMG-Language'] = x_rmg_language
         if x_rmg_date_time is not None:
-            _header_params["X-RMG-Date-Time"] = x_rmg_date_time
+            _header_params['X-RMG-Date-Time'] = x_rmg_date_time
         if accept is not None:
-            _header_params["Accept"] = accept
+            _header_params['Accept'] = accept
         # process the form parameters
         # process the body parameter
 
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(["application/json"])
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(['application/json'])
 
         # authentication setting
-        _auth_settings: list[str] = ["Client-Id", "Client-Secret"]
+        _auth_settings: list[str] = ['Client-Id', 'Client-Secret']
 
         return self.api_client.param_serialize(
-            method="GET",
-            resource_path="/address/{addressId}",
+            method='GET',
+            resource_path='/address/{addressId}',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -611,8 +611,8 @@ class AddressApi:
         self,
         address_find_request: AddressVerifiableList,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
-        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
+        accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -667,13 +667,13 @@ class AddressApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            "200": "List[AddressVerified]",
-            "400": "Model400",
-            "401": "Model401",
-            "404": "Model404",
-            "405": "Model405",
-            "500": "Model500",
-            "503": "Model503",
+            '200': 'List[AddressVerified]',
+            '400': 'Model400',
+            '401': 'Model401',
+            '404': 'Model404',
+            '405': 'Model405',
+            '500': 'Model500',
+            '503': 'Model503',
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -687,8 +687,8 @@ class AddressApi:
         self,
         address_find_request: AddressVerifiableList,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
-        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
+        accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -743,13 +743,13 @@ class AddressApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            "200": "List[AddressVerified]",
-            "400": "Model400",
-            "401": "Model401",
-            "404": "Model404",
-            "405": "Model405",
-            "500": "Model500",
-            "503": "Model503",
+            '200': 'List[AddressVerified]',
+            '400': 'Model400',
+            '401': 'Model401',
+            '404': 'Model404',
+            '405': 'Model405',
+            '500': 'Model500',
+            '503': 'Model503',
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         response_data.read()
@@ -763,8 +763,8 @@ class AddressApi:
         self,
         address_find_request: AddressVerifiableList,
         x_rmg_date_time: X_RMG_DATETIME,
-        x_rmg_language: Annotated[StrictStr | None, Field(description="Optional default english")] = None,
-        accept: Annotated[StrictStr | None, Field(description="Pass though; used for markdown")] = None,
+        x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
+        accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
         | Annotated[StrictFloat, Field(gt=0)]
         | tuple[Annotated[StrictFloat, Field(gt=0)], Annotated[StrictFloat, Field(gt=0)]] = None,
@@ -819,13 +819,13 @@ class AddressApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            "200": "List[AddressVerified]",
-            "400": "Model400",
-            "401": "Model401",
-            "404": "Model404",
-            "405": "Model405",
-            "500": "Model500",
-            "503": "Model503",
+            '200': 'List[AddressVerified]',
+            '400': 'Model400',
+            '401': 'Model401',
+            '404': 'Model404',
+            '405': 'Model405',
+            '500': 'Model500',
+            '503': 'Model503',
         }
         response_data = self.api_client.call_api(*_param, _request_timeout=_request_timeout)
         return response_data.response
@@ -856,34 +856,34 @@ class AddressApi:
         # process the query parameters
         # process the header parameters
         if x_rmg_language is not None:
-            _header_params["X-RMG-Language"] = x_rmg_language
+            _header_params['X-RMG-Language'] = x_rmg_language
         if x_rmg_date_time is not None:
-            _header_params["X-RMG-Date-Time"] = x_rmg_date_time
+            _header_params['X-RMG-Date-Time'] = x_rmg_date_time
         if accept is not None:
-            _header_params["Accept"] = accept
+            _header_params['Accept'] = accept
         # process the form parameters
         # process the body parameter
         if address_find_request is not None:
             _body_params = address_find_request
 
         # set the HTTP header `Accept`
-        if "Accept" not in _header_params:
-            _header_params["Accept"] = self.api_client.select_header_accept(["application/json"])
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(['application/json'])
 
         # set the HTTP header `Content-Type`
         if _content_type:
-            _header_params["Content-Type"] = _content_type
+            _header_params['Content-Type'] = _content_type
         else:
-            _default_content_type = self.api_client.select_header_content_type(["application/json"])
+            _default_content_type = self.api_client.select_header_content_type(['application/json'])
             if _default_content_type is not None:
-                _header_params["Content-Type"] = _default_content_type
+                _header_params['Content-Type'] = _default_content_type
 
         # authentication setting
-        _auth_settings: list[str] = ["Client-Id", "Client-Secret"]
+        _auth_settings: list[str] = ['Client-Id', 'Client-Secret']
 
         return self.api_client.param_serialize(
-            method="POST",
-            resource_path="/address/dps",
+            method='POST',
+            resource_path='/address/dps',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
