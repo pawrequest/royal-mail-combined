@@ -13,11 +13,9 @@ from __future__ import annotations
 
 import re  # noqa: F401
 
+from royal_mail_combined.core import RMBaseModel
 
 from ..models.manifest_errors_error_details_response import ManifestErrorsErrorDetailsResponse
-
-
-from royal_mail_combined.core import RMBaseModel
 
 
 class ManifestErrorsResponse(RMBaseModel):

@@ -1,8 +1,9 @@
 from __future__ import annotations
+
 import re  # noqa: F401
+from typing import Annotated
 
 from pydantic import Field
-from typing import Annotated
 
 from royal_mail_combined.core import RMBaseModel
 

@@ -10,11 +10,12 @@ Do not edit the class manually.
 """
 
 from __future__ import annotations
+
 import re  # noqa: F401
 
-from ..models.update_order_status_request import UpdateOrderStatusRequest
-
 from royal_mail_combined.core import RMBaseModel
+
+from ..models.update_order_status_request import UpdateOrderStatusRequest
 
 
 class UpdateOrdersStatusRequest(RMBaseModel):

@@ -15,7 +15,6 @@ import re  # noqa: F401
 
 from pydantic import StrictStr
 
-
 from royal_mail_combined.core import RMBaseModel
 
 
