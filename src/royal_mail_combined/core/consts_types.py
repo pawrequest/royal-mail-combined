@@ -93,6 +93,15 @@ class RoyalMailServiceCodes(StrEnum):
     EXPRESS_24_RTN = 'RT0'
 
 
+class RoyalMailOutboundServiceCodes(StrEnum):
+    TRACKED_24 = 'TPN24'  # no signature.
+    EXPRESS_24 = 'NDA'
+
+
+class RoyalMailInboundServiceCodes(StrEnum):
+    TRACKED_24_RTN = 'TSN'
+
+
 class ReturnsServiceNames(StrEnum):
     TRACKED_24 = 'Tracked Returns 24 (T24) Enhanced'
 
