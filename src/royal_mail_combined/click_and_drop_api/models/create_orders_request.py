@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from loguru import logger
 from pydantic import model_validator
 
 from royal_mail_combined.click_and_drop_api.models.create_order_request import CreateOrderRequest
@@ -11,7 +12,7 @@ class CreateOrdersRequest(RMBaseModel):
     items: list[CreateOrderRequest]
 
     @model_validator(mode='after')
-    def one_package_per_order(self):
+    def tracked24_one_package_per_order(self):
         fixed_orders = []
         for order in self.items:
             if (
@@ -23,6 +24,11 @@ class CreateOrdersRequest(RMBaseModel):
                 and len(order.packages) > 1
             ):
                 for i, package in enumerate(order.packages, start=1):
+                    logger.info(
+                        f'Order {order.order_reference or order.recipient.address.postcode} has service code '
+                        f'{order.postage_details.service_code} and more than 1 package - '
+                        f'Splitting into separate orders for each package.'
+                    )
                     fixed_orders.append(
                         order.model_copy(
                             deep=True,
