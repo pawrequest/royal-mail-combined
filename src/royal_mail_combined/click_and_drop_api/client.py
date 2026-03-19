@@ -44,8 +44,8 @@ class ClickAndDropClient:
         try:
             create_orders = CreateOrdersRequest(items=[order])
             response = self.orders_api.create_orders_async(create_orders_request=create_orders)
-            astr = response.model_dump(exclude={'created_orders': {'__all__': {'label', 'qr_code'}}})
-            logger.info(f'Booked orders response: {pformat(astr, indent=4, width=120)}')
+            resp_log_dict = response.model_dump(exclude={'created_orders': {'__all__': {'label', 'qr_code'}}})
+            logger.info(f'Booked orders response: {pformat(resp_log_dict, indent=4, width=120)}')
             failed_order_errors(response)
         except Exception as e:
             print(f'Exception when calling OrdersApi->create_orders_async: {e}\n')

@@ -12,19 +12,23 @@ from ..models.failed_order_response import FailedOrderResponse
 
 
 class CreateOrdersResponse(RMBaseModel):
-    """
-    CreateOrdersResponse
-    """
-
     success_count: StrictInt | None = Field(default=None, alias='successCount')
     errors_count: StrictInt | None = Field(default=None, alias='errorsCount')
     created_orders: list[CreateOrderResponse] | None = Field(default=None, alias='createdOrders')
     failed_orders: list[FailedOrderResponse] | None = Field(default=None, alias='failedOrders')
 
     @property
-    def success_idents(self) -> str:
-        return order_idents_str([_.order_identifier for _ in self.created_orders])
+    def success_idents_str(self) -> str:
+        return order_idents_str(self.success_idents)
 
     @property
-    def failed_idents(self) -> str:
-        return order_idents_str([_.order.order_identifier for _ in self.failed_orders])
+    def success_idents(self) -> list:
+        return [_.order_identifier for _ in self.created_orders]
+
+    @property
+    def failed_idents(self) -> list:
+        return [_.order.order_identifier for _ in self.failed_orders]
+
+    @property
+    def failed_idents_str(self) -> str:
+        return order_idents_str(self.failed_idents)
