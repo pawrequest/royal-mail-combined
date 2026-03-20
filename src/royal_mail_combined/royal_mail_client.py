@@ -78,9 +78,10 @@ class RoyalMailClient:
         self,
         return_request_container: ReturnRequestContainer,
         collection_date: date,
-        box_dims: DimensionsPostDef = DimensionsPostDef.large(),
+        box_dims: DimensionsPostDef = None,
         box_weight_kg: int = 8,
     ) -> ReturnResponseContainer:
+        box_dims = box_dims or DimensionsPostDef.large()
         # gather shipment data
         sender_address_verified = self.parcel_api.verify_return_address(
             return_request_container.return_requests[0].shipment.sender_address
