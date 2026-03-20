@@ -36,5 +36,5 @@ target-version = "py313"
 [tool.ruff.format]
 quote-style = "single"
 [tool.ruff.lint]
-select = ["E"]
+select = ["E", "F", "Q", "RUF100", "UP"]
 fixable = ["ALL"]
