@@ -38,16 +38,10 @@ class ClickAndDropClient:
         self.labels_api = LabelsApi(client)
         self.manifests_api = ManifestsApi(client)
 
-    def book_shipment(self, order: CreateOrderRequest, with_label: bool = True) -> CreateOrdersResponse:
-        # if with_label:
-        #     order.add_label_request()
-        try:
-            create_orders = CreateOrdersRequest(items=[order])
-            response = self.orders_api.create_orders_async(create_orders_request=create_orders)
-            resp_log_dict = response.model_dump(exclude={'created_orders': {'__all__': {'label', 'qr_code'}}})
-            logger.info(f'Booked orders response: {pformat(resp_log_dict, indent=4, width=120)}')
-            failed_order_errors(response)
-        except Exception as e:
-            print(f'Exception when calling OrdersApi->create_orders_async: {e}\n')
-            raise e
+    def book_shipment(self, order: CreateOrderRequest) -> CreateOrdersResponse:
+        create_orders = CreateOrdersRequest(items=[order])
+        response = self.orders_api.create_orders_async(create_orders_request=create_orders)
+        resp_log_dict = response.model_dump(exclude={'created_orders': {'__all__': {'label', 'qr_code'}}})
+        logger.info(f'Booked orders response: {pformat(resp_log_dict, indent=4, width=120)}')
+        failed_order_errors(response)
         return response
