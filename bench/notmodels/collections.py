@@ -5,9 +5,9 @@ from enum import StrEnum
 from typing import Annotated
 
 from pydantic import Field, NonNegativeInt, StrictFloat, StrictInt, StrictStr, StringConstraints
-from royal_mail_combined.apis.parcels_apis.collection_order import LabelInfo
 
 from royal_mail_combined import RMBaseModel
+from royal_mail_combined.apis.parcels_apis.collection_order import LabelInfo
 
 
 class SenderDetailsPostDef(RMBaseModel):

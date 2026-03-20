@@ -4,9 +4,9 @@ from datetime import date
 from typing import Annotated
 
 from pydantic import Field, NonNegativeInt, StrictFloat, StrictInt, StrictStr, StringConstraints
-from royal_mail_combined.models.consts_types import OptionalStrictNumber
 
 from royal_mail_combined import RMBaseModel
+from royal_mail_combined.models.consts_types import OptionalStrictNumber
 
 
 class LabelOrderItem(RMBaseModel):

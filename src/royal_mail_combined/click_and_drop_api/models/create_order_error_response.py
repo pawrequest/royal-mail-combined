@@ -12,3 +12,6 @@ class CreateOrderErrorResponse(RMBaseModel):
     error_code: StrictInt | None = Field(default=None, alias='errorCode')
     error_message: StrictStr | None = Field(default=None, alias='errorMessage')
     fields: list[OrderFieldResponse] | None = None
+
+    def __str__(self):
+        return f'Error in {[str(_) for _ in self.fields]}: {self.error_code} - {self.error_message}'

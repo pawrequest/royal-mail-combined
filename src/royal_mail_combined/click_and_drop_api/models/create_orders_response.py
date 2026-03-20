@@ -18,6 +18,10 @@ class CreateOrdersResponse(RMBaseModel):
     failed_orders: list[FailedOrderResponse] | None = Field(default=None, alias='failedOrders')
 
     @property
+    def error_messages(self) -> list[str]:
+        return [str(fail) for fail in self.failed_orders] if self.failed_orders else []
+
+    @property
     def success_idents_str(self) -> str:
         return order_idents_str(self.success_idents)
 

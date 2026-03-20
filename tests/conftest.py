@@ -242,13 +242,8 @@ def fxt_order(fxt_recip_details, fxt_packages, fxt_billing, fxt_postage_details)
         recipient=fxt_recip_details,
         order_date=datetime.now(),
         packages=fxt_packages,
-        billing=fxt_billing,  # should be unnecessary with webportal settings
+        # billing=fxt_billing,
         postage_details=fxt_postage_details,
-        # recipient=fxt_recip_details.model_dump(),
-        # subtotal=0,
-        # shipping_cost_charged=0,
-        # total=0,
-        # planned_despatch_date=TEST_DATE,
     )
 
 

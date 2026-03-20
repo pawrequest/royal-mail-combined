@@ -21,8 +21,8 @@ from urllib.parse import quote
 
 from dateutil.parser import parse
 from pydantic import BaseModel, SecretStr
-from royal_mail_combined.apis import all_models
 
+from royal_mail_combined.apis import all_models
 from royal_mail_combined.core.api_response import ApiResponse
 from royal_mail_combined.core.api_response import T as ApiResponseT
 from royal_mail_combined.core.configuration import Configuration
