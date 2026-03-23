@@ -9,15 +9,19 @@ def client():
 
 
 def delete_all_orders():
-    sure = input('This will delete ALL ORDERS in the account, are you sure? (y/n)')
     fxt_client = client()
-    if sure.lower() == 'y':
-        orders_after = fxt_client.fetch_orders()
-        for o in orders_after.orders:
-            res = fxt_client.cancel_outbound_shipment(order_identifiers=str(o.order_identifier))
-            assert o.order_identifier in res.order_idents(), 'WARNING, FAILED TO DELETE TEST ORDERS!!'
-            print('Deleted Order')
+    orders_after = fxt_client.fetch_orders().orders
+    sure = input(
+        f'This will delete the following orders, are you sure?\n{[_.order_identifier for _ in orders_after]}\n\n (y/n)'
+    )
+    if not sure.lower() == 'y':
+        print('Aborting')
+        return
+    for o in orders_after.orders:
+        res = fxt_client.cancel_outbound_shipment(order_identifiers=str(o.order_identifier))
+        assert o.order_identifier in res.order_idents(), 'WARNING, FAILED TO DELETE TEST ORDERS!!'
+        print('Deleted Order')
 
 
-# if __name__ == "__main__":
-#     delete_all_orders()
+if __name__ == '__main__':
+    delete_all_orders()
