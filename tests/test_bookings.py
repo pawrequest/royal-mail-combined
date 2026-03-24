@@ -1,7 +1,8 @@
 from pathlib import Path
 
 import pytest
-from conftest import STORE_RESULTS, TEST_DATE, dump_result_model
+from conftest import STORE_RESULTS, TEST_DATE
+from helpers import dump_result_model
 from loguru import logger
 from pawdf.array_pdf.array_p import on_a4
 
