@@ -20,13 +20,14 @@ from ..models.tag_request import TagRequest
 
 
 class CreateOrderRequest(RMBaseModel):
-    order_reference: StrictStr40 | None = None
-    is_recipient_a_business: StrictBool | None = None
     recipient: RecipientDetailsRequest
+    packages: list[ShipmentPackageRequest]
+    order_date: datetime
+
     sender: SenderDetailsRequest | None = None
     billing: BillingDetailsRequest | None = None
-    packages: list[ShipmentPackageRequest] | None = None
-    order_date: datetime = Field(alias='orderDate')
+    order_reference: StrictStr40 | None = None
+    is_recipient_a_business: StrictBool | None = None
     planned_despatch_date: datetime | None = None
     special_instructions: Annotated[str, Field(strict=True, max_length=500)] | None = None
     subtotal: StrictNonNegativeNumber = Field(

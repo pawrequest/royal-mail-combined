@@ -3,9 +3,9 @@ from __future__ import annotations
 from datetime import date
 
 from pydantic import Field, StrictFloat, StrictInt, StrictStr
-from royal_mail_combined.models.consts_types import OptionalStrictNumber
 
 from royal_mail_combined import RMBaseModel
+from royal_mail_combined.models.consts_types import OptionalStrictNumber
 
 
 class SlotDetailsDef(RMBaseModel):

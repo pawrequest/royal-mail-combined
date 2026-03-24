@@ -11,11 +11,11 @@ from pydantic import (
     confloat,
     conint,
 )
-from royal_mail_combined.models.consts_types import SendNotifcationsTo
-from royal_mail_combined.models.services import RoyalMailServiceCodes
 
 from royal_mail_combined import RMBaseModel
 from royal_mail_combined.core.consts_types import PackageFormat
+from royal_mail_combined.models.consts_types import SendNotifcationsTo
+from royal_mail_combined.models.services import RoyalMailServiceCodes
 
 
 def str_length_constrained(length: int):

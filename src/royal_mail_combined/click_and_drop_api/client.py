@@ -19,12 +19,19 @@ from royal_mail_combined.core.endpoints import CAD_BASE
 from royal_mail_combined.core.exceptions import ApiException
 
 
-def failed_order_errors(response):
+def failed_order_errors(response: CreateOrdersResponse):
     errors = [
         f'Error in {error.fields}: {error.error_code} - {error.error_message}'
         for fail in response.failed_orders
         for error in fail.errors
     ]
+    if errors:
+        pprint(errors, indent=4, width=120)
+        raise ApiException('\n'.join(errors))
+
+
+def failed_order_errors2(response: CreateOrdersResponse):
+    errors = response.error_messages
     if errors:
         pprint(errors, indent=4, width=120)
         raise ApiException('\n'.join(errors))
@@ -43,5 +50,5 @@ class ClickAndDropClient:
         response = self.orders_api.create_orders_async(create_orders_request=create_orders)
         resp_log_dict = response.model_dump(exclude={'created_orders': {'__all__': {'label', 'qr_code'}}})
         logger.info(f'Booked orders response: {pformat(resp_log_dict, indent=4, width=120)}')
-        failed_order_errors(response)
+        failed_order_errors2(response)
         return response
