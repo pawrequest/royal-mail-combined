@@ -1,4 +1,7 @@
 from datetime import date
+from typing import Annotated
+
+from pydantic import StringConstraints
 
 from royal_mail_combined.all_models import ProductFamily, ProductFamilyDef
 from royal_mail_combined.click_and_drop_api.models import AddressReturns
@@ -49,7 +52,7 @@ class ParcelAPIClient:
             raise Exception('Multiple address verify responses returned')
         return dps_responses[0]
 
-    def address_search(self, address_text: str):
+    def address_search(self, address_text: Annotated[str, StringConstraints(min_length=12)]):
         req = AddressFindRequest(address_text=address_text)
         return self.address_api.address_find(address_find_request=req)
 
