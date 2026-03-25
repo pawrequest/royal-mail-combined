@@ -41,7 +41,7 @@ class AddressSummaryDef(RMBaseModel):
 
     @property
     def summary(self) -> str:
-        return self.address_summary1 + '\n' + self.address_summary2
+        return (self.address_summary1 + ', ' + self.address_summary2).replace('\n', ', ')
 
 
 class AddressesDef(RMBaseModel):
