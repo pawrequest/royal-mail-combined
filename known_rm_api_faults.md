@@ -5,4 +5,15 @@
 
 
 # Collection Create Status
+docs say success status code is 201, but in reality it is 200
+manually edited response map 
+
+# Return Service Name
+service.name from returns/Available services should match CollectionCreate requirements, but it does not.
+
+# labels
+no number of parcels
+no date
+
+# no rate-limit info in headers from AddressSearch endpoint
 
