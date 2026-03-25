@@ -20,11 +20,6 @@ from royal_mail_combined.core import RMBaseModel
 
 
 class AddressSummaryDef(RMBaseModel):
-    """
-    Summary of the matching address
-    """
-
-    # address_id: Optional[Annotated[str, Field(strict=True, max_length=30)]] = Field(default=None, description="Unique identifier for address record retrieval", alias="addressId")
     address_id: Annotated[str, Field(strict=True)] | None = Field(
         default=None,
         description='Unique identifier for address record retrieval',
@@ -44,10 +39,10 @@ class AddressSummaryDef(RMBaseModel):
         description='A list of number ranges identifying the matched characters in the Text and Description',
     )
 
+    @property
+    def summary(self) -> str:
+        return self.address_summary1 + '\n' + self.address_summary2
+
 
 class AddressesDef(RMBaseModel):
-    """
-    AddressesDef
-    """
-
     addresses: list[AddressSummaryDef] | None = None
