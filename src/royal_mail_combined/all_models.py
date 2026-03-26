@@ -61,6 +61,7 @@ __all__ = [
     'AvailableServicesResponse',
     # address
     'AddressRecordDef',
+    'AddressRecordDefPermissive',
     'AddressSummaryDef',
     'AddressVerifable',
     # collection handler

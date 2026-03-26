@@ -9,10 +9,6 @@ from royal_mail_combined.core import RMBaseModel
 
 
 class AddressRecordDef(RMBaseModel):
-    """
-    Full and detailed address record as available in the address store
-    """
-
     address_id: Annotated[str, Field(strict=True, max_length=256)] | None = Field(
         default=None,
         description='Unique identifier for address record retrieval',

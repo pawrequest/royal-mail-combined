@@ -22,6 +22,7 @@ from royal_mail_combined.parcels_apis.address.models import (
     AddressVerifiableList,
     AddressVerified,
 )
+from royal_mail_combined.parcels_apis.address.models.address_record_def_permissive import AddressRecordDefPermissive
 
 
 class AddressApi:
@@ -53,7 +54,8 @@ class AddressApi:
 
         To find address summary with unique address id.
 
-        :param x_rmg_date_time: This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00 (required)
+        :param x_rmg_date_time: This should be populated with the date time in ISO 8601 subset format below
+        when the message was generated. Eg. 2016-10-20T10:04:00+01:00 (required)
         :type x_rmg_date_time: date
         :param address_find_request: (required)
         :type address_find_request: AddressFindRequest
@@ -129,7 +131,8 @@ class AddressApi:
 
         To find address summary with unique address id.
 
-        :param x_rmg_date_time: This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00 (required)
+        :param x_rmg_date_time: This should be populated with the date time in ISO 8601 subset format below
+        when the message was generated. Eg. 2016-10-20T10:04:00+01:00 (required)
         :type x_rmg_date_time: date
         :param address_find_request: (required)
         :type address_find_request: AddressFindRequest
@@ -205,7 +208,8 @@ class AddressApi:
 
         To find address summary with unique address id.
 
-        :param x_rmg_date_time: This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00 (required)
+        :param x_rmg_date_time: This should be populated with the date time in ISO 8601 subset format below
+        when the message was generated. Eg. 2016-10-20T10:04:00+01:00 (required)
         :type x_rmg_date_time: date
         :param address_find_request: (required)
         :type address_find_request: AddressFindRequest
@@ -338,14 +342,15 @@ class AddressApi:
         _content_type: StrictStr | None = None,
         _headers: dict[StrictStr, Any] | None = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> AddressRecordDef:
+    ) -> AddressRecordDefPermissive:
         """To retrieve complete details for an address.
 
         To retrieve complete details for an address.
 
         :param address_id: Unique identifier for address record retrieval (required)
         :type address_id: str
-        :param x_rmg_date_time: This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00 (required)
+        :param x_rmg_date_time: This should be populated with the date time in ISO 8601 subset format below
+        when the message was generated. Eg. 2016-10-20T10:04:00+01:00 (required)
         :type x_rmg_date_time: date
         :param x_rmg_language: Optional default english
         :type x_rmg_language: str
@@ -385,7 +390,7 @@ class AddressApi:
         )
 
         _response_types_map: dict[str, str | None] = {
-            '200': 'AddressRecordDef',
+            '200': 'AddressRecordDefPermissive',
             '400': 'Model400',
             '401': 'Model401',
             '404': 'Model404',
@@ -421,7 +426,8 @@ class AddressApi:
 
         :param address_id: Unique identifier for address record retrieval (required)
         :type address_id: str
-        :param x_rmg_date_time: This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00 (required)
+        :param x_rmg_date_time: This should be populated with the date time in ISO 8601 subset format below
+        when the message was generated. Eg. 2016-10-20T10:04:00+01:00 (required)
         :type x_rmg_date_time: date
         :param x_rmg_language: Optional default english
         :type x_rmg_language: str
@@ -497,7 +503,8 @@ class AddressApi:
 
         :param address_id: Unique identifier for address record retrieval (required)
         :type address_id: str
-        :param x_rmg_date_time: This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00 (required)
+        :param x_rmg_date_time: This should be populated with the date time in ISO 8601 subset format below
+        when the message was generated. Eg. 2016-10-20T10:04:00+01:00 (required)
         :type x_rmg_date_time: date
         :param x_rmg_language: Optional default english
         :type x_rmg_language: str
@@ -625,7 +632,8 @@ class AddressApi:
 
         To find matching addresses with DPS, AQI and AVC.
 
-        :param x_rmg_date_time: This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00 (required)
+        :param x_rmg_date_time: This should be populated with the date time in ISO 8601 subset format below
+        when the message was generated. Eg. 2016-10-20T10:04:00+01:00 (required)
         :type x_rmg_date_time: date
         :param address_find_request: (required)
         :type address_find_request: AddressVerifiableList
@@ -701,7 +709,8 @@ class AddressApi:
 
         To find matching addresses with DPS, AQI and AVC.
 
-        :param x_rmg_date_time: This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00 (required)
+        :param x_rmg_date_time: This should be populated with the date time in ISO 8601 subset format below
+        when the message was generated. Eg. 2016-10-20T10:04:00+01:00 (required)
         :type x_rmg_date_time: date
         :param address_find_request: (required)
         :type address_find_request: AddressVerifiableList
@@ -777,7 +786,8 @@ class AddressApi:
 
         To find matching addresses with DPS, AQI and AVC.
 
-        :param x_rmg_date_time: This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00 (required)
+        :param x_rmg_date_time: This should be populated with the date time in ISO 8601 subset format below
+        when the message was generated. Eg. 2016-10-20T10:04:00+01:00 (required)
         :type x_rmg_date_time: date
         :param address_find_request: (required)
         :type address_find_request: AddressVerifiableList

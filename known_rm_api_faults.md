@@ -17,3 +17,4 @@ no date
 
 # no rate-limit info in headers from AddressSearch endpoint
 
+# AddressRecordDef returned from retriece address with > 30 chars in company name 
