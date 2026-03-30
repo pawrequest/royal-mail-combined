@@ -90,3 +90,11 @@ class ReturnRequestContainer(RMBaseModel):
 class ReturnResponseContainer(RMBaseModel):
     created_orders: list[ReturnsResponse]
     collection_response: CollectionOrderCreateResponse | None = None
+
+    @property
+    def tracking_numbers(self) -> list[str]:
+        return [order.shipment.tracking_number for order in self.created_orders]
+
+    @property
+    def unique_item_ids(self) -> list[str]:
+        return [str(order.shipment.unique_item_id) for order in self.created_orders]
