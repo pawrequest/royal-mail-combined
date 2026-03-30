@@ -30,9 +30,13 @@ class CreateOrdersResponse(RMBaseModel):
         return [_.order_identifier for _ in self.created_orders]
 
     @property
-    def failed_idents(self) -> list:
-        return [_.order.order_identifier for _ in self.failed_orders]
+    def success_ident_strs(self) -> list:
+        return [str(_.order_identifier) for _ in self.created_orders]
 
-    @property
-    def failed_idents_str(self) -> str:
-        return order_idents_str(self.failed_idents)
+    # @property
+    # def failed_idents(self) -> list:
+    #     return [_.order.order_identifier for _ in self.failed_orders]
+    #
+    # @property
+    # def failed_idents_str(self) -> str:
+    #     return order_idents_str(self.failed_idents)
