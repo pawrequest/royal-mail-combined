@@ -13,6 +13,8 @@ class CreateOrdersRequest(RMBaseModel):
 
     @model_validator(mode='after')
     def tracked24_one_package_per_order(self):
+        if len(self.items) == 1 and len(self.items[0].packages) == 1:
+            return self
         fixed_orders = []
         for order in self.items:
             if (
@@ -24,7 +26,7 @@ class CreateOrdersRequest(RMBaseModel):
                 and len(order.packages) > 1
             ):
                 for i, package in enumerate(order.packages, start=1):
-                    refnum = f'{i}/{len(order.packages)}'
+                    new_ref = order.order_reference[0:34] + f' {i}/{len(order.packages)}'
                     logger.info(
                         f'Order {order.order_reference or order.recipient.address.postcode} has service code '
                         f'{order.postage_details.service_code} and more than 1 package - '
@@ -33,7 +35,7 @@ class CreateOrdersRequest(RMBaseModel):
                     fixed_orders.append(
                         order.model_copy(
                             deep=True,
-                            update={'packages': [package], 'order_reference': f'{order.order_reference}-{refnum}'},
+                            update={'packages': [package], 'order_reference': new_ref},
                         )
                     )
             else:
