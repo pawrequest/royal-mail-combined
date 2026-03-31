@@ -65,10 +65,10 @@ class SendNotifcationsTo(StrEnum):
 
 
 class LabelPackageFormat(StrEnum):
-    LETTER = 'letter'
-    LARGE_LETTER = 'largeLetter'
-    SMALL_PARCEL = 'smallParcel'
-    MEDIUM_PARCEL = 'mediumParcel'
+    LETTER = 'Letter'
+    LARGE_LETTER = 'LargeLetter'
+    SMALL_PARCEL = 'SmallParcel'
+    MEDIUM_PARCEL = 'MediumParcel'
 
 
 class PackageFormat(StrEnum):
