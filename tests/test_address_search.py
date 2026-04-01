@@ -1,4 +1,4 @@
-from helpers import dump_result_model
+from royal_mail_combined.core.helpers import dump_result_model
 
 
 def test_it(fxt_client, fxt_address):

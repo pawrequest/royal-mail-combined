@@ -58,8 +58,8 @@ class RoyalMailClient:
         self.parcel_api = ParcelAPIClient(settings=settings)
 
         # Create
-        self.book_outbound_shipment = self.click_and_drop.book_shipment
-        self.book_inbound_shipment = self.http_client.book_inbound_shipment
+        self.book_outbound = self.click_and_drop.book_shipment
+        self.book_inbound_dropoff = self.http_client.book_inbound_shipment
 
         # Read
         self.fetch_orders = self.click_and_drop.orders_api.get_orders_async
@@ -71,10 +71,11 @@ class RoyalMailClient:
 
         # Delete
         self.cancel_outbound_shipment = self.click_and_drop.orders_api.delete_orders_async
-        # self.cancel_inbound_shipment = #  good luck with that. call your account manager and complain about lack of cancel endpoint in returns API (and ask them to cancel the label).
+        # self.cancel_inbound_shipment = #  good luck with that. call your account manager and complain about
+        # lack of cancel endpoint in returns API (and ask them to cancel the label).
         self.cancel_collection = self.parcel_api.cancel_collection
 
-    def book_inbound_shipment_with_collection(
+    def book_inbound_collection(
         self,
         return_request_container: ReturnRequestContainer,
         collection_date: date,
@@ -91,7 +92,7 @@ class RoyalMailClient:
         collection_address = AddressDps(**sender_address_verified.input.model_dump(exclude_none=True), dps=dps)
 
         # book shipping
-        booking_response_container = self.book_inbound_shipment(return_request_container)
+        booking_response_container = self.book_inbound_dropoff(return_request_container)
 
         # gather collection data
         items = [

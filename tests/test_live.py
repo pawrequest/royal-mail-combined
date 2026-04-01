@@ -1,5 +1,5 @@
 from conftest import STORE_RESULTS
-from helpers import dump_result_model, print_object
+from royal_mail_combined.core.helpers import dump_result_model, print_object
 
 from royal_mail_combined.all_models import (
     AddressRecordDef,

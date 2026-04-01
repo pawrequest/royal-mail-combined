@@ -4,7 +4,7 @@ from pprint import pprint
 from typing import Any
 
 import pytest
-from helpers import get_dumped_dir_this_hour
+from royal_mail_combined.core.helpers import get_dumped_dir_this_hour
 
 from royal_mail_combined.all_models import (
     AccountDetailsDef,

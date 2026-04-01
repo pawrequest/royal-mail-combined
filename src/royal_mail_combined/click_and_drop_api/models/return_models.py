@@ -1,5 +1,6 @@
 from pydantic import Field, model_validator
 
+from royal_mail_combined.converters_no_import import tracking_link
 from royal_mail_combined.core.consts_types import RoyalMailServiceCodes
 from royal_mail_combined.core.rm_basemodel import RMBaseModel
 from royal_mail_combined.parcels_apis.collection_order.models import CollectionOrderCreateResponse, SenderDetailsPostDef
@@ -96,5 +97,13 @@ class ReturnResponseContainer(RMBaseModel):
         return [order.shipment.tracking_number for order in self.created_orders]
 
     @property
-    def unique_item_ids(self) -> list[str]:
-        return [str(order.shipment.unique_item_id) for order in self.created_orders]
+    def unique_ids(self) -> list[str]:
+        return [order.shipment.unique_item_id for order in self.created_orders]
+
+    @property
+    def unique_ids_str(self) -> str:
+        return ';'.join(self.unique_ids)
+
+    @property
+    def tracking_links(self) -> list[str]:
+        return [tracking_link(_) for _ in self.tracking_numbers]

@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 from conftest import STORE_RESULTS, TEST_DATE
-from helpers import dump_result_model
+from royal_mail_combined.core.helpers import dump_result_model
 from loguru import logger
 from pawdf.array_pdf.array_p import on_a4
 
@@ -21,7 +21,7 @@ def write_label_file(label_content: bytes, label_path: Path):
 
 def test_book_outbound1(fxt_client, fxt_order):
     dump_result_model(fxt_order)
-    res = fxt_client.book_outbound_shipment(fxt_order)
+    res = fxt_client.book_outbound(fxt_order)
     dump_result_model(res)
     idents = res.success_idents
     fetched = fxt_client.fetch_specific_orders(order_identifiers=idents)
@@ -33,14 +33,14 @@ def test_book_outbound1(fxt_client, fxt_order):
 
 
 def test_book_inbound(fxt_return_request_container, fxt_client):
-    resp = fxt_client.book_inbound_shipment(fxt_return_request_container)
+    resp = fxt_client.book_inbound_dropoff(fxt_return_request_container)
     if STORE_RESULTS:
         dump_result_model(resp)
     assert isinstance(resp, ReturnResponseContainer)
 
 
 def test_book_inbound_with_collection_cancel_collection(fxt_client, fxt_return_request_container):
-    res = fxt_client.book_inbound_shipment_with_collection(fxt_return_request_container, TEST_DATE)
+    res = fxt_client.book_inbound_collection(fxt_return_request_container, TEST_DATE)
     dump_result_model(res)
     assert res.collection_response.status == ResponseMessages.COLLECTION_CREATED
     collect_id = res.collection_response.collection_order_id
