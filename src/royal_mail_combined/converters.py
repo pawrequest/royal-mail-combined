@@ -43,6 +43,8 @@ def address_angonstic_to_verify_def(addr) -> AddressVerifable:
     if not data.get('postTown'):
         if data.get('city'):
             data['post_town'] = data['city']
+        else:
+            raise Exception('No post town or city provided for address - cannot convert to AddressVerifable')
     return AddressVerifable(
         address_line1=data.get('address_line1'),
         address_line2=data.get('address_line2'),
@@ -51,3 +53,22 @@ def address_angonstic_to_verify_def(addr) -> AddressVerifable:
         county=data.get('county'),
         postcode=data.get('postcode'),
     )
+
+
+def convert_address[T: type](addr, typ: T) -> T:
+    data = addr.model_dump()
+    if not data.get('postTown'):
+        if data.get('city'):
+            data['post_town'] = data['city']
+        else:
+            raise Exception('No post town or city provided for address - cannot convert to AddressVerifable')
+    if typ is AddressVerifable:
+        return typ(
+            address_line1=data.get('address_line1'),
+            address_line2=data.get('address_line2'),
+            address_line3=data.get('address_line3'),
+            post_town=data.get('post_town'),
+            county=data.get('county'),
+            postcode=data.get('postcode'),
+        )
+    raise Exception(f'Unsupported type for address conversion: {typ}')

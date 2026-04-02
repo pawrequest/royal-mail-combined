@@ -5,7 +5,7 @@ from typing import Annotated
 from pydantic import Field
 
 from royal_mail_combined.core import RMBaseModel
-from royal_mail_combined.core.consts_types import StrictStr2, StrictStr10, StrictStr64
+from royal_mail_combined.core.consts_types import StrictStr2, StrictStr3, StrictStr10, StrictStr50, StrictStr64
 
 
 class AddressDefault(RMBaseModel):
@@ -14,21 +14,24 @@ class AddressDefault(RMBaseModel):
     address_line3: StrictStr64 | None = None
     post_town: StrictStr64 | None = None
     postcode: StrictStr10 | None = None
-    dps: StrictStr10 | None = Field(default=None, alias='DPS', description='Delivery Point Suffix')
+    dps: StrictStr10 | None = Field(default=None, alias='DPS', description='Delivery Point Suffix With Postcode')
     county: StrictStr64 | None = Field(default=None, alias='County')  # Pascal
+    name: StrictStr50 | None = None
+    company_name: StrictStr50 | None = None
+    country_code: StrictStr3 | None = 'GBR'
 
 
 class AddressBasic(AddressDefault):
-    address_line1: StrictStr64
-    postcode: StrictStr10
+    address_line1: StrictStr64  # required
+    postcode: StrictStr10  # required
 
 
 class AddressVerifable(AddressBasic):
-    post_town: StrictStr64
+    post_town: StrictStr64  # required
 
 
 class AddressDps(AddressVerifable):
-    dps: StrictStr10 = Field(description='Delivery Point Suffix', alias='DPS')
+    dps: StrictStr10 = Field(description='Delivery Point Suffix', alias='DPS')  # required
 
 
 class AddressVerifiableList(RMBaseModel):
@@ -44,16 +47,7 @@ class AddressVerified(RMBaseModel):
     dps: StrictStr2 | None = Field(default=None, alias='DPS')
 
 
-class LabelAddress(RMBaseModel):
-    name: Annotated[str, Field(strict=True, max_length=50)] | None = None
-    company_name: Annotated[str, Field(strict=True, max_length=50)] | None = None
-
-    address_line1: StrictStr64
-    address_line2: Annotated[str, Field(strict=True, max_length=64)] | None = None
-    address_line3: Annotated[str, Field(strict=True, max_length=64)] | None = None
-    post_town: StrictStr64
-    county: Annotated[str, Field(strict=True, max_length=64)] | None = None  # camel
-    postcode: StrictStr10
-
-    dps: StrictStr2 = Field(default='9Z', alias='DPS')
-    country_code: Annotated[str, Field(strict=True, max_length=3)] | None = 'GBR'
+class LabelAddress(AddressVerifable):
+    # overrides
+    county: StrictStr64 | None = Field(None, alias='county')  # camel
+    dps: StrictStr2 = Field(default='9Z', alias='DPS', description=' Delivery Point Suffix Without postcode')

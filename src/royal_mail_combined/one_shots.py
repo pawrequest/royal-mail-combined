@@ -23,5 +23,14 @@ def delete_all_orders():
         print('Deleted Order')
 
 
+def cancel_collection(collection_id):
+    fxt_client = client()
+    res = fxt_client.parcel_api.cancel_collection(collection_id=collection_id)
+    print(res)
+
+
 if __name__ == '__main__':
-    delete_all_orders()
+    # delete_all_orders()
+    c1 = 'CC-W307-135088399'
+    c2 = 'CC-W307-135088435'
+    cancel_collection(collection_id=c2)
