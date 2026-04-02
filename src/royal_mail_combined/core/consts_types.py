@@ -96,6 +96,9 @@ class RoyalMailServiceCodes(StrEnum):
 class RoyalMailOutboundServiceCodes(StrEnum):
     TRACKED_24 = 'TPN24'  # no signature.
     EXPRESS_24 = 'NDA'
+    SPECIAL_1PM = 'SD1'  # Special Delivery Guaranteed by 1pm - £750 (01)
+    EXPRESS_AM = 'FEE'  # maybe not real?
+    EXPRESS_10 = 'TE1'  # maybe not real?
 
 
 class RoyalMailInboundServiceCodes(StrEnum):
