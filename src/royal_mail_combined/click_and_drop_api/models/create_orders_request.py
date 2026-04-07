@@ -22,6 +22,7 @@ class CreateOrdersRequest(RMBaseModel):
                 in [
                     RoyalMailServiceCodes.TRACKED_24,
                     RoyalMailServiceCodes.TRACKED_24_RTN,
+                    RoyalMailServiceCodes.SPECIAL_1PM,
                 ]
                 and len(order.packages) > 1
             ):

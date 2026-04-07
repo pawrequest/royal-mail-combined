@@ -1,5 +1,6 @@
 from datetime import date
 
+from loguru import logger
 from royal_mail_combined.all_models import (
     AvailableServicesResponse,
     ReturnsRequest,
@@ -23,12 +24,15 @@ class RMHttpClient(BaseHttpClient):
     """Manually implemented Http calls"""
 
     def _book_inbound_shipment_single(self, return_request: ReturnsRequest) -> ReturnsResponse:
+        logger.info('Booking inbound shipment with Royal Mail')
         res = self.do_post(
             url=RETURNS_ENDPOINT,
             data=return_request,
             headers=self.settings.authorised_headers_bearer(),
         )
+        logger.info(f'Response from booking inbound collection: {str(res)}')
         res_model = ReturnsResponse.model_validate(res.json())
+        logger.info(f'Booked inbound shipment with Royal Mail, tracking number: {res_model.shipment.tracking_number}')
         return res_model
 
     def book_inbound_shipment(self, return_request_container: ReturnRequestContainer) -> ReturnResponseContainer:
@@ -75,6 +79,7 @@ class RoyalMailClient:
         box_dims: DimensionsPostDef = None,
         box_weight_kg: int = 8,
     ) -> ReturnResponseContainer:
+        logger.info('Booking inbound collection with Royal Mail')
         box_dims = box_dims or DimensionsPostDef.large()
         # gather shipment data
         sender_address_verified = self.parcel_api.verify_return_address(
