@@ -1,3 +1,4 @@
+import pprint
 from datetime import date
 
 from loguru import logger
@@ -30,8 +31,10 @@ class RMHttpClient(BaseHttpClient):
             data=return_request,
             headers=self.settings.authorised_headers_bearer(),
         )
-        logger.info(f'Response from booking inbound collection: {str(res)}')
-        res_model = ReturnsResponse.model_validate(res.json())
+        res_json = res.json()
+        logmsg = pprint.pformat(res_json, indent=2, width=120)
+        logger.info(f'Response from booking inbound collection:\n{logmsg}')
+        res_model = ReturnsResponse.model_validate(res_json)
         logger.info(f'Booked inbound shipment with Royal Mail, tracking number: {res_model.shipment.tracking_number}')
         return res_model
 
