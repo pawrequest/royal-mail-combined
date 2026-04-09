@@ -1,5 +1,4 @@
 import contextlib
-from collections.abc import Generator
 from contextlib import AbstractContextManager
 from pprint import pprint
 
