@@ -18,7 +18,7 @@ class AddressDefault(RMBaseModel):
     county: StrictStr64 | None = Field(default=None, alias='County')  # Pascal
     name: StrictStr50 | None = None
     company_name: StrictStr50 | None = None
-    country_code: StrictStr3 | None = 'GBR'
+    # country_code: StrictStr3 | None = 'GBR'
 
 
 class AddressBasic(AddressDefault):
