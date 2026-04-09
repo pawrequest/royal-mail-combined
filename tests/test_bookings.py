@@ -2,12 +2,12 @@ from pathlib import Path
 
 import pytest
 from conftest import STORE_RESULTS, TEST_DATE
-from royal_mail_combined.core.helpers import dump_result_model
 from loguru import logger
 from pawdf.array_pdf.array_p import on_a4
 
 from royal_mail_combined.click_and_drop_api.models.return_models import ReturnResponseContainer
 from royal_mail_combined.core.consts_types import ResponseMessages
+from royal_mail_combined.core.helpers import dump_result_model
 
 
 def write_label_file(label_content: bytes, label_path: Path):
@@ -23,13 +23,11 @@ def test_book_outbound1(fxt_client, fxt_order):
     dump_result_model(fxt_order)
     res = fxt_client.book_outbound(fxt_order)
     dump_result_model(res)
-    idents = res.success_idents
+    # idents = res.success_idents
+    idents = res.success_idents_str
     fetched = fxt_client.fetch_specific_orders(order_identifiers=idents)
 
-    assert (
-        str(sorted(fetched, key=lambda v: v.order_identifier)[0].order_identifier)
-        == sorted(res.success_idents.split(';'))[0]
-    )
+    assert sorted(fetched, key=lambda v: v.order_identifier)[0].order_identifier == sorted(res.success_idents)[0]
 
 
 def test_book_inbound(fxt_return_request_container, fxt_client):
