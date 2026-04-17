@@ -5,7 +5,7 @@ from typing import Annotated
 from pydantic import Field
 
 from royal_mail_combined.core import RMBaseModel
-from royal_mail_combined.core.consts_types import StrictStr2, StrictStr3, StrictStr10, StrictStr50, StrictStr64
+from royal_mail_combined.core.consts_types import StrictStr2, StrictStr10, StrictStr50, StrictStr64
 
 
 class AddressDefault(RMBaseModel):
