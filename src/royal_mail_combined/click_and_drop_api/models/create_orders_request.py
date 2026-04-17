@@ -27,7 +27,8 @@ class CreateOrdersRequest(RMBaseModel):
                 and len(order.packages) > 1
             ):
                 for i, package in enumerate(order.packages, start=1):
-                    new_ref = order.order_reference[0:34] + f' {i}/{len(order.packages)}'
+                    newr = order.order_reference[0:50] if order.order_reference else 'Box'
+                    new_ref = newr + f' {i}/{len(order.packages)} boxes'
                     logger.info(
                         f'Order {order.order_reference or order.recipient.address.postcode} has service code '
                         f'{order.postage_details.service_code} and more than 1 package - '
