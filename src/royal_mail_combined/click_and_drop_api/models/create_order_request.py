@@ -4,11 +4,11 @@ import re  # noqa: F401
 from datetime import datetime
 from typing import Annotated
 
-from pydantic import Field, StrictBool, StrictFloat, StrictInt
+from pydantic import Field, StrictBool, StrictFloat, StrictInt, StrictStr
 
 from royal_mail_combined.core import RMBaseModel
 
-from ...core.consts_types import StrictNonNegativeNumber, StrictStr40
+from ...core.consts_types import StrictNonNegativeNumber
 from ..models.billing_details_request import BillingDetailsRequest
 from ..models.importer import Importer
 from ..models.label_generation_request import LabelGenerationRequest
@@ -26,7 +26,7 @@ class CreateOrderRequest(RMBaseModel):
 
     sender: SenderDetailsRequest | None = None
     billing: BillingDetailsRequest | None = None
-    order_reference: StrictStr40 | None = None
+    order_reference: StrictStr | None = None
     is_recipient_a_business: StrictBool | None = None
     planned_despatch_date: datetime | None = None
     special_instructions: Annotated[str, Field(strict=True, max_length=500)] | None = None
