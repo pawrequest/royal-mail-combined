@@ -13,7 +13,7 @@ class CreateOrdersRequest(RMBaseModel):
 
     @model_validator(mode='after')
     def tracked24_one_package_per_order(self):
-        if len(self.items) == 1 and len(self.items[0].packages) == 1:
+        if len(self.items) == 1 and all(len(_.packages) == 1 for _ in self.items):
             return self
         fixed_orders = []
         for order in self.items:
