@@ -61,7 +61,7 @@ class RoyalMailClient:
         self.parcel_api = ParcelAPIClient(settings=settings)
 
         # Create
-        self.book_outbound = self.click_and_drop.book_shipment
+        self.book_outbound = self.click_and_drop.book_shipments
         self.book_inbound_dropoff = self.http_client.book_inbound_shipment
 
         # Read
