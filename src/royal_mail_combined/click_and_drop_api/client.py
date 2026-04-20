@@ -52,3 +52,10 @@ class ClickAndDropClient:
         logger.info(f'Booked orders response: {pformat(resp_log_dict, indent=4, width=120)}')
         failed_order_errors2(response)
         return response
+
+    def book_shipments(self, orders: CreateOrdersRequest) -> CreateOrdersResponse:
+        response = self.orders_api.create_orders_async(create_orders_request=orders)
+        resp_log_dict = response.model_dump(exclude={'created_orders': {'__all__': {'label', 'qr_code'}}})
+        logger.info(f'Booked orders response: {pformat(resp_log_dict, indent=4, width=120)}')
+        failed_order_errors2(response)
+        return response
