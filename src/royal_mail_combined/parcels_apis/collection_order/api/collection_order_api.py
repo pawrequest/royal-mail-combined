@@ -14,7 +14,7 @@ from typing import Annotated, Any
 from pydantic import Field, StrictFloat, StrictInt, StrictStr, validate_call
 
 from royal_mail_combined.core import ApiResponse, RequestSerialized, RESTResponseType
-from royal_mail_combined.core.consts_types import X_RMG_DATETIME
+from royal_mail_combined.core.consts_types import DatetimeNowIsoSeconds
 
 from ..models.collection import Collection
 from ..models.collection_mandatory import CollectionMandatory
@@ -40,7 +40,7 @@ class CollectionOrderApi:
     def order_create(
         self,
         collection: Collection,
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
@@ -117,7 +117,7 @@ class CollectionOrderApi:
     def order_create_with_http_info(
         self,
         collection: Collection,
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
@@ -194,7 +194,7 @@ class CollectionOrderApi:
     def order_create_without_preload_content(
         self,
         collection: Collection,
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
@@ -335,7 +335,7 @@ class CollectionOrderApi:
     def order_create_mandatory(
         self,
         collection: CollectionMandatory,
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
@@ -413,7 +413,7 @@ class CollectionOrderApi:
     def order_create_mandatory_with_http_info(
         self,
         collection: CollectionMandatory,
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
@@ -490,7 +490,7 @@ class CollectionOrderApi:
     def order_create_mandatory_without_preload_content(
         self,
         collection: CollectionMandatory,
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
@@ -564,7 +564,7 @@ class CollectionOrderApi:
         self,
         collection_id: Annotated[StrictStr, Field(description='Unique Collection identifier')],
         collection_status_request: CollectionStatusRequestDef,
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
@@ -644,7 +644,7 @@ class CollectionOrderApi:
         self,
         collection_id: Annotated[StrictStr, Field(description='Unique Collection identifier')],
         collection_status_request: CollectionStatusRequestDef,
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
@@ -792,7 +792,7 @@ class CollectionOrderApi:
         self,
         collection_id: Annotated[StrictStr, Field(description='Unique Collection identifier')],
         collection_status_request: CollectionStatusRequestDef,
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
@@ -938,7 +938,7 @@ class CollectionOrderApi:
     def order_get(
         self,
         collection_id: Annotated[StrictStr, Field(description='Unique Collection identifier')],
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
@@ -1014,7 +1014,7 @@ class CollectionOrderApi:
     def order_get_with_http_info(
         self,
         collection_id: Annotated[StrictStr, Field(description='Unique Collection identifier')],
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
@@ -1090,7 +1090,7 @@ class CollectionOrderApi:
     def order_get_without_preload_content(
         self,
         collection_id: Annotated[StrictStr, Field(description='Unique Collection identifier')],
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
@@ -1223,7 +1223,7 @@ class CollectionOrderApi:
         self,
         collection_id: Annotated[StrictStr, Field(description='Unique Collection identifier')],
         collection: UpdateCollection,
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
@@ -1303,7 +1303,7 @@ class CollectionOrderApi:
         self,
         collection_id: Annotated[StrictStr, Field(description='Unique Collection identifier')],
         collection: UpdateCollection,
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
@@ -1383,7 +1383,7 @@ class CollectionOrderApi:
         self,
         collection_id: Annotated[StrictStr, Field(description='Unique Collection identifier')],
         collection: UpdateCollection,
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None

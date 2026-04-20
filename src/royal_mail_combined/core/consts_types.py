@@ -29,13 +29,7 @@ StrictNonNegativeInt = Annotated[StrictInt, Ge(0), Le(999999)]
 StrictNonNegativeNumber = StrictNonNegativeDecimalFloat | StrictNonNegativeInt
 
 
-X_RMG_DATETIME = Annotated[
-    date,
-    Field(
-        description='This should be populated with the date time in ISO 8601 subset format below when the message was generated. Eg. 2016-10-20T10:04:00+01:00',
-        default_factory=lambda: datetime.now().isoformat(timespec='seconds'),
-    ),
-]
+DatetimeNowIsoSeconds = Annotated[date, Field(default_factory=lambda: datetime.now().isoformat(timespec='seconds'))]
 
 
 # Enums
@@ -47,7 +41,7 @@ class ItemStatus(StrEnum):
     ATTEMPTED = 'Attempted'
 
 
-class CollectionStatus(str, Enum):
+class CollectionStatus(StrEnum):
     CREATED = 'Created'
     PENDING = 'Pending'
     COLLECTIONORDERPLACED = 'CollectionOrderPlaced'
@@ -103,42 +97,8 @@ class ReturnsServiceNames(StrEnum):
     TRACKED_24 = 'Tracked Returns 24 (T24) Enhanced'
 
 
-# class RoyalMailServiceCodeClickDrop(StrEnum):
-#     TRACKED_24 = 'TOLP24'  # no signature.
-#     TRACKED_24_SIGNED = 'TOLP24SF'
-#     SPECIAL_PRE_12 = 'SD1OLP'  # £750 comp... use 'SD2OLP' for 1,000 or 'SD3OLP' for 2,500
-#     EXPRESS_24 = 'PFE24'
-#     EXPRESS_24_PRE_10 = 'PFE10'
-#     EXPRESS_24_RETURN = 'RT0'
-#
-#
-# class RoyalMailServiceCode(StrEnum):
-#     EXPRESS_24 = 'NDA'
-#     EXPRESS_24_RETURN = 'RT0'
-#     FIRST_CLASS_SIGNED = 'BPR1'
-#     EXPRESS_AM = 'FEE'
-#     EXPRESS_10 = 'TE1'
-#     SPECIAL_1PM = 'SD1'
-#     SPECIAL_9AM = 'SD4'
-#
-#
-# class RoyalMailServiceCodeFull(StrEnum):
-#     InternationalEconomy = 'IEOLP'
-#     InternationalSigned = 'ISIOLP'
-#     InternationalSignedDuplicate = 'ISIOLP'
-#     InternationalStandard = 'ISOLP'
-#     InternationalTrackedHeavier = 'ITHCOLP'
-#     InternationalTrackedHeavierDuplicate = 'ITHCOLP'
-#     InternationalTrackedSignedHeavier = 'ITHOLPSF'
-#     InternationalTrackedSignedHeavierDuplicate = 'ITHOLPSF'
-#     InternationalTracked = 'ITROLP'
-#     InternationalTrackedDuplicate = 'ITROLP'
-#     InternationalTrackedSigned = 'ITSOLP'
-#     InternationalTrackedSignedDuplicate = 'ITSOLP'
-#     RoyalMail1stClass = 'OLP1'
-#     RoyalMailSignedFor1stClass = 'OLP1SF'
-#     RoyalMail2ndClass = 'OLP2'
-#     RoyalMailSignedFor2ndClass = 'OLP2SF'
-#     express10 = 'PFE10'
-#     express10Comp1 = 'PFE10'
-#     express10Comp2 = 'PFE10'
+RMTracked24OneBoxOnly = [
+    RoyalMailServiceCodes.TRACKED_24,
+    RoyalMailServiceCodes.TRACKED_24_RTN,
+    RoyalMailServiceCodes.SPECIAL_1PM,
+]

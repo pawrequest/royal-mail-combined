@@ -14,7 +14,7 @@ from typing import Annotated, Any
 from pydantic import Field, StrictFloat, StrictInt, StrictStr, validate_call
 
 from royal_mail_combined.core import ApiResponse
-from royal_mail_combined.core.consts_types import X_RMG_DATETIME
+from royal_mail_combined.core.consts_types import DatetimeNowIsoSeconds
 from royal_mail_combined.core.core_api_client import RequestSerialized
 from royal_mail_combined.core.rest import RESTResponseType
 from royal_mail_combined.parcels_apis.collection_handler.models.get_available_slots_response import (
@@ -45,7 +45,7 @@ class GetAvailableSlotsApi:
         self,
         dps: Annotated[StrictStr, Field(description='delivery point suffix details.')],
         item_count: Annotated[StrictInt, Field(description='item/items count.')],
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         accept: ACCEPT,
         x_rmg_idempotency_key: Annotated[
             Annotated[str, Field(min_length=0, strict=True, max_length=256)] | None,
@@ -130,7 +130,7 @@ class GetAvailableSlotsApi:
         self,
         dps: Annotated[StrictStr, Field(description='delivery point suffix details.')],
         item_count: Annotated[StrictInt, Field(description='item/items count.')],
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         accept: ACCEPT,
         x_rmg_idempotency_key: Annotated[
             Annotated[str, Field(min_length=0, strict=True, max_length=256)] | None,
@@ -215,7 +215,7 @@ class GetAvailableSlotsApi:
         self,
         dps: Annotated[StrictStr, Field(description='delivery point suffix details.')],
         item_count: Annotated[StrictInt, Field(description='item/items count.')],
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         accept: ACCEPT,
         x_rmg_idempotency_key: Annotated[
             Annotated[str, Field(min_length=0, strict=True, max_length=256)] | None,

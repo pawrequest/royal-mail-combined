@@ -14,7 +14,7 @@ from typing import Annotated, Any
 from pydantic import Field, StrictFloat, StrictInt, StrictStr, validate_call
 
 from royal_mail_combined.core import ApiResponse, RequestSerialized, RESTResponseType
-from royal_mail_combined.core.consts_types import X_RMG_DATETIME
+from royal_mail_combined.core.consts_types import DatetimeNowIsoSeconds
 from royal_mail_combined.parcels_apis.address.models import (
     AddressesDef,
     AddressFindRequest,
@@ -39,7 +39,7 @@ class AddressApi:
     def address_find(
         self,
         address_find_request: AddressFindRequest,
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
@@ -116,7 +116,7 @@ class AddressApi:
     def address_find_with_http_info(
         self,
         address_find_request: AddressFindRequest,
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
@@ -193,7 +193,7 @@ class AddressApi:
     def address_find_without_preload_content(
         self,
         address_find_request: AddressFindRequest,
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
@@ -332,7 +332,7 @@ class AddressApi:
     def address_retrieve(
         self,
         address_id: Annotated[StrictStr, Field(description='Unique identifier for address record retrieval')],
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
@@ -409,7 +409,7 @@ class AddressApi:
     def address_retrieve_with_http_info(
         self,
         address_id: Annotated[StrictStr, Field(description='Unique identifier for address record retrieval')],
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
@@ -486,7 +486,7 @@ class AddressApi:
     def address_retrieve_without_preload_content(
         self,
         address_id: Annotated[StrictStr, Field(description='Unique identifier for address record retrieval')],
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
@@ -617,7 +617,7 @@ class AddressApi:
     def address_verify(
         self,
         address_find_request: AddressVerifiableList,
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
@@ -694,7 +694,7 @@ class AddressApi:
     def address_verify_with_http_info(
         self,
         address_find_request: AddressVerifiableList,
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None
@@ -771,7 +771,7 @@ class AddressApi:
     def address_verify_without_preload_content(
         self,
         address_find_request: AddressVerifiableList,
-        x_rmg_date_time: X_RMG_DATETIME,
+        x_rmg_date_time: DatetimeNowIsoSeconds,
         x_rmg_language: Annotated[StrictStr | None, Field(description='Optional default english')] = None,
         accept: Annotated[StrictStr | None, Field(description='Pass though; used for markdown')] = None,
         _request_timeout: None

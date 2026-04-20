@@ -5,6 +5,8 @@ from pprint import pformat
 
 from pydantic import BaseModel
 
+from royal_mail_combined.core.consts_types import RMTracked24OneBoxOnly, RoyalMailServiceCodes
+
 
 def get_dumped_dir_this_hour():
     return f'dumped-{datetime.now().strftime("%Y-%m-%dT%H")}'
@@ -37,3 +39,7 @@ def print_object(obj):
     if isinstance(obj, list):
         obj = [o.model_dump(mode='json', by_alias=True) if isinstance(o, BaseModel) else o for o in obj]
     print(pformat(obj, indent=4, width=120))
+
+
+def should_split_rm_tracked_24(service_code: RoyalMailServiceCodes, boxes: int) -> bool:
+    return boxes > 1 and service_code in RMTracked24OneBoxOnly
