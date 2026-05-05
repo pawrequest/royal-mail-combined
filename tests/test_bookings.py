@@ -31,14 +31,14 @@ def test_book_outbound1(fxt_client, fxt_order):
 
 
 def test_book_inbound(fxt_return_request_container, fxt_client):
-    resp = fxt_client.book_inbound_dropoff(fxt_return_request_container)
+    resp = fxt_client.book_inbound_shipping(fxt_return_request_container)
     if STORE_RESULTS:
         dump_result_model(resp)
     assert isinstance(resp, ReturnResponseContainer)
 
 
 def test_book_inbound_with_collection_cancel_collection(fxt_client, fxt_return_request_container):
-    res = fxt_client.book_inbound_collection(fxt_return_request_container, TEST_DATE)
+    res = fxt_client.book_inbound_with_collection(fxt_return_request_container, TEST_DATE)
     dump_result_model(res)
     assert res.collection_response.status == ResponseMessages.COLLECTION_CREATED
     collect_id = res.collection_response.collection_order_id

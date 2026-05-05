@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Protocol
+
 from royal_mail_combined.click_and_drop_api.models import AddressReturns
 
 # from royal_mail_combined.all_models import (
@@ -14,6 +16,24 @@ from royal_mail_combined.parcels_apis.address.models.address import (
     AddressDps,
     AddressVerifable,
 )
+from royal_mail_combined.parcels_apis.collection_order.models import SenderDetailsPostDef
+
+
+class HasFullNameAndEmail(Protocol):
+    @property
+    def full_name(self) -> str: ...
+
+    @property
+    def email(self) -> str: ...
+
+
+class HasFullNameAndEmail2(Protocol):
+    full_name: str
+    email: str
+
+
+def details_from_address(sender: HasFullNameAndEmail) -> SenderDetailsPostDef:
+    return SenderDetailsPostDef(sender_name=sender.full_name, sender_email=sender.email)
 
 
 def rtn_address_to_addr_verify(address: AddressReturns) -> AddressVerifable:
