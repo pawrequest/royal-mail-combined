@@ -70,6 +70,8 @@ class ParcelAPIClient:
         slots_response = self.slots_api.order_get_available_slots(dps=postcode_and_dps, item_count=num_boxes)
         my_slot = match_collection_slot_date(slots_response, collection_date)
         if my_slot is None:
-            raise Exception(f'No slot found for {collection_date}')
+            dates_ = [_.slot_date for _ in slots_response.task_slots.datewise_slots]
+            dates = [_.strftime('%a %d/%b') for _ in dates_]
+            raise Exception(f'No slot found for {collection_date}, available dates = {dates}')
         token = slots_response.task_slots.slot_details.token_id
         return token

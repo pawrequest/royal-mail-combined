@@ -100,10 +100,43 @@ class RoyalMailClient:
         self,
         return_request_container: ReturnRequestContainer,
         collection_date: date,
-        box_dims: DimensionsPostDef = None,
+        box_dims: DimensionsPostDef = DimensionsPostDef.large(),
         box_weight_kg: int = 8,
     ) -> ReturnResponseContainer:
-        logger.info('Booking inbound collection with Royal Mail')
+        booking_response_container = self.book_inbound_shipping(return_request_container)
+
+        success_orders = booking_response_container.created_orders
+        items = build_items(box_dims, box_weight_kg, success_orders)
+
+        collection_address = return_request_container.return_requests[0].shipment.sender_address
+        collection_resp = self._book_collection_only(
+            collection_address=collection_address,
+            collection_date=collection_date,
+            items=items,
+        )
+
+        booking_response_container.collection_response = collection_resp
+        return booking_response_container
+
+    def book_inbound_with_collection_if_can_collect(
+        self,
+        return_request_container: ReturnRequestContainer,
+        collection_date: date,
+        box_dims: DimensionsPostDef = DimensionsPostDef.large(),
+        box_weight_kg: int = 8,
+    ) -> ReturnResponseContainer:
+
+        # gather shipment data
+        collection_address_verified = self.parcel_api.verify_return_address(
+            return_request_container.return_requests[0].shipment.sender_address
+        )
+        postcode_and_dps = collection_address_verified.input.postcode.replace(' ', '') + collection_address_verified.dps
+
+        token = self.get_collection_token(
+            collection_date, len(return_request_container.return_requests), postcode_and_dps
+        )
+        if not token:
+            raise ValueError('No collection token available for the given date and items, cannot book collection')
         booking_response_container = self.book_inbound_shipping(return_request_container)
 
         success_orders = booking_response_container.created_orders
@@ -134,7 +167,7 @@ class RoyalMailClient:
         collection_address_dps = AddressDps(**collection_address_verified.input.model_dump(exclude_none=True), dps=dps)
 
         # fetch collection token and build collection request
-        token = self.parcel_api.get_token(collection_date, len(items), postcode_and_dps)
+        token = self.get_collection_token(collection_date, len(items), postcode_and_dps)
         collection = CollectionMandatory(
             timeslot_reservation_id=token,
             sender_details=SenderDetailsPostDef(
@@ -148,3 +181,7 @@ class RoyalMailClient:
         # book collection
         collection_resp = self.parcel_api.collection_orders_api.order_create_mandatory(collection=collection)
         return collection_resp
+
+    def get_collection_token(self, collection_date: date, num_boxes: int, postcode_and_dps: str) -> str | None:
+        token = self.parcel_api.get_token(collection_date, num_boxes, postcode_and_dps)
+        return token
