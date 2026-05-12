@@ -8,6 +8,13 @@ def client():
     return client_
 
 
+def delete_order(order_id):
+    fxt_client = client()
+    res = fxt_client.cancel_outbound_shipment(order_identifiers=str(order_id))
+    print(res)
+    return res
+
+
 def delete_all_orders():
     print('NOPE')
     return
@@ -40,6 +47,8 @@ def get_collection(collection_id):
 
 if __name__ == '__main__':
     # delete_all_orders()
+    ident = '1326'
+    delete_order(ident)
     c1 = 'CC-W307-137095301'
     # get_collection(collection_id=c1)
     # cancel_collection(collection_id=c1)
