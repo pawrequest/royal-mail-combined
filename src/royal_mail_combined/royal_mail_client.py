@@ -102,6 +102,7 @@ class RoyalMailClient:
         box_dims: DimensionsPostDef = None,
         box_weight_kg: int = 8,
     ) -> ReturnResponseContainer:
+        box_dims = box_dims or DimensionsPostDef.large()
         logger.info('Booking inbound collection with Royal Mail')
         booking_response_container = self.book_inbound_shipping(return_request_container)
 
