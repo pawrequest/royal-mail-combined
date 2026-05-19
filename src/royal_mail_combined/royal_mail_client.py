@@ -5,7 +5,6 @@ from loguru import logger
 from royal_mail_combined.all_models import (
     AvailableServicesResponse,
     ReturnsRequest,
-    ReturnsResponse,
 )
 from royal_mail_combined.click_and_drop_api.client import ClickAndDropClient
 from royal_mail_combined.click_and_drop_api.models import ReturnsResponse
