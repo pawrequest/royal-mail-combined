@@ -53,17 +53,47 @@ class RMHttpClient(BaseHttpClient):
         )
 
     def check_return_services(self) -> AvailableServicesResponse:
-        """WARNING ServiceNames returned from here are not correct for use with CollectionsOrderCreate endpoint - must hardcode values from ReturnsServiceNames Enum"""
+        """WARNING ServiceNames returned from here are not correct for use with CollectionsOrderCreate endpoint
+        must hardcode values from ReturnsServiceNames Enum"""
         res = self.do_get(url=RETURNS_SERVICES_ENDPOINT, headers=self.settings.authorised_headers_bearer())
         res_model = AvailableServicesResponse.model_validate(res.json())
         return res_model
 
 
-def build_items(
+def build_inbound_items(
+    service_code: str, box_dims: DimensionsPostDef, box_weight_kg: int, success_orders: list[ReturnsResponse]
+) -> list[ItemsPostDef]:
+    if service_code == 'TPN24':
+        logger.info('Building collection items with Tracked 24 service code')
+        booker = ItemsPostDef.tracked_24_return_standard
+    elif service_code == 'RT0':
+        logger.info('Building collection items with Express 24 service code')
+        booker = ItemsPostDef.express_24_return_standard
+    else:
+        raise ValueError(f'Unsupported service code for collection booking: {service_code}')
+
+    items = [
+        booker(booking_response.shipment.tracking_number, box_weight_kg, box_dims)
+        for booking_response in success_orders
+    ]
+    return items
+
+
+def build_inbound_items1(
     box_dims: DimensionsPostDef, box_weight_kg: int, success_orders: list[ReturnsResponse]
 ) -> list[ItemsPostDef]:
     items = [
         ItemsPostDef.tracked_24_return_standard(booking_response.shipment.tracking_number, box_weight_kg, box_dims)
+        for booking_response in success_orders
+    ]
+    return items
+
+
+def build_inbound_items_e24(
+    box_dims: DimensionsPostDef, box_weight_kg: int, success_orders: list[ReturnsResponse]
+) -> list[ItemsPostDef]:
+    items = [
+        ItemsPostDef.express_24_return_standard(booking_response.shipment.tracking_number, box_weight_kg, box_dims)
         for booking_response in success_orders
     ]
     return items
@@ -106,7 +136,15 @@ class RoyalMailClient:
         booking_response_container = self.book_inbound_shipping(return_request_container)
 
         success_orders = booking_response_container.created_orders
-        items = build_items(box_dims, box_weight_kg, success_orders)
+        svc = return_request_container.return_requests[0].service.service_code
+        if svc == 'TPN24':
+            logger.info('Building collection items with Tracked 24 service code')
+            items = build_inbound_items(box_dims, box_weight_kg, success_orders)
+        elif svc == 'RT0':
+            logger.info('Building collection items with Express 24 service code')
+            items = build_inbound_items_e24(box_dims, box_weight_kg, success_orders)
+        else:
+            raise ValueError(f'Unsupported service code for collection booking: {svc}')
 
         collection_address = return_request_container.return_requests[0].shipment.sender_address
         collection_resp = self._book_collection_only(

@@ -56,3 +56,13 @@ class ItemsPostDef(RMBaseModel):
             item_type=CollectionItemType.STANDARD,
             dimensions=dims,
         )
+
+    @classmethod
+    def express_24_return_standard(cls, barcode_id: str, box_weight_kg: int, dims: DimensionsPostDef) -> Self:
+        return cls(
+            item_barcode_id=barcode_id,
+            weight_in_grams=1000 * box_weight_kg,
+            item_service_name=ReturnsServiceNames.EXPRESS_24,
+            item_type=CollectionItemType.STANDARD,
+            dimensions=dims,
+        )

@@ -243,7 +243,8 @@ def fxt_return_req():
     )
 
     cust_ref = CustomerReference(reference=REFERENCE)
-    service = Service(service_code=RoyalMailServiceCodes.TRACKED_24_RTN)
+    service = Service(service_code=RoyalMailServiceCodes.EXPRESS_24_RTN)
+    # service = Service(service_code=RoyalMailServiceCodes.TRACKED_24_RTN)
     return ReturnsRequest(
         service=service,
         shipment=ReturnShipment(

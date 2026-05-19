@@ -87,6 +87,7 @@ class RoyalMailServiceCodes(StrEnum):
     EXPRESS_AM = 'FEE'  # maybe not real?
     EXPRESS_10 = 'TE1'  # maybe not real?
     TRACKED_24_RTN = 'TSN'
+    EXPRESS_24_RTN = 'RT0'
 
 
 class RoyalMailInboundServiceCodes(StrEnum):
@@ -95,6 +96,7 @@ class RoyalMailInboundServiceCodes(StrEnum):
 
 class ReturnsServiceNames(StrEnum):
     TRACKED_24 = 'Tracked Returns 24 (T24) Enhanced'
+    EXPRESS_24 = 'Parcelforce express24 Returns'
 
 
 RMTracked24OneBoxOnly = [
@@ -102,3 +104,4 @@ RMTracked24OneBoxOnly = [
     RoyalMailServiceCodes.TRACKED_24_RTN,
     RoyalMailServiceCodes.SPECIAL_1PM,
 ]
+
