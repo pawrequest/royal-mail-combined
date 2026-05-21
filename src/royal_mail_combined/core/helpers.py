@@ -12,7 +12,7 @@ def get_dumped_dir_this_hour():
     return f'dumped-{datetime.now().strftime("%Y-%m-%dT%H")}'
 
 
-def dump_result_model(result: BaseModel | list[BaseModel]):
+def dump_result_model(result: BaseModel | list[BaseModel], out_path: Path | None = None):
     print_object(result)
     if result is None:
         print('No result to dump')
@@ -26,6 +26,8 @@ def dump_result_model(result: BaseModel | list[BaseModel]):
     else:
         raise ValueError('result must be BaseModel or list of BaseModel')
     dumped_dir = get_dumped_dir_this_hour()
+    if out_path and isinstance(out_path, Path):
+        dumped_dir = out_path / dumped_dir
     # dumped = f'dumped-{today().isoformat(sep='T')}'
     results_name = Path(f'{dumped_dir}/{resmodel.__class__.__name__}.json')
     results_name.parent.mkdir(parents=True, exist_ok=True)
