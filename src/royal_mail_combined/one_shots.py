@@ -1,5 +1,9 @@
+from pathlib import Path
+from pprint import pprint
+
 from royal_mail_combined import RoyalMailClient
 from royal_mail_combined.config import RoyalMailSettingsGlobal
+from royal_mail_combined.core.helpers import dump_result_model
 
 
 def client():
@@ -45,10 +49,20 @@ def get_collection(collection_id):
     ...
 
 
+def check_available_rtn_srvcs():
+    fxt_client = client()
+    res = fxt_client.http_client.check_return_services()
+    pprint(res)
+    dump_dir = r'C:\prdev\amdev\royal-mail-combined\tests'
+    dump_result_model(res, Path(dump_dir))
+    ...
+
+
 if __name__ == '__main__':
     # delete_all_orders()
-    ident = '1326'
-    delete_order(ident)
-    c1 = 'CC-W307-137095301'
+    # ident = '1326'
+    # delete_order(ident)
+    # c1 = 'CC-W307-137095301'
     # get_collection(collection_id=c1)
     # cancel_collection(collection_id=c1)
+    check_available_rtn_srvcs()
