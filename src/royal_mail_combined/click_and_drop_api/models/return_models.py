@@ -1,4 +1,4 @@
-from pydantic import Field, model_validator
+from pydantic import Field, field_validator, model_validator
 
 from royal_mail_combined.converters_no_import import tracking_link
 from royal_mail_combined.core.consts_types import RoyalMailServiceCodes
@@ -8,6 +8,7 @@ from royal_mail_combined.parcels_apis.collection_order.models import CollectionO
 
 class Service(RMBaseModel):
     service_code: RoyalMailServiceCodes
+    service_register_code: str = Field(default='01', alias='ServiceRegisterCode')
 
 
 class CustomerReference(RMBaseModel):
@@ -18,16 +19,20 @@ class AddressReturns(RMBaseModel):
     title: str
     first_name: str
     last_name: str
-    company_name: str | None = None
+    company_name: str = ''
     address_line1: str
-    address_line2: str | None = None
-    address_line3: str | None = None
+    address_line2: str = ''
+    address_line3: str = ''
     city: str
-    county: str | None = None
+    county: str = ''
     postcode: str
     country: str
     country_iso_code: str = 'GBR'
     email: str
+
+    @field_validator('county', 'address_line2', 'address_line3', 'company_name')
+    def empty_string_nones(cls, v):
+        return v or ''
 
     @property
     def full_name(self):
