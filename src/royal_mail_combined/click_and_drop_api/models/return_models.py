@@ -1,7 +1,7 @@
 from pydantic import Field, field_validator, model_validator
 
-from royal_mail_combined.converters_no_import import tracking_link
 from royal_mail_combined.core.consts_types import RoyalMailServiceCodes
+from royal_mail_combined.core.endpoints import tracking_link
 from royal_mail_combined.core.rm_basemodel import RMBaseModel
 from royal_mail_combined.parcels_apis.collection_order.models import CollectionOrderCreateResponse, SenderDetailsPostDef
 
@@ -91,6 +91,18 @@ class AvailableServicesResponse(RMBaseModel):
 
 class ReturnRequestContainer(RMBaseModel):
     return_requests: list[ReturnsRequest]
+
+    @property
+    def service_code(self) -> str:
+        return self.return_requests[0].service.service_code
+
+    @property
+    def recipient_address(self) -> AddressReturns:
+        return self.return_requests[0].shipment.recipient_address
+
+    @property
+    def sender_address(self) -> AddressReturns:
+        return self.return_requests[0].shipment.sender_address
 
     @field_validator('return_requests', mode='after')
     def validate_return_requests_single_service_sender_recip(cls, v):
