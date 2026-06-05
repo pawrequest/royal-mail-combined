@@ -60,45 +60,6 @@ class RMHttpClient(BaseHttpClient):
         return res_model
 
 
-def build_inbound_items(
-    service_code: str, box_dims: DimensionsPostDef, box_weight_kg: int, success_orders: list[ReturnsResponse]
-) -> list[ItemsPostDef]:
-    if service_code == 'TPN24':
-        logger.info('Building collection items with Tracked 24 service code')
-        booker = ItemsPostDef.tracked_24_return_standard
-    elif service_code == 'RT0':
-        logger.info('Building collection items with Express 24 service code')
-        booker = ItemsPostDef.express_24_return_standard
-    else:
-        raise ValueError(f'Unsupported service code for collection booking: {service_code}')
-
-    items = [
-        booker(booking_response.shipment.tracking_number, box_weight_kg, box_dims)
-        for booking_response in success_orders
-    ]
-    return items
-
-
-def build_inbound_items1(
-    box_dims: DimensionsPostDef, box_weight_kg: int, success_orders: list[ReturnsResponse]
-) -> list[ItemsPostDef]:
-    items = [
-        ItemsPostDef.tracked_24_return_standard(booking_response.shipment.tracking_number, box_weight_kg, box_dims)
-        for booking_response in success_orders
-    ]
-    return items
-
-
-def build_inbound_items_e24(
-    box_dims: DimensionsPostDef, box_weight_kg: int, success_orders: list[ReturnsResponse]
-) -> list[ItemsPostDef]:
-    items = [
-        ItemsPostDef.express_24_return_standard(booking_response.shipment.tracking_number, box_weight_kg, box_dims)
-        for booking_response in success_orders
-    ]
-    return items
-
-
 class RoyalMailClient:
     def __init__(self, settings: RoyalMailSettingsGlobal):
         self.settings = settings
@@ -128,23 +89,20 @@ class RoyalMailClient:
         self,
         return_request_container: ReturnRequestContainer,
         collection_date: date,
-        box_dims: DimensionsPostDef = None,
+        box_dims: DimensionsPostDef = None,  # default large
         box_weight_kg: int = 8,
     ) -> ReturnResponseContainer:
-        box_dims = box_dims or DimensionsPostDef.large()
         logger.info('Booking inbound collection with Royal Mail')
         booking_response_container = self.book_inbound_shipping(return_request_container)
-
-        success_orders = booking_response_container.created_orders
         svc = return_request_container.return_requests[0].service.service_code
-        if svc == 'TPN24':
-            logger.info('Building collection items with Tracked 24 service code')
-            items = build_inbound_items(box_dims, box_weight_kg, success_orders)
-        elif svc == 'RT0':
-            logger.info('Building collection items with Express 24 service code')
-            items = build_inbound_items_e24(box_dims, box_weight_kg, success_orders)
-        else:
-            raise ValueError(f'Unsupported service code for collection booking: {svc}')
+        track_numbers = [_.shipment.tracking_number for _ in (booking_response_container.created_orders)]
+
+        items = ItemsPostDef.build_items(
+            service_code=svc,
+            box_dims=box_dims,
+            box_weight_kg=box_weight_kg,
+            tracking_numbers=track_numbers,
+        )
 
         collection_address = return_request_container.return_requests[0].shipment.sender_address
         collection_resp = self._book_collection_only(
@@ -152,7 +110,6 @@ class RoyalMailClient:
             collection_date=collection_date,
             items=items,
         )
-
         booking_response_container.collection_response = collection_resp
         return booking_response_container
 
