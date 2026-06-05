@@ -38,13 +38,8 @@ class RMHttpClient(BaseHttpClient):
             headers=self.settings.authorised_headers_bearer(),
         )
         res_json = res.json()
-        # logmsg = pprint.pformat(res_json, indent=2, width=120)
-        logger.info(f'Response status from booking inbound collection: {str(res)}')
         res_model = ReturnsResponse.model_validate(res_json)
-        logger.info(
-            f'Booked inbound shipment with Royal Mail, tracking number: '
-            f'{res_model.shipment.tracking_number}, unique_id = {res_model.shipment.unique_item_id}'
-        )
+        logger.info(f'Booked inbound shipment with Royal Mail: {res_model.printable}')
         return res_model
 
     def book_inbound_shipment(self, return_request_container: ReturnRequestContainer) -> ReturnResponseContainer:

@@ -1,3 +1,5 @@
+import pprint
+
 from pydantic import Field, field_validator, model_validator
 
 from royal_mail_combined.core.consts_types import RoyalMailServiceCodes
@@ -70,6 +72,10 @@ class ReturnsResponse(RMBaseModel):
     label: str
     qrCode: str
     shipment: ReturnsResponseShipment
+
+    @property
+    def printable(self) -> str:
+        return pprint.pformat(self.model_dump(exclude={'label', 'qrCode'}))
 
 
 class AvailableReturnService(RMBaseModel):
