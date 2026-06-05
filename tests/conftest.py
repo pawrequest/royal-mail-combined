@@ -54,7 +54,7 @@ def fxt_client(fxt_settings) -> Generator[RoyalMailClient, Any]:
     """Test client - automatically removes orders created during testing on completion"""
     client = RoyalMailClient(fxt_settings)
     orders_before: GetOrdersResponse = client.fetch_orders()
-    pprint(orders_before.model_dump())
+    # pprint(orders_before.model_dump())
 
     yield client
 
@@ -70,9 +70,9 @@ def fxt_client(fxt_settings) -> Generator[RoyalMailClient, Any]:
 @pytest.fixture(scope='session')
 def fxt_address() -> AddressDefault:
     return AddressDefault(
-        addressLine1='Flat 43, Berberis House',
-        addressLine2='Highfield Road',
-        postTown='Feltham',
+        address_line1='Flat 43, Berberis House',
+        address_line2='Highfield Road',
+        post_town='Feltham',
         County='Middlesex',  # mixed pascal and camel in rm api.
         postcode='TW13 4GP',
     )
@@ -86,9 +86,9 @@ def fxt_address_verify(fxt_address) -> AddressVerifable:
 @pytest.fixture(scope='session')
 def cached_return_address():
     return AddressDefault(
-        addressLine1='70 Kingsgate Road',
-        postTown='Kilburn',
-        County='London',
+        address_line1='70 Kingsgate Road',
+        post_town='Kilburn',
+        county='London',
         postcode='NW64TE',
     )
 
