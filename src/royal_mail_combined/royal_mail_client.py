@@ -53,7 +53,8 @@ class RMHttpClient(BaseHttpClient):
         )
 
     def check_return_services(self) -> AvailableServicesResponse:
-        """WARNING ServiceNames returned from here are not correct for use with CollectionsOrderCreate endpoint - must hardcode values from ReturnsServiceNames Enum"""
+        """WARNING ServiceNames returned from here are not correct for use with CollectionsOrderCreate endpoint
+        must hardcode values from ReturnsServiceNames Enum"""
         res = self.do_get(url=RETURNS_SERVICES_ENDPOINT, headers=self.settings.authorised_headers_bearer())
         res_model = AvailableServicesResponse.model_validate(res.json())
         return res_model
@@ -98,15 +99,20 @@ class RoyalMailClient:
         self,
         return_request_container: ReturnRequestContainer,
         collection_date: date,
-        box_dims: DimensionsPostDef = None,
+        box_dims: DimensionsPostDef = None,  # default large
         box_weight_kg: int = 8,
     ) -> ReturnResponseContainer:
-        box_dims = box_dims or DimensionsPostDef.large()
         logger.info('Booking inbound collection with Royal Mail')
         booking_response_container = self.book_inbound_shipping(return_request_container)
+        svc = return_request_container.return_requests[0].service.service_code
+        track_numbers = [_.shipment.tracking_number for _ in (booking_response_container.created_orders)]
 
-        success_orders = booking_response_container.created_orders
-        items = build_items(box_dims, box_weight_kg, success_orders)
+        items = ItemsPostDef.build_items(
+            service_code=svc,
+            box_dims=box_dims,
+            box_weight_kg=box_weight_kg,
+            tracking_numbers=track_numbers,
+        )
 
         collection_address = return_request_container.return_requests[0].shipment.sender_address
         collection_resp = self._book_collection_only(
@@ -114,7 +120,6 @@ class RoyalMailClient:
             collection_date=collection_date,
             items=items,
         )
-
         booking_response_container.collection_response = collection_resp
         return booking_response_container
 

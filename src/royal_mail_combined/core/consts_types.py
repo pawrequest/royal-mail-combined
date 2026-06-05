@@ -81,10 +81,11 @@ class ResponseMessages(StrEnum):
 
 
 class RoyalMailServiceCodes(StrEnum):
-    EXPRESS_24 = 'NDA'
     TRACKED_24 = 'TPN24'  # no signature.
     SPECIAL_1PM = 'SD1'  # Special Delivery Guaranteed by 1pm - £750 (01)
     EXPRESS_AM = 'FEE'  # maybe not real?
+    EXPRESS_24 = 'NDA'
+    EXPRESS_48 = 'FEO'
     EXPRESS_10 = 'TE1'  # maybe not real?
     TRACKED_24_RTN = 'TSN'
     EXPRESS_24_RTN = 'RT0'
@@ -99,6 +100,7 @@ class RoyalMailServiceCodes(StrEnum):
 
 class ReturnsServiceNames(StrEnum):
     TRACKED_24 = 'Tracked Returns 24 (T24) Enhanced'
+    EXPRESS_24 = 'Parcelforce express24 Returns'
 
 
 RMTracked24OneBoxOnly = [
@@ -106,3 +108,13 @@ RMTracked24OneBoxOnly = [
     RoyalMailServiceCodes.TRACKED_24_RTN,
     RoyalMailServiceCodes.SPECIAL_1PM,
 ]
+
+
+def lookup_rtn_service_name(service_code: RoyalMailServiceCodes):
+    match service_code:
+        case RoyalMailServiceCodes.TRACKED_24_RTN:
+            return ReturnsServiceNames.TRACKED_24
+        case RoyalMailServiceCodes.EXPRESS_24_RTN:
+            return ReturnsServiceNames.EXPRESS_24
+        case _:
+            raise ValueError(f'No matching ReturnsServiceNames for service code: {service_code}')

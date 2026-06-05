@@ -313,7 +313,7 @@ wheels = [
 
 [[package]]
 name = "royal-mail-combined"
-version = "0.0.29"
+version = "0.0.30"
 source = { editable = "." }
 dependencies = [
     { name = "httpx" },
