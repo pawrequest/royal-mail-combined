@@ -93,15 +93,12 @@ class RoyalMailClient:
         box_weight_kg: int = 8,
     ) -> ReturnResponseContainer:
         logger.info('Booking inbound collection with Royal Mail')
-        booking_response_container = self.book_inbound_shipping(return_request_container)
-        svc = return_request_container.return_requests[0].service.service_code
-        track_numbers = [_.shipment.tracking_number for _ in (booking_response_container.created_orders)]
-
+        return_response_container = self.book_inbound_shipping(return_request_container)
         items = ItemsPostDef.build_items(
-            service_code=svc,
+            service_code=return_request_container.service_code,
             box_dims=box_dims,
             box_weight_kg=box_weight_kg,
-            tracking_numbers=track_numbers,
+            tracking_numbers=return_response_container.tracking_numbers,
         )
 
         collection_address = return_request_container.return_requests[0].shipment.sender_address
@@ -110,8 +107,8 @@ class RoyalMailClient:
             collection_date=collection_date,
             items=items,
         )
-        booking_response_container.collection_response = collection_resp
-        return booking_response_container
+        return_response_container.collection_response = collection_resp
+        return return_response_container
 
     def _book_collection_only(
         self,
