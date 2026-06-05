@@ -92,6 +92,20 @@ class AvailableServicesResponse(RMBaseModel):
 class ReturnRequestContainer(RMBaseModel):
     return_requests: list[ReturnsRequest]
 
+    @field_validator('return_requests', mode='after')
+    def validate_return_requests_single_service_sender_recip(cls, v):
+        item1_service = v[0].service.service_code
+        item1_recip = v[0].shipment.recipient_address
+        item1_sender = v[0].shipment.sender_address
+        for req in v:
+            if req.service.service_code != item1_service:
+                raise ValueError('All return requests must have the same service code')
+            if req.shipment.recipient_address != item1_recip:
+                raise ValueError('All return requests must have the same recipient address')
+            if req.shipment.sender_address != item1_sender:
+                raise ValueError('All return requests must have the same sender address')
+        return v
+
 
 class ReturnResponseContainer(RMBaseModel):
     created_orders: list[ReturnsResponse]
