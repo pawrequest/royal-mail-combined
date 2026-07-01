@@ -62,7 +62,7 @@ if __name__ == '__main__':
     # delete_all_orders()
     # ident = '1326'
     # delete_order(ident)
-    # c1 = 'CC-W307-137095301'
+    c1 = 'CC-W307-141687522'
     # get_collection(collection_id=c1)
-    # cancel_collection(collection_id=c1)
-    check_available_rtn_srvcs()
+    cancel_collection(collection_id=c1)
+    # check_available_rtn_srvcs()

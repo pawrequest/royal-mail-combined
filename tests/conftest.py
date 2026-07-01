@@ -1,6 +1,5 @@
 from collections.abc import Generator
 from datetime import date, datetime, timedelta
-from pprint import pprint
 from typing import Any
 
 import pytest
