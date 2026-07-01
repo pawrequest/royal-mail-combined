@@ -113,6 +113,10 @@ class RoyalMailClient:
             items=items,
         )
         return_response_container.collection_response = collection_resp
+        if return_response_container.collection_response:
+            logger.info(
+                f'Collection booked with code: {return_response_container.collection_response.collection_order_id}'
+            )
         return return_response_container
 
     def _book_collection_only(
