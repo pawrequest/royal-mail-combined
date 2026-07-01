@@ -41,8 +41,8 @@ class ItemsPostDef(RMBaseModel):
         service_code: str,
         tracking_numbers: list[str],
         box_weight_kg: int = 8,
-        box_dims: DimensionsPostDef = None,
-        item_type: CollectionItemType = None,
+        box_dims: DimensionsPostDef | None = None,
+        item_type: CollectionItemType = CollectionItemType.STANDARD,
     ) -> list[Self]:
         box_dims = box_dims or DimensionsPostDef.large()
         service_name = lookup_rtn_service_name(service_code)
