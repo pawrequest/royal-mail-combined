@@ -101,6 +101,7 @@ class RoyalMailServiceCodes(StrEnum):
 class ReturnsServiceNames(StrEnum):
     TRACKED_24 = 'Tracked Returns 24 (T24) Enhanced'
     EXPRESS_24 = 'Parcelforce express24 Returns'
+    EXPRESS_48 = 'Parcelforce express48 Returns'
 
 
 RMTracked24OneBoxOnly = [
@@ -116,5 +117,7 @@ def lookup_rtn_service_name(service_code: RoyalMailServiceCodes):
             return ReturnsServiceNames.TRACKED_24
         case RoyalMailServiceCodes.EXPRESS_24_RTN:
             return ReturnsServiceNames.EXPRESS_24
+        case RoyalMailServiceCodes.EXPRESS_48_RTN:
+            return ReturnsServiceNames.EXPRESS_48
         case _:
             raise ValueError(f'No matching ReturnsServiceNames for service code: {service_code}')
