@@ -87,10 +87,14 @@ class RoyalMailServiceCodes(StrEnum):
     EXPRESS_AM = 'FEE'  # maybe not real?
     EXPRESS_10 = 'TE1'  # maybe not real?
     TRACKED_24_RTN = 'TSN'
+    EXPRESS_24_RTN = 'RT0'
+    EXPRESS_48_RTN = 'RTA'
 
 
-class RoyalMailInboundServiceCodes(StrEnum):
-    TRACKED_24_RTN = 'TSN'
+# class RoyalMailInboundServiceCodes(StrEnum):
+#     TRACKED_24_RTN = 'TSN'
+#     EXPRESS_24_RTN = 'RT0'
+#     EXPRESS_48_RTN = 'RTA'
 
 
 class ReturnsServiceNames(StrEnum):
