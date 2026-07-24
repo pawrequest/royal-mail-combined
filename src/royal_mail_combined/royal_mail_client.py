@@ -125,6 +125,8 @@ class RoyalMailClient:
 
         # fetch collection token and build collection request
         token = self.parcel_api.get_token(collection_date, len(items), postcode_and_dps)
+        if not token:
+            raise ValueError('Failed to obtain collection token')
         collection = CollectionMandatory(
             timeslot_reservation_id=token,
             sender_details=SenderDetailsPostDef(
