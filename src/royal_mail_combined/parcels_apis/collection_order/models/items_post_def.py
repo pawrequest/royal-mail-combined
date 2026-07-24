@@ -7,6 +7,7 @@ from pydantic import Field, StrictFloat, StrictInt
 from royal_mail_combined.core import RMBaseModel
 from royal_mail_combined.core.consts_types import (
     ItemStatus,
+    RoyalMailServiceCodes,
     StrictStr5,
     StrictStr21,
     StrictStr40,
@@ -44,6 +45,7 @@ class ItemsPostDef(RMBaseModel):
         box_dims: DimensionsPostDef | None = None,
         item_type: CollectionItemType = CollectionItemType.STANDARD,
     ) -> list[Self]:
+        service_code = RoyalMailServiceCodes(service_code)
         box_dims = box_dims or DimensionsPostDef.large()
         service_name = lookup_rtn_service_name(service_code)
         items = [
