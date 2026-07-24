@@ -57,6 +57,7 @@ def check_available_rtn_srvcs():
     dump_result_model(res, Path(dump_dir))
     ...
 
+
 # def get_token():
 #     c = client()
 #     collection_address = AddressReturns(
