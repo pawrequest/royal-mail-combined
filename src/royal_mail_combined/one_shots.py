@@ -57,12 +57,37 @@ def check_available_rtn_srvcs():
     dump_result_model(res, Path(dump_dir))
     ...
 
+# def get_token():
+#     c = client()
+#     collection_address = AddressReturns(
+#         title='mr',
+#         first_name='Test',
+#         last_name='User',
+#         address_line1='30 Bennet Close',
+#         city='Welling',
+#         postcode='DA163HU',
+#         email='testing@faaaaaketesssssstemaiol.com'
+#     )
+#     boxes = 1
+#     collection_date = date.today() + timedelta(days=5)
+#     postcode = r'DA163HU'
+#
+#     collection_address_verified = c.parcel_api.verify_return_address(collection_address)
+#     postcode_and_dps = collection_address_verified.input.postcode.replace(' ', '') + dps
+#     collection_address_dps = AddressDps(**collection_address_verified.input.model_dump(exclude_none=True), dps=dps)
+#
+#     # fetch collection token and build collection request
+#     token = c.parcel_api.get_token(collection_date, len(items), postcode_and_dps)
+#
+
 
 if __name__ == '__main__':
     # delete_all_orders()
-    # ident = '1326'
+    ident = '1326'
     # delete_order(ident)
-    c1 = 'CC-W307-141687522'
+    # c1 = 'CC-W307-141687522'
     # get_collection(collection_id=c1)
-    cancel_collection(collection_id=c1)
+    # cancel_collection(collection_id=c1)
     # check_available_rtn_srvcs()
+
+    # res =
