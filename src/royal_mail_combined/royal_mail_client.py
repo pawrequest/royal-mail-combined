@@ -55,16 +55,6 @@ class RMHttpClient(BaseHttpClient):
         return res_model
 
 
-def build_items(
-    box_dims: DimensionsPostDef, box_weight_kg: int, success_orders: list[ReturnsResponse]
-) -> list[ItemsPostDef]:
-    items = [
-        ItemsPostDef.tracked_24_return_standard(booking_response.shipment.tracking_number, box_weight_kg, box_dims)
-        for booking_response in success_orders
-    ]
-    return items
-
-
 class RoyalMailClient:
     def __init__(self, settings: RoyalMailSettingsGlobal):
         self.settings = settings
