@@ -28,7 +28,7 @@ class AddressReturns(RMBaseModel):
     city: str
     county: str = ''
     postcode: str
-    country: str
+    country: str = 'GB'
     country_iso_code: str = 'GBR'
     email: str
 
