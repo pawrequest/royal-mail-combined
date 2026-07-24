@@ -37,7 +37,7 @@ class ItemsPostDef(RMBaseModel):
     label_info: LabelInfo | None = None
 
     @classmethod
-    def build_items(
+    def build_items_for_rtn_service(
         cls,
         service_code: str,
         tracking_numbers: list[str],

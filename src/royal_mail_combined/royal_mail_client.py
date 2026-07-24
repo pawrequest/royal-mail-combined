@@ -89,7 +89,7 @@ class RoyalMailClient:
     ) -> ReturnResponseContainer:
         logger.info('Booking inbound collection with Royal Mail')
         return_response_container = self.book_inbound_shipping(return_request_container)
-        items = ItemsPostDef.build_items(
+        items = ItemsPostDef.build_items_for_rtn_service(
             service_code=return_request_container.service_code,
             box_dims=box_dims,
             box_weight_kg=box_weight_kg,
