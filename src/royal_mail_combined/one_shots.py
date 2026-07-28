@@ -58,6 +58,12 @@ def check_available_rtn_srvcs():
     ...
 
 
+def get_tracking_api(tracking_numbers: str | list[str]):
+    c = client()
+    res = c.http_client.get_tracking(tracking_numbers)
+    pprint(res)
+
+
 # def get_token():
 #     c = client()
 #     collection_address = AddressReturns(
@@ -83,8 +89,10 @@ def check_available_rtn_srvcs():
 
 
 if __name__ == '__main__':
+    track = 'BT112910032GB'
+    get_tracking_api(track)
     # delete_all_orders()
-    ident = '1326'
+    # ident = '1326'
     # delete_order(ident)
     # c1 = 'CC-W307-141687522'
     # get_collection(collection_id=c1)

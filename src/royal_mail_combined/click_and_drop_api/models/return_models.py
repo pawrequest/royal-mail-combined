@@ -3,7 +3,7 @@ import pprint
 from pydantic import Field, field_validator, model_validator
 
 from royal_mail_combined.core.consts_types import RoyalMailServiceCodes
-from royal_mail_combined.core.endpoints import tracking_link
+from royal_mail_combined.core.endpoints import build_tracking_link
 from royal_mail_combined.core.rm_basemodel import RMBaseModel
 from royal_mail_combined.parcels_apis.collection_order.models import CollectionOrderCreateResponse, SenderDetailsPostDef
 
@@ -143,4 +143,4 @@ class ReturnResponseContainer(RMBaseModel):
 
     @property
     def tracking_links(self) -> list[str]:
-        return [tracking_link(_) for _ in self.tracking_numbers]
+        return [build_tracking_link(_) for _ in self.tracking_numbers]

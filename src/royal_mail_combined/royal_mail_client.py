@@ -1,3 +1,4 @@
+from collections.abc import Collection
 from datetime import date
 
 from loguru import logger
@@ -14,7 +15,7 @@ from royal_mail_combined.click_and_drop_api.models.return_models import (
     ReturnResponseContainer,
 )
 from royal_mail_combined.config import RoyalMailSettingsGlobal
-from royal_mail_combined.core.endpoints import RETURNS_ENDPOINT, RETURNS_SERVICES_ENDPOINT
+from royal_mail_combined.core.endpoints import RETURNS_ENDPOINT, RETURNS_SERVICES_ENDPOINT, build_api_tracking_url
 from royal_mail_combined.core.http_client import BaseHttpClient
 from royal_mail_combined.parcels_apis.address.models.address import AddressDps
 from royal_mail_combined.parcels_apis.client import ParcelAPIClient
@@ -53,6 +54,15 @@ class RMHttpClient(BaseHttpClient):
         res = self.do_get(url=RETURNS_SERVICES_ENDPOINT, headers=self.settings.authorised_headers_bearer())
         res_model = AvailableServicesResponse.model_validate(res.json())
         return res_model
+
+    def get_tracking(self, tracking_numbers: str | Collection[str]):
+        """Get tracking information for a given tracking number."""
+        if isinstance(tracking_numbers, str):
+            tracking_numbers = [tracking_numbers]
+        url = build_api_tracking_url(tracking_numbers)
+        res = self.do_get(url=url, headers=self.settings.authorised_headers_bearer())
+        logger.warning('No DTO defined for tracking - returning raw json')
+        return res.json()
 
 
 class RoyalMailClient:
