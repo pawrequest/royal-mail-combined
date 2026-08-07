@@ -1,6 +1,6 @@
 [project]
 name = "royal-mail-combined"
-version = "0.0.32"
+version = "0.0.33"
 description = "Add your description here"
 readme = "README.md"
 authors = [
@@ -16,8 +16,6 @@ dependencies = [
     "pydantic-settings>=2.13.1",
     "python-dateutil>=2.9.0.post0",
     "urllib3>=2.6.3",
-    "ruff>=0.15.6",
-    "prek>=0.3.6",
 ]
 [dependency-groups]
 dev = [
