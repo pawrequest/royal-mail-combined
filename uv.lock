@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = ">=3.13"
 
 [[package]]
@@ -289,7 +289,7 @@ wheels = [
 
 [[package]]
 name = "royal-mail-combined"
-version = "0.0.33"
+version = "0.0.34"
 source = { editable = "." }
 dependencies = [
     { name = "httpx" },
