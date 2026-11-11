@@ -1,3 +1,4 @@
+import time
 from pathlib import Path
 
 import pytest
@@ -42,6 +43,8 @@ def test_book_inbound_with_collection_cancel_collection(fxt_client, fxt_return_r
     dump_result_model(res)
     assert res.collection_response.status == ResponseMessages.COLLECTION_CREATED
     collect_id = res.collection_response.collection_order_id
+
+    time.sleep(5)  # wait a few seconds before cancelling collection
 
     res = fxt_client.parcel_api.cancel_collection(collect_id)
     dump_result_model(res)

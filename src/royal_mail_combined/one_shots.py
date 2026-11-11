@@ -89,14 +89,15 @@ def get_tracking_api(tracking_numbers: str | list[str]):
 
 
 if __name__ == '__main__':
-    track = 'BT112910032GB'
-    get_tracking_api(track)
+    c1 = r'CC-W307-151212999'
+    # track = 'BT112910032GB'
+    # get_tracking_api(track)
     # delete_all_orders()
     # ident = '1326'
     # delete_order(ident)
     # c1 = 'CC-W307-141687522'
     # get_collection(collection_id=c1)
-    # cancel_collection(collection_id=c1)
+    cancel_collection(collection_id=c1)
     # check_available_rtn_srvcs()
 
     # res =

@@ -100,9 +100,9 @@ class RoyalMailServiceCodes(StrEnum):
 
 class ReturnsServiceNames(StrEnum):
     TRACKED_24 = 'Tracked Returns 24 (T24) Enhanced'
-    EXPRESS_24 = 'Parcelforce express24 Returns'
+    # EXPRESS_24 = 'Parcelforce express24 Returns'
     EXPRESS_24_NEW = 'express24'
-    EXPRESS_48 = 'Parcelforce express48 Returns'
+    # EXPRESS_48 = 'Parcelforce express48 Returns'
     EXPRESS_48_NEW = 'express48'
 
 

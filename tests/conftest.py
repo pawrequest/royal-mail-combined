@@ -26,18 +26,28 @@ from royal_mail_combined.all_models import (
 )
 from royal_mail_combined.click_and_drop_api.models.return_models import ReturnRequestContainer
 from royal_mail_combined.config import RoyalMailSettingsGlobal
-from royal_mail_combined.core.consts_types import PackageFormat, RoyalMailServiceCodes, SendNotifcationsTo
+from royal_mail_combined.core.consts_types import (
+    PackageFormat,
+    ReturnsServiceNames,
+    RoyalMailServiceCodes,
+    SendNotifcationsTo,
+)
 from royal_mail_combined.core.helpers import get_dumped_dir_this_hour
 from royal_mail_combined.parcels_apis.address.models.address import AddressDefault
 from royal_mail_combined.royal_mail_client import RoyalMailClient
 
-REFERENCE = 'TEST RETURN123456'
+RETURN_REFERENCE = 'TEST RETURN123456'
 STORE_RESULTS = True
 TEST_SERVICES = [
     RoyalMailServiceCodes.TRACKED_24,
     RoyalMailServiceCodes.EXPRESS_24,
+    RoyalMailServiceCodes.EXPRESS_48,
 ]
-
+TEST_RETURN_SERVICES = [
+    RoyalMailServiceCodes.TRACKED_24_RTN,
+    RoyalMailServiceCodes.EXPRESS_24_RTN,
+    RoyalMailServiceCodes.EXPRESS_48_RTN,
+]
 TEST_DATE = date.today() + timedelta(days=4)
 if TEST_DATE.weekday() in (5, 6):
     TEST_DATE += timedelta(days=7 - TEST_DATE.weekday())
@@ -202,7 +212,7 @@ def fxt_postage_details(request) -> PostageDetailsRequest:
 @pytest.fixture(scope='session')
 def fxt_order(fxt_recip_details, fxt_packages, fxt_billing, fxt_postage_details) -> CreateOrderRequest:
     return CreateOrderRequest(
-        order_reference=REFERENCE,
+        order_reference=RETURN_REFERENCE,
         recipient=fxt_recip_details,
         order_date=datetime.now(),
         packages=fxt_packages,
@@ -211,8 +221,8 @@ def fxt_order(fxt_recip_details, fxt_packages, fxt_billing, fxt_postage_details)
     )
 
 
-@pytest.fixture(scope='session')
-def fxt_return_req():
+@pytest.fixture(scope='session', params=TEST_RETURN_SERVICES)
+def fxt_return_req(request):
     sender_address = AddressReturns(
         title='Mr',
         first_name='ShipFirst',
@@ -241,8 +251,8 @@ def fxt_return_req():
         email='recipient@faaaaaaake.com',
     )
 
-    cust_ref = CustomerReference(reference=REFERENCE)
-    service = Service(service_code=RoyalMailServiceCodes.TRACKED_24_RTN)
+    cust_ref = CustomerReference(reference=RETURN_REFERENCE)
+    service = Service(service_code=request.param)
     return ReturnsRequest(
         service=service,
         shipment=ReturnShipment(
