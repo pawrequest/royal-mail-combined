@@ -28,7 +28,6 @@ from royal_mail_combined.click_and_drop_api.models.return_models import ReturnRe
 from royal_mail_combined.config import RoyalMailSettingsGlobal
 from royal_mail_combined.core.consts_types import (
     PackageFormat,
-    ReturnsServiceNames,
     RoyalMailServiceCodes,
     SendNotifcationsTo,
 )
